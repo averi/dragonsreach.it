@@ -1,0 +1,25 @@
+url: https://www.dragonsreach.it
+name: "Andrea Veri's Blog"
+description:
+theme: 'beautifulhugo'
+title: "Andrea Veri's Blog"
+pygmentsCodeFences: true
+pygmentsStyle: "friendly"
+
+params:
+    subtitle: Me, Myself and I
+    rss: true
+    logo: img/avatar-icon.png
+
+menu:
+  main:
+    - name: "About me"
+      url: "/about-me"
+      weight: 0
+
+author:
+  twitter: andreaveri
+  linkedin: andrea-veri-bb23a091
+  googleplus: +AndreaVeri
+  name: Andrea Veri
+  website: https://www.dragonsreach.it
