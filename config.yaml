@@ -5,6 +5,7 @@ theme: 'beautifulhugo'
 title: "Andrea Veri's Blog"
 pygmentsCodeFences: true
 pygmentsStyle: "friendly"
+googleanalytics: UA-34660847-2
 
 params:
     subtitle: Me, Myself and I
