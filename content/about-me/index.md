@@ -60,8 +60,8 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 
 #### IRC:
 
-  * **av | av_work** on irc<span style="font-weight: bold;">.gnome.</span>org.
-  * **averi | averi_work** on irc<span style="font-weight: bold;">.freenode.</span>net.
+  * **av** on irc<span style="font-weight: bold;">.gnome.</span>org.
+  * **averi** on irc<span style="font-weight: bold;">.freenode.</span>net.
 
 ### Verify my identity
 
