@@ -12,7 +12,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 ### What I am used to do now:
 
   * GNOME: 
-      * Being the GNOME [Infrastructure][5] Team Coordinator and leading the [Accounts Team][6].
+      * Being the GNOME [Infrastructure Team][5] Coordinator and leading the [Accounts Team][6].
       * Being the GNOME Foundation [Membership Committee][7]&#8216;s Chairman.
   * Fedora: 
       * Maintaining a set of RPM packages for the Fedora / EPEL repositories as listed on the relevant PackageDB&#8217;s [page][9].
