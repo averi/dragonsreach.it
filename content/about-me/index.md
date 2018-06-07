@@ -7,16 +7,15 @@ aktt_notify_twitter:
   - no
 
 ---
-I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] since more than 5 years now.
+I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] since several years.
 
 ### What I am used to do now:
 
   * GNOME: 
-      * Being the GNOME [Sysadmin][5] Team Coordinator and leading the [Accounts Team][6].
+      * Being the GNOME [Infrastructure][5] Team Coordinator and leading the [Accounts Team][6].
       * Being the GNOME Foundation [Membership Committee][7]&#8216;s Chairman.
   * Fedora: 
-      * Learning and improving my sysadmin&#8217;s knownledge on the [Infrastructure Team][8].
-      * Maintaining a few RPM packages for the Fedora / EPEL repositories as listed on the relevant PackageDB&#8217;s [page][9].
+      * Maintaining a set of RPM packages for the Fedora / EPEL repositories as listed on the relevant PackageDB&#8217;s [page][9].
 
 ### What I was used to do in the past:
 
@@ -28,6 +27,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
   * Being an [AM][18] and helping out new contributors to go through the [NM][19] process and hopefully welcome them as Debian Developers.
   * Being a Debian Developer and working on my Debian packages available at my [QA Page][20].
   * Being the secretary of the GNOME Foundation [Board of Directors][21] for the 2014-2015 and 2015-2016 terms.
+  * Being a proud member of the Fedora [Infrastructure Team][8].
 
 ### Random bits:
 
