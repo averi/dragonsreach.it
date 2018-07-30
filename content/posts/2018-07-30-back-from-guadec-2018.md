@@ -2,7 +2,7 @@
 title: Back from GUADEC 2018
 author: Andrea Veri
 type: post
-date: 2018-07-30T17:27:23+00:00
+date: 2018-07-30T10:27:23+00:00
 url: /2018/07/30/back-from-guadec-2018/
 categories:
   - Planet GNOME
