@@ -8,6 +8,7 @@ categories:
   - Planet GNOME
 tags:
   - GUADEC
+  - planet-gnome
 
 ---
 Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year's GNOME conference. The topics I'd like to emphasize mainly are:
