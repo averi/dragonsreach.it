@@ -10,7 +10,6 @@ pygmentsStyle: "friendly"
 params:
     subtitle: Me, Myself and I
     rss: true
-    logo: img/avatar-icon.png
 
 menu:
   main:
