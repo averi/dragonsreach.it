@@ -1,5 +1,5 @@
 ---
-title: GNOME Infrastructure is moving to Openshift 
+title: The GNOME Infrastructure is moving to Openshift 
 author: Andrea Veri
 type: post
 date: 2018-10-18T10:27:23+00:00
@@ -41,4 +41,4 @@ App migrations have started already, we've successfully migrated and deprecated 
  1. $year.guadec.org where $year spaces from 2013 to 2019
  2. wordpress.guadec.org has been deprecated
 
-We're currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a [supported one](https://github.com/LINKIWI/modern-paste). Next on the list will be the Wordpress-based websites such as www.gnome.org and blogs.gnome.org (Wordpress Network). I'd like to thank the GNOME Websites Team and specifically Tom Tryfonidis for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.
+We're currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a [supported one](https://github.com/LINKIWI/modern-paste). Next on the list will be the Wordpress-based websites such as www.gnome.org and blogs.gnome.org (Wordpress Network). I'd like to thank the GNOME Websites Team and specifically **Tom Tryfonidis** for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.
