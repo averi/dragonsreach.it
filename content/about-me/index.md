@@ -15,7 +15,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
       * Being the GNOME [Infrastructure Team][5] Coordinator and leading the [Accounts Team][6].
       * Being the GNOME Foundation [Membership Committee][7]&#8216;s Chairman.
   * Fedora: 
-      * Maintaining a set of RPM packages for the Fedora / EPEL repositories as listed on the relevant PackageDB&#8217;s [page][9].
+      * Maintaining a set of RPM packages for the Fedora / EPEL repositories
 
 ### What I was used to do in the past:
 
@@ -32,22 +32,20 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 ### Random bits:
 
   * My Ubuntu MOTU interview is available at this [link][22].
-  * My Ubuntu Italian interview is available [here][23].
   * A brief summary of my Accounts Team work can be found browsing Paul Cutler&#8217;s [Blog][24].
   * My Fedora Italia interview is now available at this [webpage][25].
   * Some material from my candidacy for the Fedora Board: Election&#8217;s [Questionnaire][26], Town Hall&#8217;s meeting [log][27] and my [nomination][28].
-  * My article about GnuPG for the Fedora Online&#8217;s magazine can be downloaded <a href="http://doc.fedoraonline.it/folio/folio_00.pdf" target="_blank">here</a>.
-  * My interview for WorldOfGNOME.org can be found <a href="http://worldofgnome.org/gnome-sysadmim-andrea-veri-about-gnome-web/" target="_blank">here</a>.
   * I made the <a href="http://www.gnome.org/news/2013/03/behind-the-scene-andrea-veri-is-new-gnome-part-time-sysadmin/" target="_blank">news</a> at GNOME.org.
   * My interview for World Trademark Review about the GNOME trademark dispute with Groupon is available [here][29].
   * My Bachelor degree thesis having &#8220;**<span class="il">Legal</span> profiles of <span class="il">the </span><span class="il">GNOME</span> Desktop Environment: from source code&#8217;s freedom to users&#8217; participation in the community**&#8221; as its title can be consulted <a href="https://www.dragonsreach.it/files/Tesi-Andrea-Veri.pdf" target="_blank">here</a>. (italian only)
 
 ### Presentations
 
-  * My presentation at GUADEC 2013 is available <a href="http://www.dragonsreach.it/wp-content/uploads/2013/08/The-GNOME-Infrastructure.odp" target="_blank">here</a>. A video is also <a href="http://www.superlectures.com/guadec2013/the-gnome-infrastructure" target="_blank">available</a>.
   * My presentation for the FAD Milan 2012 event can be downloaded <a href="http://averi.fedorapeople.org/The-Fedora-Infrastructure.odp" target="_blank">here</a>.
   * My presentation for the Open Source Day 2014 in Udine about Puppet is <a href="https://www.dragonsreach.it/files/open-source-day-2014" target="_blank">here</a>. (in italian)
-  * My GUADEC 2014 report about the status of the GNOME Infrastructure is available <a href="https://www.dragonsreach.it/files/guadec-reports" target="_blank">here</a>.
+  * My presentation at GUADEC 2013 is available <a href="http://www.dragonsreach.it/wp-content/uploads/2013/08/The-GNOME-Infrastructure.odp" target="_blank">here</a>. A video is also <a href="http://www.superlectures.com/guadec2013/the-gnome-infrastructure" target="_blank">available</a>.
+  * My GUADEC 2014 report about the status of the GNOME Infrastructure -- <a href="https://www.dragonsreach.it/files/guadec-reports/guadec2014.html" target="_blank">here</a>.
+  * My GUADEC 2018 report about the status of the GNOME Infrastructure as happened during the GNOME Foundation's Annual General Meeting (AGM) -- <a href="https://www.dragonsreach.it/files/guadec-reports/guadec2018.html" target="_blank">here</a>.
 
 ### Contact:
 
@@ -70,15 +68,14 @@ You can verify my identity with the following keys:
   * SSH Key: [here][34].
   * GPG Key: [here][35].
 
- [1]: http://www.redhat.com
- [2]: http://en.wikipedia.org/wiki/Udine
- [3]: http://www.gnome.org
- [4]: http://www.fedoraproject.org
+ [1]: https://www.redhat.com
+ [2]: https://en.wikipedia.org/wiki/Udine
+ [3]: https://www.gnome.org
+ [4]: https://www.fedoraproject.org
  [5]: https://wiki.gnome.org/Sysadmin/Team
  [6]: https://wiki.gnome.org/AccountsTeam
  [7]: https://wiki.gnome.org/MembershipCommittee
  [8]: https://fedoraproject.org/wiki/Infrastructure
- [9]: https://admin.fedoraproject.org/pkgdb/packager/averi
  [10]: http://forum.ubuntu-it.org/index.php?topic=79871.0
  [11]: https://wiki.ubuntu.com/AndreaVeri
  [12]: http://wiki.ubuntu-it.org/AndreaVeri
@@ -92,8 +89,7 @@ You can verify my identity with the following keys:
  [20]: http://qa.debian.org/developer.php?login=and
  [21]: https://wiki.gnome.org/FoundationBoard
  [22]: http://behindmotu.wordpress.com/2007/10/16/andrea-veri
- [23]: http://www.ubuntu-it.org/andrea-veri.shtml
- [24]: http://www.paulcutler.org/blog/?p=1281
+ [24]: https://www.paulcutler.org/blog/2010/01/gnome-accounts/ 
  [25]: http://www.fedora-it.org/news/justfedora/intervista-ad-andrea-veri-contributor-fedora-e-inventore-di-justfedora
  [26]: http://fedoraproject.org/wiki/F16_elections_questionnaire
  [27]: http://meetbot.fedoraproject.org/fedora-townhall/2011-05-30/fedora_board_town_hall.2011-05-30-19.01.log.html
