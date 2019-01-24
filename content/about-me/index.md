@@ -7,9 +7,9 @@ aktt_notify_twitter:
   - no
 
 ---
-I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] since several years.
+I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] for several years.
 
-### What I am used to do now:
+### What I am doing now:
 
   * GNOME: 
       * Being the GNOME [Infrastructure Team][5] Coordinator and leading the [Accounts Team][6].
@@ -17,17 +17,17 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
   * Fedora: 
       * Maintaining a set of RPM packages for the Fedora / EPEL repositories
 
-### What I was used to do in the past:
+### What I have done in the past:
 
-  * Designing the old Edubuntu&#8217;s Homepage for the Ubuntu Italian LoCo Team as reported on my [announcement][10] on the Ubuntu-it&#8217;s forums.
-  * Writing several Wiki pages and their translations for the Ubuntu [international][11] and [italian][12] communities.
-  * Being an Ubuntu [Developer][13] uploading several packages into the main and universe repositories, full list available at my Launchpad [ID][14].
-  * Sponsoring and cleaning up the Ubuntu&#8217;s universe queue within the [Ubuntu Sponsors Team][15].
-  * Helping out the awesome [Insight Team][16] setting up a working Drupal [website][17] meant to publish and share news and articles related to Fedora.
-  * Being an [AM][18] and helping out new contributors to go through the [NM][19] process and hopefully welcome them as Debian Developers.
-  * Being a Debian Developer and working on my Debian packages available at my [QA Page][20].
-  * Being the secretary of the GNOME Foundation [Board of Directors][21] for the 2014-2015 and 2015-2016 terms.
-  * Being a proud member of the Fedora [Infrastructure Team][8].
+  * Designed the old Edubuntu&#8217;s Homepage for the Ubuntu Italian LoCo Team as reported on my [announcement][10] on the Ubuntu-it&#8217;s forums.
+  * Wrote several Wiki pages and their translations for the Ubuntu [international][11] and [italian][12] communities.
+  * Have been an Ubuntu [Developer][13] uploading several packages into the main and universe repositories, full list available at my Launchpad [ID][14].
+  * Sponsored and cleaned up the Ubuntu&#8217;s universe queue within the [Ubuntu Sponsors Team][15].
+  * Have helped out the awesome [Insight Team][16] setting up a working Drupal [website][17] meant to publish and share news and articles related to Fedora.
+  * Been an [AM][18] and helped out new contributors to go through the [NM][19] process and hopefully welcome them as Debian Developers.
+  * Have been a Debian Developer and working on my Debian packages available at my [QA Page][20].
+  * Was the secretary of the GNOME Foundation [Board of Directors][21] for the 2014-2015 and 2015-2016 terms.
+  * Have been a proud member of the Fedora [Infrastructure Team][8].
 
 ### Random bits:
 
