@@ -11,7 +11,7 @@ tags:
   - sysadmin
 
 ---
-As you may have noticed from outage and maintenance notes we sent out last week the GNOME Infrastructure has been undergoing a major redesign due to the need of moving to a different datacenter. It's probably a good time to update the Foundation membership, contributions and generally anyone consuming the multitude of services we maintain of what we've been up to during these past months.
+As you may have noticed from outage and maintenance notes we sent out last week the GNOME Infrastructure has been undergoing a major redesign due to the need of moving to a different datacenter. It's probably a good time to update the Foundation membership, contributors and generally anyone consuming the multitude of services we maintain of what we've been up to during these past months.
 
 ## New Data Center
 
@@ -39,7 +39,7 @@ As [originally announced](https://www.dragonsreach.it/2018/10/18/2018-10-18-gnom
  1. Retire running VMs and prevented the need to upgrade their OS whenever they're close to EOL. Also, in general, less maintenance burden
  2. Allow the community to easily provision services on top of the platform with total autonomy by choosing from a wide variety of frameworks, programming languages and database types (currently Galera and PSQL, both managed outside of OSCP itself)
  3. Easily scale the platform by adding more nodes/masters/routers whenever that is made necessary by additional load
- 4. Data replicated and made redundant across a GlusterFS cluster (next on the list will be introducing Ceph support for pods persistent storage
+ 4. Data replicated and made redundant across a GlusterFS cluster (next on the list will be introducing Ceph support for pods persistent storage)
  5. Easily set up services such as Rocket.Chat and Discourse without having to mess much around with Node.JS or Ruby dependencies
 
 ## Special thanks
