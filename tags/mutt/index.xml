@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mutt on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 11 Sep 2011 18:25:32 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/mutt/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/mutt/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,37 +16,8 @@
       <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</guid>
-      <description>&lt;p&gt;A few days ago I &lt;!-- raw HTML omitted --&gt;blogged&lt;!-- raw HTML omitted --&gt; about my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Google’s &lt;!-- raw HTML omitted --&gt;contacts list&lt;!-- raw HTML omitted --&gt; integrated into Mutt&lt;/li&gt;
-&lt;li&gt;a cleaner and nicer Login screen&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small &lt;strong&gt;HowTo&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Download and install &lt;strong&gt;goobook&lt;/strong&gt; as explained &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; Setup a &lt;strong&gt;&lt;em&gt;.goobookrc&lt;/em&gt;&lt;/strong&gt; file into your Home directory. It should look like this:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Add the relevant configuration bits into your &lt;strong&gt;&lt;em&gt;/etc/Muttrc&lt;/em&gt;&lt;/strong&gt; file:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Your configuration should be good to go now, so here’s a few examples on goobook’s &lt;strong&gt;usage&lt;/strong&gt; within Mutt:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Use &lt;strong&gt;TAB&lt;/strong&gt; if you want to auto-complete a mail address when specifying the &lt;strong&gt;To:&lt;/strong&gt; field.&lt;/li&gt;
-&lt;li&gt;Use the &lt;strong&gt;A&lt;/strong&gt; key if you want to add sender’s address to your Google contacts.&lt;/li&gt;
-&lt;li&gt;Use the &lt;strong&gt;Q&lt;/strong&gt; key for querying your contacts list.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;We can now move on on customizing your Login Screen running GDM3. Let’s begin with a &lt;strong&gt;screenshoot&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/login_screen.png&#34; alt=&#34;login_screen&#34;&gt;&lt;/p&gt;
-&lt;p&gt;I definitely love it, it’s &lt;strong&gt;clear&lt;/strong&gt; and &lt;strong&gt;clean&lt;/strong&gt; and most of all it has everything I need, no extra toolbars or menus. If you agree with me, open up the &lt;strong&gt;&lt;em&gt;/etc/gdm3/greeter.gconf-defaults&lt;/em&gt;&lt;/strong&gt; file and do the needed changes. This is how your greeter.gconf-defaults file should look like:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;We are close to the end but we are missing an important &lt;strong&gt;detail&lt;/strong&gt;: how can you safely remove bottom’s toolbar and menus for a clearer and cleaner Login Screen? Open up the &lt;strong&gt;/var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml&lt;/strong&gt; file, search for the &lt;strong&gt;&amp;lt;dir name=&amp;quot;general&amp;rdquo;&amp;gt;&lt;/strong&gt; section and apply the following &lt;strong&gt;change&lt;/strong&gt;:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;But what if you prefer keeping the toolbar as it is, but you definitely don’t like seeing the &lt;em&gt;&lt;strong&gt;Accessibility&lt;/strong&gt;&lt;/em&gt; icon appearing on your Login Screen? On the same file as above, search for the &lt;strong&gt;&amp;lt;dir name=&amp;quot;general&amp;rdquo;&amp;gt;&lt;/strong&gt; section and &lt;strong&gt;modify&lt;/strong&gt; the following string as it follows:&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;p&gt;See you on my next blog post and don’t forget to have a look at my GitHub’s &lt;!-- raw HTML omitted --&gt;repository&lt;!-- raw HTML omitted --&gt;! Oh…and follow &lt;!-- raw HTML omitted --&gt;me&lt;!-- raw HTML omitted --&gt; on Twitter!&lt;/p&gt;
-</description>
+      <description>A few days ago I bloggedabout my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
+ Google’s contacts listintegrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
     </item>
     
     <item>
@@ -54,15 +26,14 @@
       <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</guid>
-      <description>&lt;p&gt;I bought a new PC a few weeks ago and I then decided to renew a bit my &lt;strong&gt;Desktop&lt;/strong&gt;, my &lt;strong&gt;Mutt&lt;/strong&gt; and my &lt;strong&gt;Irssi&lt;/strong&gt; setup. I’ve been spending several hours cleaning up old scripts, logs and configuration files but the result definitely seems to reward me the right way. But here they come a few &lt;strong&gt;screenshots&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Desktop&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/my_Desktop.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Irssi&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/irssi.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Mutt&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/mutt.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;If you liked all the above and would like to reproduce everything yourself, you should consider having a look at my GitHub’s &lt;!-- raw HTML omitted --&gt;repository&lt;!-- raw HTML omitted --&gt;. See you on the next blog post!&lt;/p&gt;
-</description>
+      <description>I bought a new PC a few weeks ago and I then decided to renew a bit my Desktop, my Mutt and my Irssi setup. I’ve been spending several hours cleaning up old scripts, logs and configuration files but the result definitely seems to reward me the right way. But here they come a few screenshots:
+Desktop
+
+Irssi
+
+Mutt
+
+If you liked all the above and would like to reproduce everything yourself, you should consider having a look at my GitHub’s repository.</description>
     </item>
     
   </channel>

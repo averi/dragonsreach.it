@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Torrent Team on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 20 May 2007 19:40:00 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/torrent-team/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/torrent-team/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,13 +16,7 @@
       <pubDate>Sun, 20 May 2007 19:40:00 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2007/05/20/creazione-motu-torrent-team/</guid>
-      <description>&lt;p&gt;Era da parecchio tempo ormai che l’idea di creare una squadra che si dedicasse solamente alla manutenzione di pacchetti legati al protocollo bittorrent mi percorreva la mente. Da intendere però che per manutenzione non si preveda solo la creazione di pacchetti non presenti negli archivi ma anche di tenere aggiornate le applicazioni già presenti nelle componenti main e universe tramite merges e syncs da debian, creando una collaborazione tra upstream e debian stesso per migliorare i programmi disponibili introducendo magari nuove realtà anche nel mondo delle librerie legate ai torrent. Proprio in questo settore mi sto impegnando ad aggiungere il supporto per la libreria creata da Rasterbar software, chiamata “libtorrent-rasterbar”, usata da numerossimi client che si sono diffusi negli ultimi tempi navigando nei meandri delle applicazioni torrent. Mi era caduto l’occhio soprattutto su linkage (&lt;a href=&#34;http://zeflunk.googlepages.com/&#34;&gt;http://zeflunk.googlepages.com/&lt;/a&gt;) che richiede tra le altre cose la libreria citata in precedenza, che verrà introdotta appena l’upstream sistemerà un errore legato al soname che coincide purtroppo con quella della libreria già esistenti nei database (libtorrent).&lt;br&gt;
-Non mi resta che linkarvi le pagine legate al team, così potrete osservare più da vicino come viene organizzato il lavoro tra i membri:&lt;/p&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Launchpad:&lt;!-- raw HTML omitted --&gt; &lt;a href=&#34;https://launchpad.net/%7Emotu-torrent&#34;&gt;https://launchpad.net/~motu-torrent&lt;/a&gt;&lt;br&gt;
-&lt;!-- raw HTML omitted --&gt;Wiki:&lt;!-- raw HTML omitted --&gt; &lt;a href=&#34;https://wiki.ubuntu.com/MOTU/Teams/Torrent&#34;&gt;https://wiki.ubuntu.com/MOTU/Teams/Torrent&lt;/a&gt;&lt;br&gt;
-&lt;!-- raw HTML omitted --&gt;Bug reports:&lt;!-- raw HTML omitted --&gt; &lt;a href=&#34;https://bugs.launchpad.net/%7Emotu-torrent/+packagebugs&#34;&gt;https://bugs.launchpad.net/~motu-torrent/+packagebugs&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;A presto&lt;/p&gt;
-</description>
+      <description>Era da parecchio tempo ormai che l’idea di creare una squadra che si dedicasse solamente alla manutenzione di pacchetti legati al protocollo bittorrent mi percorreva la mente. Da intendere però che per manutenzione non si preveda solo la creazione di pacchetti non presenti negli archivi ma anche di tenere aggiornate le applicazioni già presenti nelle componenti main e universe tramite merges e syncs da debian, creando una collaborazione tra upstream e debian stesso per migliorare i programmi disponibili introducendo magari nuove realtà anche nel mondo delle librerie legate ai torrent.</description>
     </item>
     
   </channel>

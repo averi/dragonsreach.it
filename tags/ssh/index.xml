@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SSH on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 12 Oct 2014 18:02:02 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/ssh/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,145 +16,7 @@
       <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/</guid>
-      <description>&lt;p&gt;A few days ago I wrote about the &lt;!-- raw HTML omitted --&gt;GNOME Infrastructure moving to FreeIPA&lt;!-- raw HTML omitted --&gt;, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to &lt;strong&gt;FreeIPA&lt;/strong&gt;, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it. Additionally I’ll provide some details about how I performed the migration from our previous &lt;strong&gt;OpenLDAP&lt;/strong&gt; setup with a step-by-step guide that will hopefully help more people to migrate the infrastructure they manage themselves.&lt;/p&gt;
-&lt;h2 id=&#34;the-gnome-case&#34;&gt;The GNOME case&lt;/h2&gt;
-&lt;p&gt;It’s very clear to everyone an infrastructure should reflect the needs of its user base, in the case of &lt;strong&gt;GNOME&lt;/strong&gt; a multitude between developers, translators, documenters and between them a very good number of Foundation members, contributors that have proven their non-trivial contributions and have received the status of members of the GNOME Foundation with all the relevant benefits connected to it.&lt;/p&gt;
-&lt;p&gt;The situation we had before was very tricky, LDAP accounts were managed through our LDAP istance while Foundation members were being stored on a MySQL database with many of the tables being related to the yearly Board of Director’s elections and one specifically meant to store all the information from each of the members. One of the available fields on that table was defined as ‘userid’ and was supposed to store the LDAP ‘uid’ field the Membership Committee member processing a certain application had to update when accepting the application. This procedure had two issues:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Membership Committee members had no access to LDAP information&lt;/li&gt;
-&lt;li&gt;No checks were being run on the web UI to verify the ‘userid’ field was populated correctly taking in multiple inconsistencies between LDAP and the MySQL database&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;In addition to the above Mango (the software that helped the GNOME administrative teams to manage the user data for multiple years had no maintainer, no commits on its core since 2008 and several limitations)&lt;/p&gt;
-&lt;h2 id=&#34;what-were-we-looking-for-as-a-replacement-for-the-current-setup&#34;&gt;What were we looking for as a replacement for the current setup?&lt;/h2&gt;
-&lt;p&gt;It was very obvious to me we would have had to look around for possible replacements to Mango. What we were aiming for was a software with the following characteristics:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;It had to come with a &lt;strong&gt;pre-built web UI&lt;/strong&gt; providing a wide view on several LDAP fields&lt;/li&gt;
-&lt;li&gt;The web UI had to be &lt;strong&gt;extensible in some form&lt;/strong&gt; as we had some custom LDAP schemas we wanted users to see and modify&lt;/li&gt;
-&lt;li&gt;The sofware had to be &lt;strong&gt;actively developed&lt;/strong&gt; and responsive to eventual security reports (given the high security impact a breach on LDAP could take in)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;FreeIPA clearly matched all our expectations on all the above points.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-rfc2307-vs-rfc2307bis&#34;&gt;The Migration process – RFC2307 vs RFC2307bis&lt;/h2&gt;
-&lt;p&gt;Our previous OpenLDAP setup was following &lt;a href=&#34;https://www.ietf.org/rfc/rfc2307.txt&#34;&gt;RFC 2307&lt;/a&gt;, which means that above all the other available LDAP attributes (listed on the RFC under point &lt;strong&gt;2.2&lt;/strong&gt;) group’s membership was being represented through the ‘memberUid’ attribute. An example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foundation,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;compat,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-objectClass: posixGroup
-objectClass: top
-gidNumber: &lt;span style=&#34;color:#40a070&#34;&gt;524&lt;/span&gt;
-memberUid: foo
-memberUid: bar
-memberUid: foobar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As you can each of the members of the group ‘foundation’ are represented using the ‘memberUid’ attribute followed by the ‘uid’ of the user itself. FreeIPA does not make directly use of RFC2307 for its trees, but RFC2307bis instead. (RFC2307bis was not published as a RFC by the &lt;strong&gt;IETF&lt;/strong&gt; as the author didn’t decide to pursue it nor the companies (HP, Sun) that then adopted it)&lt;/p&gt;
-&lt;p&gt;RFC2307bis uses a different attribute to represent group’s membership, it being ‘member’. Another example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foundation,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-objectClass: posixGroup
-objectClass: top
-gidNumber: &lt;span style=&#34;color:#40a070&#34;&gt;524&lt;/span&gt;
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foo,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;bar,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foobar,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As you can see the &lt;strong&gt;DN&lt;/strong&gt; representing the group ‘foundation’ differs between the two examples. That is why FreeIPA comes with a &lt;strong&gt;Compatibility plugin&lt;/strong&gt; (cn=compat) which automatically creates RFC2307-compliant trees and entries whenever an append / modify / delete operation happens on any of the hosted RFC2307bis-compliant trees. What’s the point of doing this when we could just stick with RFC2307bis trees and go with it? As the plugin name points out the Compatibility plugin is there to prevent breakages between the directory server and any of the clients or softwares out there still retrieving information and data by using the ‘memberUid’ attribute as specified on RFC2307.&lt;/p&gt;
-&lt;p&gt;FreeIPA migration tools (ipa migrate-ds) do come with a ‘–schema’ flag you can use to specify what attribute the istance you are migrating from was following (values are RFC2307 and RFC2307bis as you may have guessed already), in the case of GNOME the complete command we ran (after installing all the relevant tools through ‘ipa-server-install’ and copying the custom schemas under /etc/dirsrv/slapd-$ISTANCE-NAME/schema) was:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ipa migrate-ds --bind-dn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Manager,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --user-container&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ou&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;people,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --group-container&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ou&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --group-objectclass&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;posixGroup ldap://internal-IP:389 --schema&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;RFC2307&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Please &lt;strong&gt;note&lt;/strong&gt; that before running the command you should make sure custom schemas you had on the istance you are migrating from are available to the directory server you are migrating your tree to.&lt;/p&gt;
-&lt;p&gt;More information on the &lt;strong&gt;migration process&lt;/strong&gt; from an existing OpenLDAP istance can be found &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-extending-the-directory-server-with-custom-schemas&#34;&gt;The Migration process – Extending the directory server with custom schemas&lt;/h2&gt;
-&lt;p&gt;One of the other challenges we had to face has been extending the available LDAP schemas to include Foundation membership attributes. This operation requires the following changes:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Build the LDIF (that will include two new custom fields: FirstAdded and LastRenewedOn)&lt;/li&gt;
-&lt;li&gt;Adding the LDIF in place on &lt;strong&gt;/etc/dirsrv/slapd-$ISTANCE-NAME/schema&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Extend the web UI to include the new attributes&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I won’t be explaining how to build a LDIF on this post but I’m however pasting the schema I made to help you getting an idea:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;attributeTypes: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.2 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;LastRenewedOn&amp;#39;&lt;/span&gt; SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last renewed on date&amp;#39;&lt;/span&gt; SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-attributeTypes: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.3 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;FirstAdded&amp;#39;&lt;/span&gt; SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;First added date&amp;#39;&lt;/span&gt; SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-objectClasses: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.1 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;FoundationFields&amp;#39;&lt;/span&gt; AUXILIARY MAY &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; LastRenewedOn $ FirstAdded &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;After copying the schema in place and restarting the directory server, extend the web UI:&lt;/p&gt;
-&lt;p&gt;on &lt;strong&gt;/usr/lib/python2.7/site-packages/ipalib/plugins/foundation.py&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib.plugins&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; user
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib.parameters&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Str
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; _
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;time&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; strftime
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;re&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;validate_date&lt;/span&gt;(ugettext, value):
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; re&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;match(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$&amp;#34;&lt;/span&gt;, value):
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; _(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;The entered date is wrong, please make sure it matches the YYYY-MM-DD syntax&amp;#34;&lt;/span&gt;)
-
-user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;takes_params &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;takes_params &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; (
-Str(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded?&amp;#39;&lt;/span&gt;, validate_date,
-cli_name&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;First Added date&amp;#39;&lt;/span&gt;),
-),
-Str(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon?&amp;#39;&lt;/span&gt;, validate_date,
-cli_name&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last Renewed on date&amp;#39;&lt;/span&gt;),
-),
-)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;on &lt;strong&gt;/usr/share/ipa/ui/js/plugins/foundation/foundation.js&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-JavaScript&#34; data-lang=&#34;JavaScript&#34;&gt;define([
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;freeipa/phases&amp;#39;&lt;/span&gt;,
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;freeipa/user&amp;#39;&lt;/span&gt;],
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt;(phases, user_mod) {
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;// helper function
-&lt;/span&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt; get_item(array, attr, value) {
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; i&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;,l&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;array.length; i&lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;lt;l; i&lt;span style=&#34;color:#666&#34;&gt;++&lt;/span&gt;) {
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; (array[i][attr] &lt;span style=&#34;color:#666&#34;&gt;===&lt;/span&gt; value) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; array[i];
-}
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;null&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; foundation_plugin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; {};
-
-foundation_plugin.add_foundation_fields &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; facet &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; get_item(user_mod.entity_spec.facets, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;$type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;details&amp;#39;&lt;/span&gt;);
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; section &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; get_item(facet.sections, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;);
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Foundation Member since&amp;#39;&lt;/span&gt;
-});
-
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last Renewed on date&amp;#39;&lt;/span&gt;
-});
-
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;description&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Previous account changes&amp;#39;&lt;/span&gt;
-});
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;true&lt;/span&gt;;
-
-};
-
-phases.on(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;customization&amp;#39;&lt;/span&gt;, foundation_plugin.add_foundation_fields);
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; foundation_plugin;
-});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once done, restart the web server. The next step would be migrating all the &lt;strong&gt;FirstAdded&lt;/strong&gt; and &lt;strong&gt;LastRenewedOn&lt;/strong&gt; attributes off from MySQL into LDAP now that our custom schema has been injected.&lt;/p&gt;
-&lt;p&gt;The relevant MySQL fields were following the YYYY-MM-DD syntax to store the dates and a little Python script to read from MySQL and populate the LDAP attributes was then made. If interested or you are in a similar situation you can find it &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-own-ssl-certificates-for-httpd&#34;&gt;The Migration process – Own SSL certificates for HTTPD&lt;/h2&gt;
-&lt;p&gt;As you may be aware of FreeIPA comes with its own certificate tools (powered by &lt;strong&gt;Certmonger&lt;/strong&gt;), that means a &lt;strong&gt;CA&lt;/strong&gt; is created (during the ipa-server-install run) and certificates for the various services you provide are then created and signed with it. This is definitely great and removes the burden to maintain an underlying self-hosted PKI infrastructure. At the same time this seems to be a problem for publicly-facing web services as browsers will start complaining they don’t trust the CA that signed the certificate the website you are trying to reach is using.&lt;/p&gt;
-&lt;p&gt;The problem is not really a problem as you can specify what certificate HTTPD should be using for displaying FreeIPA’s web UI. The procedure is simple and involves the NSS database at /etc/httpd/alias:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/httpd/alias/ -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;StartSSL CA&amp;#34;&lt;/span&gt; -t CT,C, -a -i sub.class2.server.ca.pem
-certutil -d /etc/pki/nssdb -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;StartSSL CA&amp;#34;&lt;/span&gt; -t CT,C, -a -i sub.class2.server.ca.pem
-openssl pkcs12 -inkey freeipa.example.org.key -in freeipa.example.org.crt -export -out freeipa.example.org.p12 -nodes -name &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;HTTPD-Server-Certificate&amp;#39;&lt;/span&gt;
-pk12util -i freeipa.example.org.p12 -d /etc/httpd/alias/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once done, update /etc/httpd/conf.d/nss.conf with the correct NSSNickname value. (which should match the one you entered after ‘-name’ on the third of the above commands)&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-equivalent-of-authorized_keys8217-8220command8221&#34;&gt;The Migration process – Equivalent of authorized_keys’ “command”&lt;/h2&gt;
-&lt;p&gt;At GNOME we do run several services that require users to login to specific machines and run a command. At the same time and for security purposes we don’t want all the users to reach a shell. Originally we were making use of SSH’s authorized_keys file to specify the “command” these users should have been restricted to. FreeIPA handles Public Key authentications differently (through the &lt;strong&gt;sss_ssh_authorizedkeys&lt;/strong&gt; binary) which means we had to find an alternative way to restrict groups to only a specific command. SSH’s &lt;strong&gt;ForceCommand&lt;/strong&gt; came in help, an example given a group called ‘foo’:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Match Group foo,!bar
-X11Forwarding no
-PermitTunnel no
-ForceCommand /home/admin/bin/reset-my-password.py&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The above &lt;strong&gt;Match Group&lt;/strong&gt; will be applied to all the users of the ‘foo’ group except the ones that are also part of the ‘bar’ group. If you are interested in the reset-my-password.py script which resets a certain user password and sends a temporary one to the registered email address (by checking the mail LDAP attr) for the user, click &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-kerberos-host-keytabs&#34;&gt;The Migration process – Kerberos host Keytabs&lt;/h2&gt;
-&lt;p&gt;Here, at &lt;strong&gt;GNOME&lt;/strong&gt;, we still have one or two RHEL 5 hosts hanging around and SSSD reported a failure when trying to authenticate with the given Keytab (generated with RHEL 7 default values) to the KDC running (as you may have guessed) RHEL 7. The issue is simple as RHEL 5 does not support many of the encryption types which the Keytab was being encrypted with. Apparently the only currently supported Keytab encryption type on a RHEL 5 machine is &lt;strong&gt;rc4-hmac&lt;/strong&gt;. Creating a Keytab on the KDC accordingly can be done this way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ipa-getkeytab -s server.example.org -p host/client.example.org -e rc4-hmac -k /root/keytabs/client.example.org.keytab&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That should be all for today, I’ll make sure to update this post with further details or answers to possible comments.&lt;/p&gt;
-</description>
+      <description>A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.</description>
     </item>
     
     <item>
@@ -162,41 +25,8 @@ ForceCommand /home/admin/bin/reset-my-password.py&lt;/code&gt;&lt;/pre&gt;&lt;/d
       <pubDate>Sat, 06 Oct 2012 13:50:24 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/</guid>
-      <description>&lt;p&gt;Logging in into a Linux machine and executing the hundreds commands available is just one of the most common usages of &lt;strong&gt;OpenSSH&lt;/strong&gt;. Another interesting and very useful usage is tunneling some specific (or even all) traffic from your local machine to an external machine you have access to.&lt;/p&gt;
-&lt;p&gt;Today we’ll analyze how to access a certain virtual machine’s &lt;strong&gt;console&lt;/strong&gt; by tunneling the relevant &lt;strong&gt;VNC&lt;/strong&gt; port locally and accessing it through your favorite VNC client. The scenario:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Machine &lt;strong&gt;A&lt;/strong&gt; is our main virtualization machine and hosts several virtual machines. (VMs)&lt;/li&gt;
-&lt;li&gt;Each &lt;strong&gt;VM&lt;/strong&gt; has its own VNC port assigned. (usually the port range goes from &lt;strong&gt;5900&lt;/strong&gt; to &lt;strong&gt;5910&lt;/strong&gt; or even more if the hosted VMs are more than 10)&lt;/li&gt;
-&lt;li&gt;We’ll be using libvirt, thus virsh.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;We first need to find out which port got assigned to the VM we want to have console access to:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;sudo virsh
-
-virsh &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# list&lt;/span&gt;
-Id   Name   Status
-----------------------------------------------------
-&lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt;    foo    running
-&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt;    bar    running
-&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;    foobar running
-
-virsh &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# vncdisplay foobar&lt;/span&gt;
-:3&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We, then, create a tunnel which redirects all the traffic from the main virtualization machine’s port to the port we gonna specify in the next command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ssh -f -N -L 5910:localhost:5903 user@machine-A.com&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;A few &lt;strong&gt;details&lt;/strong&gt; about the previous command:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;**-N **tells SSH to not execute any command after logging in.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;-f&lt;/strong&gt; tells SSH to hide into the background just before the command gets executed.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;-L&lt;/strong&gt; enables the port forwarding between the local (client) host and the host on the remote side.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;And…why did I choose respectively port &lt;strong&gt;5903&lt;/strong&gt; and &lt;strong&gt;5910&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;While you can adjust port &lt;strong&gt;5910&lt;/strong&gt; with your own choice (that will just move the tunneled traffic from port &lt;strong&gt;5910&lt;/strong&gt; to your favorite port), that won’t work as expected with port 5903 since each VNC port is binded to the number of display virsh assigned to it. (for example, the &lt;strong&gt;bar&lt;/strong&gt; VM may be running on display 5, thus its &lt;strong&gt;vncdisplay&lt;/strong&gt; port will be &lt;strong&gt;5905&lt;/strong&gt;)&lt;/p&gt;
-&lt;p&gt;When &lt;strong&gt;done&lt;/strong&gt;, fire up your favorite VNC client and create a new connection with the following details:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Protocol: VNC - Virtual Network Computing
-Server: localhost - 127.0.0.1
-Port: &lt;span style=&#34;color:#40a070&#34;&gt;5910&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The connection will load and you’ll be put in front of your &lt;strong&gt;‘foobar’&lt;/strong&gt; VM console.&lt;/p&gt;
-</description>
+      <description>Logging in into a Linux machine and executing the hundreds commands available is just one of the most common usages of OpenSSH. Another interesting and very useful usage is tunneling some specific (or even all) traffic from your local machine to an external machine you have access to.
+Today we’ll analyze how to access a certain virtual machine’s console by tunneling the relevant VNC port locally and accessing it through your favorite VNC client.</description>
     </item>
     
   </channel>

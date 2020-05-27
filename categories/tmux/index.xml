@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tmux on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 27 Jun 2013 16:59:57 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/categories/tmux/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/categories/tmux/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,16 +16,8 @@
       <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</guid>
-      <description>&lt;p&gt;It’s been two years since my &lt;!-- raw HTML omitted --&gt;latest blog post&lt;!-- raw HTML omitted --&gt; about my Linux desktop and many things have changed since then. I completely moved all my machines to &lt;strong&gt;GNOME 3&lt;/strong&gt;, switched my main editor from &lt;strong&gt;nano&lt;/strong&gt; to &lt;strong&gt;vim&lt;/strong&gt; and my terminal multiplexer from &lt;strong&gt;screen&lt;/strong&gt; to &lt;strong&gt;tmux&lt;/strong&gt;. What didn’t change at all except for a tweaks on the theme is my &lt;strong&gt;Irssi&lt;/strong&gt; setup.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/dircolors_solarized.png&#34; alt=&#34;dircolors_solarized&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming. Vim on the other hand is highly customizable in every single part also thanks to its huge amount of plugins. Honestly I admit I spent several hours watching videos, reading documentation, trying out key bindings and I’m not completely used to vim to be as much productive I would like to be with it.&lt;/p&gt;
-&lt;p&gt;What I found to be the common error of vim’s newcomers is their willingness to look around the web for a complete vimrc configuration file, full of key bindings, custom settings and personalizations. That’s definitely something you should avoid when learning to use vim, the perfect &lt;strong&gt;vimrc&lt;/strong&gt; doesn’t objectively exist, each of us should spend some time investigating what is the best configuration for your needs and build a vimrc accordingly time by time.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/vim.png&#34; alt=&#34;vim&#34;&gt;&lt;/p&gt;
-&lt;p&gt;It will probably take months to have a complex vimrc file matching your needs completely, until then you won’t be able to define your vimrc to be “ultimate”. And that’s actually why wgetting someone else’s vimrc and copying it to your home folder won’t make you an expert of vim, it’ll probably make your life harder when trying a specific action with the stock settings will result in something you wouldn’t have expected thanks to a particular key binding on the vimrc you downloaded.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/tmux.png&#34; alt=&#34;tmux&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The other tool that definitely improved my productivity is &lt;strong&gt;Tmux&lt;/strong&gt; given the huge amount of open terminals I had every day during my sysadmin’s duties at GNOME. Each day usually started with one or two open terminals mainly meant for random maintenance issues, after a few hours the amount of open terminals jumped to around 30.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/irssi.png&#34; alt=&#34;irssi&#34;&gt;&lt;/p&gt;
-</description>
+      <description>It’s been two years since my latest blog postabout my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
+Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming.</description>
     </item>
     
   </channel>

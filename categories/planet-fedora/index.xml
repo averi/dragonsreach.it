@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Planet Fedora on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 26 Feb 2018 15:13:09 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/categories/planet-fedora/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/categories/planet-fedora/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,91 +16,9 @@
       <pubDate>Mon, 26 Feb 2018 15:13:09 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</guid>
-      <description>&lt;p&gt;As a follow-up to the reCAPTCHA v1 &lt;a href=&#34;https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/&#34;&gt;post&lt;/a&gt; published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The &lt;a href=&#34;https://pypi.python.org/pypi/recaptcha-client&#34;&gt;original python-recaptcha library&lt;/a&gt; was forked into &lt;a href=&#34;https://github.com/redhat-infosec/python-recaptcha&#34;&gt;https://github.com/redhat-infosec/python-recaptcha&lt;/a&gt; and made compatible with reCAPTCHA version 2.&lt;/p&gt;
-&lt;p&gt;The relevant changes against the original library can be resumed as follows:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Added ‘version=2’ against displayhtml, load_scripts functions&lt;/li&gt;
-&lt;li&gt;Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2&lt;/li&gt;
-&lt;li&gt;The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The required changes are located on the following files:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;/usr/lib/mailman/Mailman/Cgi/listinfo.py&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;56&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;48.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;08&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;34.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
-&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; i18n
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
- 
- &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Set up i18n&lt;/span&gt;
- _ &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i18n&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_
-&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;244&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;245&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
-     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-lang-form-start&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatFormStart(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo&amp;#39;&lt;/span&gt;)
-     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-fullname-box&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatBox(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;fullname&amp;#39;&lt;/span&gt;, size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;)
- 
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Captcha&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-recaptcha-javascript&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;displayhtml(mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PUBLIC_KEY, use_ssl&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;True, version&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-recaptcha-script&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;load_script(version&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
-     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Do the expansion.&lt;/span&gt;
-     doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;AddItem(mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;ParseTags(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo.html&amp;#39;&lt;/span&gt;, replacements, lang))
-     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;print&lt;/span&gt; doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;Format()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;/usr/lib/mailman/Mailman/Cgi/subscribe.py&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;56&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;38.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;08&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;18.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
-&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;32&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;32&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.UserDesc&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; UserDesc
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
- &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
- 
- SLASH &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
- ERRORSEP &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#4070a0;font-weight:bold&#34;&gt;\n\n&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;lt;p&amp;gt;&amp;#39;&lt;/span&gt;
-&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;165&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;166&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;17&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
-             results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(
-     _(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;There was no hidden token in your submission or it was corrupted.&amp;#39;&lt;/span&gt;))
-             results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;You must GET the form before submitting it.&amp;#39;&lt;/span&gt;))
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# recaptcha&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    captcha_response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;v2submit(
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;g-recaptcha-response&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PRIVATE_KEY,
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        remote,
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    )
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;is_valid:
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Invalid captcha: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;error_code))
-&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
-     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Was an attempt made to subscribe the list to itself?&lt;/span&gt;
-     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; email &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;GetListEmail():
-         syslog(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mischief&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Attempt to self subscribe &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;, email, remote)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;--- listinfo.html	2018-02-26 15:02:34.000000000 +0000
-+++ /usr/lib/mailman/templates/en/listinfo.html	2018-02-26 14:18:52.000000000 +0000
-@@ -3,7 +3,7 @@
- &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HTML&lt;/span&gt;&amp;gt;
-   &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HEAD&lt;/span&gt;&amp;gt;
-     &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TITLE&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-List-Name&lt;/span&gt;&amp;gt; Info Page&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TITLE&lt;/span&gt;&amp;gt;
--  
-+    &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-Recaptcha-Script&lt;/span&gt;&amp;gt; 
-   &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HEAD&lt;/span&gt;&amp;gt;
-   &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;BODY&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;BGCOLOR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;#ffffff&amp;#34;&lt;/span&gt;&amp;gt;
- 
-@@ -116,6 +116,11 @@
-       &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
-       &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-digest-question-end&lt;/span&gt;&amp;gt;
-       &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
-+      &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
-+        &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;Please fill out the following captcha&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
-+        &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TD&lt;/span&gt;&amp;gt;
-+      &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
-+      &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
- 	&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;colspan&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;&amp;gt;
- 	  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-Subscribe-Button&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;
-     &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;!-- raw HTML omitted --&gt;
-</description>
+      <description>As a follow-up to the reCAPTCHA v1 post published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The original python-recaptcha library was forked into https://github.com/redhat-infosec/python-recaptcha and made compatible with reCAPTCHA version 2.
+The relevant changes against the original library can be resumed as follows:
+ Added ‘version=2’ against displayhtml, load_scripts functions Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2 The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1  The required changes are located on the following files:</description>
     </item>
     
     <item>
@@ -108,11 +27,7 @@
       <pubDate>Tue, 05 Jul 2016 21:26:39 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2016/07/05/a-childhood-dream/</guid>
-      <description>&lt;p&gt;Six months since my &lt;a href=&#34;https://www.dragonsreach.it/2015/12/02/three-years-and-counting/&#34;&gt;latest blog post&lt;/a&gt; is definitely a lot and reminds me how difficult this year has been for me in many ways. Back in June 2015 I received a job proposal as a Systems and Network Engineer from a company located in Padova, a city in the north-east part of Italy which is around 150km (around 93 miles) away from my home-town. The offer looked very interesting and I went for it. The idea I originally had was to relocate there but the extremely high costs of rents (the city is well known in Italy as one of the best places to take University courses on several faculties) and the fact I really wanted to experiment on whether the job description was actually going to match the expectations I had, I opted to not relocate at all and travel daily to work by train (a total of 4 hours per day spent travelling).&lt;/p&gt;
-&lt;p&gt;I still recall one of my friends saying me “I am sure you won’t make it for more than two weeks” and how satisfying has been mentioning him a few days ago I &lt;strong&gt;did make&lt;/strong&gt; it for roughly one year. Spending around 4 hours every day on a train hasn’t been that fun but the passion and love for what I’ve been doing has helped me overcoming the difficulties I encountered. At some point something I honestly was expecting arrived: my professional grow at the company was completely stuck. While I initially told myself the moment was surely going to not persist much longer, the opposite happened.&lt;/p&gt;
-&lt;p&gt;For a passionate, enthusiast and “hungry” person like I am that was one of the worst situations that could ever happened and it was definitely time for me to look at new opportunities. That’s where my childhood’s dream became reality: I will be joining the &lt;strong&gt;Platform Operations Team&lt;/strong&gt; at &lt;strong&gt;Red Hat&lt;/strong&gt; as a &lt;strong&gt;System Administrator&lt;/strong&gt; starting from mid-July! Being part of a great family which cares about Open Source and its values makes me proud and I would really like to thank Red Hat for this incredible opportunity.&lt;/p&gt;
-&lt;p&gt;On a side note I will be in Brno between the 14th and the 16th of July, please drop me a note if you want to have a drink together!&lt;/p&gt;
-</description>
+      <description>Six months since my latest blog post is definitely a lot and reminds me how difficult this year has been for me in many ways. Back in June 2015 I received a job proposal as a Systems and Network Engineer from a company located in Padova, a city in the north-east part of Italy which is around 150km (around 93 miles) away from my home-town. The offer looked very interesting and I went for it.</description>
     </item>
     
     <item>
@@ -121,72 +36,7 @@
       <pubDate>Wed, 02 Dec 2015 16:32:41 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</guid>
-      <description>&lt;p&gt;It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when &lt;!-- raw HTML omitted --&gt;Sriram Ramkrishna&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;Jeff Schroeder&lt;!-- raw HTML omitted --&gt; proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the &lt;!-- raw HTML omitted --&gt;official hiring&lt;!-- raw HTML omitted --&gt; achieved by &lt;!-- raw HTML omitted --&gt;Karen Sandler&lt;!-- raw HTML omitted --&gt; back in February 2013.&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; has finally reached stability both in terms of reliability and uptime, we didn’t have any service disruption this and the past year and services have been running smoothly as they were expected to in a project like the one we are managing.&lt;/p&gt;
-&lt;p&gt;As many of you know service disruptions and a total lack of maintenance were very common before I joined back in 2013, I’m so glad the situation has dramatically changed and developers, users, passionates are now able to reach our websites, code repositories, build machines without experiencing slowness, downtimes or&lt;/p&gt;
-&lt;p&gt;unreachability. Additionally all these groups of people now have a reference point they can contact in case they need help when coping with the infrastructure they daily use. The ticketing system allows users to get in touch with the members of the &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; Team and receive support right away within a very short period of time (Also thanks to &lt;!-- raw HTML omitted --&gt;Pagerduty&lt;!-- raw HTML omitted --&gt;, service the Foundation is kindly sponsoring)&lt;/p&gt;
-&lt;p&gt;Before moving ahead to the future plans I’d like to provide you a summary of what has been done during these roughly three years so you can get an idea of why I define the changes that happened to the infrastructure a complete revamp:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Recycled several ancient machines migrating services off of them while consolidating them by placing all their configuration on our central configuration management platform ran by Puppet. This includes a grand total of 7 machines that were replaced by new hardware and extended warranties the Foundation kindly sponsored.&lt;/li&gt;
-&lt;li&gt;We strenghten our websites security by introducing SSL certificates everywhere and recently replacing them with SHA2 certificates.&lt;/li&gt;
-&lt;li&gt;We introduced several services such as Owncloud, the Commits Bot, the Pastebin, the Etherpad, Jabber, the GNOME Github mirror.&lt;/li&gt;
-&lt;li&gt;We restructured the way we backup our machines also thanks to the Fedora Project sponsoring the disk space on their backup facility. The way we were used to handle backups drastically changed from early years where a magnetic tape facility was in charge of all the burden of archiving our data to today where a NetApp is used together with &lt;!-- raw HTML omitted --&gt;rdiff-backup&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;li&gt;We upgraded Bugzilla to the latest release, a huge thanks goes to Krzesimir Nowak who kindly helped us building the migration tools.&lt;/li&gt;
-&lt;li&gt;We introduced the &lt;!-- raw HTML omitted --&gt;GNOME Apprentice program&lt;!-- raw HTML omitted --&gt; open-sourcing our internal Puppet repository and cleansing it (shallow clones FTW!) from any sensitive information which now lives on a different repository with restricted access.&lt;/li&gt;
-&lt;li&gt;We retired Mango and our OpenLDAP instance in favor of &lt;!-- raw HTML omitted --&gt;FreeIPA&lt;!-- raw HTML omitted --&gt; which allows users to modify their account information on their own without waiting for the Accounts Team to process the change.&lt;/li&gt;
-&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;documented&lt;!-- raw HTML omitted --&gt; how our internal tools are customized to play together making it easy for future &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; Team members to learn how the infrastructure works and supersede existing members in case they aren’t able to keep up their position anymore.&lt;/li&gt;
-&lt;li&gt;We started providing hosting to the GIMP and GTK projects which now completely rely on the GNOME Infrastructure. (DNS, email, websites and other services infrastructure hosting)&lt;/li&gt;
-&lt;li&gt;We started providing hosting not only to the GIMP and GTK projects but to localized communities as well such as GNOME Hispano and GNOME Greece&lt;/li&gt;
-&lt;li&gt;We configured proper monitoring for all the hosted services thanks to Nagios and Check-MK&lt;/li&gt;
-&lt;li&gt;We migrated the IRC network to a newer ircd with proper IRC services (Nickserv, Chanserv) in place.&lt;/li&gt;
-&lt;li&gt;We made sure each machine had a configured management (mgmt) and KVM interface for direct remote access to the bare metal machine itself, its hardware status and all the operations related to it. (hard reset, reboot, shutdown etc.)&lt;/li&gt;
-&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;upgraded MoinMoin&lt;!-- raw HTML omitted --&gt; to the latest release and made a substantial cleanup of old accounts, pages marked as spam and trashed pages.&lt;/li&gt;
-&lt;li&gt;We deployed DNSSEC for several domains we manage including gnome.org, guadec.es, gnomehispano.es, guadec.org, gtk.org and gimp.org&lt;/li&gt;
-&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;introduced an account de-activation policy&lt;!-- raw HTML omitted --&gt; which comes into play when a contributor not committing to any of the hosted repositories at git.gnome.org since two years is caught by the script. The account in question is marked as inactive and the gnomecvs (from the old cvs days) and ftpadmin groups are removed.&lt;/li&gt;
-&lt;li&gt;We planned mass reboots of all the machines roughly every month for properly applying security and kernel updates.&lt;/li&gt;
-&lt;li&gt;We introduced &lt;!-- raw HTML omitted --&gt;Mirrorbrain&lt;!-- raw HTML omitted --&gt; (MB), the mirroring service serving GNOME and related modules tarballs and software all over the world. Before introducing MB GNOME had several mirrors located in all the main continents and at the same time a very low amount of users making good use of them. Many organizations and companies behind these mirrors decided to not host GNOME sources anymore as the statistics of usage were very poor and preferred providing the same service to projects that really had a demand for these resources. MB solved all this allowing a proper redirect to the closest mirror (through mod_geoip) and making sure the sources checksum matched across all the mirrors and against the original tarball uploaded by a GNOME maintainer and hosted at master.gnome.org.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I can keep the list going for dozens of other accomplished tasks but I’m sure many of you are now more interested in what the future plans actually are in terms of where the &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; should be in the next couple of years.&lt;/p&gt;
-&lt;p&gt;One of the main topics we’ve been discussing will be migrating our Git infrastructure away from cgit (which is mainly serving as a code browsing tool) to a more complete platform that is surely going to include a code review tool of some sort. (Gerrit, Gitlab, Phabricator)&lt;/p&gt;
-&lt;p&gt;Another topic would be migrating our mailing lists to Mailman 3 / Hyperkitty. This also means we definitely need a staging infrastructure in place for testing these kind of transitions ideally bound to a separate Puppet / Ansible repository or branch. Having a different repository for testing purposes will also mean helping apprentices to test their changes directly on a live system and not on their personal computer which might be running a different OS / set of tools than the ones we run on the GNOME Infrastructure.&lt;/p&gt;
-&lt;p&gt;What I also aim would be seeing &lt;strong&gt;GNOME&lt;/strong&gt; Accounts being the only authentication resource in use within the whole GNOME Infrastructure. That means one should be able to login to a specific service with the same username / password in use on the other hosted services. That’s been on my todo list for a while already and it’s probably time to push it forward together with Patrick Uiterwijk, responsible of &lt;!-- raw HTML omitted --&gt;Ipsilon&lt;!-- raw HTML omitted --&gt;‘s development at Red Hat and GNOME Sysadmin.&lt;/p&gt;
-&lt;p&gt;While these are the top priority items we are soon receiving new hardware (plus extended warranty renewals for two out of the three machines that had their warranty renewed a while back) and migrating some of the VMs off from the current set of machines to the new boxes is definitely another task I’d be willing to look at in the next couple of months (one machine (ns-master.gnome.org) is being decommissioned giving me a chance to migrate away from BIND into NSD).&lt;/p&gt;
-&lt;p&gt;The &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; is evolving and it’s crucial to have someone maintaining it. On this side I’m bringing to your attention the fact the assigned &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; funds are running out as reported on the Board minutes from the &lt;!-- raw HTML omitted --&gt;27th of October&lt;!-- raw HTML omitted --&gt;. On this side &lt;!-- raw HTML omitted --&gt;Jeff Fortin&lt;!-- raw HTML omitted --&gt; started looking for possible sponsors and came up with the idea of making a brochure with a set of accomplished tasks that couldn’t have been possible without the &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Sysadmin &lt;!-- raw HTML omitted --&gt;fundraising campaign&lt;!-- raw HTML omitted --&gt; launched by &lt;!-- raw HTML omitted --&gt;Stormy Peters&lt;!-- raw HTML omitted --&gt; back in &lt;!-- raw HTML omitted --&gt;June 2010&lt;!-- raw HTML omitted --&gt; being a success. The Board is well aware of the importance of having someone looking at the infrastructure that runs the GNOME Project and is making sure the brochure will be properly reviewed and published.&lt;/p&gt;
-&lt;p&gt;And now some stats taken from the Puppet Git Repository:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;$ &lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; /git/GNOME/puppet &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git shortlog -ns
-
-&lt;span style=&#34;color:#40a070&#34;&gt;3520&lt;/span&gt; Andrea Veri
-&lt;span style=&#34;color:#40a070&#34;&gt;506&lt;/span&gt; Olav Vitters
-&lt;span style=&#34;color:#40a070&#34;&gt;338&lt;/span&gt; Owen W. Taylor
-&lt;span style=&#34;color:#40a070&#34;&gt;239&lt;/span&gt; Patrick Uiterwijk
-&lt;span style=&#34;color:#40a070&#34;&gt;112&lt;/span&gt; Jeff Schroeder
-&lt;span style=&#34;color:#40a070&#34;&gt;71&lt;/span&gt; Christer Edwards
-&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; Daniel Mustieles
-&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; Matanya Moses
-&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; Tobias Mueller
-&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; John Carr
-&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; Ray Wang
-&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; Daniel Mustieles García
-&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; Peter Baumgarten&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and from the &lt;!-- raw HTML omitted --&gt;Request Tracker&lt;!-- raw HTML omitted --&gt; database (52388 being my assigned ID):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-MySQL&#34; data-lang=&#34;MySQL&#34;&gt;mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; Tickets &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;where&lt;/span&gt; LastUpdatedBy &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;52388&amp;#39;&lt;/span&gt;;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3613&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; row &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#902000&#34;&gt;set&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;.&lt;span style=&#34;color:#40a070&#34;&gt;01&lt;/span&gt; sec)
-
-mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; Tickets &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;where&lt;/span&gt; LastUpdatedBy &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;52388&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;and&lt;/span&gt; Status &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Resolved&amp;#39;&lt;/span&gt;;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1596&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
-&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
-&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; row &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#902000&#34;&gt;set&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;.&lt;span style=&#34;color:#40a070&#34;&gt;03&lt;/span&gt; sec)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;It’s been a long run which made me proud, for the things I learnt, for the tasks I’ve been able to accomplish, for the great support the GNOME community gave me all the time and most of all for the same fact of being part of the team responsible of the systems hosting the GNOME Project. &lt;strong&gt;Thank you&lt;/strong&gt; GNOME community for your continued and never ending backing, we daily work to improve how the services we host are delivered to you and the support we receive back is fundamental for our passion and enthusiasm to remain high!&lt;/p&gt;
-&lt;p&gt; &lt;/p&gt;
-</description>
+      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.</description>
     </item>
     
     <item>
@@ -195,27 +45,7 @@ mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style
       <pubDate>Wed, 28 Jan 2015 16:59:46 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</guid>
-      <description>&lt;p&gt;Many times it happened seeing someone joining the #sysadmin IRC channel requesting participation to the team after having spent around 5 minutes trying to explain what the skills and the knowledge were and why this person felt it was the right figure for the position. And it was always very disappointing for me having to reject all these requests as we just didn’t have the infrastructure in place to let new people join the rest of the team with limited privileges.&lt;/p&gt;
-&lt;p&gt;With the introduction of &lt;!-- raw HTML omitted --&gt;FreeIPA&lt;!-- raw HTML omitted --&gt;, more fine-grained ACLs (and hiera-eyaml-gpg for securing tokens, secrets, passwords out of Puppet itself) we are so glad to announce the launch of the “&lt;strong&gt;GNOME Infrastructure Apprentice Program&lt;/strong&gt;” (from now till the end of the post just “Program”). If you are familiar with the Fedora Infrastructure and how it works you might know what this is about already. If you don’t please read further ahead.&lt;/p&gt;
-&lt;p&gt;The Program will allow apprentices to join the Sysadmin Team with a limited set of privileges which mainly consist in being able to access the Puppet repository and all the stored configuration files that run the machines powering the GNOME Infrastructure every day. Once approved to the Program apprentices will be able to submit patches for review to the team and finally see their work merged on the production environment if the proposed changes matched the expectations and addressed comments.&lt;/p&gt;
-&lt;p&gt;While the Program is open to everyone to join, we have some prerequisites in place. The interested person should be:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Part of an existing FOSS community&lt;/li&gt;
-&lt;li&gt;Familiar with how a FOSS Project works behind the scenes&lt;/li&gt;
-&lt;li&gt;Familiar with popular tools like Puppet, Git&lt;/li&gt;
-&lt;li&gt;Familiar with RHEL as the OS of choice&lt;/li&gt;
-&lt;li&gt;Familiar with popular Sysadmin tools, softwares and procedures&lt;/li&gt;
-&lt;li&gt;Eager to learn new things, make constructive discussions with a team, provide feedback and new ideas&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If you feel like having all the needed prerequisites and would be willing to join follow these steps:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Subscribe to the &lt;!-- raw HTML omitted --&gt;gnome-infrastructure&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;infrastructure-announce&lt;!-- raw HTML omitted --&gt; mailing lists&lt;/li&gt;
-&lt;li&gt;Join the &lt;strong&gt;#sysadmin&lt;/strong&gt; IRC channel on irc.gnome.org&lt;/li&gt;
-&lt;li&gt;Send a presentation e-mail to the gnome-infrastructure mailing list stating who you are, what your past experiences and plans are as an Apprentice&lt;/li&gt;
-&lt;li&gt;Once the presentation has been sent an existing Sysadmin Team member will evaluate your application and follow-up with you introducing you to the Program&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;More information about the Program is available &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-</description>
+      <description>Many times it happened seeing someone joining the #sysadmin IRC channel requesting participation to the team after having spent around 5 minutes trying to explain what the skills and the knowledge were and why this person felt it was the right figure for the position. And it was always very disappointing for me having to reject all these requests as we just didn’t have the infrastructure in place to let new people join the rest of the team with limited privileges.</description>
     </item>
     
     <item>
@@ -224,27 +54,7 @@ mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style
       <pubDate>Fri, 24 Oct 2014 13:50:52 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</guid>
-      <description>&lt;p&gt;One of the benefits I originally wanted to bring with the &lt;!-- raw HTML omitted --&gt;FreeIPA move&lt;!-- raw HTML omitted --&gt; to GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the &lt;strong&gt;GNOME&lt;/strong&gt; Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the &lt;strong&gt;kinit&lt;/strong&gt; command. Once done authenticating to the services currently supporting Kerberos will be as easy as pointing a configured browser (Google for how to configure your browser to use Krb logins) to account.gnome.org without being prompted for entering the usual username / password combination or pushing to git without using the public-private key mechanism. That theoretically means you won’t be required to use a SSH key for loggin in to any of the GNOME services at all as entering your password to the &lt;strong&gt;kinit&lt;/strong&gt; password prompt will be enough (for at least 24 hours as that’s the life of the TGT itself on our setup) for doing all you were used to do before the Kerberos support introduction.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/10/kerberos-over-http.png&#34; alt=&#34;A successful SSH login using the most recent Kerberos package on Fedora 21&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The issue we faced at first was the underlying networking infrastructure firewalling all Kerberos ports blocking the use of &lt;strong&gt;kinit&lt;/strong&gt; itself which kept timing out reaching port 88. A few days later I was contacted by RH’s developer &lt;strong&gt;&lt;!-- raw HTML omitted --&gt;Nathaniel McCallum &lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;&lt;!-- raw HTML omitted --&gt;who worked out a way to bypass this restriction by creating a KDC proxy that accepts requests from port 443 and proxies them to the internal KDC running on port 88. With the &lt;!-- raw HTML omitted --&gt;recent Kerberos release&lt;!-- raw HTML omitted --&gt; (released on October 15th, 2014 and following the &lt;!-- raw HTML omitted --&gt;MS-KKDCP protocol&lt;!-- raw HTML omitted --&gt;) a patched &lt;!-- raw HTML omitted --&gt;kinit &lt;!-- raw HTML omitted --&gt;allows users to retrieve their TGTs directly from the HTTPS proxy completely bypassing the need for port 88 to stay open on the firewall. &lt;!-- raw HTML omitted --&gt;The &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; now runs the KDC Proxy and we’re glad to announce Kerberos authentications are working as expected on the hosted services.&lt;/p&gt;
-&lt;p&gt;If you are facing the same problem and you are curious to know more about the setup, here they come all the details:&lt;/p&gt;
-&lt;p&gt;On the &lt;strong&gt;KDC&lt;/strong&gt;:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;No changes are needed on the KDC itself, just make sure to install the &lt;strong&gt;python-kdcproxy&lt;/strong&gt; package which is available for RHEL 7, &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;li&gt;Tweak your vhost accordingly by following the &lt;!-- raw HTML omitted --&gt;provided documentation&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;On the &lt;strong&gt;client&lt;/strong&gt;:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Install the krb5-workstation package, make sure it’s at least version &lt;strong&gt;1.12.2-9&lt;/strong&gt; as that’s the release which had the additional features we are talking about backported. Right now it’s only available for Fedora 21.&lt;/li&gt;
-&lt;li&gt;Adjust /etc/krb5.conf accordingly and finally get a TGT through kinit $userid@GNOME.ORG.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[realms]&lt;/span&gt;
- &lt;span style=&#34;color:#4070a0&#34;&gt;GNOME.ORG&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;{
-&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;  kdc = https://account.gnome.org/KdcProxy
-&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;  kpasswd_server = https://account.gnome.org/KdcProxy&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That should be all for today!&lt;/p&gt;
-</description>
+      <description>One of the benefits I originally wanted to bring with the FreeIPA moveto GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
     </item>
     
     <item>
@@ -253,145 +63,7 @@ mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style
       <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/</guid>
-      <description>&lt;p&gt;A few days ago I wrote about the &lt;!-- raw HTML omitted --&gt;GNOME Infrastructure moving to FreeIPA&lt;!-- raw HTML omitted --&gt;, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to &lt;strong&gt;FreeIPA&lt;/strong&gt;, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it. Additionally I’ll provide some details about how I performed the migration from our previous &lt;strong&gt;OpenLDAP&lt;/strong&gt; setup with a step-by-step guide that will hopefully help more people to migrate the infrastructure they manage themselves.&lt;/p&gt;
-&lt;h2 id=&#34;the-gnome-case&#34;&gt;The GNOME case&lt;/h2&gt;
-&lt;p&gt;It’s very clear to everyone an infrastructure should reflect the needs of its user base, in the case of &lt;strong&gt;GNOME&lt;/strong&gt; a multitude between developers, translators, documenters and between them a very good number of Foundation members, contributors that have proven their non-trivial contributions and have received the status of members of the GNOME Foundation with all the relevant benefits connected to it.&lt;/p&gt;
-&lt;p&gt;The situation we had before was very tricky, LDAP accounts were managed through our LDAP istance while Foundation members were being stored on a MySQL database with many of the tables being related to the yearly Board of Director’s elections and one specifically meant to store all the information from each of the members. One of the available fields on that table was defined as ‘userid’ and was supposed to store the LDAP ‘uid’ field the Membership Committee member processing a certain application had to update when accepting the application. This procedure had two issues:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Membership Committee members had no access to LDAP information&lt;/li&gt;
-&lt;li&gt;No checks were being run on the web UI to verify the ‘userid’ field was populated correctly taking in multiple inconsistencies between LDAP and the MySQL database&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;In addition to the above Mango (the software that helped the GNOME administrative teams to manage the user data for multiple years had no maintainer, no commits on its core since 2008 and several limitations)&lt;/p&gt;
-&lt;h2 id=&#34;what-were-we-looking-for-as-a-replacement-for-the-current-setup&#34;&gt;What were we looking for as a replacement for the current setup?&lt;/h2&gt;
-&lt;p&gt;It was very obvious to me we would have had to look around for possible replacements to Mango. What we were aiming for was a software with the following characteristics:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;It had to come with a &lt;strong&gt;pre-built web UI&lt;/strong&gt; providing a wide view on several LDAP fields&lt;/li&gt;
-&lt;li&gt;The web UI had to be &lt;strong&gt;extensible in some form&lt;/strong&gt; as we had some custom LDAP schemas we wanted users to see and modify&lt;/li&gt;
-&lt;li&gt;The sofware had to be &lt;strong&gt;actively developed&lt;/strong&gt; and responsive to eventual security reports (given the high security impact a breach on LDAP could take in)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;FreeIPA clearly matched all our expectations on all the above points.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-rfc2307-vs-rfc2307bis&#34;&gt;The Migration process – RFC2307 vs RFC2307bis&lt;/h2&gt;
-&lt;p&gt;Our previous OpenLDAP setup was following &lt;a href=&#34;https://www.ietf.org/rfc/rfc2307.txt&#34;&gt;RFC 2307&lt;/a&gt;, which means that above all the other available LDAP attributes (listed on the RFC under point &lt;strong&gt;2.2&lt;/strong&gt;) group’s membership was being represented through the ‘memberUid’ attribute. An example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foundation,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;compat,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-objectClass: posixGroup
-objectClass: top
-gidNumber: &lt;span style=&#34;color:#40a070&#34;&gt;524&lt;/span&gt;
-memberUid: foo
-memberUid: bar
-memberUid: foobar&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As you can each of the members of the group ‘foundation’ are represented using the ‘memberUid’ attribute followed by the ‘uid’ of the user itself. FreeIPA does not make directly use of RFC2307 for its trees, but RFC2307bis instead. (RFC2307bis was not published as a RFC by the &lt;strong&gt;IETF&lt;/strong&gt; as the author didn’t decide to pursue it nor the companies (HP, Sun) that then adopted it)&lt;/p&gt;
-&lt;p&gt;RFC2307bis uses a different attribute to represent group’s membership, it being ‘member’. Another example:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foundation,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-objectClass: posixGroup
-objectClass: top
-gidNumber: &lt;span style=&#34;color:#40a070&#34;&gt;524&lt;/span&gt;
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foo,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;bar,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-member: &lt;span style=&#34;color:#bb60d5&#34;&gt;uid&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;foobar,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;users,cn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;accounts,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;As you can see the &lt;strong&gt;DN&lt;/strong&gt; representing the group ‘foundation’ differs between the two examples. That is why FreeIPA comes with a &lt;strong&gt;Compatibility plugin&lt;/strong&gt; (cn=compat) which automatically creates RFC2307-compliant trees and entries whenever an append / modify / delete operation happens on any of the hosted RFC2307bis-compliant trees. What’s the point of doing this when we could just stick with RFC2307bis trees and go with it? As the plugin name points out the Compatibility plugin is there to prevent breakages between the directory server and any of the clients or softwares out there still retrieving information and data by using the ‘memberUid’ attribute as specified on RFC2307.&lt;/p&gt;
-&lt;p&gt;FreeIPA migration tools (ipa migrate-ds) do come with a ‘–schema’ flag you can use to specify what attribute the istance you are migrating from was following (values are RFC2307 and RFC2307bis as you may have guessed already), in the case of GNOME the complete command we ran (after installing all the relevant tools through ‘ipa-server-install’ and copying the custom schemas under /etc/dirsrv/slapd-$ISTANCE-NAME/schema) was:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ipa migrate-ds --bind-dn&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;cn&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Manager,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --user-container&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ou&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;people,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --group-container&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ou&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;groups,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;gnome,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org --group-objectclass&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;posixGroup ldap://internal-IP:389 --schema&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;RFC2307&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Please &lt;strong&gt;note&lt;/strong&gt; that before running the command you should make sure custom schemas you had on the istance you are migrating from are available to the directory server you are migrating your tree to.&lt;/p&gt;
-&lt;p&gt;More information on the &lt;strong&gt;migration process&lt;/strong&gt; from an existing OpenLDAP istance can be found &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-extending-the-directory-server-with-custom-schemas&#34;&gt;The Migration process – Extending the directory server with custom schemas&lt;/h2&gt;
-&lt;p&gt;One of the other challenges we had to face has been extending the available LDAP schemas to include Foundation membership attributes. This operation requires the following changes:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Build the LDIF (that will include two new custom fields: FirstAdded and LastRenewedOn)&lt;/li&gt;
-&lt;li&gt;Adding the LDIF in place on &lt;strong&gt;/etc/dirsrv/slapd-$ISTANCE-NAME/schema&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Extend the web UI to include the new attributes&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I won’t be explaining how to build a LDIF on this post but I’m however pasting the schema I made to help you getting an idea:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;attributeTypes: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.2 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;LastRenewedOn&amp;#39;&lt;/span&gt; SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last renewed on date&amp;#39;&lt;/span&gt; SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-attributeTypes: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.3 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;FirstAdded&amp;#39;&lt;/span&gt; SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;First added date&amp;#39;&lt;/span&gt; SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-objectClasses: &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; 1.3.6.1.4.1.3319.8.1 NAME &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;FoundationFields&amp;#39;&lt;/span&gt; AUXILIARY MAY &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt; LastRenewedOn $ FirstAdded &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;After copying the schema in place and restarting the directory server, extend the web UI:&lt;/p&gt;
-&lt;p&gt;on &lt;strong&gt;/usr/lib/python2.7/site-packages/ipalib/plugins/foundation.py&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib.plugins&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; user
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib.parameters&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Str
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;ipalib&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; _
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;time&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; strftime
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;re&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;validate_date&lt;/span&gt;(ugettext, value):
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; re&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;match(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$&amp;#34;&lt;/span&gt;, value):
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; _(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;The entered date is wrong, please make sure it matches the YYYY-MM-DD syntax&amp;#34;&lt;/span&gt;)
-
-user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;takes_params &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;user&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;takes_params &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; (
-Str(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded?&amp;#39;&lt;/span&gt;, validate_date,
-cli_name&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;First Added date&amp;#39;&lt;/span&gt;),
-),
-Str(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon?&amp;#39;&lt;/span&gt;, validate_date,
-cli_name&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last Renewed on date&amp;#39;&lt;/span&gt;),
-),
-)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;on &lt;strong&gt;/usr/share/ipa/ui/js/plugins/foundation/foundation.js&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-JavaScript&#34; data-lang=&#34;JavaScript&#34;&gt;define([
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;freeipa/phases&amp;#39;&lt;/span&gt;,
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;freeipa/user&amp;#39;&lt;/span&gt;],
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt;(phases, user_mod) {
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;// helper function
-&lt;/span&gt;&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt; get_item(array, attr, value) {
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;for&lt;/span&gt; (&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; i&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;,l&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;array.length; i&lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;lt;l; i&lt;span style=&#34;color:#666&#34;&gt;++&lt;/span&gt;) {
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; (array[i][attr] &lt;span style=&#34;color:#666&#34;&gt;===&lt;/span&gt; value) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; array[i];
-}
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;null&lt;/span&gt;;
-}
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; foundation_plugin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; {};
-
-foundation_plugin.add_foundation_fields &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;function&lt;/span&gt;() {
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; facet &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; get_item(user_mod.entity_spec.facets, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;$type&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;details&amp;#39;&lt;/span&gt;);
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;var&lt;/span&gt; section &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; get_item(facet.sections, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;);
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;firstadded&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Foundation Member since&amp;#39;&lt;/span&gt;
-});
-
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;lastrenewedon&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Last Renewed on date&amp;#39;&lt;/span&gt;
-});
-
-section.fields.push({
-name&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;description&amp;#39;&lt;/span&gt;,
-label&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Previous account changes&amp;#39;&lt;/span&gt;
-});
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;true&lt;/span&gt;;
-
-};
-
-phases.on(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;customization&amp;#39;&lt;/span&gt;, foundation_plugin.add_foundation_fields);
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; foundation_plugin;
-});
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once done, restart the web server. The next step would be migrating all the &lt;strong&gt;FirstAdded&lt;/strong&gt; and &lt;strong&gt;LastRenewedOn&lt;/strong&gt; attributes off from MySQL into LDAP now that our custom schema has been injected.&lt;/p&gt;
-&lt;p&gt;The relevant MySQL fields were following the YYYY-MM-DD syntax to store the dates and a little Python script to read from MySQL and populate the LDAP attributes was then made. If interested or you are in a similar situation you can find it &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-own-ssl-certificates-for-httpd&#34;&gt;The Migration process – Own SSL certificates for HTTPD&lt;/h2&gt;
-&lt;p&gt;As you may be aware of FreeIPA comes with its own certificate tools (powered by &lt;strong&gt;Certmonger&lt;/strong&gt;), that means a &lt;strong&gt;CA&lt;/strong&gt; is created (during the ipa-server-install run) and certificates for the various services you provide are then created and signed with it. This is definitely great and removes the burden to maintain an underlying self-hosted PKI infrastructure. At the same time this seems to be a problem for publicly-facing web services as browsers will start complaining they don’t trust the CA that signed the certificate the website you are trying to reach is using.&lt;/p&gt;
-&lt;p&gt;The problem is not really a problem as you can specify what certificate HTTPD should be using for displaying FreeIPA’s web UI. The procedure is simple and involves the NSS database at /etc/httpd/alias:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/httpd/alias/ -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;StartSSL CA&amp;#34;&lt;/span&gt; -t CT,C, -a -i sub.class2.server.ca.pem
-certutil -d /etc/pki/nssdb -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;StartSSL CA&amp;#34;&lt;/span&gt; -t CT,C, -a -i sub.class2.server.ca.pem
-openssl pkcs12 -inkey freeipa.example.org.key -in freeipa.example.org.crt -export -out freeipa.example.org.p12 -nodes -name &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;HTTPD-Server-Certificate&amp;#39;&lt;/span&gt;
-pk12util -i freeipa.example.org.p12 -d /etc/httpd/alias/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Once done, update /etc/httpd/conf.d/nss.conf with the correct NSSNickname value. (which should match the one you entered after ‘-name’ on the third of the above commands)&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-equivalent-of-authorized_keys8217-8220command8221&#34;&gt;The Migration process – Equivalent of authorized_keys’ “command”&lt;/h2&gt;
-&lt;p&gt;At GNOME we do run several services that require users to login to specific machines and run a command. At the same time and for security purposes we don’t want all the users to reach a shell. Originally we were making use of SSH’s authorized_keys file to specify the “command” these users should have been restricted to. FreeIPA handles Public Key authentications differently (through the &lt;strong&gt;sss_ssh_authorizedkeys&lt;/strong&gt; binary) which means we had to find an alternative way to restrict groups to only a specific command. SSH’s &lt;strong&gt;ForceCommand&lt;/strong&gt; came in help, an example given a group called ‘foo’:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Match Group foo,!bar
-X11Forwarding no
-PermitTunnel no
-ForceCommand /home/admin/bin/reset-my-password.py&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The above &lt;strong&gt;Match Group&lt;/strong&gt; will be applied to all the users of the ‘foo’ group except the ones that are also part of the ‘bar’ group. If you are interested in the reset-my-password.py script which resets a certain user password and sends a temporary one to the registered email address (by checking the mail LDAP attr) for the user, click &lt;!-- raw HTML omitted --&gt;HERE&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-migration-process-8211-kerberos-host-keytabs&#34;&gt;The Migration process – Kerberos host Keytabs&lt;/h2&gt;
-&lt;p&gt;Here, at &lt;strong&gt;GNOME&lt;/strong&gt;, we still have one or two RHEL 5 hosts hanging around and SSSD reported a failure when trying to authenticate with the given Keytab (generated with RHEL 7 default values) to the KDC running (as you may have guessed) RHEL 7. The issue is simple as RHEL 5 does not support many of the encryption types which the Keytab was being encrypted with. Apparently the only currently supported Keytab encryption type on a RHEL 5 machine is &lt;strong&gt;rc4-hmac&lt;/strong&gt;. Creating a Keytab on the KDC accordingly can be done this way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ipa-getkeytab -s server.example.org -p host/client.example.org -e rc4-hmac -k /root/keytabs/client.example.org.keytab&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That should be all for today, I’ll make sure to update this post with further details or answers to possible comments.&lt;/p&gt;
-</description>
+      <description>A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.</description>
     </item>
     
     <item>
@@ -400,51 +72,8 @@ ForceCommand /home/admin/bin/reset-my-password.py&lt;/code&gt;&lt;/pre&gt;&lt;/d
       <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</guid>
-      <description>&lt;p&gt;As preannounced &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; the GNOME Infrastructure switched to a new Account Management System which is reachable at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://account.gnome.org&#34;&gt;https://account.gnome.org&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;. All the details will follow.&lt;/p&gt;
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by &lt;strong&gt;Jonathan Blandford&lt;/strong&gt; (jrb) who configured an &lt;strong&gt;OpenLDAP&lt;/strong&gt; istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)&lt;/p&gt;
-&lt;p&gt;While OpenLDAP-server was living on the GNOME machine called clipboard (aka ldap.gnome.org) the clients were configured to synchronize users, groups, passwords through the nslcd daemon. After several years &lt;strong&gt;Jeff Schroeder&lt;/strong&gt; joined the Sysadmin Team and during one cold evening (date is Tue, February 1st 2011) spent some time configuring SSSD to replace the nslcd daemon which was missing one of the most important SSSD features: caching. What surely convinced Jeff to adopt SSSD (a very new but promising sofware at that time as the first release happened right before 2010’s Christmas) and as the commit log also states (“New sssd module for ldap information caching”) was SSSD’s caching feature.&lt;/p&gt;
-&lt;p&gt;It was enough for a certain user to log in once and the ‘/var/lib/sss/db’ directory was populated with its login information preventing the LDAP daemon in charge of picking up login details (from the LDAP server) to query the LDAP server itself every single time a request was made against it. This feature has definitely helped in many occasions especially when the LDAP server was down for a particular reason and sysadmins needed to access a specific machine or service: without SSSD this wasn’t ever going to work and sysadmins were probably going to be locked out from the machines they were used to manage. (except if you still had ‘/etc/passwd’, ‘/etc/group’ and ‘/etc/shadow’ entries as fallback)&lt;/p&gt;
-&lt;p&gt;Things were working just fine except for a few downsides that appeared later on:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;the web interface (view) on our LDAP user database was managed by &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Mango&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, an outdated tool which many wanted to rewrite in Django that slowly became a huge dinosaur nobody ever wanted to look into again&lt;/li&gt;
-&lt;li&gt;the Foundation membership information were managed through a MySQL database, so two databases, two sets of users unrelated to each other&lt;/li&gt;
-&lt;li&gt;users were not able to modify their own account information on their own but even a single e-mail change required them to mail the GNOME Accounts Team which was then going to authenticate their request and finally update the account.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Today’s infrastructure changes are here to finally say the issues outlined at (1, 2, 3) are now fixed.&lt;/p&gt;
-&lt;h2 id=&#34;what-has-changed&#34;&gt;What has changed?&lt;/h2&gt;
-&lt;p&gt;The GNOME Infrastructure is now powered by Red Hat’s &lt;strong&gt;FreeIPA&lt;/strong&gt; which bundles several FOSS softwares into one big “bundle” all surrounded by an easy and intuitive web UI that will help users update their account information on their own without the need of the Accounts Team or any other administrative entity. Users will also find two custom fields on their “Overview” page, these being “Foundation Member since” and “Last Renewed on date”. As you may have understood already we finally managed to migrate the Foundation membership database into LDAP itself to store the information we want once and for all. As a side note it might be possible that some users that were Foundation members in the past won’t find any detail stored on the Foundation fields outlined above. That is actually expected as we were able to migrate all the current and old Foundation members that had an LDAP account registered at the time of the migration. If that’s your case and you still would like the information to be stored on the new setup please get in contact with the Membership Committee at stating so.&lt;/p&gt;
-&lt;h2 id=&#34;where-can-i-get-my-first-login-credentials&#34;&gt;Where can I get my first login credentials?&lt;/h2&gt;
-&lt;p&gt;Let’s make a little distinction between users that previously had access to Mango (usually maintainers) and users that didn’t. If you were used to access Mango before you should be able to login on the new Account Management System by entering your GNOME username and the password you were used to use for loggin in into Mango. (after loggin in the very first time you will be prompted to update your password, please choose a strong password as this account will be unique across all the GNOME Infrastructure)&lt;/p&gt;
-&lt;p&gt;If you never had access to Mango, you lost your password or the first time you read the word Mango on this post you thought “why is he talking about a fruit now?” you should be able to reset it by using the following command:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ssh -l yourgnomeuserid account.gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The command will start an SSH connection between you and account.gnome.org, once authenticated (with the SSH key you previously had registered on our Infrastructure) you will trigger a command that will directly send your brand new password on the e-mail registered for your account. From my tests seems GMail sees the e-mail as a phishing attempt probably because the body contains the word “password” twice. That said if the e-mail won’t appear on your INBOX, please &lt;strong&gt;double-check&lt;/strong&gt; your Spam folder.&lt;/p&gt;
-&lt;h2 id=&#34;now-that-mango-is-gone-how-can-i-request-a-new-account&#34;&gt;Now that Mango is gone how can I request a new account?&lt;/h2&gt;
-&lt;p&gt;With Mango we used to have a form that automatically e-mailed the maintainer of the selected GNOME module which was then going to approve / reject the request. From there and in the case of a positive vote from the maintainer the Accounts Team was going to create the account itself.&lt;/p&gt;
-&lt;p&gt;With the &lt;!-- raw HTML omitted --&gt;recent introduction of a commit robot directly on l10n.gnome.org&lt;!-- raw HTML omitted --&gt; the number of account requests reduced its numbers. In addition to that users will now be able to perform pretty much all the needed maintenance on their accounts themselves. That said and while we will probably work on building a form in the future we feel that requesting accounts can definitely be achieved directly by mailing the Accounts Team itself which will mail the maintainer of the respective module and create the account. As just said the number of account creations has become very low and the queue is currently clear. The documentation has been updated to reflect these changes at:&lt;/p&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/AccountsTeam&#34;&gt;https://wiki.gnome.org/AccountsTeam&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/AccountsTeam/NewAccounts&#34;&gt;https://wiki.gnome.org/AccountsTeam/NewAccounts&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;h2 id=&#34;i-was-used-to-have-access-to-a-specific-service-but-i-don8217t-anymore-what-should-i-do&#34;&gt;I was used to have access to a specific service but I don’t anymore, what should I do?&lt;/h2&gt;
-&lt;p&gt;The migration of all the user data and ACLs has been massive and I’ve been spending a lot of time reviewing the existing HBAC rules trying to spot possible errors or misconfigurations. If you happen to not being able to access a certain service as you were used to in the past, please get in contact with the Sysadmin Team. All the possible ways to contact us are available at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/Sysadmin/Contact&#34;&gt;https://wiki.gnome.org/Sysadmin/Contact&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;what-is-missing-still&#34;&gt;What is missing still?&lt;/h2&gt;
-&lt;p&gt;Now that the Foundation membership information has been moved to LDAP I’ll be looking at porting some of the existing membership scripts to it. What I managed to port already are welcome e-mails for new or existing members. (renewals)&lt;/p&gt;
-&lt;p&gt;Next step will be generating a membership page from LDAP (to populate &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;http://www.gnome.org/foundation/membership&#34;&gt;http://www.gnome.org/foundation/membership&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;) and all the your-membership-is-going-to-lapse e-mails that were being sent till today.&lt;/p&gt;
-&lt;h2 id=&#34;other-news-8211-homeusers-mount-on-mastergnomeorg&#34;&gt;Other news – /home/users mount on master.gnome.org&lt;/h2&gt;
-&lt;p&gt;You will notice that loggin in into &lt;strong&gt;master.gnome.org&lt;/strong&gt; will result in your home directory being empty, don’t worry, you did not lose any of your files but master.gnome.org is now currently hosting your home directories itself. As you may have been aware of adding files to the public_html directory on master resulted in them appearing on your &lt;strong&gt;people.gnome.org/~userid&lt;/strong&gt; space. That was unfortunately expected as both master and webapps2 (the machine serving people.gnome.org’s webspaces) were mounting the same GlusterFS share.&lt;/p&gt;
-&lt;p&gt;We wanted to prevent that behaviour to happen as we wanted to know who has access to what resource and where. From today master’s home directories will be there just as a temporary spot for your tarballs, just scp and use ftpadmin against them, that should be all you need from master. If you are interested in receiving or keeping using your people.gnome.org’s webspace please mail &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt; stating so.&lt;/p&gt;
-&lt;h2 id=&#34;other-news-8211-a-shiny-and-new-error-500-page-has-been-deployed&#34;&gt;Other news – a shiny and new error 500 page has been deployed&lt;/h2&gt;
-&lt;p&gt;Thanks to &lt;strong&gt;Magdalen Berns&lt;/strong&gt; (magpie) a new error 500 web page has been deployed on all the Apache istances we host. The page contains an iframe of &lt;strong&gt;status.gnome.org&lt;/strong&gt; and will appear every single time the web server behind the service you are trying to reach will be unreachable for maintenance or other purposes. While I hope you won’t see the page that often you can still enjoy it at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://static.gnome.org/error-500/500.html&#34;&gt;https://static.gnome.org/error-500/500.html&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;. Make sure to whitelist status.gnome.org on your browser as it currently loads it without https. (as the service is currently hosted on OpenShift which provides us with a *.rhcloud.com wildcard certificate, which differs from the CN the browser would expect it to be)&lt;/p&gt;
-&lt;h2 id=&#34;updates&#34;&gt;Updates&lt;/h2&gt;
-&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; on status.gnome.org’s SSL certificate: the certificate has been provisioned and it should result in the 500’s page to be displayed correctly with no warnings from your browser.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; from Adam Young on Kerberos ports being closed on many DC’s firewalls:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The next version of upstream MIT Kerberos will have support for fetching a ticket via ports 443 and marshalling the request over HTTPS. We’ll need to run a proxy on the server side, but we should be able to make it work:&lt;/p&gt;
-&lt;p&gt;Read up here&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;http://adam.younglogic.com/2014/06/kerberos-firewalls&#34;&gt;http://adam.younglogic.com/2014/06/kerberos-firewalls&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-</description>
+      <description>As preannounced herethe GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
+Introduction It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by Jonathan Blandford (jrb) who configured an OpenLDAP istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)</description>
     </item>
     
     <item>
@@ -453,46 +82,7 @@ ForceCommand /home/admin/bin/reset-my-password.py&lt;/code&gt;&lt;/pre&gt;&lt;/d
       <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</guid>
-      <description>&lt;p&gt;I wanted to give &lt;!-- raw HTML omitted --&gt;Fedy&lt;!-- raw HTML omitted --&gt; a try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.&lt;/p&gt;
-&lt;p&gt;The interface was pretty straightforward and installing Brackets was as easy and clicking on the relevant button. Before starting the installation I gave a fast look around to the various bash scripts used by Fedy to install the package I wanted and yeah, I admit I did not pay enough attention to a few lines of the code and went ahead with the installation.&lt;/p&gt;
-&lt;p&gt;After hacking a bit with Brackets I decided it was time for me to head to bed but shutting down my laptop surprisingly returned various errors related to Systemd’s journal not being able to shutdown properly. I then tried to reboot the machine and found out the laptop was totally not bootable anymore.&lt;/p&gt;
-&lt;p&gt;The error it was reported at boot (Systemd Journal not being able to start properly) was pretty strange and after looking around the web I couldn’t find any other report about similar failures. I then started digging around with a friend and made the following guesses:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;The root partition was running out of space (just 70M left), I then cleaned it a bit and rebooted with no luck. My first guess was &lt;em&gt;/tmp&lt;/em&gt; going out of space when Systemd tries to populate it at boot time.&lt;/li&gt;
-&lt;li&gt;I checked yum history to find out what Fedy could have taken in, but nothing relevant was found given Fedy does not install RPM packages on its own, it usually retrieves a tarball (or in my case a DEB package) and installs it by extracting / cping the content&lt;/li&gt;
-&lt;li&gt;I turned SELinux to Permissive and rebooted the machine, surprise, the machine was bootable again&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The next move was running a &lt;em&gt;restorecon -r -v /&lt;/em&gt; against the root partition, the result was awful: the whole &lt;em&gt;/usr&lt;/em&gt;‘s context was turned into &lt;em&gt;usr_tmp_t&lt;/em&gt;. Digging around the code for the Brackets installer the following code was found:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mkdir -p &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;
-ar p &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$file&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;data.tar.gz&amp;#34;&lt;/span&gt; | tar -C &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; -xzf -
-cp -af &lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;/* &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
-&lt;p&gt;And previously:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;get_file_quiet &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://download.brackets.io/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets.htm&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;$(&lt;/span&gt;cat &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets.htm&amp;#34;&lt;/span&gt; | tr &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt; | grep -o &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;file.cfm?platform=LINUX&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;arch&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;amp;build=[0-9]*&amp;#34;&lt;/span&gt; | head -n &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; | sed -e &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;s/^/http:\/\/download.brackets.io\//&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;)&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets-LINUX.deb&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
-&lt;p&gt;So what the installer was doing is:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Downloading the DEB file from the Brackets website&lt;/li&gt;
-&lt;li&gt;Extracting its content to &lt;em&gt;/tmp/fedy&lt;/em&gt; and copying the contents of the &lt;em&gt;data.tar.gz&lt;/em&gt; tarball in place&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;A tree view of the &lt;em&gt;data.tar.gz&lt;/em&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;.
-|-- opt
-| &lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- brackets
-&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- usr
-|-- bin
-&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- share&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
-&lt;p&gt;Copying the extracted content of the &lt;em&gt;data.tar.gz&lt;/em&gt; tarball to the target directories will do exactly one thing: it will overwrite the SELinux context of your &lt;em&gt;/usr&lt;/em&gt;, &lt;em&gt;/bin&lt;/em&gt;, &lt;em&gt;/share&lt;/em&gt; directories breaking your system. I would advise everyone to &lt;strong&gt;NOT&lt;/strong&gt; make use of &lt;strong&gt;Fedy&lt;/strong&gt; for installing the Brackets editor until the issue has been fixed. Honestly speaking I didn’t have time / willingness to check other bash scripts but something nasty might be found there as well. Generally I would never recommend to install anything on your system without making use of an RPM package. Lesson learned for me to never trust such tools in the future on my local system.&lt;/p&gt;
-&lt;p&gt;The issue seems it was reported already one month ago, we added our report to the same issue. You can track it at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/issues/79&#34;&gt;https://github.com/satya164/fedy/issues/79&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;Resources:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Faulty bash script: &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh&#34;&gt;https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
-&lt;li&gt;Why &lt;em&gt;usr_tmp_t&lt;/em&gt; gets added as &lt;em&gt;/usr&lt;/em&gt;‘s context: &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/blob/master/fedy#L26&#34;&gt;https://github.com/satya164/fedy/blob/master/fedy#L26&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;/ol&gt;
-</description>
+      <description>I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
     </item>
     
     <item>
@@ -501,68 +91,8 @@ cp -af &lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&g
       <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</guid>
-      <description>&lt;p&gt;It’s been a while now since the very first time I posed my hands on this shiny new &lt;strong&gt;Samsung Chronos Series 7&lt;/strong&gt; laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?&lt;/p&gt;
-&lt;p&gt;What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual. Right after booting the machine I disabled Windows 8’s Secure Boot, configured the laptop to boot from the USB Key I plugged in and restarted it to finally perform the real OS installation.&lt;/p&gt;
-&lt;p&gt;The laptop booted back (with UEFI mode marked as on) and the installation started. The Chronos Series 7 came with an iSSD of 16G in size, not much but definitely enough for keeping the root partition, swap and home directory. (I don’t need an huge home dir given all the various data is stored and mounted through NFS directly from the NAS)&lt;/p&gt;
-&lt;p&gt;The installation went just fine and no issues arised at all until I booted into the system. The laptop since the beginning started to reach high CPU and graphics card temperatures (sticking around &lt;strong&gt;75-78 C&lt;/strong&gt; for the CPU and &lt;strong&gt;60 C&lt;/strong&gt; for the NVIDIA card), the fans were constantly on and I could feel the heat of the machine while typing. But that’s not all, the backlit keyboard had its lights always set as on (even in the case of a locked screen) and the battery life was sticking around one hour and an half.&lt;/p&gt;
-&lt;p&gt;I’m now going to list all my findings and solutions for the above issues after spending some time debugging and trying hard.&lt;/p&gt;
-&lt;h2 id=&#34;uefi-vs-csm-legacy-bios-compatibility-mode&#34;&gt;UEFI vs CSM (Legacy BIOS Compatibility mode)&lt;/h2&gt;
-&lt;p&gt;Installing Fedora 20 with UEFI will result in your laptop not loading the &lt;strong&gt;samsung-laptop&lt;/strong&gt; kernel module at all. That is the result of a known bug (with a good chance to brick your laptop) on Samsung laptops and UEFI boots (mainly related to the incompatibility between the samsung-laptop kernel module and the Samsung’s UEFI firmware and its corruption when the module is loaded) . More details &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;That said, before starting the installation, press &lt;strong&gt;Fn+F2&lt;/strong&gt; right after powering up your laptop, you will be then prompted with the laptop’s Setup configuration. Switch to the &lt;strong&gt;Boot&lt;/strong&gt; tab and disable Secure Boot making sure &lt;strong&gt;CSM&lt;/strong&gt; is selected on the dropdown window. (before moving on make also sure to disable the &lt;strong&gt;Fast BIOS Mode&lt;/strong&gt; on the Advanced tab before proceeding)&lt;/p&gt;
-&lt;p&gt;When done, boot up a copy of Fedora 20 with your preferred media (I did use the Live CD myself) and make your way through the installation. Make sure to read on before touching the disk partitioning schemas.&lt;/p&gt;
-&lt;h2 id=&#34;issd-not-recognized-with-csm-mode-marked-as-on&#34;&gt;iSSD not recognized with CSM mode marked as on&lt;/h2&gt;
-&lt;p&gt;During one of my trials I did try to install the OS directly on the iSSD (in our examples, &lt;em&gt;/dev/sdb&lt;/em&gt;) itself. The result was the system being completely un-bootable probably cause the EFI firmware being unable to recognize the iSSD on CSM mode. (the only disk that was getting recognized was the 750G HDD (in our examples, &lt;em&gt;/dev/sda&lt;/em&gt;) the laptop has as an additional storage)&lt;/p&gt;
-&lt;p&gt;While the EFI firmware is not able to recognize the iSSD at all properly (when in CSM mode) it can flawlessly detect the HDD. That means one thing: we can keep the root, home and swap partitions on the iSSD and move the boot, bios boot partitions on the HDD itself and boot up the machine from there.&lt;/p&gt;
-&lt;h2 id=&#34;the-installation&#34;&gt;The installation&lt;/h2&gt;
-&lt;p&gt;We left our installation tutorial right before starting the installation itself through Anaconda. Let’s resume from there by making sure the following partitions are created on the HDD (from now on &lt;em&gt;/dev/sda&lt;/em&gt;):&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;a &lt;strong&gt;bios-boot&lt;/strong&gt; partition (details on how to set it up at &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;).&lt;/li&gt;
-&lt;li&gt;a &lt;strong&gt;boot&lt;/strong&gt; partition (ext4, 500M in size)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Once done, perform the installation on the iSSD (from now on &lt;em&gt;/dev/sdb&lt;/em&gt;), my setup on the 16G iSSD:&lt;/p&gt;
-&lt;p&gt;LVM Volume Group with three logical volumes:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;5.12 G&lt;/strong&gt; /home + Luks (5.12 G for an home directory seems not enough but that’s definitely more than enough when you have a local HDD and a NAS with more than 2T of storage)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;7.8 G&lt;/strong&gt; / (I prefer keeping root a big bigger than home to prevent the need to cleanup the yum cache and other packages cruft every now and then)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;1.5 G&lt;/strong&gt; swap space&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Another working setup might be:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;A &lt;strong&gt;15G&lt;/strong&gt; / partition on the iSSD, no need for LVM here&lt;/li&gt;
-&lt;li&gt;An LVM Volume Group that will store the /home and swap space so you can expand it to be more than just &lt;strong&gt;5G / 1.5G&lt;/strong&gt;. The LVM VolGroup should ideally go on its own partition on &lt;em&gt;/dev/sda&lt;/em&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;When the system has been installed, mount the &lt;em&gt;/dev/sda&lt;/em&gt; boot partition you previously created and install grub:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mount /dev/sda3 /mnt/boot-sda
-
-grub2-install /dev/sda&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I did assume &lt;em&gt;/dev/sda3&lt;/em&gt; was your /boot partition, make sure to check that is right for your case as well. (just run &lt;em&gt;fdisk -l /dev/sda&lt;/em&gt; to find out)&lt;/p&gt;
-&lt;p&gt;When done, mount the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition and copy all the files to the previously created mount point /mnt/boot-sda. From there figure out the UUID (&lt;em&gt;ls -l /dev/disk/by-uuid&lt;/em&gt;) for the /dev/sda3 partition and modify the relevant entries on the &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; file removing the UUID for the &lt;em&gt;/dev/sdb1&lt;/em&gt; (in my case that was the partition containing /boot) partition with the one of &lt;em&gt;/dev/sda3&lt;/em&gt;. Save the file and reboot the machine.&lt;/p&gt;
-&lt;p&gt;You should then be able to unmount the /boot partition from &lt;em&gt;/dev/sdb1&lt;/em&gt; and modify the relevant &lt;em&gt;/etc/fstab&lt;/em&gt; entry with &lt;em&gt;/dev/sda3&lt;/em&gt;‘s UUID. That way new kernel’s installations will be handled correctly without the need to manually edit &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; and moving around the initramfs / vmlinuz images. At this point it should be safe to remove the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition completely.&lt;/p&gt;
-&lt;h2 id=&#34;things-to-do-after-installing-fedora-20&#34;&gt;Things to do after installing Fedora 20&lt;/h2&gt;
-&lt;h3 id=&#34;installing-bumblebee&#34;&gt;Installing Bumblebee&lt;/h3&gt;
-&lt;p&gt;The &lt;strong&gt;NP700Z3C&lt;/strong&gt; has a &lt;strong&gt;NVIDIA GeForce GT 630M&lt;/strong&gt; that benefits from the &lt;strong&gt;NVIDIA Optimus technology&lt;/strong&gt; which allows the user to gather the maximum performance possible when launching specific high-demand applications (like during gameplay or while watching an HD movie) and fallback to the integrated GPU when the user is performing normal operations like browsing the web, writing emails or text editing.&lt;/p&gt;
-&lt;p&gt;Luckily the Bumblebee project comes in help about this providing Optimus support for a variety of Linux distributions. More details on how to set it up &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. (you will need &lt;strong&gt;bumblebee&lt;/strong&gt;, &lt;strong&gt;bumblebee-nvidia&lt;/strong&gt; and &lt;strong&gt;bbswitch&lt;/strong&gt;)&lt;/p&gt;
-&lt;h3 id=&#34;installing-tlp&#34;&gt;Installing TLP&lt;/h3&gt;
-&lt;p&gt;From the &lt;strong&gt;tlp&lt;/strong&gt;‘s website:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;TLP brings you the benefits of advanced power management for Linux without the need to understand every technical detail. TLP comes with a default configuration already optimized for battery life, so you may just install and forget it. Nevertheless TLP is highly customizable to fulfil your specific requirements.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;I can tell you power management for your laptop has never been easier with tlp. Make sure to visit tlp’s &lt;!-- raw HTML omitted --&gt;homepage&lt;!-- raw HTML omitted --&gt; for more details on how to set it up.&lt;/p&gt;
-&lt;h3 id=&#34;samsung-tools&#34;&gt;Samsung Tools&lt;/h3&gt;
-&lt;p&gt;From the &lt;strong&gt;samsung-tool&lt;/strong&gt;‘s homepage:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Samsung Tools is the successor of Samsung Scripts provided by the ‘Linux On My Samsung’ project.&lt;/p&gt;
-&lt;p&gt;It enables control in a friendly way of the devices available on Samsung laptops (bluetooth, wireless, webcam, backlight, CPU fan, special keys) and the control of various aspects related to power management, like the CPU undervolting (when a PHC-enabled kernel is available).&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Given there’s no RPM available for samsung-tools, downloading the tarball and running make as root should suffice for installing it on your laptop.&lt;/p&gt;
-&lt;h3 id=&#34;kernel-flags&#34;&gt;Kernel flags&lt;/h3&gt;
-&lt;p&gt;What seem to have helped me a lot with the high CPU temperatures (and thus with the noisy fans going on and on) are the following Kernel flags you should pass to Grub through the &lt;em&gt;/etc/sysconfig/grub&lt;/em&gt; file on the &lt;em&gt;GRUB_CMDLINE_LINUX&lt;/em&gt; line:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;pcie_aspm&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;force i915.i915_enable_rc6&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.i915_enable_fbc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.lvds_downclock&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.semaphores&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.modeset&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;acpi_osi&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Linux &lt;span style=&#34;color:#bb60d5&#34;&gt;rdblacklist&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;nouveau&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&#34;additional-notes&#34;&gt;Additional notes&lt;/h3&gt;
-&lt;p&gt;The above procedure has been tested with the laptop having the following &lt;!-- raw HTML omitted --&gt;specs&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;The average temperature for the CPU is sticking around &lt;strong&gt;47-51 C&lt;/strong&gt;, while the discrete GPU at &lt;strong&gt;49-51C&lt;/strong&gt;. I could also get around 3.5 – 4 hours of battery life!&lt;/p&gt;
-&lt;p&gt;That should be all! Please leave me a comment in case of questions, troubles with the above setup!&lt;/p&gt;
-</description>
+      <description>It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?
+What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual.</description>
     </item>
     
     <item>
@@ -571,61 +101,8 @@ grub2-install /dev/sda&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</guid>
-      <description>&lt;p&gt;I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. &lt;strong&gt;Hurricane Electrics&lt;/strong&gt; (HE) provides (for free) five configurable &lt;strong&gt;IPv4-to-IPv6&lt;/strong&gt; tunnels together with a free &lt;strong&gt;DNS service&lt;/strong&gt; and an interesting &lt;strong&gt;certification program&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/certificate_badge.png&#34; alt=&#34;Hurricane Electrics IPv6 Certification&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Willing to test the latest revision of the Internet Protocol on your &lt;strong&gt;Debian&lt;/strong&gt;, &lt;strong&gt;Ubuntu&lt;/strong&gt;, &lt;strong&gt;Fedora&lt;/strong&gt; machines? Here’s &lt;strong&gt;how&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Register yourself at Hurricane Electrics by visiting &lt;!-- raw HTML omitted --&gt;tunnelbroker.net&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; &lt;!-- raw HTML omitted --&gt;Create a new tunnel&lt;!-- raw HTML omitted --&gt; and make sure to use your &lt;strong&gt;public IP&lt;/strong&gt; address as your &lt;strong&gt;IPv4 Endpoint&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Write down the relevant details of your tunnel, specifically:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Server IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::1 /64&lt;/li&gt;
-&lt;li&gt;Server IPv4 Address: 216.66.84.46 (this actually depends on which server did you choose on the previous step)&lt;/li&gt;
-&lt;li&gt;Client IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::2/64&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/tunnel_broker.png&#34; alt=&#34;Tunnel Broker&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Create a little script that will update your &lt;strong&gt;IPv4 tunnel endpoint&lt;/strong&gt; every time your internet IP &lt;strong&gt;changes&lt;/strong&gt;. (this step is not needed if you have an internet connection with a &lt;strong&gt;static IP&lt;/strong&gt;):&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;USERNAME&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEUsername
-&lt;span style=&#34;color:#bb60d5&#34;&gt;PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEPassword
-&lt;span style=&#34;color:#bb60d5&#34;&gt;TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHETunnelID
-GET &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$USERNAME&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;@ipv4.tunnelbroker.net/ipv4_end.php?tid=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; Create the networking &lt;strong&gt;configuration&lt;/strong&gt; files on your computer:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Debian / Ubuntu&lt;/strong&gt;, on the &lt;strong&gt;/etc/network/interfaces&lt;/strong&gt; file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;auto he-ipv6
-iface he-ipv6 inet6 v4tunnel
-address 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2
-netmask &lt;span style=&#34;color:#40a070&#34;&gt;64&lt;/span&gt;
-endpoint 216.66.80.30
-&lt;span style=&#34;color:#007020&#34;&gt;local&lt;/span&gt; 192.168.X.X &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-ttl &lt;span style=&#34;color:#40a070&#34;&gt;255&lt;/span&gt;
-gateway 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1
-pre-up /home/user/bin/update_tunnel.sh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Fedora&lt;/strong&gt;, on the ** /etc/sysconfig/network-scripts/ifcfg-he-ipv6** file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;DEVICE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;he-ipv6
-&lt;span style=&#34;color:#bb60d5&#34;&gt;TYPE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;sit
-&lt;span style=&#34;color:#bb60d5&#34;&gt;BOOTPROTO&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;none
-&lt;span style=&#34;color:#bb60d5&#34;&gt;ONBOOT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6INIT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;216.66.80.30&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4LOCAL&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;192.168.X.X&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6ADDR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2/64&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and on the &lt;strong&gt;/etc/sysconfig/network&lt;/strong&gt; file, add:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;NETWORKING_IPV6&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTGW&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1&amp;#34;&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTDEV&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;he-ipv6&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;You can then set up a little &lt;strong&gt;/sbin/ifup-pre-local&lt;/strong&gt; script to update the IPv4 tunnel endpoint when your dynamic IP changes or simply add the script on the &lt;strong&gt;/etc/cron.daily&lt;/strong&gt; directory and have it executed when you turn up your computer.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/ipv6_test.png&#34; alt=&#34;A sample image taken from ipv6-test.com.&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; Change the DNS servers on &lt;strong&gt;/etc/resolv.conf&lt;/strong&gt;:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;OpenDNS:&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2620:0:ccc::2
-nameserver 2620:0:ccd::2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Google DNS&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2001:4860:4860::8888
-nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt; Restart your network and enjoy IPv6!&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; If you want to know more about IPv6 take some time for the &lt;!-- raw HTML omitted --&gt;HE Certification program&lt;!-- raw HTML omitted --&gt;, you will learn a lot and eventually win a sponsored &lt;strong&gt;t-shirt&lt;/strong&gt;, I just finished mine :-)&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;EDIT&lt;/strong&gt;: Be aware of the fact that as soon as the tunnel is up, your computer will be exposed to to the internet without any kind of firewall (the tunnel sets up a direct connection to the internet, even bypassing your router’s firewall), you can secure your machine by using &lt;strong&gt;ip6tables&lt;/strong&gt;. Thanks Michael Zanetti for pointing this out!&lt;/p&gt;
-</description>
+      <description>I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. Hurricane Electrics (HE) provides (for free) five configurable IPv4-to-IPv6 tunnels together with a free DNS service and an interesting certification program.
+Willing to test the latest revision of the Internet Protocol on your Debian, Ubuntu, Fedora machines?</description>
     </item>
     
     <item>
@@ -634,13 +111,8 @@ nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</guid>
-      <description>&lt;p&gt;Exactly one week ago I was attending the &lt;!-- raw HTML omitted --&gt;Fedora Activity Day&lt;!-- raw HTML omitted --&gt; organized in &lt;strong&gt;Milan&lt;/strong&gt; in concomitance with the &lt;strong&gt;Linux Day&lt;/strong&gt; event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.&lt;/p&gt;
-&lt;p&gt;Each of us presented a specific &lt;strong&gt;Fedora&lt;/strong&gt;-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following &lt;!-- raw HTML omitted --&gt;link&lt;!-- raw HTML omitted --&gt;) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/11/fad.jpg&#34; alt=&#34;fad&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Unfortunately something didn’t work as expected and the number of visitors that joined our event was very limited. The lack of marketing is apparently one of the most common problems within Linux and its derivative distributions especially when it comes to attending specific events. I feel our event’s concomitance with the Linux Day was one of the main causes, especially when the &lt;strong&gt;LuG&lt;/strong&gt; (Linux User Group) behind the event sponsors a distribution which is not the same as the one you promote. I’m pretty much sure there is a lot of space for improvements but the team is still very young and a lot of work will be put together to improve our next events, that said I would like to thank &lt;strong&gt;Gabriele Trombini&lt;/strong&gt; and &lt;strong&gt;Marina Latini&lt;/strong&gt; for taking the time and efforts for organizing everything in an awesome location like Milan is.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/11/swag.jpg&#34; alt=&#34;fad&#34;&gt;&lt;/p&gt;
-&lt;p&gt;We also had the luck to have a Gnomer sitting in one of the chairs of the &lt;!-- raw HTML omitted --&gt;Politecnico&lt;!-- raw HTML omitted --&gt;‘s classroom where we were presenting our Fedora activities: &lt;!-- raw HTML omitted --&gt;Paolo Borelli&lt;!-- raw HTML omitted --&gt;, the father of &lt;!-- raw HTML omitted --&gt;Gedit&lt;!-- raw HTML omitted --&gt; and one of the most active GNOME developers. His first question right after meeting up? “hey Andrea, given the fact &lt;!-- raw HTML omitted --&gt;CIA.vc is dead&lt;!-- raw HTML omitted --&gt;, are you going to set up a &lt;!-- raw HTML omitted --&gt;KGB&lt;!-- raw HTML omitted --&gt; istance sooner or later for GNOME? being a sysadmin has never been easy :-)&lt;/p&gt;
-</description>
+      <description>Exactly one week ago I was attending the Fedora Activity Dayorganized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
+Each of us presented a specific Fedora-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following link) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</description>
     </item>
     
     <item>
@@ -649,17 +121,8 @@ nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Wed, 19 Sep 2012 16:17:27 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</guid>
-      <description>&lt;p&gt;È con piacere che annuncio la mia presenza al &lt;strong&gt;Fedora Activity Day&lt;/strong&gt; di Milano in data &lt;strong&gt;27 Ottobre 2012&lt;/strong&gt; e con altrettanto piacere ringrazio gli organizzatori per avermi dedicato uno spazio di trenta minuti in cui discutere ed approfondire le tematiche derivanti dall’amministrazione di sistemi Linux, nello specifico, dell’amministrazione degli stessi computer che ospitano e rendono disponibili numerosi servizi alle migliaia di utenti Fedora che contribuiscono quotidianamente al progetto.&lt;/p&gt;
-&lt;p&gt;Ho partecipato fisicamente, purtroppo, a pochissimi eventi &lt;strong&gt;Open Source&lt;/strong&gt; e per questo motivo sono particolarmente emozionato di aver la possibilità di prender parte ad una manifestazione così sentita ed apprezzata come il &lt;strong&gt;Linux Day&lt;/strong&gt;, contesto in cui lo stesso &lt;strong&gt;Fedora Activity Day&lt;/strong&gt; prenderà piede. Le aspettative sono tante e mi impegnerò in modo tale da presentare al pubblico il maggior numero di strumenti e attività inerenti all’amministrazione di sistemi Linux, il tutto con la speranza di invogliare il maggior numero dei presenti a contribuire allo stesso progetto &lt;strong&gt;Fedora&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;A titolo introduttivo elenco alcuni dei &lt;strong&gt;punti&lt;/strong&gt; su cui mi soffermerò durante il mio &lt;strong&gt;talk&lt;/strong&gt;:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Quali sono i principi fondamentali a cui l’infrastruttura Fedora si ispira.&lt;/li&gt;
-&lt;li&gt;Chi c’è dietro all’infrastruttura Fedora, quante persone e con quali competenze, quali sono i mezzi di comunicazione.&lt;/li&gt;
-&lt;li&gt;Quanti e quali Datacenter permettono al progetto Fedora di funzionare.&lt;/li&gt;
-&lt;li&gt;Quali sono i software utilizzati, come vengono utilizzati e con quali strumenti il team Infrastruttura provvede alla manutenzione dei sistemi fisici e virtuali disponibili, come vengono monitorati i server Fedora e molto altro!&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Con la speranza di una partecipazione numerosa, vi rimando alla &lt;!-- raw HTML omitted --&gt;pagina &lt;!-- raw HTML omitted --&gt;dedicata all’evento.&lt;/p&gt;
-</description>
+      <description>È con piacere che annuncio la mia presenza al Fedora Activity Day di Milano in data 27 Ottobre 2012 e con altrettanto piacere ringrazio gli organizzatori per avermi dedicato uno spazio di trenta minuti in cui discutere ed approfondire le tematiche derivanti dall’amministrazione di sistemi Linux, nello specifico, dell’amministrazione degli stessi computer che ospitano e rendono disponibili numerosi servizi alle migliaia di utenti Fedora che contribuiscono quotidianamente al progetto.
+Ho partecipato fisicamente, purtroppo, a pochissimi eventi Open Source e per questo motivo sono particolarmente emozionato di aver la possibilità di prender parte ad una manifestazione così sentita ed apprezzata come il Linux Day, contesto in cui lo stesso Fedora Activity Day prenderà piede.</description>
     </item>
     
     <item>
@@ -668,23 +131,8 @@ nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Mon, 30 May 2011 21:06:14 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/05/30/fedora-boards-town-hall/</guid>
-      <description>&lt;p&gt;Today we had a great &lt;a href=&#34;https://fedoraproject.org/wiki/Elections#IRC_Town_Halls&#34;&gt;Town Hall&lt;/a&gt; meeting kindly hosted and moderated by &lt;!-- raw HTML omitted --&gt;Kevin Fenzi (nirik)&lt;!-- raw HTML omitted --&gt;. We received a lot of interesting and nice questions by the contributors and developers that were attending:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;What do you feel needs to be improved in the Fedora Community? How can you’re being on the Board improve the Community?&lt;/li&gt;
-&lt;li&gt;Do you think that too many issues in Fedora are referred directly to the Board, and if so, how would you like to see this improved?&lt;/li&gt;
-&lt;li&gt;Tell us something about what you like doing that isn’t computer or fedora related. What do you like doing for fun?&lt;/li&gt;
-&lt;li&gt;What do you plan to do about the issues of polish? Specifically, shipping with minor issues that with recent releases have been hurting the Fedora name.&lt;/li&gt;
-&lt;li&gt;What are the plans for mobile devices, such as phones, tablets, ‘pads’, etc.? What are the chances of working on a ‘spin’ for such emerging technologies?&lt;/li&gt;
-&lt;li&gt;The board has discussed working on “goals” over the next term. (a) do you think these goals should be focused on helping “us” (people already in the community) or our “target audience”? (b) what goals would you like to see fedora achieve?&lt;/li&gt;
-&lt;li&gt;Is anyone in favor the board doing more of its business in public view? I mean like all of it that actually can be?&lt;/li&gt;
-&lt;li&gt;What do you plan to do to address operator abuse in #fedora? 2. What penalties will there be for operators when it’s deemed that they are abusing their authority or swaying from Fedora’s values?&lt;/li&gt;
-&lt;li&gt;What can be done to bring Fedora to lead market share amonsgt Linux desktops? What can be done to take market share from Microsoft Windows?&lt;/li&gt;
-&lt;li&gt;How do you measure the success of the Fedora Project as a whole?&lt;/li&gt;
-&lt;li&gt;Recently we’ve seen an influx in new users with questions as well as new volunteers with skills (and no idea where to make use of them). What should we do to better facilitate community engagement?&lt;/li&gt;
-&lt;li&gt;How do the candidates feel that they are viewed by the general population of new Fedora users as representatives of Fedora, and do they set an example of model behavior? If so how?&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;If any of the above questions do cover a topic you are interested in, please take a few minutes to read candidates answers and discussions by looking at the meeting’s &lt;a href=&#34;http://meetbot.fedoraproject.org/fedora-townhall/2011-05-30/fedora_board_town_hall.2011-05-30-19.01.log.html&#34;&gt;log&lt;/a&gt;. Enjoy!&lt;/p&gt;
-</description>
+      <description>Today we had a great Town Hall meeting kindly hosted and moderated by Kevin Fenzi (nirik). We received a lot of interesting and nice questions by the contributors and developers that were attending:
+ What do you feel needs to be improved in the Fedora Community? How can you’re being on the Board improve the Community? Do you think that too many issues in Fedora are referred directly to the Board, and if so, how would you like to see this improved?</description>
     </item>
     
     <item>
@@ -693,33 +141,8 @@ nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Wed, 25 May 2011 20:45:10 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</guid>
-      <description>&lt;p&gt;If you are not subscribed to the &lt;!-- raw HTML omitted --&gt;fedora-announce&lt;!-- raw HTML omitted --&gt; mailing list but you are still interested in having a look at my responses about &lt;!-- raw HTML omitted --&gt;community-asked questions&lt;!-- raw HTML omitted --&gt;, here they are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;What will you be able to accomplish by being elected, that you would not otherwise be able to do as a contributor?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;(As you will notice by reading the list right down here) Being a single contributor makes achieving these points impossible since changing how localized communities should work, improving our CoC and enforcing its rules and re-thinking Board’s role in our community is something that must be discussed and voted within the Board and its members.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;What are your top three priorities as a board member?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If elected, I will mainly try to focus on:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Improving Fedora’s localization putting a great effort on introducing a form of formalization for specific localized communities having all the needed requirements to gain the “blessing” of Official local community for a certain country or language / dialect. This means pursuing one main objective, which is making Fedora Ambassadors and contributors not fighting each other but acting together as a community. Having two-three or even four websites / local communities just for the Italian or French langs is simply the wrong way to achieve the result of having a Fedora community together again. Ambassadors and contributors of a specific country or lang should focus on establishing *one* strong and trusted localized community, they should throw away the idea of multiple support websites, we need to put together everyone again, act as a team, Fedora together should be our motto. (the specific requirements to gain the above formalization will be written up by me and presented to the Board for a discussion, so expect more news to come about this point if my candidature will be accepted)&lt;/li&gt;
-&lt;li&gt;Re-thinking what the Fedora Board should be within the Fedora community. It should represent the community and all its members, if a single or multiple members are having a specific problem, from the bigger to the smaller one, the Board must deal with them to find a valid solution, nothing and no one should be left behind. The Board, in the end, should be the main reference point for everyone wanting to propose a new idea or just willing to costructively complain about something not working in the right way. Discussing problems, respecting everyone’s ideas and opinions and finding a good consensus / common solutions for everyone is alwais the way to go to improve the relationships between community members, contributors and developers.&lt;/li&gt;
-&lt;li&gt;Improving our Code of Conduct, finding a good way to enforce members respecting it and remembering which values should be found behind a community (respect between members and their ideas, costructive discussions, decisions taken with general consensus etc.) is the latest point but it’s definitely not the less important on my list. As I stated in my candicacy, I’ve been negatively impressed by the behaviour of some community members in two occasions: while introducing JustFedora’s Planet and while working on another Infrastructure duty. Criticizing without valid motivations just for the sake of doing so seemed to be the common rule on both of the above cases. I would like to remember everyone that this is *not* the best behaviour for an Open Source community, we need to act together as a single team, we don’t have to fight each other but we have to cooperate finding common solutions, discussing, criticizing *costructively* and helping our community coming out from the current situation.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;Who do you think Fedora is for today? Who should it be for?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Fedora is about innovation, but as you may all know, innovation might take in several problems especially for new comers or people switching from a Microsoft OS. Most of the people I know do have a lot of problems to simply open up a computer, writing a mail or working on a document; I would like to see Fedora (but generally Linux based OSs) available to use to everyone: from developers to complete newbies. I would like to work making the idea of Linux being usable by a restricted circle of people changing and I’m sure the arrival of GNOME 3 will definitely help us out on achieving our goal. (It’s user-friendly but innovative interface it’s simply superb)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Where do you see Fedora in five years? How do you think we’ll get there?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;An innovative Fedora but at the same time a distribution easy to use by any of us out there, an awesome cloud service available to everyone, a package manager made easier to learn and understand by newcomers, a GNOME 3 improved, stronger, robust and a gnome-shell completely ready and fully integrated on Fedora is what I would like to see happening within five years.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;What will you do to ensure that Fedora remains at the forefront of innovation in the GNU/Linux space?&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I will try to do my best to give a warm welcome to new ideas and projects within Fedora, I’ll listen, discuss with as many contributors and developers willing to propose something new and innovative that could benefit our beloved distribution. I would like to link this answer with the third point of the first answer I gave on the questionnaire: new ideas are strictly related to my vision of innovation, everyone should be free to propose something new without having to worry about receiving personal insults or complaints: this is unfortunately missing in our community. (is our community really prepared for new ideas yet?)&lt;/p&gt;
-</description>
+      <description>If you are not subscribed to the fedora-announcemailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
+ What will you be able to accomplish by being elected, that you would not otherwise be able to do as a contributor?  (As you will notice by reading the list right down here) Being a single contributor makes achieving these points impossible since changing how localized communities should work, improving our CoC and enforcing its rules and re-thinking Board’s role in our community is something that must be discussed and voted within the Board and its members.</description>
     </item>
     
     <item>
@@ -728,14 +151,7 @@ nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
       <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;!-- raw HTML omitted --&gt;
-</description>
+      <description></description>
     </item>
     
   </channel>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Intervista on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 20 Oct 2007 10:27:00 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/intervista/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/intervista/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,39 +16,14 @@
       <pubDate>Sat, 20 Oct 2007 10:27:00 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2007/10/20/behindmotu-la-mia-intervista/</guid>
-      <description>&lt;p&gt;Pochi giorni fa ho avuto l’onore di essere intervistato da BehindMOTU, vi riporto l’intera intervista (ovviamente in inglese) augurandovi ,inoltre, una buona lettura! Potete trovare il post originale &lt;!-- raw HTML omitted --&gt;qua&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;Today we are interviewing &lt;a href=&#34;https://launchpad.net/%7Eav&#34;&gt;Andrea Veri&lt;/a&gt;, fresh MOTU and eager Ubuntu volunteer.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://behindmotu.files.wordpress.com/2007/10/bluekuja.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Age:&lt;/strong&gt; 18&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Location:&lt;/strong&gt; Udine, Italy&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;IRC Nick&lt;/strong&gt;: bluekuja&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How long have you used Linux and what was your first distro?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I started using Linux at the end of 2005 using Red Hat and Fedora distros, contributing on writing several pages for Fedora documentation (mostly server docs) but mainly working on some packaging-related activities (introducing ctorrent, gtorrent-viewer and v2strip packages inside Fedora) for more than 3 months until the beginning of March 2006 when I decided to move definitely to Ubuntu after discovering it at a friend’s party. Was love at first sight that made me leaving every Fedora plan and project creating my first personal wiki page on &lt;a href=&#34;http://wiki.ubuntu.com/&#34;&gt;wiki.ubuntu.com&lt;/a&gt; some days later.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;How long have you been using Ubuntu?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;In fact, I started using Ubuntu at the beginning of 2006, firstly getting involved inside the Edubuntu family making real the possibility to have an Edubuntu Italian support and website area inside the current Italian LoCo Team.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;When did you get involved with the MOTU team and how?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Right after joining the Ubuntu brigade I started checking out MOTU documentation, mainly &lt;a href=&#34;http://doc.ubuntu.com/ubuntu/packagingguide/C/&#34;&gt;packaging guide&lt;/a&gt; plus debian &lt;a href=&#34;http://www.debian.org/doc/maint-guide/&#34;&gt;new maintainer’s guide&lt;/a&gt;, trying to understand every single new word and applying directly to a source package every lesson learned during developer’s world “travel”. After getting introduced and fascinated from an active community, I had to left the project for a while for some small problems, restarting everything on May 2007 with my first sponsored upload inside the archive. My packaging passion increased right after meeting &lt;a href=&#34;https://launchpad.net/%7Easac&#34;&gt;Alexander Sack&lt;/a&gt; inside #ubuntu-mozillateam irc channel some days later, deciding to work directly with him as my mentor for both Debian and Ubuntu distributions.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;What helped you learning packaging and learning how the Ubuntu teams work?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I started with &lt;a href=&#34;http://www.debian.org/doc/maint-guide/&#34;&gt;Debian New Maintainer’s guide&lt;/a&gt; and &lt;a href=&#34;http://doc.ubuntu.com/ubuntu/packagingguide/C/&#34;&gt;Ubuntu’s packaging guide&lt;/a&gt; moving then to package my first applications learning from already-packaged software and asking if needed to Alexander improving and learning every time from him or from other developers a new Ubuntu Team lesson.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Favorite part of working with MOTU?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Introducing a fix making tons of users happy is one of the best things I appreciate of being a MOTU. Mentoring, sponsoring, helping out new contributors or students is something special as well.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Any advice for people wanting to help with MOTU?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I always suggest to start with a package a new contributor cares about personally, that’s useful to improve/fix the package itself during its maintenance.&lt;/p&gt;
-&lt;p&gt;Reading MOTU and Debian documentation is a great starting point as well to avoid any strange question on our MOTU irc channel.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;What packages/areas of Universe are you most interested in?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I’m currently working on a vast area of packages, but I’ll try to focus on p2p (Peer-2-Peer) applications both for Universe and Main. I planned to create a MOTU-p2p team really soon including it inside the existing motu-torrent team, but it will take some months to organize everything up; contributors (testers/packagers) are currently missing.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Any Plans for Hardy Heron?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;I’ll keep working on a large number of packages but as I said before I would like to focus on having an updated situation of p2p applications, introducing libtorrent-rasterbar and its related clients like btg or linkage. Creating a working team with interested contributors and developers will be the first step to work on.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Favorite quote?&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;“As for me, all I know is that I know nothing.” — Socrates&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;**What do you do in your other spare time?&lt;/p&gt;
-&lt;p&gt;** I love going around with my motorbike, listening good music, playing basketball and meeting up with friends around the city centre.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Pic of you, your work area, and/or your screen?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://behindmotu.files.wordpress.com/2007/10/bluekuja_screen.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;http://3.bp.blogspot.com/_mbTtrw2j6OY/RxnaZ3XobiI/AAAAAAAAACE/xtsbAPoyTvk/s1600-h/work-space.jpg&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Pochi giorni fa ho avuto l’onore di essere intervistato da BehindMOTU, vi riporto l’intera intervista (ovviamente in inglese) augurandovi ,inoltre, una buona lettura! Potete trovare il post originale qua.
+Today we are interviewing Andrea Veri, fresh MOTU and eager Ubuntu volunteer.
+
+Age: 18
+Location: Udine, Italy
+IRC Nick: bluekuja
+How long have you used Linux and what was your first distro?
+I started using Linux at the end of 2005 using Red Hat and Fedora distros, contributing on writing several pages for Fedora documentation (mostly server docs) but mainly working on some packaging-related activities (introducing ctorrent, gtorrent-viewer and v2strip packages inside Fedora) for more than 3 months until the beginning of March 2006 when I decided to move definitely to Ubuntu after discovering it at a friend’s party.</description>
     </item>
     
   </channel>

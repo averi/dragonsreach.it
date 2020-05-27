@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Getmail on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 25 Jul 2011 22:50:57 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/getmail/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/getmail/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,75 +16,8 @@
       <pubDate>Mon, 25 Jul 2011 22:50:57 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/</guid>
-      <description>&lt;p&gt;I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with &lt;!-- raw HTML omitted --&gt;getmail&lt;!-- raw HTML omitted --&gt;.  What you’ll be able to achieve after reading this HowTo and deploying the following setup is:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well)&lt;/li&gt;
-&lt;li&gt;Prevent getmail to mark all mails as &lt;strong&gt;read&lt;/strong&gt; after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all)&lt;/li&gt;
-&lt;li&gt;Keep your backups &lt;strong&gt;up-to-date&lt;/strong&gt; with the &lt;strong&gt;latest&lt;/strong&gt; content from your mailbox. (by default getmail grabs all the DATA from your mailbox and fills up the Mbox / Maildir content keeping deleted mails. So let’s say I deleted a mail two days ago, well it’ll still appear on today’s backups. This behaviour is definitely unwanted)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I’ll now move to explain a few details about my new configuration but before moving to tweak getmail’s main config file, please do the following change on &lt;strong&gt;_retrieverbases.py&lt;/strong&gt;* :&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; self&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_getmsgpartbyid(msgid, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;(RFC822)&amp;#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;to&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;return&lt;/span&gt; self&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_getmsgpartbyid(msgid, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;(BODY.PEEK[])&amp;#39;&lt;/span&gt;)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When done grab the following &lt;em&gt;&lt;strong&gt;getmailrc&lt;/strong&gt;&lt;/em&gt; and adapt it to your needs**:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-INI&#34; data-lang=&#34;INI&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[retriever]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;server&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;imap.gmail.com ## or pop.gmail.com for POP3.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;username&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;example@gmail.com&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;password&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;password&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;## so-called Gmail&amp;#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.&lt;/span&gt;
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;mailboxes&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;(&amp;#34;INBOX&amp;#34;, &amp;#34;[Gmail]/Sent mail&amp;#34;,&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;ubuntu&amp;#34;, &amp;#34;gnome/example&amp;#34;, &amp;#34;linux/example&amp;#34;)&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[destination]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;Mboxrd&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;path&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;~/.getmail/backup.mbox&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[options]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;delivered_to&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;false ## No delivered_to header added automatically.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;received&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;false ## No received header added automatically.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;verbose&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;2 ## getmail will print messages about each of its actions.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;When done we should go ahead setting up getmail’s directories and config file:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mkdir &lt;span style=&#34;color:#bb60d5&#34;&gt;$HOME&lt;/span&gt;/.getmail
-cp &lt;span style=&#34;color:#bb60d5&#34;&gt;$HOME&lt;/span&gt;/getmailrc &lt;span style=&#34;color:#bb60d5&#34;&gt;$HOME&lt;/span&gt;/.getmail/&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Adapt &lt;strong&gt;$HOME/getmailrc&lt;/strong&gt; to whatever dir you put that file into. But…pretty much all the remaining work will be done by a small shell script I wrote:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/sh
-&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#bb60d5&#34;&gt;WORKDIR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$HOME&lt;/span&gt;/.getmail
-&lt;span style=&#34;color:#bb60d5&#34;&gt;date&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;date &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;+%d-%m-%Y_%H:%M&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; ! -f  &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backup.mbox &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt;
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;then&lt;/span&gt;
-touch &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backup.mbox
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;fi&lt;/span&gt;
-
-getmail &amp;gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/getmail.log
-&lt;span style=&#34;color:#bb60d5&#34;&gt;OUT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$?&lt;/span&gt;
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;$OUT&lt;/span&gt; -eq &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt;
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;then&lt;/span&gt;
-mkdir -p &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backups/ &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;{&lt;/span&gt; mv &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backup.mbox &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backups/backup_&lt;span style=&#34;color:#bb60d5&#34;&gt;$date&lt;/span&gt;.mbox ;&lt;span style=&#34;color:#666&#34;&gt;}&lt;/span&gt;
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;else&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;$OUT&lt;/span&gt; -eq &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt;
-&lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;fi&lt;/span&gt;
-
-&lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;## Cleanup older than 3 days backups&lt;/span&gt;
-find &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt;/backups/* -mtime +3 -exec rm &lt;span style=&#34;color:#666&#34;&gt;{}&lt;/span&gt; ;
-&lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;$WORKDIR&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;{&lt;/span&gt; rm -rf oldmail-* ;&lt;span style=&#34;color:#666&#34;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This script will:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Run getmail using the getmailrc config file you previously worked on.&lt;/li&gt;
-&lt;li&gt;If the above command will be successful, it’ll create a_ **backups**_ dir into **$HOME/.getmail** and move the latest Mbox file there appending a date and time to its name. (by doing this we are sure next getmail run will happen on an empty **backup.mbox** file, thus it will just contain the **latest** content from your mailbox)&lt;/li&gt;
-&lt;li&gt;It’ll re-create a &lt;strong&gt;backup.mbox&lt;/strong&gt; file on &lt;strong&gt;$HOME/.getmail&lt;/strong&gt; to avoid the next getmail run to fail.&lt;/li&gt;
-&lt;li&gt;In the end, it’ll clean up older than 3 days backups to avoid a too crowded &lt;strong&gt;backups&lt;/strong&gt; folder. (it removes the oldmail file as well since it is useless in our case)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;In the end set up a cronjob that will run the above script and generate the backups for you every one hour:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; * * * * &lt;span style=&#34;color:#bb60d5&#34;&gt;$HOME&lt;/span&gt;/.getmail/getmail_run.sh &amp;gt; /dev/null&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Feel free to let me know if you’ve encountered any issue while following the above HowTo. Enjoy!&lt;/p&gt;
-&lt;p&gt;* /usr/share/getmail4/getmailcore/&lt;strong&gt;_retrieverbases.py&lt;/strong&gt; on line &lt;strong&gt;901&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;** More documentation about the &lt;em&gt;&lt;strong&gt;getmailrc&lt;/strong&gt;&lt;/em&gt; file and syntax can be found on getmail’s &lt;!-- raw HTML omitted --&gt;documentation&lt;!-- raw HTML omitted --&gt; page.&lt;/p&gt;
-</description>
+      <description>I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying the following setup is:
+ A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well) Prevent getmail to mark all mails as read after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all) Keep your backups up-to-date with the latest content from your mailbox.</description>
     </item>
     
   </channel>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GUADEC on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 30 Jul 2018 10:27:23 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/guadec/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/guadec/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,33 +16,8 @@
       <pubDate>Mon, 30 Jul 2018 10:27:23 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</guid>
-      <description>&lt;p&gt;Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&amp;rsquo;s GNOME conference. The topics I&amp;rsquo;d like to emphasize mainly are:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;We&amp;rsquo;re hiring another Infrastructure Team member&lt;/li&gt;
-&lt;li&gt;We&amp;rsquo;ve successfully finalized the cgit to GitLab migration&lt;/li&gt;
-&lt;li&gt;Future plans including the migration to Openshift&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;gnome-foundation-hirings&#34;&gt;GNOME Foundation hirings&lt;/h2&gt;
-&lt;p&gt;With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member. On this side I want to make sure that although the &lt;a href=&#34;https://www.gnome.org/foundation/careers/devops-sysadmin/&#34;&gt;job description&lt;/a&gt; mentions the word &lt;strong&gt;sysadmin&lt;/strong&gt; the figure we&amp;rsquo;re looking for is a systems engineer with a proven experience on Cloud computing platforms and tools such as AWS, Openshift and generally configuration management softwares such as Puppet and Ansible. Additionally this person should prove to have a clear understanding of the network and operating system (mainly RHEL) layers.&lt;/p&gt;
-&lt;p&gt;We&amp;rsquo;ve already identified a set of candidates and will be proceeding with interviews in the coming weeks. This doesn&amp;rsquo;t mean we&amp;rsquo;ve hired anyone already, please keep sending CVs if interested and feeling the position would match your skills and expectations.&lt;/p&gt;
-&lt;h2 id=&#34;cgit-to-gitlab&#34;&gt;cgit to GitLab&lt;/h2&gt;
-&lt;p&gt;As announced on several occasions the GNOME Infrastructure has &lt;a href=&#34;https://mail.gnome.org/archives/desktop-devel-list/2018-May/msg00051.html&#34;&gt;successfully finalized the cgit to GitLab migration&lt;/a&gt;. From a read-only view against .git directories to a fully compliant CI/CD infrastructure. The next step on this side will be deprecating Bugzilla which has already started with bugmasters turning products read-only in case they were migrated to the new platform or by identifying whether any of the not-yet-migrated products can be archived. The idea here is waiting to see zero activity on BZ in terms of new comments to existing bugs and no new bugs being submitted at all (we have redirects in place to make sure whenever enter_bug.cgi is triggered the request gets sent to the /issues/new endpoint for that specific GitLab project) and then turn the entire BZ instance into an HTML archive for posterity and to reduce the maintenance burden of keeping an instance up-to-date with upstream in terms of CVEs.&lt;/p&gt;
-&lt;p&gt;Thanks to all the involved parties including Carlos, Javier and GitLab itself given the prompt and detailed responses they always provided to our queries. Also thanks for sponsoring our AWS activities related to GitLab!&lt;/p&gt;
-&lt;h2 id=&#34;future-plans&#34;&gt;Future plans&lt;/h2&gt;
-&lt;p&gt;With the service == VM equation we&amp;rsquo;ve been following for several years it&amp;rsquo;s probably time for us to move to a more scalable infrastructure. The next generation platform we&amp;rsquo;ve picked up is going to be Openshift, its benefits:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;It&amp;rsquo;s not important where a service runs behind scenes: it only has to run (VM vs pods and containers that are part of a pod that get scheduled randomly on the available Openshift nodes)&lt;/li&gt;
-&lt;li&gt;Easily scalable in case additional resources are needed for a small period of time&lt;/li&gt;
-&lt;li&gt;Built-in monitoring starting from Openshift 3.9 (the release we&amp;rsquo;ll be running) based on Prometheus (+ Grafana for dashboarding)&lt;/li&gt;
-&lt;li&gt;GNOME services as containers&lt;/li&gt;
-&lt;li&gt;Individual application developers to schedule their own builds and see their code deployed with one click directly in production&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;The base set of VMs and bare metals has been already configured. Red Hat has been so great to provide the GNOME Project with a set of Red Hat Container Platform (and GlusterFS for heketi-based brick provisioning) subscriptions. We&amp;rsquo;ll start moving over to the infrastructure in the coming weeks. It&amp;rsquo;s going to take some good time but in the end we&amp;rsquo;ll be able to free up a lot of resources and retire several VMs and related deprecated configurations.&lt;/p&gt;
-&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
-&lt;p&gt;Slides from the Foundation AGM Infrastructure team report are available &lt;a href=&#34;https://www.dragonsreach.it/files/guadec-reports/guadec2018.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Many thanks to the GNOME Foundation for the sponsorship of my travel!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/img/2018-GUADEC-badge.png&#34; alt=&#34;GUADEC 2018 Badge&#34;&gt;&lt;/p&gt;
-</description>
+      <description>Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&amp;rsquo;s GNOME conference. The topics I&amp;rsquo;d like to emphasize mainly are:
+ We&amp;rsquo;re hiring another Infrastructure Team member We&amp;rsquo;ve successfully finalized the cgit to GitLab migration Future plans including the migration to Openshift  GNOME Foundation hirings With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member.</description>
     </item>
     
     <item>
@@ -50,120 +26,7 @@
       <pubDate>Tue, 05 Aug 2014 17:27:23 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/08/05/back-from-guadec-2014/</guid>
-      <description>&lt;p&gt;Coming back from &lt;strong&gt;GUADEC&lt;/strong&gt; has never been easy, so much fun, so much great people to speak with and amazing talks to watch but this year has definitely been harder as I totally felt in love with the city that was hosting the event. Honestly speaking I’ve been amazed by how Strasbourg looks like: alsace houses and buildings are just delightful, the cathedral is stunning and people have been so welcoming during my whole stay. (cooks at the Canteen even prepared a few italian dishes and welcomed us in italian every time we were heading there…how cool is that?)&lt;/p&gt;
-&lt;p&gt;But let’s get back to our business now as I would probably never stop talking about Strasbourg and how great it was staying there! I did not have a personal talk this year but I presented the yearly Sysadmin Team report during the Foundation’s AGM. If you weren’t there all the slides are available &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
-&lt;p&gt;Apart from presenting what we did and what the changes we introduced on the GNOME Infrastructure were I participated to Patrick Uiterwijk’s talk about FedOAuth and all the upcoming changes that are planned on the infrastructure during the next months. If you were not able to attend Patrick’s talk this little resume should be for you:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Current problems&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The GNOME Infrastructure currently has a lot of different user databases which implies different users and passwords across the services we host&lt;/li&gt;
-&lt;li&gt;The Foundation’s database is currently MySQL-based while we do have LDAP in place for all our other needs already&lt;/li&gt;
-&lt;li&gt;Some of the tools we do use for managing our LDAP istance are not being maintained properly&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Possible solutions&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Introduce FedOAuth, a SSO solution written and developed by Patrick Uiterwijk&lt;/li&gt;
-&lt;li&gt;Unify the various databases and make sure our LDAP istance is used for authentication everywhere&lt;/li&gt;
-&lt;li&gt;Remove Mango and configure FreeIPA&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Benefits after the move&lt;/strong&gt;:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Users will be able to manage their accounts on their own, no more need to poke the accounts team for updating passwords, emails, SSH keys. The accounts team will still be around to adjust ACLs&lt;/li&gt;
-&lt;li&gt;No more need for dozen of accounts, one for every single service we provide&lt;/li&gt;
-&lt;li&gt;More freedom when managing sudo accesses and accounts on the various machines we manage, this will help new people contributing to the Sysadmin Team (Making our puppet repository public and introducing a GNOME Infrastructure Apprentice group for newcomers is something we will be seriously evaluating after the FreeIPA move)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Where we are now:&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Our SSO infrastructure is live at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://id.gnome.org&#34;&gt;https://id.gnome.org&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
-&lt;li&gt;Your OpenID URL is &lt;strong&gt;https://$GNOME_USERID.id.gnome.org&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Right now you can login with your GNOME account at the following services: l10n.gnome.org, opw.gnome.org. We are slowly migrating all the existing services to the new SSO infrastructure, please be patient and bear with us!&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;More information, slides and screenshots from Patrick’s talk are available &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. Stay tuned and many thanks to the &lt;strong&gt;GNOME Foundation&lt;/strong&gt; for sponsoring my travel and accomodation expenses!&lt;/p&gt;
-
-
-&lt;div class=&#34;gallery caption-position-center caption-effect-slide hover-effect-none hover-transition&#34; itemscope itemtype=&#34;http://schema.org/ImageGallery&#34;&gt;
-	  
-  
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://www.dragonsreach.it/css/hugo-easy-gallery.css&#34; /&gt;
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg&#34; alt=&#34;The GUADEC 2014 group photo!&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;The GUADEC 2014 group photo!&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/IMG_20140729_193107.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140729_193107.jpg&#34; alt=&#34;A view of the Petite France district&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;A view of the Petite France district&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140729_193107.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/IMG_20140729_195206.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140729_195206.jpg&#34; alt=&#34;Another great view of the Petite France district&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;Another great view of the Petite France district&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140729_195206.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/IMG_20140725_103921.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103921.jpg&#34; alt=&#34;The Notre Dame cathedral&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;The Notre Dame cathedral&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103921.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/IMG_20140725_103927.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103927.jpg&#34; alt=&#34;Another view of the Notre Dame cathedral&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;Another view of the Notre Dame cathedral&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103927.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2014/08/IMG_20140725_103655.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103655.jpg&#34; alt=&#34;Place Gutenberg&#34;/&gt;
-    &lt;/div&gt;
-      &lt;figcaption&gt;
-          &lt;p&gt;Place Gutenberg&lt;/p&gt;
-      &lt;/figcaption&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2014/08/IMG_20140725_103655.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;p&gt; &lt;/p&gt;
-</description>
+      <description>Coming back from GUADEC has never been easy, so much fun, so much great people to speak with and amazing talks to watch but this year has definitely been harder as I totally felt in love with the city that was hosting the event. Honestly speaking I’ve been amazed by how Strasbourg looks like: alsace houses and buildings are just delightful, the cathedral is stunning and people have been so welcoming during my whole stay.</description>
     </item>
     
     <item>
@@ -172,67 +35,7 @@
       <pubDate>Mon, 12 Aug 2013 15:51:30 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/08/12/back-from-guadec-2013/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/av_guadec.jpg&#34; alt=&#34;    Courtesy of Ana Rey, work licensed under the CC-BY-SA-2.0, available on Flickr.&#34;&gt;&lt;/p&gt;
-&lt;p&gt;I wanna be really honest, getting back home from this year’s &lt;strong&gt;GUADEC&lt;/strong&gt; has been very painful for me but not because of the trip back home. I had such a very good time at Brno that I actually wanted to stay there for way more days! I must admit that I’ve been missing the italian food for a while until &lt;strong&gt;Mattias Bengtsson&lt;/strong&gt; suggested me to try having a dinner at the “&lt;strong&gt;Flavours&lt;/strong&gt;” indian restaurant. The result was simply amazing and I’ve been falling in love with the indian food we ate that evening so much that we went there again the day after.&lt;/p&gt;
-&lt;p&gt;I had a lot of expectations from my very first GUADEC and I was very excited to meet all the people I’ve been contributing with during all these years. Meeting people up in person is fundamental and reminds you the fact that there is a human being with its own feelings and emotions behind a computer and that’s actually why I spent a lot of my time during the event speaking and hanging out with people, finding out their personal interests, their hobbies, the things they love doing on their free time.&lt;/p&gt;
-&lt;p&gt;During the event, I had the great pleasure to present two talks:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;the &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt;, the presentation is available &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; and the video is viewable at the following &lt;!-- raw HTML omitted --&gt;page&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;li&gt;a little resume of what we’ve been doing on the &lt;strong&gt;GNOME Sysadmin team&lt;/strong&gt; during this last year at the GNOME Foundation’s &lt;strong&gt;Annual General Meeting&lt;/strong&gt;. (AGM)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;… and meet a lot of friends:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;Mattias Bengtsson&lt;/strong&gt;, you’ve been the greatest room mate of all times! Thanks for all your hints!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Andreas Nilsson&lt;/strong&gt; and &lt;strong&gt;Fabiana Simões&lt;/strong&gt;, thanks for all your kind words, I’ll keep doing my best to provide you all the resources and work you need to make things happen!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Sriram Ramkrishna&lt;/strong&gt;, you don’t know how much I enjoyed our nightly discussions and walks around the city centre, missing those times already!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Allan Day&lt;/strong&gt; and &lt;strong&gt;Jon McCann&lt;/strong&gt;, it’s been truly amazing meeting you guys and hearing how much enthusiast you are about me and my work, thanks a *lot*!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Paul Frields&lt;/strong&gt;, it’s been an absolute pleasure meeting you and your wife, I will never forget how you presented me to her at the &lt;strong&gt;Starobrno Brewery&lt;/strong&gt;: “&lt;em&gt;He’s like the Kevin Fenzi of the GNOME Infrastructure!&lt;/em&gt;“. That’s one of the greatest compliments someone can ever receive given the amount of work Kevin does on the Fedora Infrastructure. I’m also glad that we could remember &lt;strong&gt;Seth&lt;/strong&gt; together during my talk, thanks for coming!&lt;/li&gt;
-&lt;li&gt;My italian friends, &lt;strong&gt;Flavia&lt;/strong&gt;, &lt;strong&gt;Paolo&lt;/strong&gt;, &lt;strong&gt;Emanuele&lt;/strong&gt;,** Giovanni** and **Alessandro**!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Tobias Mueller&lt;/strong&gt;, glad we were finally able to meet in person! Thanks for your nano sessions!&lt;/li&gt;
-&lt;li&gt;All the indian interns, &lt;strong&gt;Saumya Dwivedi&lt;/strong&gt;, &lt;strong&gt;Saumya Pathak&lt;/strong&gt;, &lt;strong&gt;Sindhu Sundar&lt;/strong&gt;, &lt;strong&gt;Shivani Poddar&lt;/strong&gt; who are definitely doing an amazing job! I was completely impressed by your talks and projects!&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Ekaterina&lt;/strong&gt;, &lt;strong&gt;David&lt;/strong&gt;, &lt;strong&gt;Karen&lt;/strong&gt;, &lt;strong&gt;Marina&lt;/strong&gt;, &lt;strong&gt;Owen&lt;/strong&gt;, &lt;strong&gt;Rui&lt;/strong&gt;, &lt;strong&gt;Alberto&lt;/strong&gt;: all you guys are simply great! It’s really unfortunate we weren’t able to spend a lot of time together during the event!&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Overall the whole event has been a blast, thanks to the &lt;strong&gt;GNOME Foundation&lt;/strong&gt; making this possible by sponsoring my attendance at the event! I’m looking forward to &lt;strong&gt;Strasburg 2014&lt;/strong&gt; already and last but not least I’m preparing the greatest bid of all times for &lt;strong&gt;GUADEC 2015&lt;/strong&gt; to happen in &lt;strong&gt;Italy&lt;/strong&gt;. Stay tuned!&lt;/p&gt;
-
-
-&lt;div class=&#34;gallery caption-position-center caption-effect-slide hover-effect-none hover-transition&#34; itemscope itemtype=&#34;http://schema.org/ImageGallery&#34;&gt;
-	  
-  
-&lt;link rel=&#34;stylesheet&#34; href=&#34;https://www.dragonsreach.it/css/hugo-easy-gallery.css&#34; /&gt;
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2013/08/seth_guadec.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/seth_guadec.jpg&#34; /&gt;
-    &lt;/div&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/seth_guadec.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2013/08/guadec_friends.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/guadec_friends.jpg&#34; /&gt;
-    &lt;/div&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/guadec_friends.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-  
-
-&lt;div class=&#34;box&#34; &gt;
-  &lt;figure  itemprop=&#34;associatedMedia&#34; itemscope itemtype=&#34;http://schema.org/ImageObject&#34;&gt;
-    &lt;div class=&#34;img&#34; style=&#34;background-image: url(&#39;/wp-content/uploads/2013/08/mesri.jpg&#39;);&#34;&gt;
-      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/mesri.jpg&#34; /&gt;
-    &lt;/div&gt;
-    &lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/mesri.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
-  &lt;/figure&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;p&gt;Overall the whole event has been a blast, thanks to the &lt;strong&gt;GNOME Foundation&lt;/strong&gt; making this possible by sponsoring my attendance at the event! I’m looking forward to &lt;strong&gt;Strasburg 2014&lt;/strong&gt; already and last but not least I’m preparing the greatest bid of all times for &lt;strong&gt;GUADEC 2015&lt;/strong&gt; to happen in &lt;strong&gt;Italy&lt;/strong&gt;. Stay tuned!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/08/sponsored-badge-simple.png&#34; alt=&#34;sponsored-badge-simple&#34;&gt;
-&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
-</description>
+      <description>I wanna be really honest, getting back home from this year’s GUADEC has been very painful for me but not because of the trip back home. I had such a very good time at Brno that I actually wanted to stay there for way more days! I must admit that I’ve been missing the italian food for a while until Mattias Bengtsson suggested me to try having a dinner at the “Flavours” indian restaurant.</description>
     </item>
     
   </channel>

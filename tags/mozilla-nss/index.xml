@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Mozilla NSS on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 27 Mar 2013 12:04:02 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/mozilla-nss/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/mozilla-nss/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,54 +16,7 @@
       <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</guid>
-      <description>&lt;p&gt;I’ve recently spent some time setting up &lt;strong&gt;TLS/SSL&lt;/strong&gt; encryption (&lt;strong&gt;SSSD&lt;/strong&gt; won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an &lt;strong&gt;OpenLDAP&lt;/strong&gt; istance and as you may know the only way for doing that on a &lt;strong&gt;RHEL / CentOS&lt;/strong&gt; environment is dealing with a &lt;strong&gt;Mozilla NSS&lt;/strong&gt; database (which is, in fact, a &lt;strong&gt;SQLite&lt;/strong&gt; database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal. Even if you aren’t running an RPM based system you can opt to use a Mozilla NSS database to store your certificates as your preferred setup.&lt;/p&gt;
-&lt;h3 id=&#34;on-the-ldap-slapd-server&#34;&gt;On the LDAP (SLAPD) server&lt;/h3&gt;
-&lt;p&gt;*&lt;em&gt;Re-create &lt;em&gt;.db files&lt;/em&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mkdir /etc/openldap/certs
-modutil -create -dbdir /etc/openldap/certs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Setup a CA Certificate&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My CA Certificate&amp;#34;&lt;/span&gt; -t TCu,Cu,Tuw -a -i /etc/openldap/cacerts/ca.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;where &lt;strong&gt;ca.pem&lt;/strong&gt; should be your CA’s certificate file.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Remove the password from the Database&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;modutil -dbdir /etc/openldap/certs -changepw &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;NSS Certificate DB&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Creates the .p12 file and imports it on the Database&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;openssl pkcs12 -inkey domain.org.key -in domain.org.crt -export -out domain.org.p12 -nodes -name &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;LDAP-Certificate&amp;#39;&lt;/span&gt;
-
-pk12util -i domain.org.p12 -d /etc/openldap/certs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;where **domain.org.key **and **domain.org.crt **are the names of the certificates you previously created at your CA’s website.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;List all the certificates on the database and make sure all the informations are correct&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -L&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Configure /etc/openldap/slapd.conf and make sure the TLSCACertificatePath points to your Mozilla NSS database&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;TLSCACertificateFile /etc/openldap/cacerts/ca.pem
-TLSCACertificatePath /etc/openldap/certs/
-TLSCertificateFile LDAP-Certificate&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&#34;additional-commands&#34;&gt;Additional commands&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Modify the trust flags if necessary&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -M -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My CA Certificate&amp;#34;&lt;/span&gt; -t &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;TCu,Cu,Tuw&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Delete a certificate from the database&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -D -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My LDAP Certificate&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&#34;on-the-clients-nslcd-uses-ldapconf-while-sssd-uses-etcsssdsssdconf&#34;&gt;On the clients (nslcd uses ldap.conf while sssd uses /etc/sssd/sssd.conf)&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;On /etc/openldap/ldap.conf&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;BASE &lt;span style=&#34;color:#bb60d5&#34;&gt;dc&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;domain,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
-URI ldaps://ldap.domain.org
-
-TLS_REQCERT demand
-TLS_CACERT /etc/openldap/cacerts/ca.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;On /etc/sssd/sssd.conf&lt;/strong&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_tls_cacert&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; /etc/openldap/cacerts/ca.pem
-&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_tls_reqcert&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; demand
-&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_uri&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; ldaps://ldap.domain.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&#34;How_to_test_the_whole_setup&#34;&gt;How to test the whole setup&lt;/h3&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ldapsearch -x -b &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;dc=domain,dc=org&amp;#39;&lt;/span&gt; -D &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;cn=Manager,dc=domain,dc=org&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;(objectclass=*)&amp;#39;&lt;/span&gt; -H ldaps://ldap.domain.org -W -v&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;Troubleshooting&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;If anything goes wrong you can run SLAPD with the following args for its debug mode:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;/usr/sbin/slapd -d &lt;span style=&#34;color:#40a070&#34;&gt;256&lt;/span&gt; -f /etc/openldap/slapd.conf -h &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;ldaps:/// ldap:///&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;**Possible errors: **&lt;/p&gt;
-&lt;p&gt;If you happen to see an error similar to this one: “&lt;strong&gt;TLS error -8049:Unrecognized Object Identifier.&lt;/strong&gt;“, try running ldapsearch with its debug mode this way:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ldapsearch -d &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; -x -ZZ -H ldap://ldap.domain.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Make also sure that the &lt;strong&gt;FQDN&lt;/strong&gt; you are trying to connect to is listed on the trusted FQDN’s list of your &lt;strong&gt;domain.org.crt&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: as SSSD’s developer &lt;strong&gt;Stephen Gallagher&lt;/strong&gt; correctly pointed out on the comments using ldap_tls_reqcert = allow isn’t a best practice since it may take in &lt;!-- raw HTML omitted --&gt;Man in the Midle Attacks&lt;!-- raw HTML omitted --&gt;, adjusting the how to to match his suggestions.&lt;/p&gt;
-</description>
+      <description>I’ve recently spent some time setting up TLS/SSL encryption (SSSD won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an OpenLDAP istance and as you may know the only way for doing that on a RHEL / CentOS environment is dealing with a Mozilla NSS database (which is, in fact, a SQLite database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal.</description>
     </item>
     
   </channel>

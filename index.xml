@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Andrea Veri&#39;s Blog</title>
@@ -6,16 +7,256 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 22 Sep 2012 11:19:47 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Posts</title>
-      <link>https://www.dragonsreach.it/posts/</link>
+      <title>GNOME Infrastructure updates</title>
+      <link>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</link>
       <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
       
-      <guid>https://www.dragonsreach.it/posts/</guid>
-      <description></description>
+      <guid>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</guid>
+      <description>As you may have noticed from outage and maintenance notes we sent out last week the GNOME Infrastructure has been undergoing a major redesign due to the need of moving to a different datacenter. It&amp;rsquo;s probably a good time to update the Foundation membership, contributors and generally anyone consuming the multitude of services we maintain of what we&amp;rsquo;ve been up to during these past months.
+New Data Center One of the core projects for 2020 was moving off services from the previous DC we were in (located in PHX2, Arizona) over to the Red Hat community cage located in RAL3.</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure is moving to Openshift</title>
+      <link>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</link>
+      <pubDate>Thu, 18 Oct 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</guid>
+      <description>During GUADEC 2018 we announced one of the core plans of this and the coming year: it being moving as many GNOME web applications as possible to the GNOME Openshift instance we architected, deployed and configured back in July. Moving to Openshift will allow us to:
+ Save up on resources as we&amp;rsquo;re deprecating and decommissioning VMs only running a single service Allow app maintainers to use the most recent Python, Ruby, preferred framework or programming language release without being tied to the release RHEL ships with Additional layer of security: containers Allow app owners to modify and publish content without requiring external help Increased apps redundancy, scalability, availability Direct integration with any VCS that ships with webhooks support as we can trigger the Openshift provided endpoint whenever a commit has occurred to generate a new build / deployment  Architecture The cluster consists of 3 master nodes (controllers, api, etcd), 4 compute nodes and 2 infrastructure nodes (internal docker registry, cluster console, haproxy-based routers, SSL edge termination).</description>
+    </item>
+    
+    <item>
+      <title>Back from GUADEC 2018</title>
+      <link>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</link>
+      <pubDate>Mon, 30 Jul 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</guid>
+      <description>Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&amp;rsquo;s GNOME conference. The topics I&amp;rsquo;d like to emphasize mainly are:
+ We&amp;rsquo;re hiring another Infrastructure Team member We&amp;rsquo;ve successfully finalized the cgit to GitLab migration Future plans including the migration to Openshift  GNOME Foundation hirings With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member.</description>
+    </item>
+    
+    <item>
+      <title>Adding reCAPTCHA v2 support to Mailman</title>
+      <link>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</link>
+      <pubDate>Mon, 26 Feb 2018 15:13:09 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</guid>
+      <description>As a follow-up to the reCAPTCHA v1 post published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The original python-recaptcha library was forked into https://github.com/redhat-infosec/python-recaptcha and made compatible with reCAPTCHA version 2.
+The relevant changes against the original library can be resumed as follows:
+ Added ‘version=2’ against displayhtml, load_scripts functions Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2 The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1  The required changes are located on the following files:</description>
+    </item>
+    
+    <item>
+      <title>A childhood’s dream</title>
+      <link>https://www.dragonsreach.it/2016/07/05/a-childhood-dream/</link>
+      <pubDate>Tue, 05 Jul 2016 21:26:39 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2016/07/05/a-childhood-dream/</guid>
+      <description>Six months since my latest blog post is definitely a lot and reminds me how difficult this year has been for me in many ways. Back in June 2015 I received a job proposal as a Systems and Network Engineer from a company located in Padova, a city in the north-east part of Italy which is around 150km (around 93 miles) away from my home-town. The offer looked very interesting and I went for it.</description>
+    </item>
+    
+    <item>
+      <title>Three years and counting</title>
+      <link>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</link>
+      <pubDate>Wed, 02 Dec 2015 16:32:41 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</guid>
+      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure Apprentice Program</title>
+      <link>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</link>
+      <pubDate>Wed, 28 Jan 2015 16:59:46 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</guid>
+      <description>Many times it happened seeing someone joining the #sysadmin IRC channel requesting participation to the team after having spent around 5 minutes trying to explain what the skills and the knowledge were and why this person felt it was the right figure for the position. And it was always very disappointing for me having to reject all these requests as we just didn’t have the infrastructure in place to let new people join the rest of the team with limited privileges.</description>
+    </item>
+    
+    <item>
+      <title>Kerberos over HTTP: getting a TGT on a firewalled network</title>
+      <link>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</link>
+      <pubDate>Fri, 24 Oct 2014 13:50:52 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</guid>
+      <description>One of the benefits I originally wanted to bring with the FreeIPA moveto GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure’s FreeIPA move behind the scenes</title>
+      <link>https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/</link>
+      <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/</guid>
+      <description>A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure is now powered by FreeIPA!</title>
+      <link>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</link>
+      <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</guid>
+      <description>As preannounced herethe GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
+Introduction It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by Jonathan Blandford (jrb) who configured an OpenLDAP istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)</description>
+    </item>
+    
+    <item>
+      <title>Back from GUADEC 2014</title>
+      <link>https://www.dragonsreach.it/2014/08/05/back-from-guadec-2014/</link>
+      <pubDate>Tue, 05 Aug 2014 17:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/08/05/back-from-guadec-2014/</guid>
+      <description>Coming back from GUADEC has never been easy, so much fun, so much great people to speak with and amazing talks to watch but this year has definitely been harder as I totally felt in love with the city that was hosting the event. Honestly speaking I’ve been amazed by how Strasbourg looks like: alsace houses and buildings are just delightful, the cathedral is stunning and people have been so welcoming during my whole stay.</description>
+    </item>
+    
+    <item>
+      <title>Adding reCAPTCHA support to Mailman</title>
+      <link>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</guid>
+      <description>The GNOME and many other infrastructures have been recently attacked by an huge amount of subscription-based spam against their Mailman istances. What the attackers were doing was simply launching a GET call against a specific REST API URL passing all the parameters it needed for a subscription request (and confirmation) to be sent out. Understanding it becomes very easy when you look at the following example taken from our apache.log:</description>
+    </item>
+    
+    <item>
+      <title>Fedy’s installation of Brackets bricks your Fedora installation</title>
+      <link>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</link>
+      <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</guid>
+      <description>I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
+    </item>
+    
+    <item>
+      <title>Fedora 20 on a Samsung Chronos Series 7</title>
+      <link>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</link>
+      <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</guid>
+      <description>It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?
+What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual.</description>
+    </item>
+    
+    <item>
+      <title>Manage passwords with ‘pass’</title>
+      <link>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
+      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki pagehas a pretty nice overview of them.
+Said that, when using sudo it’s definitely ideal to combine a strong password that is also easy to remember and type again when prompted.</description>
+    </item>
+    
+    <item>
+      <title>Configuring DNSSEC on your personal domain</title>
+      <link>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</link>
+      <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</guid>
+      <description>Today I’ll be working out how to properly configure DNSSECon a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITMattack.</description>
+    </item>
+    
+    <item>
+      <title>Back from GUADEC 2013</title>
+      <link>https://www.dragonsreach.it/2013/08/12/back-from-guadec-2013/</link>
+      <pubDate>Mon, 12 Aug 2013 15:51:30 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/08/12/back-from-guadec-2013/</guid>
+      <description>I wanna be really honest, getting back home from this year’s GUADEC has been very painful for me but not because of the trip back home. I had such a very good time at Brno that I actually wanted to stay there for way more days! I must admit that I’ve been missing the italian food for a while until Mattias Bengtsson suggested me to try having a dinner at the “Flavours” indian restaurant.</description>
+    </item>
+    
+    <item>
+      <title>Two years later: Vim, Tmux and my Linux desktop</title>
+      <link>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</guid>
+      <description>It’s been two years since my latest blog postabout my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
+Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming.</description>
+    </item>
+    
+    <item>
+      <title>A second round of updates from the GNOME Sysadmin Team</title>
+      <link>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</link>
+      <pubDate>Fri, 14 Jun 2013 11:37:06 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</guid>
+      <description>I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the GNOME Infrastructure lately it’s time for me to announce all the updates we did since my latest blog post. So here we come with all the items we’ve been looking at recently:
+  Our main LDAP istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports.</description>
+    </item>
+    
+    <item>
+      <title>Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</title>
+      <link>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</guid>
+      <description>I’ve recently spent some time setting up TLS/SSL encryption (SSSD won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an OpenLDAP istance and as you may know the only way for doing that on a RHEL / CentOS environment is dealing with a Mozilla NSS database (which is, in fact, a SQLite database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal.</description>
+    </item>
+    
+    <item>
+      <title>Some updates from the GNOME Sysadmin Team</title>
+      <link>https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/</link>
+      <pubDate>Thu, 07 Mar 2013 14:49:26 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/</guid>
+      <description>It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the GNOME Infrastructure. A lot has been done and a lot has yet to come during the next months, but I would like to share with you some of the things I managed to look at during these weeks.
+As you may understand many Sysadmin’s tasks are not perceived at all by users especially the ones related to the so-called “Puppet-ization” which refers to the process of creating / modifying / improving our internal Puppet repository.</description>
+    </item>
+    
+    <item>
+      <title>IPv6 tunneling with Hurricane Electrics (HE)</title>
+      <link>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</link>
+      <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</guid>
+      <description>I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. Hurricane Electrics (HE) provides (for free) five configurable IPv4-to-IPv6 tunnels together with a free DNS service and an interesting certification program.
+Willing to test the latest revision of the Internet Protocol on your Debian, Ubuntu, Fedora machines?</description>
+    </item>
+    
+    <item>
+      <title>The future is Cloudy</title>
+      <link>https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/</link>
+      <pubDate>Thu, 13 Dec 2012 14:22:25 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/</guid>
+      <description>Have you ever heard someone talking extensively about Cloud Computing or generally Clouds? and have you ever noticed the fact many people (even the ones who present themselves as experts) don’t really understand what a Cloud is at all? That happened to me multiple times and one of the most common misunderstandings is many see the Cloud as something being on the internet. Many companies add a little logo representing a cloud on their frontpage and without a single change on their infrastructure (but surely with a price increment) they start calling their products as being on the Cloud.</description>
+    </item>
+    
+    <item>
+      <title>The Linux’s perception of my neighbours</title>
+      <link>https://www.dragonsreach.it/2012/11/22/the-linux-perception-of-my-neighbours/</link>
+      <pubDate>Thu, 22 Nov 2012 11:45:04 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/11/22/the-linux-perception-of-my-neighbours/</guid>
+      <description>I live in a little village close to the city and one of the houses close to my property is for rent since more than ten years. A lot of families and people succeeded in that house and every time someone new joined my Linux evangelist hat jumped in my head.
+I’ve always presented myself as a Linux geek to my neighbours and it has been nice seeing how the Linux word evolved (with funny and surprising quotes) during the past ten years in their minds.</description>
+    </item>
+    
+    <item>
+      <title>Report: FAD Milan 2012</title>
+      <link>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</link>
+      <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</guid>
+      <description>Exactly one week ago I was attending the Fedora Activity Dayorganized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
+Each of us presented a specific Fedora-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following link) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</description>
+    </item>
+    
+    <item>
+      <title>SSH Tunneling for VNC</title>
+      <link>https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/</link>
+      <pubDate>Sat, 06 Oct 2012 13:50:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/</guid>
+      <description>Logging in into a Linux machine and executing the hundreds commands available is just one of the most common usages of OpenSSH. Another interesting and very useful usage is tunneling some specific (or even all) traffic from your local machine to an external machine you have access to.
+Today we’ll analyze how to access a certain virtual machine’s console by tunneling the relevant VNC port locally and accessing it through your favorite VNC client.</description>
     </item>
     
     <item>
@@ -24,72 +265,192 @@
       <pubDate>Sat, 22 Sep 2012 11:19:47 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/about-me/</guid>
-      <description>&lt;p&gt;I’m an Italian &lt;a href=&#34;https://www.redhat.com&#34;&gt;Red Hatter&lt;/a&gt; who lives in &lt;a href=&#34;https://en.wikipedia.org/wiki/Udine&#34;&gt;Udine&lt;/a&gt;, a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for &lt;a href=&#34;https://www.gnome.org&#34;&gt;GNOME&lt;/a&gt; and &lt;a href=&#34;https://www.fedoraproject.org&#34;&gt;Fedora&lt;/a&gt; for several years.&lt;/p&gt;
-&lt;h3 id=&#34;what-i-am-doing-now&#34;&gt;What I am doing now:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;GNOME:
-&lt;ul&gt;
-&lt;li&gt;Being the GNOME &lt;a href=&#34;https://wiki.gnome.org/Sysadmin/Team&#34;&gt;Infrastructure Team&lt;/a&gt; Coordinator and leading the &lt;a href=&#34;https://wiki.gnome.org/AccountsTeam&#34;&gt;Accounts Team&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Being the GNOME Foundation &lt;a href=&#34;https://wiki.gnome.org/MembershipCommittee&#34;&gt;Membership Committee&lt;/a&gt;‘s Chairman.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Fedora:
-&lt;ul&gt;
-&lt;li&gt;Maintaining a set of RPM packages for the Fedora / EPEL repositories&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;what-i-have-done-in-the-past&#34;&gt;What I have done in the past:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Designed the old Edubuntu’s Homepage for the Ubuntu Italian LoCo Team as reported on my &lt;a href=&#34;http://forum.ubuntu-it.org/index.php?topic=79871.0&#34;&gt;announcement&lt;/a&gt; on the Ubuntu-it’s forums.&lt;/li&gt;
-&lt;li&gt;Wrote several Wiki pages and their translations for the Ubuntu &lt;a href=&#34;https://wiki.ubuntu.com/AndreaVeri&#34;&gt;international&lt;/a&gt; and &lt;a href=&#34;http://wiki.ubuntu-it.org/AndreaVeri&#34;&gt;italian&lt;/a&gt; communities.&lt;/li&gt;
-&lt;li&gt;Have been an Ubuntu &lt;a href=&#34;https://launchpad.net/~motu&#34;&gt;Developer&lt;/a&gt; uploading several packages into the main and universe repositories, full list available at my Launchpad &lt;a href=&#34;https://launchpad.net/~av/+uploaded-packages&#34;&gt;ID&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Sponsored and cleaned up the Ubuntu’s universe queue within the &lt;a href=&#34;https://launchpad.net/~ubuntu-sponsors&#34;&gt;Ubuntu Sponsors Team&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Have helped out the awesome &lt;a href=&#34;https://fedoraproject.org/wiki/Insight&#34;&gt;Insight Team&lt;/a&gt; setting up a working Drupal &lt;a href=&#34;https://insight.fedoraproject.org&#34;&gt;website&lt;/a&gt; meant to publish and share news and articles related to Fedora.&lt;/li&gt;
-&lt;li&gt;Been an &lt;a href=&#34;https://nm.debian.org/whoisam.php&#34;&gt;AM&lt;/a&gt; and helped out new contributors to go through the &lt;a href=&#34;http://www.debian.org/devel/join/newmaint&#34;&gt;NM&lt;/a&gt; process and hopefully welcome them as Debian Developers.&lt;/li&gt;
-&lt;li&gt;Have been a Debian Developer and working on my Debian packages available at my &lt;a href=&#34;http://qa.debian.org/developer.php?login=and&#34;&gt;QA Page&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Was the secretary of the GNOME Foundation &lt;a href=&#34;https://wiki.gnome.org/FoundationBoard&#34;&gt;Board of Directors&lt;/a&gt; for the 2014-2015 and 2015-2016 terms.&lt;/li&gt;
-&lt;li&gt;Have been a proud member of the Fedora &lt;a href=&#34;https://fedoraproject.org/wiki/Infrastructure&#34;&gt;Infrastructure Team&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;random-bits&#34;&gt;Random bits:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;My Ubuntu MOTU interview is available at this &lt;a href=&#34;http://behindmotu.wordpress.com/2007/10/16/andrea-veri&#34;&gt;link&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;A brief summary of my Accounts Team work can be found browsing Paul Cutler’s &lt;a href=&#34;https://www.paulcutler.org/blog/2010/01/gnome-accounts/&#34;&gt;Blog&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;My Fedora Italia interview is now available at this &lt;a href=&#34;http://www.fedora-it.org/news/justfedora/intervista-ad-andrea-veri-contributor-fedora-e-inventore-di-justfedora&#34;&gt;webpage&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Some material from my candidacy for the Fedora Board: Election’s &lt;a href=&#34;http://fedoraproject.org/wiki/F16_elections_questionnaire&#34;&gt;Questionnaire&lt;/a&gt;, Town Hall’s meeting &lt;a href=&#34;http://meetbot.fedoraproject.org/fedora-townhall/2011-05-30/fedora_board_town_hall.2011-05-30-19.01.log.html&#34;&gt;log&lt;/a&gt; and my &lt;a href=&#34;http://fedoraproject.org/w/index.php?title=Board_nominations&amp;amp;oldid=238761#Andrea_Veri_.28averi.29&#34;&gt;nomination&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;I made the &lt;!-- raw HTML omitted --&gt;news&lt;!-- raw HTML omitted --&gt; at GNOME.org.&lt;/li&gt;
-&lt;li&gt;My interview for World Trademark Review about the GNOME trademark dispute with Groupon is available &lt;a href=&#34;http://www.worldtrademarkreview.com/Blog/detail.aspx?g=9df9d63a-417f-4a95-88b2-d781008a47f3&#34;&gt;here&lt;/a&gt; (requires registration).&lt;/li&gt;
-&lt;li&gt;My Bachelor degree thesis having “&lt;strong&gt;&lt;!-- raw HTML omitted --&gt;Legal&lt;!-- raw HTML omitted --&gt; profiles of &lt;!-- raw HTML omitted --&gt;the &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;GNOME&lt;!-- raw HTML omitted --&gt; Desktop Environment: from source code’s freedom to users’ participation in the community&lt;/strong&gt;” as its title can be consulted &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. (italian only)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;presentations&#34;&gt;Presentations&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;My presentation for the FAD Milan 2012 event can be downloaded &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
-&lt;li&gt;My presentation for the Open Source Day 2014 in Udine about Puppet is &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. (in italian)&lt;/li&gt;
-&lt;li&gt;GNOME Foundation Annual General Meeting (AGM) reports (GNOME Infrastructure)&lt;/li&gt;
-&lt;li&gt;GUADEC 2013 &lt;a href=&#34;http://www.dragonsreach.it/wp-content/uploads/2013/08/The-GNOME-Infrastructure.odp&#34;&gt;slides&lt;/a&gt; &lt;a href=&#34;http://www.superlectures.com/guadec2013/the-gnome-infrastructure&#34;&gt;video&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;GUADEC 2014 &lt;a href=&#34;https://www.dragonsreach.it/files/guadec-reports/guadec2014.html&#34;&gt;slides&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;GUADEC 2018 &lt;a href=&#34;https://www.dragonsreach.it/files/guadec-reports/guadec2018.html&#34;&gt;slides&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;contact&#34;&gt;Contact:&lt;/h3&gt;
-&lt;h4 id=&#34;email&#34;&gt;Email:&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:av@linux.it&#34;&gt;av AT linux DOT it&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:av@gnome.org&#34;&gt;av AT gnome DOT org&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:averi@redhat.com&#34;&gt;averi AT redhat DOT com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;mailto:averi@fedoraproject.org&#34;&gt;averi AT fedoraproject DOT org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;irc&#34;&gt;IRC:&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;av&lt;/strong&gt; on irc&lt;!-- raw HTML omitted --&gt;.gnome.&lt;!-- raw HTML omitted --&gt;org.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;averi&lt;/strong&gt; on irc&lt;!-- raw HTML omitted --&gt;.freenode.&lt;!-- raw HTML omitted --&gt;net.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;verify-my-identity&#34;&gt;Verify my identity&lt;/h3&gt;
-&lt;p&gt;You can verify my identity with the following keys:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;SSH Key: &lt;a href=&#34;https://www.dragonsreach.it/files/ssh_key.asc&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;GPG Key: &lt;a href=&#34;https://www.dragonsreach.it/files/gpg_key.asc&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>I’m an Italian Red Hatter who lives in Udine, a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for GNOME and Fedora for several years.
+What I am doing now:  GNOME:  Being the GNOME Infrastructure Team Coordinator and leading the Accounts Team. Being the GNOME Foundation Membership Committee‘s Chairman.</description>
+    </item>
+    
+    <item>
+      <title>FAD Milano 2012</title>
+      <link>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</link>
+      <pubDate>Wed, 19 Sep 2012 16:17:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</guid>
+      <description>È con piacere che annuncio la mia presenza al Fedora Activity Day di Milano in data 27 Ottobre 2012 e con altrettanto piacere ringrazio gli organizzatori per avermi dedicato uno spazio di trenta minuti in cui discutere ed approfondire le tematiche derivanti dall’amministrazione di sistemi Linux, nello specifico, dell’amministrazione degli stessi computer che ospitano e rendono disponibili numerosi servizi alle migliaia di utenti Fedora che contribuiscono quotidianamente al progetto.
+Ho partecipato fisicamente, purtroppo, a pochissimi eventi Open Source e per questo motivo sono particolarmente emozionato di aver la possibilità di prender parte ad una manifestazione così sentita ed apprezzata come il Linux Day, contesto in cui lo stesso Fedora Activity Day prenderà piede.</description>
+    </item>
+    
+    <item>
+      <title>Building Debian packages with Deb-o-Matic</title>
+      <link>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</link>
+      <pubDate>Mon, 17 Sep 2012 13:07:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</guid>
+      <description>Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the package’s description:
+ Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.
+It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration.</description>
+    </item>
+    
+    <item>
+      <title>Manage your website through Git</title>
+      <link>https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/</link>
+      <pubDate>Sat, 15 Sep 2012 12:52:08 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/</guid>
+      <description>Ever wondered how you can update your website (in our case a static website with a bunch of HTML and PHP files) by committing to a Git repository hosted on a different server? if the answer to the previous question is yes, then you are in the right place.
+The scenario:
+  Website hosted on server A.
+  Git repository hosted on server B.
+  and a few details about why would you opt for maintaining your website through Git:</description>
+    </item>
+    
+    <item>
+      <title>Nagios IRC Notifications</title>
+      <link>https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/</link>
+      <pubDate>Sat, 30 Jun 2012 12:59:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/</guid>
+      <description>Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: supybot + supybot-notify, all that mixed up with a few grains of Nagios command definitions.
+But here we go with a little step-by-step guide:</description>
+    </item>
+    
+    <item>
+      <title>A few useful Puppet snippets</title>
+      <link>https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/</link>
+      <pubDate>Tue, 31 Jan 2012 18:43:26 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/</guid>
+      <description>As per Wikipedia:
+ Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.
+Puppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.</description>
+    </item>
+    
+    <item>
+      <title>A few other additions to my Mutt and Desktop setup!</title>
+      <link>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</link>
+      <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</guid>
+      <description>A few days ago I bloggedabout my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
+ Google’s contacts listintegrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
+    </item>
+    
+    <item>
+      <title>New Desktop, Mutt and Irssi setup!</title>
+      <link>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</link>
+      <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</guid>
+      <description>I bought a new PC a few weeks ago and I then decided to renew a bit my Desktop, my Mutt and my Irssi setup. I’ve been spending several hours cleaning up old scripts, logs and configuration files but the result definitely seems to reward me the right way. But here they come a few screenshots:
+Desktop
+
+Irssi
+
+Mutt
+
+If you liked all the above and would like to reproduce everything yourself, you should consider having a look at my GitHub’s repository.</description>
+    </item>
+    
+    <item>
+      <title>Backup your Gmail in a few easy steps!</title>
+      <link>https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/</link>
+      <pubDate>Mon, 25 Jul 2011 22:50:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/</guid>
+      <description>I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying the following setup is:
+ A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well) Prevent getmail to mark all mails as read after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all) Keep your backups up-to-date with the latest content from your mailbox.</description>
+    </item>
+    
+    <item>
+      <title>Automatic Gmail’s Trash &amp; Spam folders cleanup</title>
+      <link>https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/</link>
+      <pubDate>Sun, 03 Jul 2011 21:29:35 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/</guid>
+      <description>Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash &amp;amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash&amp;amp;Spam folders empty as they should be makes me pretty happy)
+A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.</description>
+    </item>
+    
+    <item>
+      <title>Fedora Board’s Town Hall</title>
+      <link>https://www.dragonsreach.it/2011/05/30/fedora-boards-town-hall/</link>
+      <pubDate>Mon, 30 May 2011 21:06:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/05/30/fedora-boards-town-hall/</guid>
+      <description>Today we had a great Town Hall meeting kindly hosted and moderated by Kevin Fenzi (nirik). We received a lot of interesting and nice questions by the contributors and developers that were attending:
+ What do you feel needs to be improved in the Fedora Community? How can you’re being on the Board improve the Community? Do you think that too many issues in Fedora are referred directly to the Board, and if so, how would you like to see this improved?</description>
+    </item>
+    
+    <item>
+      <title>Fedora Board’s Questionnaire</title>
+      <link>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</link>
+      <pubDate>Wed, 25 May 2011 20:45:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</guid>
+      <description>If you are not subscribed to the fedora-announcemailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
+ What will you be able to accomplish by being elected, that you would not otherwise be able to do as a contributor?  (As you will notice by reading the list right down here) Being a single contributor makes achieving these points impossible since changing how localized communities should work, improving our CoC and enforcing its rules and re-thinking Board’s role in our community is something that must be discussed and voted within the Board and its members.</description>
+    </item>
+    
+    <item>
+      <title>Planet Edited? More details to come!</title>
+      <link>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</link>
+      <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bits from September / October</title>
+      <link>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</guid>
+      <description>Debian maintainer:
+Some days ago I had the great announcement that my Debian Maintainer‘s application was accepted and thanks to Jonathan McDowell my key is finally into the debian-maintainers keyring. (which is now part of the debian-keyring itself thanks to the ftp-masters / keyring maintainer work that made the changes on both DAK and keyring)
+I applied on the 22th of August, and thanks to Reinhard’s advocation, everything went on the right side.</description>
+    </item>
+    
+    <item>
+      <title>BehindMOTU: La mia Intervista…</title>
+      <link>https://www.dragonsreach.it/2007/10/20/behindmotu-la-mia-intervista/</link>
+      <pubDate>Sat, 20 Oct 2007 10:27:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2007/10/20/behindmotu-la-mia-intervista/</guid>
+      <description>Pochi giorni fa ho avuto l’onore di essere intervistato da BehindMOTU, vi riporto l’intera intervista (ovviamente in inglese) augurandovi ,inoltre, una buona lettura! Potete trovare il post originale qua.
+Today we are interviewing Andrea Veri, fresh MOTU and eager Ubuntu volunteer.
+
+Age: 18
+Location: Udine, Italy
+IRC Nick: bluekuja
+How long have you used Linux and what was your first distro?
+I started using Linux at the end of 2005 using Red Hat and Fedora distros, contributing on writing several pages for Fedora documentation (mostly server docs) but mainly working on some packaging-related activities (introducing ctorrent, gtorrent-viewer and v2strip packages inside Fedora) for more than 3 months until the beginning of March 2006 when I decided to move definitely to Ubuntu after discovering it at a friend’s party.</description>
+    </item>
+    
+    <item>
+      <title>Il primo upload ha sempre un sapore speciale!</title>
+      <link>https://www.dragonsreach.it/2007/09/13/il-primo-upload-ha-sempre-un-sapore-speciale/</link>
+      <pubDate>Thu, 13 Sep 2007 18:16:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2007/09/13/il-primo-upload-ha-sempre-un-sapore-speciale/</guid>
+      <description>Questo pomeriggio ho eseguito il primo upload nell’archivio di Ubuntu e devo dire che ricevere poco dopo la mail di conferma e di successo dell’operazione è qualcosa di veramente speciale! Mi trovavo in una delle tante cartelle della mia Home e dopo aver controllato innumerevoli volte che tutto fosse corretto, ho lanciato dput e eseguito l’upload del pacchetto in questione, che, dopo il solito controllo della chiave di autorizzazione (GPG-Key) ha provveduto ad inviare i file necessari al server, mandandomi poco dopo l’email che tanto aspettavo: ACCEPTED.</description>
+    </item>
+    
+    <item>
+      <title>Una grande soddisfazione!</title>
+      <link>https://www.dragonsreach.it/2007/09/12/una-grande-soddisfazione/</link>
+      <pubDate>Wed, 12 Sep 2007 18:14:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2007/09/12/una-grande-soddisfazione/</guid>
+      <description>Dopo ben 3 mesi dalla mia presentazione al MOTU Council per la candidatura ufficiale a Master of the Universe è giunta ieri la lieta mail di Matt Zimmerman, chairman della tech board di Ubuntu e responsabile di ogni decisione finale per ogni candidatura presentata al consiglio. La mail che potete trovare nella mailing list di ubuntu-devel annuncia il mio ingresso come developer ufficiale di Ubuntu, con permessi di upload all’interno dell’archivio.</description>
+    </item>
+    
+    <item>
+      <title>Creazione MOTU Torrent Team</title>
+      <link>https://www.dragonsreach.it/2007/05/20/creazione-motu-torrent-team/</link>
+      <pubDate>Sun, 20 May 2007 19:40:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2007/05/20/creazione-motu-torrent-team/</guid>
+      <description>Era da parecchio tempo ormai che l’idea di creare una squadra che si dedicasse solamente alla manutenzione di pacchetti legati al protocollo bittorrent mi percorreva la mente. Da intendere però che per manutenzione non si preveda solo la creazione di pacchetti non presenti negli archivi ma anche di tenere aggiornate le applicazioni già presenti nelle componenti main e universe tramite merges e syncs da debian, creando una collaborazione tra upstream e debian stesso per migliorare i programmi disponibili introducendo magari nuove realtà anche nel mondo delle librerie legate ai torrent.</description>
     </item>
     
   </channel>

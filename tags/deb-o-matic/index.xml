@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Deb-o-Matic on Andrea Veri&#39;s Blog</title>
@@ -6,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 17 Sep 2012 13:07:14 +0000</lastBuildDate>
     
-        <atom:link href="https://www.dragonsreach.it/tags/deb-o-matic/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://www.dragonsreach.it/tags/deb-o-matic/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -15,106 +16,9 @@
       <pubDate>Mon, 17 Sep 2012 13:07:14 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</guid>
-      <description>&lt;p&gt;Today I’ll be telling you about an interesting way to build your Debian packages using &lt;strong&gt;Deb-o-Matic&lt;/strong&gt;, a tool developed and maintained by &lt;!-- raw HTML omitted --&gt;Luca Falavigna&lt;!-- raw HTML omitted --&gt;. Some more details about this tool from the package’s description:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.&lt;/p&gt;
-&lt;p&gt;It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration. It has some useful features such as automatic update of pbuilder, automatic scan and selection of source packages to build and modules support.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;The &lt;strong&gt;setup.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Download the package.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;apt-get install debomatic&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Modify the &lt;strong&gt;main&lt;/strong&gt; configuration file as follows:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[default]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;builder: pbuilder&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;packagedir: /home/john/debomatic # Take note of the following path since we&amp;#39;ll need it for later use.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;configdir: /etc/debomatic/distributions&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;pbuilderhooks: /usr/share/debomatic/pbuilderhooks&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;maxbuilds: 3 # The number of builds you can perform at the same time.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;inotify: 1&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;sleep: 60 # The sleep time between one build and another.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;logfile: /var/log/debomatic.log&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[gpg]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[modules]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;modules: 1 # A list of all the available modules will follow right after.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;modulespath: /usr/share/debomatic/modules&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[runtime]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;alwaysupdate: unstable experimental precise&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;distblacklist:&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;modulesblacklist: Lintian Mailer&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;mapper: {&amp;#39;sid&amp;#39;: &amp;#39;unstable&amp;#39;,&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;wheezy&amp;#39;: &amp;#39;testing&amp;#39;,&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;squeeze&amp;#39;: &amp;#39;stable&amp;#39;}&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[lintian]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.&lt;/span&gt;
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &amp;#39;Ssmtp&amp;#39; daemon which is a one-minute-setup MTA, check an example over &amp;lt;a href&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&amp;#34; target=&amp;#34;_blank&amp;#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;fromaddr: debomatic@localhost&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;smtphost: localhost&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;smtpport: 25&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;authrequired: 0&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;smtpuser: user&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;smtppass: pass&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;failure: /etc/debomatic/mailer/build_failure.mail-template&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[internals]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;configversion&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;010a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The available modules are:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt; “&lt;strong&gt;Contents&lt;/strong&gt;“, which acts as a ‘dpkg -c’ over the built packages.&lt;/li&gt;
-&lt;li&gt;“&lt;strong&gt;DateStamp&lt;/strong&gt;“, which displays build start and finish times into a file in the build directory.&lt;/li&gt;
-&lt;li&gt;“&lt;strong&gt;Lintian&lt;/strong&gt;“, which stores Lintian output on top of the built package in the pool directory.&lt;/li&gt;
-&lt;li&gt;“&lt;strong&gt;Mailer&lt;/strong&gt;“, which sends a reply to the uploader once the build has finished.&lt;/li&gt;
-&lt;li&gt;“&lt;strong&gt;PrevBuildCleaner&lt;/strong&gt;“, which deletes all files generated by the previous build.&lt;/li&gt;
-&lt;li&gt;“&lt;strong&gt;Repository&lt;/strong&gt;“, which generates a local repository of built packages.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Configure ‘&lt;!-- raw HTML omitted --&gt;dput&lt;!-- raw HTML omitted --&gt;‘ to upload package’s sources to your local repository, edit the &lt;strong&gt;/etc/dput.cf&lt;/strong&gt; file and add this entry:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[debomatic]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;local&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;incoming&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/home/john/debomatic&lt;/span&gt;
-
-&lt;span style=&#34;color:#4070a0&#34;&gt;or the following if you are going to upload the files to a different machine through SSH:&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[debomatic]&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;login&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;john&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;fqdn&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;debomatic.example.net&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;scp&lt;/span&gt;
-&lt;span style=&#34;color:#4070a0&#34;&gt;incoming&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/debomatic&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Add a new &lt;strong&gt;Virtual Host&lt;/strong&gt; on Apache and access the repository / built packages directly through your browser:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Apache&#34; data-lang=&#34;Apache&#34;&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;*:80&lt;/span&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#007020&#34;&gt;ServerAdmin&lt;/span&gt; john@example.net
-&lt;span style=&#34;color:#007020&#34;&gt;ServerName&lt;/span&gt; debomatic.example.net
-&lt;span style=&#34;color:#007020&#34;&gt;DocumentRoot&lt;/span&gt; &lt;span style=&#34;color:#c65d09&#34;&gt;/home/john/debomatic&lt;/span&gt;
-
-&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;Directory&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/home/john/debomatic&lt;/span&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;span style=&#34;color:#007020&#34;&gt;Options&lt;/span&gt; Indexes FollowSymLinks MultiViews
-&lt;span style=&#34;color:#007020&#34;&gt;AllowOverride&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;None&lt;/span&gt;
-&lt;span style=&#34;color:#007020&#34;&gt;Order&lt;/span&gt; allow,deny
-&lt;span style=&#34;color:#007020&#34;&gt;allow&lt;/span&gt; from &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;all&lt;/span&gt;
-&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;Directory&amp;gt;&lt;/span&gt;
-
-&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Start the daemon:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;sudo /etc/init.d/debomatic start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(&lt;strong&gt;Optional&lt;/strong&gt;) Add your repository to &lt;strong&gt;APT&lt;/strong&gt;‘s sources.list:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;deb http://debomatic.example.net/ unstable main contrib non-free&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;(&lt;strong&gt;Optional&lt;/strong&gt;) Start Deb-O-Matic at system’s startup by modifying the &lt;strong&gt;/etc/init.d/debomatic&lt;/strong&gt; file at &lt;strong&gt;line 21&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;- &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; -x &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DAEMON&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
-- &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DEBOMATIC_AUTOSTART&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
-
-+ &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; -x &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DAEMON&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
-+ &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DEBOMATIC_AUTOSTART&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;and finally add it to the desired &lt;strong&gt;runlevels&lt;/strong&gt;:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;update-rc.d debomatic defaults&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;Enjoy!&lt;/p&gt;
-</description>
+      <description>Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the package’s description:
+ Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.
+It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration.</description>
     </item>
     
   </channel>
