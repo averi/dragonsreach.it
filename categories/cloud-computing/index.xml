@@ -1,0 +1,49 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cloud Computing on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/categories/cloud-computing/</link>
+    <description>Recent content in Cloud Computing on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 13 Dec 2012 14:22:25 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/categories/cloud-computing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The future is Cloudy</title>
+      <link>https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/</link>
+      <pubDate>Thu, 13 Dec 2012 14:22:25 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/</guid>
+      <description>&lt;p&gt;Have you ever heard someone talking extensively about &lt;strong&gt;Cloud Computing&lt;/strong&gt; or generally &lt;strong&gt;Clouds&lt;/strong&gt;? and have you ever noticed the fact many people (even the ones who present themselves as experts) don’t really understand what a Cloud is at all? That happened to me multiple times and one of the most common misunderstandings is many see the Cloud as something being on the &lt;strong&gt;internet&lt;/strong&gt;. Many companies add a little &lt;strong&gt;logo&lt;/strong&gt; representing a cloud on their frontpage and without a single change on their infrastructure (but surely with a &lt;strong&gt;price increment&lt;/strong&gt;) they start calling their products as being on the Cloud. Given the lack of knowledge about this specific topic people tend to buy the product presented as being on the Cloud without understanding what they really bought.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;But what Cloud Computing really means? it took several years and more than fifteen drafts to the &lt;strong&gt;National Institute of Standards and Technology&lt;/strong&gt;‘s (&lt;strong&gt;NIST&lt;/strong&gt;) to find a definition. The final accepted proposal:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The above definition requires a few more clarifications specifically when it comes to understand where should we focus on while checking for a Cloud Computing solution. A few key points:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;On-demand self-service&lt;/strong&gt;: every consumer will be able to unilaterally provision multiple computing capabilities like server time, storage, bandwidth, dedicated RAM or CPU without requiring any sort of human interaction from their respective Cloud providers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rapid elasticity and scalability&lt;/strong&gt;: all the computing capabilities outlined above can be elastically provisioned and released depending on how much demand my company will have in a specific period of time. Suppose the X company is launching a new product today and it expects a very large number of customers. The X company will add more resources to their  Cloud for the very first days (where they suppose the load to be very high) and then it’ll scale the resources back as they were before. Elasticity and scalability permit the X company to improve and enhance their infrastructure when they need it with an huge saving in monetary terms.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Broad network access&lt;/strong&gt;: capabilities are available over the network and accessed through standard mechanisms that promote use by heterogeneous thin or thick client platforms (e.g., mobile phones, tablets, laptops, and workstations).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Measured service&lt;/strong&gt;: Cloud systems allow maximum transparency between the provider and the consumer, the usage of all the resources is monitored, controlled, and reported. The consumer knows how much will spend, when and in how long.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resource pooling&lt;/strong&gt;: each provider’s computing resources are pooled to serve multiple consumers at the same time. The consumer has no control or knownledge over the exact location of the provided resources but may be able to specify location at a higher level of abstraction (e.g., country, state, or datacenter).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resources price&lt;/strong&gt;: when buying a Cloud service make sure the cost for two units of RAM, storage, CPU, bandwidth, server time is exactly the double of the price of one unit of the same capability. An example, if a provider offers you one hour of bandwitdh for 1 Euro, the price of  two hours will have to be 2 Euros.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.dragonsreach.it/wp-content/uploads/2012/12/cloud-service-models.jpg&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The Cloud Computing technology is reasonably the future but can we trust Cloud providers? Are we sure that no one will ever have access to our files except us? and what about governments interested in acquiring a specific customer data hosted on the Cloud?&lt;/p&gt;
+&lt;p&gt;I always suggest to read deeply both the &lt;strong&gt;Privacy Policy&lt;/strong&gt; and &lt;strong&gt;Terms of Use&lt;/strong&gt; of a certain service before signing in especially when it comes to choose a Cloud storage provider. Many providers have the same aspect, they seem to provide the same resources, the same amount of storage for the same price but legally they may present different problems, and that is the case of &lt;strong&gt;Spideroak&lt;/strong&gt; vs &lt;strong&gt;Dropbox&lt;/strong&gt;. Quoting from the Dropbox’s &lt;strong&gt;Privacy Policy&lt;/strong&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;It’s evident that Dropbox employees can access your data or be forced by legal process to turn over your data &lt;strong&gt;unencrypted&lt;/strong&gt;. On the other side, Spideroak on its latest update to its &lt;a href=&#34;https://spideroak.com/blog/20120502022627-spideroak-privacy-policy-update&#34;&gt;Privacy Policy&lt;/a&gt; states that data stored on their  Cloud  is &lt;strong&gt;encrypted&lt;/strong&gt; and &lt;strong&gt;inaccessible&lt;/strong&gt; without user’s key, which is stored locally on user’s computers.&lt;/p&gt;
+&lt;p&gt;And what about the latest research paper, titled “&lt;strong&gt;&lt;!-- raw HTML omitted --&gt;Cloud Computing in Higher Education and Research Institutions and the USA Patriot Act&lt;!-- raw HTML omitted --&gt;&lt;/strong&gt;” written by the legal experts of the &lt;strong&gt;University of Amsterdam’s Institute for Information Law&lt;/strong&gt; stating the anti-terror &lt;strong&gt;Patriot Act&lt;/strong&gt; could be theoretically used by U.S. law enforcement to bypass strict European privacy laws to acquire citizen data within the European Union without their consensus?&lt;/p&gt;
+&lt;p&gt;The only requirement for the data acquisition is the provider being an U.S company or an European company conducting systematic business in the U.S. For example an Italian company storing their documents (protected by the European privacy laws and under the general Italian jurisdiction) on a provider based in Europe but conducting systematic business in the United States, could be forced by U.S. law enforcement to transfer data to the U.S. territory for inspection by law enforcement agencies.&lt;/p&gt;
+&lt;p&gt;Does someone really &lt;strong&gt;care&lt;/strong&gt; about the &lt;strong&gt;privacy&lt;/strong&gt; of companies, consumers and users at all? or better does &lt;strong&gt;privacy&lt;/strong&gt; exists at all for the millions of the people that connect to the internet every day?&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

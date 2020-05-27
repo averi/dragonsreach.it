@@ -1,0 +1,83 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>samsung chronos series 7 on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/samsung-chronos-series-7/</link>
+    <description>Recent content in samsung chronos series 7 on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 20 Mar 2014 15:36:38 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/samsung-chronos-series-7/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fedora 20 on a Samsung Chronos Series 7</title>
+      <link>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</link>
+      <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</guid>
+      <description>&lt;p&gt;It’s been a while now since the very first time I posed my hands on this shiny new &lt;strong&gt;Samsung Chronos Series 7&lt;/strong&gt; laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?&lt;/p&gt;
+&lt;p&gt;What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual. Right after booting the machine I disabled Windows 8’s Secure Boot, configured the laptop to boot from the USB Key I plugged in and restarted it to finally perform the real OS installation.&lt;/p&gt;
+&lt;p&gt;The laptop booted back (with UEFI mode marked as on) and the installation started. The Chronos Series 7 came with an iSSD of 16G in size, not much but definitely enough for keeping the root partition, swap and home directory. (I don’t need an huge home dir given all the various data is stored and mounted through NFS directly from the NAS)&lt;/p&gt;
+&lt;p&gt;The installation went just fine and no issues arised at all until I booted into the system. The laptop since the beginning started to reach high CPU and graphics card temperatures (sticking around &lt;strong&gt;75-78 C&lt;/strong&gt; for the CPU and &lt;strong&gt;60 C&lt;/strong&gt; for the NVIDIA card), the fans were constantly on and I could feel the heat of the machine while typing. But that’s not all, the backlit keyboard had its lights always set as on (even in the case of a locked screen) and the battery life was sticking around one hour and an half.&lt;/p&gt;
+&lt;p&gt;I’m now going to list all my findings and solutions for the above issues after spending some time debugging and trying hard.&lt;/p&gt;
+&lt;h2 id=&#34;uefi-vs-csm-legacy-bios-compatibility-mode&#34;&gt;UEFI vs CSM (Legacy BIOS Compatibility mode)&lt;/h2&gt;
+&lt;p&gt;Installing Fedora 20 with UEFI will result in your laptop not loading the &lt;strong&gt;samsung-laptop&lt;/strong&gt; kernel module at all. That is the result of a known bug (with a good chance to brick your laptop) on Samsung laptops and UEFI boots (mainly related to the incompatibility between the samsung-laptop kernel module and the Samsung’s UEFI firmware and its corruption when the module is loaded) . More details &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;That said, before starting the installation, press &lt;strong&gt;Fn+F2&lt;/strong&gt; right after powering up your laptop, you will be then prompted with the laptop’s Setup configuration. Switch to the &lt;strong&gt;Boot&lt;/strong&gt; tab and disable Secure Boot making sure &lt;strong&gt;CSM&lt;/strong&gt; is selected on the dropdown window. (before moving on make also sure to disable the &lt;strong&gt;Fast BIOS Mode&lt;/strong&gt; on the Advanced tab before proceeding)&lt;/p&gt;
+&lt;p&gt;When done, boot up a copy of Fedora 20 with your preferred media (I did use the Live CD myself) and make your way through the installation. Make sure to read on before touching the disk partitioning schemas.&lt;/p&gt;
+&lt;h2 id=&#34;issd-not-recognized-with-csm-mode-marked-as-on&#34;&gt;iSSD not recognized with CSM mode marked as on&lt;/h2&gt;
+&lt;p&gt;During one of my trials I did try to install the OS directly on the iSSD (in our examples, &lt;em&gt;/dev/sdb&lt;/em&gt;) itself. The result was the system being completely un-bootable probably cause the EFI firmware being unable to recognize the iSSD on CSM mode. (the only disk that was getting recognized was the 750G HDD (in our examples, &lt;em&gt;/dev/sda&lt;/em&gt;) the laptop has as an additional storage)&lt;/p&gt;
+&lt;p&gt;While the EFI firmware is not able to recognize the iSSD at all properly (when in CSM mode) it can flawlessly detect the HDD. That means one thing: we can keep the root, home and swap partitions on the iSSD and move the boot, bios boot partitions on the HDD itself and boot up the machine from there.&lt;/p&gt;
+&lt;h2 id=&#34;the-installation&#34;&gt;The installation&lt;/h2&gt;
+&lt;p&gt;We left our installation tutorial right before starting the installation itself through Anaconda. Let’s resume from there by making sure the following partitions are created on the HDD (from now on &lt;em&gt;/dev/sda&lt;/em&gt;):&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;a &lt;strong&gt;bios-boot&lt;/strong&gt; partition (details on how to set it up at &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;).&lt;/li&gt;
+&lt;li&gt;a &lt;strong&gt;boot&lt;/strong&gt; partition (ext4, 500M in size)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once done, perform the installation on the iSSD (from now on &lt;em&gt;/dev/sdb&lt;/em&gt;), my setup on the 16G iSSD:&lt;/p&gt;
+&lt;p&gt;LVM Volume Group with three logical volumes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;5.12 G&lt;/strong&gt; /home + Luks (5.12 G for an home directory seems not enough but that’s definitely more than enough when you have a local HDD and a NAS with more than 2T of storage)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;7.8 G&lt;/strong&gt; / (I prefer keeping root a big bigger than home to prevent the need to cleanup the yum cache and other packages cruft every now and then)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;1.5 G&lt;/strong&gt; swap space&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Another working setup might be:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A &lt;strong&gt;15G&lt;/strong&gt; / partition on the iSSD, no need for LVM here&lt;/li&gt;
+&lt;li&gt;An LVM Volume Group that will store the /home and swap space so you can expand it to be more than just &lt;strong&gt;5G / 1.5G&lt;/strong&gt;. The LVM VolGroup should ideally go on its own partition on &lt;em&gt;/dev/sda&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When the system has been installed, mount the &lt;em&gt;/dev/sda&lt;/em&gt; boot partition you previously created and install grub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mount /dev/sda3 /mnt/boot-sda
+
+grub2-install /dev/sda&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I did assume &lt;em&gt;/dev/sda3&lt;/em&gt; was your /boot partition, make sure to check that is right for your case as well. (just run &lt;em&gt;fdisk -l /dev/sda&lt;/em&gt; to find out)&lt;/p&gt;
+&lt;p&gt;When done, mount the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition and copy all the files to the previously created mount point /mnt/boot-sda. From there figure out the UUID (&lt;em&gt;ls -l /dev/disk/by-uuid&lt;/em&gt;) for the /dev/sda3 partition and modify the relevant entries on the &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; file removing the UUID for the &lt;em&gt;/dev/sdb1&lt;/em&gt; (in my case that was the partition containing /boot) partition with the one of &lt;em&gt;/dev/sda3&lt;/em&gt;. Save the file and reboot the machine.&lt;/p&gt;
+&lt;p&gt;You should then be able to unmount the /boot partition from &lt;em&gt;/dev/sdb1&lt;/em&gt; and modify the relevant &lt;em&gt;/etc/fstab&lt;/em&gt; entry with &lt;em&gt;/dev/sda3&lt;/em&gt;‘s UUID. That way new kernel’s installations will be handled correctly without the need to manually edit &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; and moving around the initramfs / vmlinuz images. At this point it should be safe to remove the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition completely.&lt;/p&gt;
+&lt;h2 id=&#34;things-to-do-after-installing-fedora-20&#34;&gt;Things to do after installing Fedora 20&lt;/h2&gt;
+&lt;h3 id=&#34;installing-bumblebee&#34;&gt;Installing Bumblebee&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;NP700Z3C&lt;/strong&gt; has a &lt;strong&gt;NVIDIA GeForce GT 630M&lt;/strong&gt; that benefits from the &lt;strong&gt;NVIDIA Optimus technology&lt;/strong&gt; which allows the user to gather the maximum performance possible when launching specific high-demand applications (like during gameplay or while watching an HD movie) and fallback to the integrated GPU when the user is performing normal operations like browsing the web, writing emails or text editing.&lt;/p&gt;
+&lt;p&gt;Luckily the Bumblebee project comes in help about this providing Optimus support for a variety of Linux distributions. More details on how to set it up &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. (you will need &lt;strong&gt;bumblebee&lt;/strong&gt;, &lt;strong&gt;bumblebee-nvidia&lt;/strong&gt; and &lt;strong&gt;bbswitch&lt;/strong&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;installing-tlp&#34;&gt;Installing TLP&lt;/h3&gt;
+&lt;p&gt;From the &lt;strong&gt;tlp&lt;/strong&gt;‘s website:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TLP brings you the benefits of advanced power management for Linux without the need to understand every technical detail. TLP comes with a default configuration already optimized for battery life, so you may just install and forget it. Nevertheless TLP is highly customizable to fulfil your specific requirements.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I can tell you power management for your laptop has never been easier with tlp. Make sure to visit tlp’s &lt;!-- raw HTML omitted --&gt;homepage&lt;!-- raw HTML omitted --&gt; for more details on how to set it up.&lt;/p&gt;
+&lt;h3 id=&#34;samsung-tools&#34;&gt;Samsung Tools&lt;/h3&gt;
+&lt;p&gt;From the &lt;strong&gt;samsung-tool&lt;/strong&gt;‘s homepage:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Samsung Tools is the successor of Samsung Scripts provided by the ‘Linux On My Samsung’ project.&lt;/p&gt;
+&lt;p&gt;It enables control in a friendly way of the devices available on Samsung laptops (bluetooth, wireless, webcam, backlight, CPU fan, special keys) and the control of various aspects related to power management, like the CPU undervolting (when a PHC-enabled kernel is available).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Given there’s no RPM available for samsung-tools, downloading the tarball and running make as root should suffice for installing it on your laptop.&lt;/p&gt;
+&lt;h3 id=&#34;kernel-flags&#34;&gt;Kernel flags&lt;/h3&gt;
+&lt;p&gt;What seem to have helped me a lot with the high CPU temperatures (and thus with the noisy fans going on and on) are the following Kernel flags you should pass to Grub through the &lt;em&gt;/etc/sysconfig/grub&lt;/em&gt; file on the &lt;em&gt;GRUB_CMDLINE_LINUX&lt;/em&gt; line:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;pcie_aspm&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;force i915.i915_enable_rc6&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.i915_enable_fbc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.lvds_downclock&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.semaphores&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.modeset&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;acpi_osi&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Linux &lt;span style=&#34;color:#bb60d5&#34;&gt;rdblacklist&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;nouveau&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-notes&#34;&gt;Additional notes&lt;/h3&gt;
+&lt;p&gt;The above procedure has been tested with the laptop having the following &lt;!-- raw HTML omitted --&gt;specs&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;The average temperature for the CPU is sticking around &lt;strong&gt;47-51 C&lt;/strong&gt;, while the discrete GPU at &lt;strong&gt;49-51C&lt;/strong&gt;. I could also get around 3.5 – 4 hours of battery life!&lt;/p&gt;
+&lt;p&gt;That should be all! Please leave me a comment in case of questions, troubles with the above setup!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,52 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gpg on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/gpg/</link>
+    <description>Recent content in gpg on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 24 Dec 2013 15:51:20 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/gpg/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Manage passwords with ‘pass’</title>
+      <link>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
+      <description>&lt;p&gt;Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the &lt;!-- raw HTML omitted --&gt;following wiki page&lt;!-- raw HTML omitted --&gt; has a pretty nice overview of them.&lt;/p&gt;
+&lt;p&gt;Said that, when using sudo it’s definitely ideal to combine a &lt;strong&gt;strong password&lt;/strong&gt; that is also easy to remember and type again when prompted. Sadly strong passwords that are also easy to remember can be considered an oxymoron. How hard would it be to recall a 30+ chars long password? Honestly that would be close to impossible for an human being but what if a little software available on the major GNU/Linux distributions could handle that for us? That’s where &lt;em&gt;pass&lt;/em&gt; comes handy, but what is pass? from the pass manpage itself:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pass is a very simple password store that keeps passwords inside gpg2(1) encrypted files inside a simple directory tree residing at ~/.password-store. The pass utility provides a series of commands for manipulating the password store, allowing the user to add, remove, edit, synchronize, generate, and manipulate passwords.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I’m sure that a lot of you guys have been looking for a tool like this one for ages: &lt;em&gt;pass&lt;/em&gt; allows you to generate very strong passwords with &lt;!-- raw HTML omitted --&gt;pwgen&lt;!-- raw HTML omitted --&gt;, GPG encrypt them with your GPG Key, store them safely on your disk and make them available whenever you need them with a single command. But let’s move to the practice, give the following steps a try and enjoy how powerful your pass setup will be.&lt;/p&gt;
+&lt;h3 id=&#34;first-setup&#34;&gt;First setup&lt;/h3&gt;
+&lt;p&gt;Install the software:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;yum/apt-get install pass&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate a GPG Key if you don’t have one already, a detailed guide can be found &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. Initialize your passwords storage. (&lt;strong&gt;GPGKEYID&lt;/strong&gt; can be retrieved by running &lt;strong&gt;gpg –list-keys&lt;/strong&gt; and then looking for a line similar to this one: &lt;strong&gt;pub 4096R/B3A6223D 2012-06-25&lt;/strong&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass init GPGKEYID&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate your first password and call it ‘sudo_password’ given you are going to make use of it as your brand new sudo password. (we want it at least 30+ chars long)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate sudo_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(Optional) Create as much passwords as you need and make sure to save them with unique names, that way you will be able to identify what a password is used for easily.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate gmail_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-maintenance-commands-on-your-password-database&#34;&gt;Additional maintenance commands on your password database&lt;/h3&gt;
+&lt;p&gt;Look at the existing passwords on your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass ls&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Password Store
+├── gmail_password
+├── sudo_password
+└── root_password&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Manually edit a password.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass edit password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Remove a password from your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass rm password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Copy a password on your clipboard and paste it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass -c password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Are you wondering if &lt;em&gt;pass&lt;/em&gt; supports a VCS? Yeah, it does, it currently allows you to manage your passwords database with Git, so that each applied change to the database will be tracked through a VCS so that you won’t forget when and how you updated a specific password.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,733 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/</link>
+    <description>Recent content in Tags on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Planet GNOME</title>
+      <link>https://www.dragonsreach.it/tags/planet-gnome/</link>
+      <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/planet-gnome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sysadmin</title>
+      <link>https://www.dragonsreach.it/tags/sysadmin/</link>
+      <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/sysadmin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openshift</title>
+      <link>https://www.dragonsreach.it/tags/openshift/</link>
+      <pubDate>Thu, 18 Oct 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/openshift/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GUADEC</title>
+      <link>https://www.dragonsreach.it/tags/guadec/</link>
+      <pubDate>Mon, 30 Jul 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/guadec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kerberos</title>
+      <link>https://www.dragonsreach.it/tags/kerberos/</link>
+      <pubDate>Fri, 24 Oct 2014 13:50:52 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/kerberos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>foundation</title>
+      <link>https://www.dragonsreach.it/tags/foundation/</link>
+      <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/foundation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>freeipa</title>
+      <link>https://www.dragonsreach.it/tags/freeipa/</link>
+      <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/freeipa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenLDAP</title>
+      <link>https://www.dragonsreach.it/tags/openldap/</link>
+      <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/openldap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSH</title>
+      <link>https://www.dragonsreach.it/tags/ssh/</link>
+      <pubDate>Sun, 12 Oct 2014 18:02:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/ssh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gnome.org</title>
+      <link>https://www.dragonsreach.it/tags/gnome.org/</link>
+      <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/gnome.org/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rhel</title>
+      <link>https://www.dragonsreach.it/tags/rhel/</link>
+      <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/rhel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSSD</title>
+      <link>https://www.dragonsreach.it/tags/sssd/</link>
+      <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/sssd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>captchas</title>
+      <link>https://www.dragonsreach.it/tags/captchas/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/captchas/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mailman</title>
+      <link>https://www.dragonsreach.it/tags/mailman/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/mailman/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planet Debian</title>
+      <link>https://www.dragonsreach.it/tags/planet-debian/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/planet-debian/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fedora 20</title>
+      <link>https://www.dragonsreach.it/tags/fedora-20/</link>
+      <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/fedora-20/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fedy</title>
+      <link>https://www.dragonsreach.it/tags/fedy/</link>
+      <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/fedy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>NP700Z3C</title>
+      <link>https://www.dragonsreach.it/tags/np700z3c/</link>
+      <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/np700z3c/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>samsung chronos series 7</title>
+      <link>https://www.dragonsreach.it/tags/samsung-chronos-series-7/</link>
+      <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/samsung-chronos-series-7/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>encrypt</title>
+      <link>https://www.dragonsreach.it/tags/encrypt/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/encrypt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gpg</title>
+      <link>https://www.dragonsreach.it/tags/gpg/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/gpg/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pass</title>
+      <link>https://www.dragonsreach.it/tags/pass/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/pass/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>passwords</title>
+      <link>https://www.dragonsreach.it/tags/passwords/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/passwords/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>BIND</title>
+      <link>https://www.dragonsreach.it/tags/bind/</link>
+      <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/bind/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DNSSEC</title>
+      <link>https://www.dragonsreach.it/tags/dnssec/</link>
+      <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/dnssec/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>GUADEC 2013</title>
+      <link>https://www.dragonsreach.it/tags/guadec-2013/</link>
+      <pubDate>Mon, 12 Aug 2013 15:51:30 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/guadec-2013/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://www.dragonsreach.it/tags/linux/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux desktop</title>
+      <link>https://www.dragonsreach.it/tags/linux-desktop/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/linux-desktop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tmux</title>
+      <link>https://www.dragonsreach.it/tags/tmux/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/tmux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vim</title>
+      <link>https://www.dragonsreach.it/tags/vim/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>infrastructure</title>
+      <link>https://www.dragonsreach.it/tags/infrastructure/</link>
+      <pubDate>Fri, 14 Jun 2013 11:37:06 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/infrastructure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mozilla</title>
+      <link>https://www.dragonsreach.it/tags/mozilla/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/mozilla/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mozilla NSS</title>
+      <link>https://www.dragonsreach.it/tags/mozilla-nss/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/mozilla-nss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SSL</title>
+      <link>https://www.dragonsreach.it/tags/ssl/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/ssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TLS</title>
+      <link>https://www.dragonsreach.it/tags/tls/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/tls/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hurricane Electrics</title>
+      <link>https://www.dragonsreach.it/tags/hurricane-electrics/</link>
+      <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/hurricane-electrics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IPv6</title>
+      <link>https://www.dragonsreach.it/tags/ipv6/</link>
+      <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/ipv6/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link>https://www.dragonsreach.it/tags/cloud/</link>
+      <pubDate>Thu, 13 Dec 2012 14:22:25 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud Computing</title>
+      <link>https://www.dragonsreach.it/tags/cloud-computing/</link>
+      <pubDate>Thu, 13 Dec 2012 14:22:25 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/cloud-computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>neighbours</title>
+      <link>https://www.dragonsreach.it/tags/neighbours/</link>
+      <pubDate>Thu, 22 Nov 2012 11:45:04 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/neighbours/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>perception</title>
+      <link>https://www.dragonsreach.it/tags/perception/</link>
+      <pubDate>Thu, 22 Nov 2012 11:45:04 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/perception/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FAD Milan 2012</title>
+      <link>https://www.dragonsreach.it/tags/fad-milan-2012/</link>
+      <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/fad-milan-2012/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fedora Activity Day</title>
+      <link>https://www.dragonsreach.it/tags/fedora-activity-day/</link>
+      <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/fedora-activity-day/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Report</title>
+      <link>https://www.dragonsreach.it/tags/report/</link>
+      <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/report/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tunneling</title>
+      <link>https://www.dragonsreach.it/tags/tunneling/</link>
+      <pubDate>Sat, 06 Oct 2012 13:50:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/tunneling/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virsh</title>
+      <link>https://www.dragonsreach.it/tags/virsh/</link>
+      <pubDate>Sat, 06 Oct 2012 13:50:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/virsh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>VNC</title>
+      <link>https://www.dragonsreach.it/tags/vnc/</link>
+      <pubDate>Sat, 06 Oct 2012 13:50:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/vnc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux Day</title>
+      <link>https://www.dragonsreach.it/tags/linux-day/</link>
+      <pubDate>Wed, 19 Sep 2012 16:17:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/linux-day/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deb-o-Matic</title>
+      <link>https://www.dragonsreach.it/tags/deb-o-matic/</link>
+      <pubDate>Mon, 17 Sep 2012 13:07:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/deb-o-matic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://www.dragonsreach.it/tags/git/</link>
+      <pubDate>Sat, 15 Sep 2012 12:52:08 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Manage</title>
+      <link>https://www.dragonsreach.it/tags/manage/</link>
+      <pubDate>Sat, 15 Sep 2012 12:52:08 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/manage/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Website</title>
+      <link>https://www.dragonsreach.it/tags/website/</link>
+      <pubDate>Sat, 15 Sep 2012 12:52:08 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/website/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IRC</title>
+      <link>https://www.dragonsreach.it/tags/irc/</link>
+      <pubDate>Sat, 30 Jun 2012 12:59:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/irc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nagios</title>
+      <link>https://www.dragonsreach.it/tags/nagios/</link>
+      <pubDate>Sat, 30 Jun 2012 12:59:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/nagios/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Notifications</title>
+      <link>https://www.dragonsreach.it/tags/notifications/</link>
+      <pubDate>Sat, 30 Jun 2012 12:59:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/notifications/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Puppet</title>
+      <link>https://www.dragonsreach.it/tags/puppet/</link>
+      <pubDate>Tue, 31 Jan 2012 18:43:26 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/puppet/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>snippets</title>
+      <link>https://www.dragonsreach.it/tags/snippets/</link>
+      <pubDate>Tue, 31 Jan 2012 18:43:26 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/snippets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Goobook</title>
+      <link>https://www.dragonsreach.it/tags/goobook/</link>
+      <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/goobook/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Login Screen</title>
+      <link>https://www.dragonsreach.it/tags/login-screen/</link>
+      <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/login-screen/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mutt</title>
+      <link>https://www.dragonsreach.it/tags/mutt/</link>
+      <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/mutt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Design</title>
+      <link>https://www.dragonsreach.it/tags/design/</link>
+      <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Desktop</title>
+      <link>https://www.dragonsreach.it/tags/desktop/</link>
+      <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/desktop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Irssi</title>
+      <link>https://www.dragonsreach.it/tags/irssi/</link>
+      <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/irssi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Backup</title>
+      <link>https://www.dragonsreach.it/tags/backup/</link>
+      <pubDate>Mon, 25 Jul 2011 22:50:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/backup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Getmail</title>
+      <link>https://www.dragonsreach.it/tags/getmail/</link>
+      <pubDate>Mon, 25 Jul 2011 22:50:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/getmail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gmail</title>
+      <link>https://www.dragonsreach.it/tags/gmail/</link>
+      <pubDate>Mon, 25 Jul 2011 22:50:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/gmail/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cleanup</title>
+      <link>https://www.dragonsreach.it/tags/cleanup/</link>
+      <pubDate>Sun, 03 Jul 2011 21:29:35 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/cleanup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spam</title>
+      <link>https://www.dragonsreach.it/tags/spam/</link>
+      <pubDate>Sun, 03 Jul 2011 21:29:35 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/spam/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Trash</title>
+      <link>https://www.dragonsreach.it/tags/trash/</link>
+      <pubDate>Sun, 03 Jul 2011 21:29:35 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/trash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Elections</title>
+      <link>https://www.dragonsreach.it/tags/elections/</link>
+      <pubDate>Mon, 30 May 2011 21:06:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/elections/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fedora Board</title>
+      <link>https://www.dragonsreach.it/tags/fedora-board/</link>
+      <pubDate>Mon, 30 May 2011 21:06:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/fedora-board/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Town Hall</title>
+      <link>https://www.dragonsreach.it/tags/town-hall/</link>
+      <pubDate>Mon, 30 May 2011 21:06:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/town-hall/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Questionnaire</title>
+      <link>https://www.dragonsreach.it/tags/questionnaire/</link>
+      <pubDate>Wed, 25 May 2011 20:45:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/questionnaire/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planet Edited</title>
+      <link>https://www.dragonsreach.it/tags/planet-edited/</link>
+      <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/planet-edited/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planet JustFedora</title>
+      <link>https://www.dragonsreach.it/tags/planet-justfedora/</link>
+      <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/planet-justfedora/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Debian Maintainer</title>
+      <link>https://www.dragonsreach.it/tags/debian-maintainer/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/debian-maintainer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Intervista</title>
+      <link>https://www.dragonsreach.it/tags/intervista/</link>
+      <pubDate>Sat, 20 Oct 2007 10:27:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/intervista/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MOTU</title>
+      <link>https://www.dragonsreach.it/tags/motu/</link>
+      <pubDate>Sat, 20 Oct 2007 10:27:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/motu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Planet Ubuntu</title>
+      <link>https://www.dragonsreach.it/tags/planet-ubuntu/</link>
+      <pubDate>Sat, 20 Oct 2007 10:27:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/planet-ubuntu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Torrent Team</title>
+      <link>https://www.dragonsreach.it/tags/torrent-team/</link>
+      <pubDate>Sun, 20 May 2007 19:40:00 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/torrent-team/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

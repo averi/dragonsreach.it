@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Some updates from the GNOME Sysadmin Team</title>
+  <meta property="og:title" content="Some updates from the GNOME Sysadmin Team" />
+  <meta name="twitter:title" content="Some updates from the GNOME Sysadmin Team" />
+  <meta name="description" content="It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the GNOME Infrastructure. A lot has been done and a lot has yet to come during the next months, but I would like to share with you some of the things I managed to look at during these weeks.
+As you may understand many Sysadmin’s tasks are not perceived at all by users especially the ones related to the so-called “Puppet-ization” which refers to the process of creating / modifying / improving our internal Puppet repository.">
+  <meta property="og:description" content="It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the GNOME Infrastructure. A lot has been done and a lot has yet to come during the next months, but I would like to share with you some of the things I managed to look at during these weeks.
+As you may understand many Sysadmin’s tasks are not perceived at all by users especially the ones related to the so-called “Puppet-ization” which refers to the process of creating / modifying / improving our internal Puppet repository.">
+  <meta name="twitter:description" content="It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the GNOME Infrastructure. A lot has been done and a lot has yet to come …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Some updates from the GNOME Sysadmin Team</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 7, 2013
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the <strong>GNOME Infrastructure</strong>. A lot has been done and a lot has yet to come during the next months, but I would like to share with you some of the things I managed to look at during these weeks.</p>
+<p>As you may understand many Sysadmin’s tasks are not perceived at all by users especially the ones related to the so-called “Puppet-ization” which refers to the process of creating / modifying / improving our internal Puppet repository. A lot of work has been done on that side and several new modules have been added, specifically Cobbler, Amavisd, SpamAssassin, ClamAV, Bind, Nagios / Check_MK (enabling Apache eventhandlers for automatic restart of faulty httpd processes), Apache.</p>
+<p>Another top priority item was migrating some of our services off to the old physical machines to virtual machines I did setup earlier. The machines that are now recycled are the following: (Two more are missing on the list, specifically window (which still hosts art.gnome.org, people.gnome.org and projects.gnome.org due to be migrated to another host in the next weeks) and label. (which still hosts our Jabberd, an <!-- raw HTML omitted -->interesting discussion<!-- raw HTML omitted --> on its future is currently ongoing on Foundation-list)</p>
+<ol>
+<li><strong>menubar</strong>, our old Postfix host served the GNOME Foundation since 2004 and processed millions of e-mails from and to @gnome.org addresses.</li>
+<li><strong>container</strong>, our old main NFS node was serving the GNOME Foundation since 2003, it hosted our mail archives, our FTP archives and all the /home/users/* directories.</li>
+<li><strong>button</strong> hosted many services (MySQL databases, LDAP, Mango) and served the Foundation since 2004, a faulty hardware took it down on January 2012.</li>
+</ol>
+<p>And if you ever wanted to see how menubar, container and button look like, I have two photos for you with the machines being pulled out the <strong>GNOME</strong> rack:</p>
+<p><img src="/wp-content/uploads/2013/03/old-machines.jpg" alt="old-machines">
+<!-- raw HTML omitted -->
+<img src="/wp-content/uploads/2013/03/old-machines-2.jpg" alt="old-machines-2"></p>
+<p>Some of the things you may have perceived directly on your skin should be the following:</p>
+<ol>
+<li>Our live.gnome.org istance has been upgraded to the latest MoinMoin stable release, 1.9.6.</li>
+<li>The Services bot has been added to the <strong>GIMPNET</strong> network and currently manages all GNOME channels, it currently acts as a Nickserv, Chanserv. More information about how you can register your nickname and gain the needed ACLs at the following <!-- raw HTML omitted -->wiki page<!-- raw HTML omitted -->.</li>
+<li>Several <strong>GNOME</strong> services and domains are now covered by SSL as you may have noticed on planet.gnome.org, news.gnome.org, blogs.gnome.org, l10n.gnome.org, git.gnome.org, help.gnome.org, developer.gnome.org.</li>
+<li>Re-design of our Mailman archives as you can see at <a href="https://mail.gnome.org/archives/foundation-list/">https://mail.gnome.org/archives/foundation-list</a>. A big “thank you” goes to Olav Vitters for taking the time to rebuild our “archive” script from Perl to Python. About the Mailman topic, someone proposed me the use of <!-- raw HTML omitted -->HyperKitty<!-- raw HTML omitted -->, that’s something we will evaluate in the next coming months but I find it a very interesting alternative to the current mail archiving.</li>
+</ol>
+<p>What should you expect next?</p>
+<ol>
+<li><strong>Bugzilla</strong> will be moved to another virtual machine and will be upgraded to the latest release.</li>
+<li>An <strong>Owncloud</strong> istance will be setup for all the GNOME Foundation members and GNOME Teams that will need access to it.</li>
+<li>A discussion will be started for setting up a <strong>Gitorious</strong> istance on the GNOME Infrastructure.</li>
+<li>A long-term item will be rewriting <!-- raw HTML omitted -->Mango<!-- raw HTML omitted --> in Django and adding several other features to it than the ones it has now. (ideally voting for Board elections, logins for managing your LDAP information such as your @gnome.org’s alias forward, shutdown of old an unused accounts after a certain period of time, automatic @gnome.org’s alias creation after the “Foundation Membership” flag is selected on LDAP, etc.)</li>
+</ol>
+<p>Thanks a lot for all the mails I’ve received during these weeks containing reports and suggestions about how we should improve our Infrastructure! Please stay tuned, a lot more news are yet to come!</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/infrastructure/">infrastructure</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/planet-gnome/">Planet GNOME</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/sysadmin/">sysadmin</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/" data-toggle="tooltip" data-placement="top" title="IPv6 tunneling with Hurricane Electrics (HE)">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/" data-toggle="tooltip" data-placement="top" title="Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

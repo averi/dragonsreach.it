@@ -1,0 +1,61 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fedy on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/fedy/</link>
+    <description>Recent content in fedy on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 02 Apr 2014 14:11:27 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/fedy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fedy’s installation of Brackets bricks your Fedora installation</title>
+      <link>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</link>
+      <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</guid>
+      <description>&lt;p&gt;I wanted to give &lt;!-- raw HTML omitted --&gt;Fedy&lt;!-- raw HTML omitted --&gt; a try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.&lt;/p&gt;
+&lt;p&gt;The interface was pretty straightforward and installing Brackets was as easy and clicking on the relevant button. Before starting the installation I gave a fast look around to the various bash scripts used by Fedy to install the package I wanted and yeah, I admit I did not pay enough attention to a few lines of the code and went ahead with the installation.&lt;/p&gt;
+&lt;p&gt;After hacking a bit with Brackets I decided it was time for me to head to bed but shutting down my laptop surprisingly returned various errors related to Systemd’s journal not being able to shutdown properly. I then tried to reboot the machine and found out the laptop was totally not bootable anymore.&lt;/p&gt;
+&lt;p&gt;The error it was reported at boot (Systemd Journal not being able to start properly) was pretty strange and after looking around the web I couldn’t find any other report about similar failures. I then started digging around with a friend and made the following guesses:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The root partition was running out of space (just 70M left), I then cleaned it a bit and rebooted with no luck. My first guess was &lt;em&gt;/tmp&lt;/em&gt; going out of space when Systemd tries to populate it at boot time.&lt;/li&gt;
+&lt;li&gt;I checked yum history to find out what Fedy could have taken in, but nothing relevant was found given Fedy does not install RPM packages on its own, it usually retrieves a tarball (or in my case a DEB package) and installs it by extracting / cping the content&lt;/li&gt;
+&lt;li&gt;I turned SELinux to Permissive and rebooted the machine, surprise, the machine was bootable again&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The next move was running a &lt;em&gt;restorecon -r -v /&lt;/em&gt; against the root partition, the result was awful: the whole &lt;em&gt;/usr&lt;/em&gt;‘s context was turned into &lt;em&gt;usr_tmp_t&lt;/em&gt;. Digging around the code for the Brackets installer the following code was found:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mkdir -p &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;
+ar p &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$file&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;data.tar.gz&amp;#34;&lt;/span&gt; | tar -C &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; -xzf -
+cp -af &lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;%.*&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;/* &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
+&lt;p&gt;And previously:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;get_file_quiet &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://download.brackets.io/&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets.htm&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;get&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;$(&lt;/span&gt;cat &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets.htm&amp;#34;&lt;/span&gt; | tr &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39; &amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;\n&amp;#39;&lt;/span&gt; | grep -o &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;file.cfm?platform=LINUX&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;arch&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;amp;build=[0-9]*&amp;#34;&lt;/span&gt; | head -n &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; | sed -e &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;s/^/http:\/\/download.brackets.io\//&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;file&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;brackets-LINUX.deb&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
+&lt;p&gt;So what the installer was doing is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Downloading the DEB file from the Brackets website&lt;/li&gt;
+&lt;li&gt;Extracting its content to &lt;em&gt;/tmp/fedy&lt;/em&gt; and copying the contents of the &lt;em&gt;data.tar.gz&lt;/em&gt; tarball in place&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;A tree view of the &lt;em&gt;data.tar.gz&lt;/em&gt; file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;.
+|-- opt
+| &lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- brackets
+&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- usr
+|-- bin
+&lt;span style=&#34;color:#4070a0&#34;&gt;`&lt;/span&gt;-- share&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&amp;lt;br&amp;gt;&lt;/p&gt;
+&lt;p&gt;Copying the extracted content of the &lt;em&gt;data.tar.gz&lt;/em&gt; tarball to the target directories will do exactly one thing: it will overwrite the SELinux context of your &lt;em&gt;/usr&lt;/em&gt;, &lt;em&gt;/bin&lt;/em&gt;, &lt;em&gt;/share&lt;/em&gt; directories breaking your system. I would advise everyone to &lt;strong&gt;NOT&lt;/strong&gt; make use of &lt;strong&gt;Fedy&lt;/strong&gt; for installing the Brackets editor until the issue has been fixed. Honestly speaking I didn’t have time / willingness to check other bash scripts but something nasty might be found there as well. Generally I would never recommend to install anything on your system without making use of an RPM package. Lesson learned for me to never trust such tools in the future on my local system.&lt;/p&gt;
+&lt;p&gt;The issue seems it was reported already one month ago, we added our report to the same issue. You can track it at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/issues/79&#34;&gt;https://github.com/satya164/fedy/issues/79&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;Resources:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Faulty bash script: &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh&#34;&gt;https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/li&gt;
+&lt;li&gt;Why &lt;em&gt;usr_tmp_t&lt;/em&gt; gets added as &lt;em&gt;/usr&lt;/em&gt;‘s context: &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://github.com/satya164/fedy/blob/master/fedy#L26&#34;&gt;https://github.com/satya164/fedy/blob/master/fedy#L26&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

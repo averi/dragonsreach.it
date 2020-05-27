@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Fedy’s installation of Brackets bricks your Fedora installation</title>
+  <meta property="og:title" content="Fedy’s installation of Brackets bricks your Fedora installation" />
+  <meta name="twitter:title" content="Fedy’s installation of Brackets bricks your Fedora installation" />
+  <meta name="description" content="I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.">
+  <meta property="og:description" content="I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.">
+  <meta name="twitter:description" content="I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Fedy’s installation of Brackets bricks your Fedora installation</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on April 2, 2014
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>I wanted to give <!-- raw HTML omitted -->Fedy<!-- raw HTML omitted --> a try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</p>
+<p>The interface was pretty straightforward and installing Brackets was as easy and clicking on the relevant button. Before starting the installation I gave a fast look around to the various bash scripts used by Fedy to install the package I wanted and yeah, I admit I did not pay enough attention to a few lines of the code and went ahead with the installation.</p>
+<p>After hacking a bit with Brackets I decided it was time for me to head to bed but shutting down my laptop surprisingly returned various errors related to Systemd’s journal not being able to shutdown properly. I then tried to reboot the machine and found out the laptop was totally not bootable anymore.</p>
+<p>The error it was reported at boot (Systemd Journal not being able to start properly) was pretty strange and after looking around the web I couldn’t find any other report about similar failures. I then started digging around with a friend and made the following guesses:</p>
+<ol>
+<li>The root partition was running out of space (just 70M left), I then cleaned it a bit and rebooted with no luck. My first guess was <em>/tmp</em> going out of space when Systemd tries to populate it at boot time.</li>
+<li>I checked yum history to find out what Fedy could have taken in, but nothing relevant was found given Fedy does not install RPM packages on its own, it usually retrieves a tarball (or in my case a DEB package) and installs it by extracting / cping the content</li>
+<li>I turned SELinux to Permissive and rebooted the machine, surprise, the machine was bootable again</li>
+</ol>
+<p>The next move was running a <em>restorecon -r -v /</em> against the root partition, the result was awful: the whole <em>/usr</em>‘s context was turned into <em>usr_tmp_t</em>. Digging around the code for the Brackets installer the following code was found:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">mkdir -p <span style="color:#4070a0">&#34;</span><span style="color:#70a0d0;font-style:italic">${</span><span style="color:#bb60d5">file</span>%.*<span style="color:#70a0d0;font-style:italic">}</span><span style="color:#4070a0">&#34;</span>
+ar p <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$file</span><span style="color:#4070a0">&#34;</span> <span style="color:#4070a0">&#34;data.tar.gz&#34;</span> | tar -C <span style="color:#4070a0">&#34;</span><span style="color:#70a0d0;font-style:italic">${</span><span style="color:#bb60d5">file</span>%.*<span style="color:#70a0d0;font-style:italic">}</span><span style="color:#4070a0">&#34;</span> -xzf -
+cp -af <span style="color:#70a0d0;font-style:italic">${</span><span style="color:#bb60d5">file</span>%.*<span style="color:#70a0d0;font-style:italic">}</span>/* <span style="color:#4070a0">&#34;/&#34;</span></code></pre></div>
+<p>&lt;br&gt;</p>
+<p>And previously:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">get_file_quiet <span style="color:#4070a0">&#34;http://download.brackets.io/&#34;</span> <span style="color:#4070a0">&#34;brackets.htm&#34;</span>
+<span style="color:#bb60d5">get</span><span style="color:#666">=</span><span style="color:#007020;font-weight:bold">$(</span>cat <span style="color:#4070a0">&#34;brackets.htm&#34;</span> | tr <span style="color:#4070a0">&#39; &#39;</span> <span style="color:#4070a0">&#39;\n&#39;</span> | grep -o <span style="color:#4070a0">&#34;file.cfm?platform=LINUX</span><span style="color:#70a0d0;font-style:italic">${</span><span style="color:#bb60d5">arch</span><span style="color:#70a0d0;font-style:italic">}</span><span style="color:#4070a0">&amp;build=[0-9]*&#34;</span> | head -n <span style="color:#40a070">1</span> | sed -e <span style="color:#4070a0">&#39;s/^/http:\/\/download.brackets.io\//&#39;</span><span style="color:#007020;font-weight:bold">)</span>
+<span style="color:#bb60d5">file</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;brackets-LINUX.deb&#34;</span></code></pre></div>
+<p>&lt;br&gt;</p>
+<p>So what the installer was doing is:</p>
+<ol>
+<li>Downloading the DEB file from the Brackets website</li>
+<li>Extracting its content to <em>/tmp/fedy</em> and copying the contents of the <em>data.tar.gz</em> tarball in place</li>
+</ol>
+<p>A tree view of the <em>data.tar.gz</em> file:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">.
+|-- opt
+| <span style="color:#4070a0">`</span>-- brackets
+<span style="color:#4070a0">`</span>-- usr
+|-- bin
+<span style="color:#4070a0">`</span>-- share</code></pre></div>
+<p>&lt;br&gt;</p>
+<p>Copying the extracted content of the <em>data.tar.gz</em> tarball to the target directories will do exactly one thing: it will overwrite the SELinux context of your <em>/usr</em>, <em>/bin</em>, <em>/share</em> directories breaking your system. I would advise everyone to <strong>NOT</strong> make use of <strong>Fedy</strong> for installing the Brackets editor until the issue has been fixed. Honestly speaking I didn’t have time / willingness to check other bash scripts but something nasty might be found there as well. Generally I would never recommend to install anything on your system without making use of an RPM package. Lesson learned for me to never trust such tools in the future on my local system.</p>
+<p>The issue seems it was reported already one month ago, we added our report to the same issue. You can track it at <!-- raw HTML omitted --><a href="https://github.com/satya164/fedy/issues/79">https://github.com/satya164/fedy/issues/79</a><!-- raw HTML omitted -->.</p>
+<p>Resources:</p>
+<ol>
+<li>Faulty bash script: <!-- raw HTML omitted --><a href="https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh">https://github.com/satya164/fedy/blob/master/plugins/soft/adobe_brackets.sh</a><!-- raw HTML omitted --></li>
+<li>Why <em>usr_tmp_t</em> gets added as <em>/usr</em>‘s context: <!-- raw HTML omitted --><a href="https://github.com/satya164/fedy/blob/master/fedy#L26">https://github.com/satya164/fedy/blob/master/fedy#L26</a><!-- raw HTML omitted -->.</li>
+</ol>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/fedora-20/">fedora 20</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/fedy/">fedy</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/" data-toggle="tooltip" data-placement="top" title="Fedora 20 on a Samsung Chronos Series 7">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/" data-toggle="tooltip" data-placement="top" title="Adding reCAPTCHA support to Mailman">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

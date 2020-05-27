@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Back from GUADEC 2018</title>
+  <meta property="og:title" content="Back from GUADEC 2018" />
+  <meta name="twitter:title" content="Back from GUADEC 2018" />
+  <meta name="description" content="Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&rsquo;s GNOME conference. The topics I&rsquo;d like to emphasize mainly are:
+ We&rsquo;re hiring another Infrastructure Team member We&rsquo;ve successfully finalized the cgit to GitLab migration Future plans including the migration to Openshift  GNOME Foundation hirings With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member.">
+  <meta property="og:description" content="Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&rsquo;s GNOME conference. The topics I&rsquo;d like to emphasize mainly are:
+ We&rsquo;re hiring another Infrastructure Team member We&rsquo;ve successfully finalized the cgit to GitLab migration Future plans including the migration to Openshift  GNOME Foundation hirings With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member.">
+  <meta name="twitter:description" content="Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&rsquo;s GNOME conference. The topics I&rsquo;d …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Back from GUADEC 2018</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on July 30, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&rsquo;s GNOME conference. The topics I&rsquo;d like to emphasize mainly are:</p>
+<ul>
+<li>We&rsquo;re hiring another Infrastructure Team member</li>
+<li>We&rsquo;ve successfully finalized the cgit to GitLab migration</li>
+<li>Future plans including the migration to Openshift</li>
+</ul>
+<h2 id="gnome-foundation-hirings">GNOME Foundation hirings</h2>
+<p>With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member. On this side I want to make sure that although the <a href="https://www.gnome.org/foundation/careers/devops-sysadmin/">job description</a> mentions the word <strong>sysadmin</strong> the figure we&rsquo;re looking for is a systems engineer with a proven experience on Cloud computing platforms and tools such as AWS, Openshift and generally configuration management softwares such as Puppet and Ansible. Additionally this person should prove to have a clear understanding of the network and operating system (mainly RHEL) layers.</p>
+<p>We&rsquo;ve already identified a set of candidates and will be proceeding with interviews in the coming weeks. This doesn&rsquo;t mean we&rsquo;ve hired anyone already, please keep sending CVs if interested and feeling the position would match your skills and expectations.</p>
+<h2 id="cgit-to-gitlab">cgit to GitLab</h2>
+<p>As announced on several occasions the GNOME Infrastructure has <a href="https://mail.gnome.org/archives/desktop-devel-list/2018-May/msg00051.html">successfully finalized the cgit to GitLab migration</a>. From a read-only view against .git directories to a fully compliant CI/CD infrastructure. The next step on this side will be deprecating Bugzilla which has already started with bugmasters turning products read-only in case they were migrated to the new platform or by identifying whether any of the not-yet-migrated products can be archived. The idea here is waiting to see zero activity on BZ in terms of new comments to existing bugs and no new bugs being submitted at all (we have redirects in place to make sure whenever enter_bug.cgi is triggered the request gets sent to the /issues/new endpoint for that specific GitLab project) and then turn the entire BZ instance into an HTML archive for posterity and to reduce the maintenance burden of keeping an instance up-to-date with upstream in terms of CVEs.</p>
+<p>Thanks to all the involved parties including Carlos, Javier and GitLab itself given the prompt and detailed responses they always provided to our queries. Also thanks for sponsoring our AWS activities related to GitLab!</p>
+<h2 id="future-plans">Future plans</h2>
+<p>With the service == VM equation we&rsquo;ve been following for several years it&rsquo;s probably time for us to move to a more scalable infrastructure. The next generation platform we&rsquo;ve picked up is going to be Openshift, its benefits:</p>
+<ol>
+<li>It&rsquo;s not important where a service runs behind scenes: it only has to run (VM vs pods and containers that are part of a pod that get scheduled randomly on the available Openshift nodes)</li>
+<li>Easily scalable in case additional resources are needed for a small period of time</li>
+<li>Built-in monitoring starting from Openshift 3.9 (the release we&rsquo;ll be running) based on Prometheus (+ Grafana for dashboarding)</li>
+<li>GNOME services as containers</li>
+<li>Individual application developers to schedule their own builds and see their code deployed with one click directly in production</li>
+</ol>
+<p>The base set of VMs and bare metals has been already configured. Red Hat has been so great to provide the GNOME Project with a set of Red Hat Container Platform (and GlusterFS for heketi-based brick provisioning) subscriptions. We&rsquo;ll start moving over to the infrastructure in the coming weeks. It&rsquo;s going to take some good time but in the end we&rsquo;ll be able to free up a lot of resources and retire several VMs and related deprecated configurations.</p>
+<h2 id="misc">Misc</h2>
+<p>Slides from the Foundation AGM Infrastructure team report are available <a href="https://www.dragonsreach.it/files/guadec-reports/guadec2018.html">here</a>.</p>
+<p>Many thanks to the GNOME Foundation for the sponsorship of my travel!</p>
+<p><img src="/img/2018-GUADEC-badge.png" alt="GUADEC 2018 Badge"></p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/guadec/">GUADEC</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/planet-gnome/">planet-gnome</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/" data-toggle="tooltip" data-placement="top" title="Adding reCAPTCHA v2 support to Mailman">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/" data-toggle="tooltip" data-placement="top" title="The GNOME Infrastructure is moving to Openshift">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

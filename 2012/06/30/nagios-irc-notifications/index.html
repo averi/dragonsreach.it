@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Nagios IRC Notifications</title>
+  <meta property="og:title" content="Nagios IRC Notifications" />
+  <meta name="twitter:title" content="Nagios IRC Notifications" />
+  <meta name="description" content="Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: supybot &#43; supybot-notify, all that mixed up with a few grains of Nagios command definitions.
+But here we go with a little step-by-step guide:">
+  <meta property="og:description" content="Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: supybot &#43; supybot-notify, all that mixed up with a few grains of Nagios command definitions.
+But here we go with a little step-by-step guide:">
+  <meta name="twitter:description" content="Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Nagios IRC Notifications</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on June 30, 2012
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Lately (as I earlier pointed out on my <a href="http://blogs.gnome.org/woody/2012/02/18/nagios-xmpp-notifications-for-gtalk/">blog</a>) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: <strong>supybot</strong> + <strong>supybot-notify</strong>, all that mixed up with a few grains of Nagios command definitions.</p>
+<p>But here we go with a little step-by-step guide:</p>
+<p><strong>Requirements</strong></p>
+<ol>
+<li>Install supybot and configure a new installation:</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">apt-get install supybot or yum install supybot
+mkdir /home/<span style="color:#bb60d5">$user</span>/nagbot <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> /home/<span style="color:#bb60d5">$user</span>/nagbot
+supybot-wizard <span style="color:#666">(</span>follow the directions to get the bot initially configured<span style="color:#666">)</span></code></pre></div>
+<ol start="2">
+<li>Install and load the supybot-notify plugin by doing:</li>
+</ol>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">git clone git://git.fedorahosted.org/supybot-notify.git <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> supybot-notify
+mkdir -p /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify <span style="color:#666">&amp;&amp;</span> cp -r * /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify</code></pre></div>
+<p>Finally, <strong><a href="http://supybook.fealdia.org/devel/#_plugins">load</a></strong> the plugin. (this will require you to <a href="http://supybook.fealdia.org/devel/#_identifying_to_the_bot">authenticate</a> to the bot)</p>
+<p><strong>Nagios configuration</strong></p>
+<p>Add the relevant command definitions to the <strong>commands.cfg</strong> file:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#60a0b0;font-style:italic"># &#39;notify-by-ircbot&#39; command definition</span>
+define command<span style="color:#666">{</span>
+    command_name    notify-by-ircbot
+    command_line    /usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0">/</span><span style="color:#bb60d5">$SERVICEDESC</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$SERVICESTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$SERVICEOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
+    <span style="color:#666">}</span>
+
+<span style="color:#60a0b0;font-style:italic"># &#39;host-notify-by-ircbot&#39; command definition</span>
+define command<span style="color:#666">{</span>
+	command_name	host-notify-by-ircbot
+	command_line	/usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$HOSTSTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$HOSTOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
+	<span style="color:#666">}</span></code></pre></div>
+<p>* adjust the <strong>Netcat’s</strong> host and port to your needs, in my case Supybot and Nagios were running on the same host. In the case of a Supybot running on a different host than Nagios, tweak Iptables to allow the desired port:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span style="color:#40a070">5050</span> -j ACCEPT</code></pre></div>
+<p>Add a new entry on the <strong>contacts.cfg</strong> file:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">define contact<span style="color:#666">{</span>
+ 	contact_name    nagbot
+   	use             generic-contact        
+        <span style="color:#007020">alias</span>		Nagios IRC Bot
+        email           example@example.com
+        service_notification_commands   notify-by-ircbot
+ 	host_notification_commands      host-notify-by-ircbot
+<span style="color:#666">}</span></code></pre></div>
+<p>Reload Nagios:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">sudo /etc/init.d/nagios3 reload</code></pre></div>
+<p>And finally, enjoy the result:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">PROBLEM - <span style="color:#bb60d5">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span>
+ RECOVERY - <span style="color:#bb60d5">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span></code></pre></div>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/irc/">IRC</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/nagios/">Nagios</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/notifications/">Notifications</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/" data-toggle="tooltip" data-placement="top" title="A few useful Puppet snippets">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/" data-toggle="tooltip" data-placement="top" title="Manage your website through Git">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

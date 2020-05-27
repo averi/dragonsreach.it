@@ -1,0 +1,73 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Website on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/website/</link>
+    <description>Recent content in Website on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 15 Sep 2012 12:52:08 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/website/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Manage your website through Git</title>
+      <link>https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/</link>
+      <pubDate>Sat, 15 Sep 2012 12:52:08 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/</guid>
+      <description>&lt;p&gt;Ever wondered how you can update your &lt;strong&gt;website&lt;/strong&gt; (in our case a static website with a bunch of &lt;strong&gt;HTML&lt;/strong&gt; and &lt;strong&gt;PHP&lt;/strong&gt; files) by committing to a &lt;strong&gt;Git repository&lt;/strong&gt; hosted on a &lt;strong&gt;different server&lt;/strong&gt;? if the answer to the previous question is &lt;strong&gt;yes&lt;/strong&gt;, then you are in the right place.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;scenario&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Website hosted on &lt;strong&gt;server A&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Git repository hosted on &lt;strong&gt;server B&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and a few details about why would you opt for maintaining your website through &lt;strong&gt;Git&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;You need multiple people to access the static content of your website and you also want to maintain all the history of changes together with all the Git’s magic.&lt;/li&gt;
+&lt;li&gt;You think using an FTP server is not secure enough.&lt;/li&gt;
+&lt;li&gt;You think giving out SSH access or more permissions on the server to multiple users it’s not what you want. (also using &lt;strong&gt;&lt;!-- raw HTML omitted --&gt;scp&lt;!-- raw HTML omitted --&gt;&lt;/strong&gt; will overwrite the files directly with all its consequences)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;the &lt;strong&gt;setup&lt;/strong&gt;, on &lt;strong&gt;server A&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;Clone the Git repository over the directory that your Web server will serve.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; /srv/www.domain.com/http &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo git clone http://git.example.com/git/domain.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Grab the needed package:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;apt-get install fishpolld or yum install fishpolld&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Set up a “&lt;!-- raw HTML omitted --&gt;topic&lt;!-- raw HTML omitted --&gt;” (called &lt;strong&gt;website_update&lt;/strong&gt;) that will call a ‘&lt;strong&gt;git pull&lt;/strong&gt;‘ each time the repository hosted on &lt;strong&gt;server B&lt;/strong&gt; receives an update. (the file has to be placed into the &lt;strong&gt;/etc/fishpoll.d&lt;/strong&gt; directory)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;PATH&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;WEBSITEDIR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/srv/www.domain.com/http&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; -d &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;WEBSITEDIR&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt;; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;then&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;WEBSITEDIR&lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;else&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Unable to access theme directory. Failing.&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt;
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;fi&lt;/span&gt;
+
+git pull&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Add a little configuration file that will enable the &lt;strong&gt;website_update&lt;/strong&gt;‘s topic at daemon’s startup. (you should name it &lt;strong&gt;website_update.conf&lt;/strong&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt;fishpoll&lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;on_start&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; True&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Open the relevant port on &lt;strong&gt;Iptables&lt;/strong&gt; so that &lt;strong&gt;server A&lt;/strong&gt; and &lt;strong&gt;server B&lt;/strong&gt; can communicate as expected, the daemon runs over** port 27527**.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;-A INPUT -m state --state NEW -m tcp -p tcp -s &amp;lt;strong&amp;gt;server-B-IP&amp;lt;/strong&amp;gt; --dport &lt;span style=&#34;color:#40a070&#34;&gt;27527&lt;/span&gt; -j ACCEPT&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Start the daemon. (by default, logs are sent to &lt;strong&gt;syslog&lt;/strong&gt; but you can run the daemon in &lt;strong&gt;Debug&lt;/strong&gt; mode by using the &lt;strong&gt;-D flag&lt;/strong&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;sudo /etc/init.d/fishpolld start or sudo systemctl start fishpolld.service or sudo /usr/sbin/fishpolld -D&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and on &lt;strong&gt;server B:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Grab the needed package:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;apt-get install fishpoke or yum install fishpoke&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Configure the relevant Git hook (&lt;strong&gt;post-update&lt;/strong&gt;, located into the &lt;strong&gt;hooks&lt;/strong&gt; directory) and make it &lt;strong&gt;executable&lt;/strong&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Triggering update of configuration on server A&amp;#34;&lt;/span&gt;
+fishpoke server-A-IP-or-DNS website_update&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Finally test the whole setup by committing to the repository hosted on &lt;strong&gt;server B&lt;/strong&gt; and verify your changes being sent live on your website!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

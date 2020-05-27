@@ -1,0 +1,47 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fedora Italia on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/categories/fedora-italia/</link>
+    <description>Recent content in Fedora Italia on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 03 Nov 2012 16:38:28 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/categories/fedora-italia/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Report: FAD Milan 2012</title>
+      <link>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</link>
+      <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</guid>
+      <description>&lt;p&gt;Exactly one week ago I was attending the &lt;!-- raw HTML omitted --&gt;Fedora Activity Day&lt;!-- raw HTML omitted --&gt; organized in &lt;strong&gt;Milan&lt;/strong&gt; in concomitance with the &lt;strong&gt;Linux Day&lt;/strong&gt; event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.&lt;/p&gt;
+&lt;p&gt;Each of us presented a specific &lt;strong&gt;Fedora&lt;/strong&gt;-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following &lt;!-- raw HTML omitted --&gt;link&lt;!-- raw HTML omitted --&gt;) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/11/fad.jpg&#34; alt=&#34;fad&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Unfortunately something didn’t work as expected and the number of visitors that joined our event was very limited. The lack of marketing is apparently one of the most common problems within Linux and its derivative distributions especially when it comes to attending specific events. I feel our event’s concomitance with the Linux Day was one of the main causes, especially when the &lt;strong&gt;LuG&lt;/strong&gt; (Linux User Group) behind the event sponsors a distribution which is not the same as the one you promote. I’m pretty much sure there is a lot of space for improvements but the team is still very young and a lot of work will be put together to improve our next events, that said I would like to thank &lt;strong&gt;Gabriele Trombini&lt;/strong&gt; and &lt;strong&gt;Marina Latini&lt;/strong&gt; for taking the time and efforts for organizing everything in an awesome location like Milan is.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/11/swag.jpg&#34; alt=&#34;fad&#34;&gt;&lt;/p&gt;
+&lt;p&gt;We also had the luck to have a Gnomer sitting in one of the chairs of the &lt;!-- raw HTML omitted --&gt;Politecnico&lt;!-- raw HTML omitted --&gt;‘s classroom where we were presenting our Fedora activities: &lt;!-- raw HTML omitted --&gt;Paolo Borelli&lt;!-- raw HTML omitted --&gt;, the father of &lt;!-- raw HTML omitted --&gt;Gedit&lt;!-- raw HTML omitted --&gt; and one of the most active GNOME developers. His first question right after meeting up? “hey Andrea, given the fact &lt;!-- raw HTML omitted --&gt;CIA.vc is dead&lt;!-- raw HTML omitted --&gt;, are you going to set up a &lt;!-- raw HTML omitted --&gt;KGB&lt;!-- raw HTML omitted --&gt; istance sooner or later for GNOME? being a sysadmin has never been easy :-)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>FAD Milano 2012</title>
+      <link>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</link>
+      <pubDate>Wed, 19 Sep 2012 16:17:27 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</guid>
+      <description>&lt;p&gt;È con piacere che annuncio la mia presenza al &lt;strong&gt;Fedora Activity Day&lt;/strong&gt; di Milano in data &lt;strong&gt;27 Ottobre 2012&lt;/strong&gt; e con altrettanto piacere ringrazio gli organizzatori per avermi dedicato uno spazio di trenta minuti in cui discutere ed approfondire le tematiche derivanti dall’amministrazione di sistemi Linux, nello specifico, dell’amministrazione degli stessi computer che ospitano e rendono disponibili numerosi servizi alle migliaia di utenti Fedora che contribuiscono quotidianamente al progetto.&lt;/p&gt;
+&lt;p&gt;Ho partecipato fisicamente, purtroppo, a pochissimi eventi &lt;strong&gt;Open Source&lt;/strong&gt; e per questo motivo sono particolarmente emozionato di aver la possibilità di prender parte ad una manifestazione così sentita ed apprezzata come il &lt;strong&gt;Linux Day&lt;/strong&gt;, contesto in cui lo stesso &lt;strong&gt;Fedora Activity Day&lt;/strong&gt; prenderà piede. Le aspettative sono tante e mi impegnerò in modo tale da presentare al pubblico il maggior numero di strumenti e attività inerenti all’amministrazione di sistemi Linux, il tutto con la speranza di invogliare il maggior numero dei presenti a contribuire allo stesso progetto &lt;strong&gt;Fedora&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;A titolo introduttivo elenco alcuni dei &lt;strong&gt;punti&lt;/strong&gt; su cui mi soffermerò durante il mio &lt;strong&gt;talk&lt;/strong&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Quali sono i principi fondamentali a cui l’infrastruttura Fedora si ispira.&lt;/li&gt;
+&lt;li&gt;Chi c’è dietro all’infrastruttura Fedora, quante persone e con quali competenze, quali sono i mezzi di comunicazione.&lt;/li&gt;
+&lt;li&gt;Quanti e quali Datacenter permettono al progetto Fedora di funzionare.&lt;/li&gt;
+&lt;li&gt;Quali sono i software utilizzati, come vengono utilizzati e con quali strumenti il team Infrastruttura provvede alla manutenzione dei sistemi fisici e virtuali disponibili, come vengono monitorati i server Fedora e molto altro!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Con la speranza di una partecipazione numerosa, vi rimando alla &lt;!-- raw HTML omitted --&gt;pagina &lt;!-- raw HTML omitted --&gt;dedicata all’evento.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

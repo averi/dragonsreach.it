@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/planet-gnome/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/planet-gnome/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/posts/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/sysadmin/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/</loc>
+    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/openshift/</loc>
+    <lastmod>2018-10-18T10:27:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</loc>
+    <lastmod>2018-10-18T10:27:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</loc>
+    <lastmod>2018-07-30T10:27:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/guadec/</loc>
+    <lastmod>2018-07-30T10:27:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/mailman/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/planet-debian/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/planet-fedora/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/planet-ubuntu/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/sysadmin/</loc>
+    <lastmod>2018-02-26T15:13:09+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2016/07/05/a-childhood-dream/</loc>
+    <lastmod>2016-07-05T21:26:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/life/</loc>
+    <lastmod>2016-07-05T21:26:39+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</loc>
+    <lastmod>2015-12-02T16:32:41+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</loc>
+    <lastmod>2015-01-28T16:59:46+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/kerberos/</loc>
+    <lastmod>2014-10-24T13:50:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</loc>
+    <lastmod>2014-10-24T13:50:52+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/foundation/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/freeipa/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/openldap/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/ssh/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/ssh/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/</loc>
+    <lastmod>2014-10-12T18:02:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/gnome.org/</loc>
+    <lastmod>2014-10-07T09:21:33+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/rhel/</loc>
+    <lastmod>2014-10-07T09:21:33+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/sssd/</loc>
+    <lastmod>2014-10-07T09:21:33+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</loc>
+    <lastmod>2014-10-07T09:21:33+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/08/05/back-from-guadec-2014/</loc>
+    <lastmod>2014-08-05T17:27:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</loc>
+    <lastmod>2014-05-03T09:37:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/captchas/</loc>
+    <lastmod>2014-05-03T09:37:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/linux/</loc>
+    <lastmod>2014-05-03T09:37:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/mailman/</loc>
+    <lastmod>2014-05-03T09:37:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/planet-debian/</loc>
+    <lastmod>2014-05-03T09:37:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/fedora-20/</loc>
+    <lastmod>2014-04-02T14:11:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/fedy/</loc>
+    <lastmod>2014-04-02T14:11:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</loc>
+    <lastmod>2014-04-02T14:11:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</loc>
+    <lastmod>2014-03-20T15:36:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/np700z3c/</loc>
+    <lastmod>2014-03-20T15:36:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/samsung-chronos-series-7/</loc>
+    <lastmod>2014-03-20T15:36:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/encrypt/</loc>
+    <lastmod>2013-12-24T15:51:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/gpg/</loc>
+    <lastmod>2013-12-24T15:51:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</loc>
+    <lastmod>2013-12-24T15:51:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/pass/</loc>
+    <lastmod>2013-12-24T15:51:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/passwords/</loc>
+    <lastmod>2013-12-24T15:51:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/bind/</loc>
+    <lastmod>2013-11-13T13:53:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</loc>
+    <lastmod>2013-11-13T13:53:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/dns/</loc>
+    <lastmod>2013-11-13T13:53:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/dnssec/</loc>
+    <lastmod>2013-11-13T13:53:31+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/08/12/back-from-guadec-2013/</loc>
+    <lastmod>2013-08-12T15:51:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/guadec-2013/</loc>
+    <lastmod>2013-08-12T15:51:30+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/linux/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/linux-desktop/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/tmux/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/tmux/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/vim/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/vim/</loc>
+    <lastmod>2013-06-27T16:59:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</loc>
+    <lastmod>2013-06-14T11:37:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/infrastructure/</loc>
+    <lastmod>2013-06-14T11:37:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/mozilla/</loc>
+    <lastmod>2013-03-27T12:04:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/mozilla-nss/</loc>
+    <lastmod>2013-03-27T12:04:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</loc>
+    <lastmod>2013-03-27T12:04:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/ssl/</loc>
+    <lastmod>2013-03-27T12:04:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/tls/</loc>
+    <lastmod>2013-03-27T12:04:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/</loc>
+    <lastmod>2013-03-07T14:49:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/hurricane-electrics/</loc>
+    <lastmod>2012-12-21T13:08:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/ipv6/</loc>
+    <lastmod>2012-12-21T13:08:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</loc>
+    <lastmod>2012-12-21T13:08:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/networking/</loc>
+    <lastmod>2012-12-21T13:08:20+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/cloud/</loc>
+    <lastmod>2012-12-13T14:22:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/cloud-computing/</loc>
+    <lastmod>2012-12-13T14:22:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/cloud-computing/</loc>
+    <lastmod>2012-12-13T14:22:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/</loc>
+    <lastmod>2012-12-13T14:22:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/humor/</loc>
+    <lastmod>2012-11-22T11:45:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/neighbours/</loc>
+    <lastmod>2012-11-22T11:45:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/perception/</loc>
+    <lastmod>2012-11-22T11:45:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/11/22/the-linux-perception-of-my-neighbours/</loc>
+    <lastmod>2012-11-22T11:45:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/fad-milan-2012/</loc>
+    <lastmod>2012-11-03T16:38:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/fedora-activity-day/</loc>
+    <lastmod>2012-11-03T16:38:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/fedora-italia/</loc>
+    <lastmod>2012-11-03T16:38:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/report/</loc>
+    <lastmod>2012-11-03T16:38:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</loc>
+    <lastmod>2012-11-03T16:38:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/</loc>
+    <lastmod>2012-10-06T13:50:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/tunneling/</loc>
+    <lastmod>2012-10-06T13:50:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/virsh/</loc>
+    <lastmod>2012-10-06T13:50:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/vnc/</loc>
+    <lastmod>2012-10-06T13:50:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/</loc>
+    <lastmod>2012-09-22T11:19:47+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/about-me/</loc>
+    <lastmod>2012-09-22T11:19:47+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/09/19/fad-milano-2012/</loc>
+    <lastmod>2012-09-19T16:17:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/linux-day/</loc>
+    <lastmod>2012-09-19T16:17:27+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</loc>
+    <lastmod>2012-09-17T13:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/deb-o-matic/</loc>
+    <lastmod>2012-09-17T13:07:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/git/</loc>
+    <lastmod>2012-09-15T12:52:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/git/</loc>
+    <lastmod>2012-09-15T12:52:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/manage/</loc>
+    <lastmod>2012-09-15T12:52:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/</loc>
+    <lastmod>2012-09-15T12:52:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/website/</loc>
+    <lastmod>2012-09-15T12:52:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/irc/</loc>
+    <lastmod>2012-06-30T12:59:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/nagios/</loc>
+    <lastmod>2012-06-30T12:59:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/nagios/</loc>
+    <lastmod>2012-06-30T12:59:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/</loc>
+    <lastmod>2012-06-30T12:59:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/notifications/</loc>
+    <lastmod>2012-06-30T12:59:28+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/</loc>
+    <lastmod>2012-01-31T18:43:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/puppet/</loc>
+    <lastmod>2012-01-31T18:43:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/puppet/</loc>
+    <lastmod>2012-01-31T18:43:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/snippets/</loc>
+    <lastmod>2012-01-31T18:43:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/goobook/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/irssi/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/login-screen/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/mutt/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/mutt/</loc>
+    <lastmod>2011-09-11T18:25:32+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/design/</loc>
+    <lastmod>2011-09-04T14:41:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/desktop/</loc>
+    <lastmod>2011-09-04T14:41:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/irssi/</loc>
+    <lastmod>2011-09-04T14:41:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</loc>
+    <lastmod>2011-09-04T14:41:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/backup/</loc>
+    <lastmod>2011-07-25T22:50:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/</loc>
+    <lastmod>2011-07-25T22:50:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/getmail/</loc>
+    <lastmod>2011-07-25T22:50:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/gmail/</loc>
+    <lastmod>2011-07-25T22:50:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/gmail/</loc>
+    <lastmod>2011-07-25T22:50:57+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/</loc>
+    <lastmod>2011-07-03T21:29:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/cleanup/</loc>
+    <lastmod>2011-07-03T21:29:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/spam/</loc>
+    <lastmod>2011-07-03T21:29:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/trash/</loc>
+    <lastmod>2011-07-03T21:29:35+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/elections/</loc>
+    <lastmod>2011-05-30T21:06:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/fedora-board/</loc>
+    <lastmod>2011-05-30T21:06:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/05/30/fedora-boards-town-hall/</loc>
+    <lastmod>2011-05-30T21:06:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/town-hall/</loc>
+    <lastmod>2011-05-30T21:06:14+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</loc>
+    <lastmod>2011-05-25T20:45:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/questionnaire/</loc>
+    <lastmod>2011-05-25T20:45:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/planet-edited/</loc>
+    <lastmod>2011-02-11T18:43:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</loc>
+    <lastmod>2011-02-11T18:43:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/planet-justfedora/</loc>
+    <lastmod>2011-02-11T18:43:24+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</loc>
+    <lastmod>2009-10-10T22:17:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/debian-maintainer/</loc>
+    <lastmod>2009-10-10T22:17:23+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2007/10/20/behindmotu-la-mia-intervista/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/interviews/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/intervista/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/motu/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/categories/motu/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/planet-ubuntu/</loc>
+    <lastmod>2007-10-20T10:27:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2007/09/13/il-primo-upload-ha-sempre-un-sapore-speciale/</loc>
+    <lastmod>2007-09-13T18:16:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2007/09/12/una-grande-soddisfazione/</loc>
+    <lastmod>2007-09-12T18:14:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/2007/05/20/creazione-motu-torrent-team/</loc>
+    <lastmod>2007-05-20T19:40:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dragonsreach.it/tags/torrent-team/</loc>
+    <lastmod>2007-05-20T19:40:00+00:00</lastmod>
+  </url>
+  
+</urlset>

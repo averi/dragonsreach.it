@@ -1,0 +1,30 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Debian Maintainer on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/debian-maintainer/</link>
+    <description>Recent content in Debian Maintainer on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 10 Oct 2009 22:17:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/debian-maintainer/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bits from September / October</title>
+      <link>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Debian maintainer:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some days ago I had the great announcement that my &lt;a href=&#34;http://wiki.debian.org/Maintainers&#34;&gt;Debian Maintainer&lt;/a&gt;‘s application was accepted and thanks to Jonathan McDowell my key is finally into the debian-maintainers keyring. (which is now part of the debian-keyring itself thanks to the ftp-masters / keyring maintainer &lt;a href=&#34;http://lists.debian.org/debian-devel-announce/2009/08/msg00010.html&#34;&gt;work&lt;/a&gt; that made the changes on both DAK and keyring)&lt;/p&gt;
+&lt;p&gt;I &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00083.html&#34;&gt;applied&lt;/a&gt; on the 22th of August, and thanks to Reinhard’s &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00090.html&#34;&gt;advocation&lt;/a&gt;, everything went on the right side. Many thanks to all the people who made this possible.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-mozext:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Around 3 weeks ago I started being involved with the pkg-mozext team working on the new policy and to &lt;a href=&#34;http://packages.debian.org/mozilla-devscripts&#34;&gt;mozilla-devscripts&lt;/a&gt; transition for all iceweasel / icedove extensions. The work is going great so far and we managed to update several extensions that are now part of the team itself. For a fast look at our package list, feel free to browse pkg-mozext’s &lt;a href=&#34;http://qa.debian.org/developer.php?login=pkg-mozext-maintainers@lists.alioth.debian.org&#34;&gt;QA page&lt;/a&gt;. A lot of work needs to be done, so if anyone wanna jump in, I would suggest to read our guidelines / policy into the team’s &lt;a href=&#34;http://wiki.debian.org/Teams/DebianMozExtTeam&#34;&gt;Wiki Page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-gnome:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;GNOME 2.28 is now released, and the pkg-gnome team is now working hard to provide all the needed updates into unstable and experimental. Everything is going great and we are cleaning up everything listed on &lt;a href=&#34;http://www.0d.be/debian/debian-gnome-2.28-status.html&#34;&gt;our schedule&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ephipany is under transition (gecko –&amp;gt; webkit) so there are still some open issues / bugs, but now it looks fine so far and it can be used without any particular problem.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

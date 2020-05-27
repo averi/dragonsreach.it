@@ -1,0 +1,695 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Planet Debian on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/categories/planet-debian/</link>
+    <description>Recent content in Planet Debian on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 26 Feb 2018 15:13:09 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/categories/planet-debian/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Adding reCAPTCHA v2 support to Mailman</title>
+      <link>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</link>
+      <pubDate>Mon, 26 Feb 2018 15:13:09 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/</guid>
+      <description>&lt;p&gt;As a follow-up to the reCAPTCHA v1 &lt;a href=&#34;https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/&#34;&gt;post&lt;/a&gt; published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The &lt;a href=&#34;https://pypi.python.org/pypi/recaptcha-client&#34;&gt;original python-recaptcha library&lt;/a&gt; was forked into &lt;a href=&#34;https://github.com/redhat-infosec/python-recaptcha&#34;&gt;https://github.com/redhat-infosec/python-recaptcha&lt;/a&gt; and made compatible with reCAPTCHA version 2.&lt;/p&gt;
+&lt;p&gt;The relevant changes against the original library can be resumed as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Added ‘version=2’ against displayhtml, load_scripts functions&lt;/li&gt;
+&lt;li&gt;Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2&lt;/li&gt;
+&lt;li&gt;The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The required changes are located on the following files:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;/usr/lib/mailman/Mailman/Cgi/listinfo.py&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;56&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;48.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;08&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;34.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; i18n
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Set up i18n&lt;/span&gt;
+ _ &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i18n&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;244&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;245&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-lang-form-start&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatFormStart(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo&amp;#39;&lt;/span&gt;)
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-fullname-box&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatBox(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;fullname&amp;#39;&lt;/span&gt;, size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;)
+ 
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Captcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-recaptcha-javascript&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;displayhtml(mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PUBLIC_KEY, use_ssl&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;True, version&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;lt;mm-recaptcha-script&amp;gt;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;load_script(version&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt;)
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Do the expansion.&lt;/span&gt;
+     doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;AddItem(mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;ParseTags(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo.html&amp;#39;&lt;/span&gt;, replacements, lang))
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;print&lt;/span&gt; doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;Format()&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;/usr/lib/mailman/Mailman/Cgi/subscribe.py&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;56&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;38.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;usr&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;lib&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py	&lt;span style=&#34;color:#40a070&#34;&gt;2018&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;02&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;26&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;08&lt;/span&gt;:&lt;span style=&#34;color:#40a070&#34;&gt;18.000000000&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;32&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;32&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.UserDesc&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; UserDesc
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ SLASH &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
+ ERRORSEP &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#4070a0;font-weight:bold&#34;&gt;\n\n&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;lt;p&amp;gt;&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;165&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;166&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;17&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt;
+             results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(
+     _(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;There was no hidden token in your submission or it was corrupted.&amp;#39;&lt;/span&gt;))
+             results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;You must GET the form before submitting it.&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# recaptcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    captcha_response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;v2submit(
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;g-recaptcha-response&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PRIVATE_KEY,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        remote,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    )
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;is_valid:
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Invalid captcha: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;%&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;error_code))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Was an attempt made to subscribe the list to itself?&lt;/span&gt;
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; email &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;GetListEmail():
+         syslog(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mischief&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Attempt to self subscribe &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;, email, remote)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;--- listinfo.html	2018-02-26 15:02:34.000000000 +0000
++++ /usr/lib/mailman/templates/en/listinfo.html	2018-02-26 14:18:52.000000000 +0000
+@@ -3,7 +3,7 @@
+ &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HTML&lt;/span&gt;&amp;gt;
+   &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HEAD&lt;/span&gt;&amp;gt;
+     &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TITLE&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-List-Name&lt;/span&gt;&amp;gt; Info Page&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TITLE&lt;/span&gt;&amp;gt;
+-  
++    &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-Recaptcha-Script&lt;/span&gt;&amp;gt; 
+   &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;HEAD&lt;/span&gt;&amp;gt;
+   &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;BODY&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;BGCOLOR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;#ffffff&amp;#34;&lt;/span&gt;&amp;gt;
+ 
+@@ -116,6 +116,11 @@
+       &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+       &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-digest-question-end&lt;/span&gt;&amp;gt;
+       &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
++      &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
++        &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;Please fill out the following captcha&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
++        &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TD&lt;/span&gt;&amp;gt;
++      &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
++      &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+ 	&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;colspan&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;&amp;gt;
+ 	  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;MM-Subscribe-Button&lt;/span&gt;&amp;gt;&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;center&lt;/span&gt;&amp;gt;
+     &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;!-- raw HTML omitted --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Three years and counting</title>
+      <link>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</link>
+      <pubDate>Wed, 02 Dec 2015 16:32:41 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</guid>
+      <description>&lt;p&gt;It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when &lt;!-- raw HTML omitted --&gt;Sriram Ramkrishna&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;Jeff Schroeder&lt;!-- raw HTML omitted --&gt; proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the &lt;!-- raw HTML omitted --&gt;official hiring&lt;!-- raw HTML omitted --&gt; achieved by &lt;!-- raw HTML omitted --&gt;Karen Sandler&lt;!-- raw HTML omitted --&gt; back in February 2013.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; has finally reached stability both in terms of reliability and uptime, we didn’t have any service disruption this and the past year and services have been running smoothly as they were expected to in a project like the one we are managing.&lt;/p&gt;
+&lt;p&gt;As many of you know service disruptions and a total lack of maintenance were very common before I joined back in 2013, I’m so glad the situation has dramatically changed and developers, users, passionates are now able to reach our websites, code repositories, build machines without experiencing slowness, downtimes or&lt;/p&gt;
+&lt;p&gt;unreachability. Additionally all these groups of people now have a reference point they can contact in case they need help when coping with the infrastructure they daily use. The ticketing system allows users to get in touch with the members of the &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; Team and receive support right away within a very short period of time (Also thanks to &lt;!-- raw HTML omitted --&gt;Pagerduty&lt;!-- raw HTML omitted --&gt;, service the Foundation is kindly sponsoring)&lt;/p&gt;
+&lt;p&gt;Before moving ahead to the future plans I’d like to provide you a summary of what has been done during these roughly three years so you can get an idea of why I define the changes that happened to the infrastructure a complete revamp:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Recycled several ancient machines migrating services off of them while consolidating them by placing all their configuration on our central configuration management platform ran by Puppet. This includes a grand total of 7 machines that were replaced by new hardware and extended warranties the Foundation kindly sponsored.&lt;/li&gt;
+&lt;li&gt;We strenghten our websites security by introducing SSL certificates everywhere and recently replacing them with SHA2 certificates.&lt;/li&gt;
+&lt;li&gt;We introduced several services such as Owncloud, the Commits Bot, the Pastebin, the Etherpad, Jabber, the GNOME Github mirror.&lt;/li&gt;
+&lt;li&gt;We restructured the way we backup our machines also thanks to the Fedora Project sponsoring the disk space on their backup facility. The way we were used to handle backups drastically changed from early years where a magnetic tape facility was in charge of all the burden of archiving our data to today where a NetApp is used together with &lt;!-- raw HTML omitted --&gt;rdiff-backup&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
+&lt;li&gt;We upgraded Bugzilla to the latest release, a huge thanks goes to Krzesimir Nowak who kindly helped us building the migration tools.&lt;/li&gt;
+&lt;li&gt;We introduced the &lt;!-- raw HTML omitted --&gt;GNOME Apprentice program&lt;!-- raw HTML omitted --&gt; open-sourcing our internal Puppet repository and cleansing it (shallow clones FTW!) from any sensitive information which now lives on a different repository with restricted access.&lt;/li&gt;
+&lt;li&gt;We retired Mango and our OpenLDAP instance in favor of &lt;!-- raw HTML omitted --&gt;FreeIPA&lt;!-- raw HTML omitted --&gt; which allows users to modify their account information on their own without waiting for the Accounts Team to process the change.&lt;/li&gt;
+&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;documented&lt;!-- raw HTML omitted --&gt; how our internal tools are customized to play together making it easy for future &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; Team members to learn how the infrastructure works and supersede existing members in case they aren’t able to keep up their position anymore.&lt;/li&gt;
+&lt;li&gt;We started providing hosting to the GIMP and GTK projects which now completely rely on the GNOME Infrastructure. (DNS, email, websites and other services infrastructure hosting)&lt;/li&gt;
+&lt;li&gt;We started providing hosting not only to the GIMP and GTK projects but to localized communities as well such as GNOME Hispano and GNOME Greece&lt;/li&gt;
+&lt;li&gt;We configured proper monitoring for all the hosted services thanks to Nagios and Check-MK&lt;/li&gt;
+&lt;li&gt;We migrated the IRC network to a newer ircd with proper IRC services (Nickserv, Chanserv) in place.&lt;/li&gt;
+&lt;li&gt;We made sure each machine had a configured management (mgmt) and KVM interface for direct remote access to the bare metal machine itself, its hardware status and all the operations related to it. (hard reset, reboot, shutdown etc.)&lt;/li&gt;
+&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;upgraded MoinMoin&lt;!-- raw HTML omitted --&gt; to the latest release and made a substantial cleanup of old accounts, pages marked as spam and trashed pages.&lt;/li&gt;
+&lt;li&gt;We deployed DNSSEC for several domains we manage including gnome.org, guadec.es, gnomehispano.es, guadec.org, gtk.org and gimp.org&lt;/li&gt;
+&lt;li&gt;We &lt;!-- raw HTML omitted --&gt;introduced an account de-activation policy&lt;!-- raw HTML omitted --&gt; which comes into play when a contributor not committing to any of the hosted repositories at git.gnome.org since two years is caught by the script. The account in question is marked as inactive and the gnomecvs (from the old cvs days) and ftpadmin groups are removed.&lt;/li&gt;
+&lt;li&gt;We planned mass reboots of all the machines roughly every month for properly applying security and kernel updates.&lt;/li&gt;
+&lt;li&gt;We introduced &lt;!-- raw HTML omitted --&gt;Mirrorbrain&lt;!-- raw HTML omitted --&gt; (MB), the mirroring service serving GNOME and related modules tarballs and software all over the world. Before introducing MB GNOME had several mirrors located in all the main continents and at the same time a very low amount of users making good use of them. Many organizations and companies behind these mirrors decided to not host GNOME sources anymore as the statistics of usage were very poor and preferred providing the same service to projects that really had a demand for these resources. MB solved all this allowing a proper redirect to the closest mirror (through mod_geoip) and making sure the sources checksum matched across all the mirrors and against the original tarball uploaded by a GNOME maintainer and hosted at master.gnome.org.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I can keep the list going for dozens of other accomplished tasks but I’m sure many of you are now more interested in what the future plans actually are in terms of where the &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; should be in the next couple of years.&lt;/p&gt;
+&lt;p&gt;One of the main topics we’ve been discussing will be migrating our Git infrastructure away from cgit (which is mainly serving as a code browsing tool) to a more complete platform that is surely going to include a code review tool of some sort. (Gerrit, Gitlab, Phabricator)&lt;/p&gt;
+&lt;p&gt;Another topic would be migrating our mailing lists to Mailman 3 / Hyperkitty. This also means we definitely need a staging infrastructure in place for testing these kind of transitions ideally bound to a separate Puppet / Ansible repository or branch. Having a different repository for testing purposes will also mean helping apprentices to test their changes directly on a live system and not on their personal computer which might be running a different OS / set of tools than the ones we run on the GNOME Infrastructure.&lt;/p&gt;
+&lt;p&gt;What I also aim would be seeing &lt;strong&gt;GNOME&lt;/strong&gt; Accounts being the only authentication resource in use within the whole GNOME Infrastructure. That means one should be able to login to a specific service with the same username / password in use on the other hosted services. That’s been on my todo list for a while already and it’s probably time to push it forward together with Patrick Uiterwijk, responsible of &lt;!-- raw HTML omitted --&gt;Ipsilon&lt;!-- raw HTML omitted --&gt;‘s development at Red Hat and GNOME Sysadmin.&lt;/p&gt;
+&lt;p&gt;While these are the top priority items we are soon receiving new hardware (plus extended warranty renewals for two out of the three machines that had their warranty renewed a while back) and migrating some of the VMs off from the current set of machines to the new boxes is definitely another task I’d be willing to look at in the next couple of months (one machine (ns-master.gnome.org) is being decommissioned giving me a chance to migrate away from BIND into NSD).&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; is evolving and it’s crucial to have someone maintaining it. On this side I’m bringing to your attention the fact the assigned &lt;!-- raw HTML omitted --&gt;Sysadmin&lt;!-- raw HTML omitted --&gt; funds are running out as reported on the Board minutes from the &lt;!-- raw HTML omitted --&gt;27th of October&lt;!-- raw HTML omitted --&gt;. On this side &lt;!-- raw HTML omitted --&gt;Jeff Fortin&lt;!-- raw HTML omitted --&gt; started looking for possible sponsors and came up with the idea of making a brochure with a set of accomplished tasks that couldn’t have been possible without the &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Sysadmin &lt;!-- raw HTML omitted --&gt;fundraising campaign&lt;!-- raw HTML omitted --&gt; launched by &lt;!-- raw HTML omitted --&gt;Stormy Peters&lt;!-- raw HTML omitted --&gt; back in &lt;!-- raw HTML omitted --&gt;June 2010&lt;!-- raw HTML omitted --&gt; being a success. The Board is well aware of the importance of having someone looking at the infrastructure that runs the GNOME Project and is making sure the brochure will be properly reviewed and published.&lt;/p&gt;
+&lt;p&gt;And now some stats taken from the Puppet Git Repository:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;$ &lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; /git/GNOME/puppet &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; git shortlog -ns
+
+&lt;span style=&#34;color:#40a070&#34;&gt;3520&lt;/span&gt; Andrea Veri
+&lt;span style=&#34;color:#40a070&#34;&gt;506&lt;/span&gt; Olav Vitters
+&lt;span style=&#34;color:#40a070&#34;&gt;338&lt;/span&gt; Owen W. Taylor
+&lt;span style=&#34;color:#40a070&#34;&gt;239&lt;/span&gt; Patrick Uiterwijk
+&lt;span style=&#34;color:#40a070&#34;&gt;112&lt;/span&gt; Jeff Schroeder
+&lt;span style=&#34;color:#40a070&#34;&gt;71&lt;/span&gt; Christer Edwards
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; Daniel Mustieles
+&lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt; Matanya Moses
+&lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; Tobias Mueller
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; John Carr
+&lt;span style=&#34;color:#40a070&#34;&gt;2&lt;/span&gt; Ray Wang
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; Daniel Mustieles García
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; Peter Baumgarten&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and from the &lt;!-- raw HTML omitted --&gt;Request Tracker&lt;!-- raw HTML omitted --&gt; database (52388 being my assigned ID):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-MySQL&#34; data-lang=&#34;MySQL&#34;&gt;mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; Tickets &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;where&lt;/span&gt; LastUpdatedBy &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;52388&amp;#39;&lt;/span&gt;;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3613&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; row &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#902000&#34;&gt;set&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;.&lt;span style=&#34;color:#40a070&#34;&gt;01&lt;/span&gt; sec)
+
+mysql&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;select&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; Tickets &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;where&lt;/span&gt; LastUpdatedBy &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;52388&amp;#39;&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;and&lt;/span&gt; Status &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Resolved&amp;#39;&lt;/span&gt;;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;count&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1596&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+----------+&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; row &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#902000&#34;&gt;set&lt;/span&gt; (&lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;.&lt;span style=&#34;color:#40a070&#34;&gt;03&lt;/span&gt; sec)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It’s been a long run which made me proud, for the things I learnt, for the tasks I’ve been able to accomplish, for the great support the GNOME community gave me all the time and most of all for the same fact of being part of the team responsible of the systems hosting the GNOME Project. &lt;strong&gt;Thank you&lt;/strong&gt; GNOME community for your continued and never ending backing, we daily work to improve how the services we host are delivered to you and the support we receive back is fundamental for our passion and enthusiasm to remain high!&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure Apprentice Program</title>
+      <link>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</link>
+      <pubDate>Wed, 28 Jan 2015 16:59:46 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/</guid>
+      <description>&lt;p&gt;Many times it happened seeing someone joining the #sysadmin IRC channel requesting participation to the team after having spent around 5 minutes trying to explain what the skills and the knowledge were and why this person felt it was the right figure for the position. And it was always very disappointing for me having to reject all these requests as we just didn’t have the infrastructure in place to let new people join the rest of the team with limited privileges.&lt;/p&gt;
+&lt;p&gt;With the introduction of &lt;!-- raw HTML omitted --&gt;FreeIPA&lt;!-- raw HTML omitted --&gt;, more fine-grained ACLs (and hiera-eyaml-gpg for securing tokens, secrets, passwords out of Puppet itself) we are so glad to announce the launch of the “&lt;strong&gt;GNOME Infrastructure Apprentice Program&lt;/strong&gt;” (from now till the end of the post just “Program”). If you are familiar with the Fedora Infrastructure and how it works you might know what this is about already. If you don’t please read further ahead.&lt;/p&gt;
+&lt;p&gt;The Program will allow apprentices to join the Sysadmin Team with a limited set of privileges which mainly consist in being able to access the Puppet repository and all the stored configuration files that run the machines powering the GNOME Infrastructure every day. Once approved to the Program apprentices will be able to submit patches for review to the team and finally see their work merged on the production environment if the proposed changes matched the expectations and addressed comments.&lt;/p&gt;
+&lt;p&gt;While the Program is open to everyone to join, we have some prerequisites in place. The interested person should be:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Part of an existing FOSS community&lt;/li&gt;
+&lt;li&gt;Familiar with how a FOSS Project works behind the scenes&lt;/li&gt;
+&lt;li&gt;Familiar with popular tools like Puppet, Git&lt;/li&gt;
+&lt;li&gt;Familiar with RHEL as the OS of choice&lt;/li&gt;
+&lt;li&gt;Familiar with popular Sysadmin tools, softwares and procedures&lt;/li&gt;
+&lt;li&gt;Eager to learn new things, make constructive discussions with a team, provide feedback and new ideas&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;If you feel like having all the needed prerequisites and would be willing to join follow these steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Subscribe to the &lt;!-- raw HTML omitted --&gt;gnome-infrastructure&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;infrastructure-announce&lt;!-- raw HTML omitted --&gt; mailing lists&lt;/li&gt;
+&lt;li&gt;Join the &lt;strong&gt;#sysadmin&lt;/strong&gt; IRC channel on irc.gnome.org&lt;/li&gt;
+&lt;li&gt;Send a presentation e-mail to the gnome-infrastructure mailing list stating who you are, what your past experiences and plans are as an Apprentice&lt;/li&gt;
+&lt;li&gt;Once the presentation has been sent an existing Sysadmin Team member will evaluate your application and follow-up with you introducing you to the Program&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;More information about the Program is available &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure is now powered by FreeIPA!</title>
+      <link>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</link>
+      <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</guid>
+      <description>&lt;p&gt;As preannounced &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; the GNOME Infrastructure switched to a new Account Management System which is reachable at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://account.gnome.org&#34;&gt;https://account.gnome.org&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;. All the details will follow.&lt;/p&gt;
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by &lt;strong&gt;Jonathan Blandford&lt;/strong&gt; (jrb) who configured an &lt;strong&gt;OpenLDAP&lt;/strong&gt; istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)&lt;/p&gt;
+&lt;p&gt;While OpenLDAP-server was living on the GNOME machine called clipboard (aka ldap.gnome.org) the clients were configured to synchronize users, groups, passwords through the nslcd daemon. After several years &lt;strong&gt;Jeff Schroeder&lt;/strong&gt; joined the Sysadmin Team and during one cold evening (date is Tue, February 1st 2011) spent some time configuring SSSD to replace the nslcd daemon which was missing one of the most important SSSD features: caching. What surely convinced Jeff to adopt SSSD (a very new but promising sofware at that time as the first release happened right before 2010’s Christmas) and as the commit log also states (“New sssd module for ldap information caching”) was SSSD’s caching feature.&lt;/p&gt;
+&lt;p&gt;It was enough for a certain user to log in once and the ‘/var/lib/sss/db’ directory was populated with its login information preventing the LDAP daemon in charge of picking up login details (from the LDAP server) to query the LDAP server itself every single time a request was made against it. This feature has definitely helped in many occasions especially when the LDAP server was down for a particular reason and sysadmins needed to access a specific machine or service: without SSSD this wasn’t ever going to work and sysadmins were probably going to be locked out from the machines they were used to manage. (except if you still had ‘/etc/passwd’, ‘/etc/group’ and ‘/etc/shadow’ entries as fallback)&lt;/p&gt;
+&lt;p&gt;Things were working just fine except for a few downsides that appeared later on:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;the web interface (view) on our LDAP user database was managed by &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;Mango&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, an outdated tool which many wanted to rewrite in Django that slowly became a huge dinosaur nobody ever wanted to look into again&lt;/li&gt;
+&lt;li&gt;the Foundation membership information were managed through a MySQL database, so two databases, two sets of users unrelated to each other&lt;/li&gt;
+&lt;li&gt;users were not able to modify their own account information on their own but even a single e-mail change required them to mail the GNOME Accounts Team which was then going to authenticate their request and finally update the account.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Today’s infrastructure changes are here to finally say the issues outlined at (1, 2, 3) are now fixed.&lt;/p&gt;
+&lt;h2 id=&#34;what-has-changed&#34;&gt;What has changed?&lt;/h2&gt;
+&lt;p&gt;The GNOME Infrastructure is now powered by Red Hat’s &lt;strong&gt;FreeIPA&lt;/strong&gt; which bundles several FOSS softwares into one big “bundle” all surrounded by an easy and intuitive web UI that will help users update their account information on their own without the need of the Accounts Team or any other administrative entity. Users will also find two custom fields on their “Overview” page, these being “Foundation Member since” and “Last Renewed on date”. As you may have understood already we finally managed to migrate the Foundation membership database into LDAP itself to store the information we want once and for all. As a side note it might be possible that some users that were Foundation members in the past won’t find any detail stored on the Foundation fields outlined above. That is actually expected as we were able to migrate all the current and old Foundation members that had an LDAP account registered at the time of the migration. If that’s your case and you still would like the information to be stored on the new setup please get in contact with the Membership Committee at stating so.&lt;/p&gt;
+&lt;h2 id=&#34;where-can-i-get-my-first-login-credentials&#34;&gt;Where can I get my first login credentials?&lt;/h2&gt;
+&lt;p&gt;Let’s make a little distinction between users that previously had access to Mango (usually maintainers) and users that didn’t. If you were used to access Mango before you should be able to login on the new Account Management System by entering your GNOME username and the password you were used to use for loggin in into Mango. (after loggin in the very first time you will be prompted to update your password, please choose a strong password as this account will be unique across all the GNOME Infrastructure)&lt;/p&gt;
+&lt;p&gt;If you never had access to Mango, you lost your password or the first time you read the word Mango on this post you thought “why is he talking about a fruit now?” you should be able to reset it by using the following command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ssh -l yourgnomeuserid account.gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The command will start an SSH connection between you and account.gnome.org, once authenticated (with the SSH key you previously had registered on our Infrastructure) you will trigger a command that will directly send your brand new password on the e-mail registered for your account. From my tests seems GMail sees the e-mail as a phishing attempt probably because the body contains the word “password” twice. That said if the e-mail won’t appear on your INBOX, please &lt;strong&gt;double-check&lt;/strong&gt; your Spam folder.&lt;/p&gt;
+&lt;h2 id=&#34;now-that-mango-is-gone-how-can-i-request-a-new-account&#34;&gt;Now that Mango is gone how can I request a new account?&lt;/h2&gt;
+&lt;p&gt;With Mango we used to have a form that automatically e-mailed the maintainer of the selected GNOME module which was then going to approve / reject the request. From there and in the case of a positive vote from the maintainer the Accounts Team was going to create the account itself.&lt;/p&gt;
+&lt;p&gt;With the &lt;!-- raw HTML omitted --&gt;recent introduction of a commit robot directly on l10n.gnome.org&lt;!-- raw HTML omitted --&gt; the number of account requests reduced its numbers. In addition to that users will now be able to perform pretty much all the needed maintenance on their accounts themselves. That said and while we will probably work on building a form in the future we feel that requesting accounts can definitely be achieved directly by mailing the Accounts Team itself which will mail the maintainer of the respective module and create the account. As just said the number of account creations has become very low and the queue is currently clear. The documentation has been updated to reflect these changes at:&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/AccountsTeam&#34;&gt;https://wiki.gnome.org/AccountsTeam&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/AccountsTeam/NewAccounts&#34;&gt;https://wiki.gnome.org/AccountsTeam/NewAccounts&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;h2 id=&#34;i-was-used-to-have-access-to-a-specific-service-but-i-don8217t-anymore-what-should-i-do&#34;&gt;I was used to have access to a specific service but I don’t anymore, what should I do?&lt;/h2&gt;
+&lt;p&gt;The migration of all the user data and ACLs has been massive and I’ve been spending a lot of time reviewing the existing HBAC rules trying to spot possible errors or misconfigurations. If you happen to not being able to access a certain service as you were used to in the past, please get in contact with the Sysadmin Team. All the possible ways to contact us are available at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://wiki.gnome.org/Sysadmin/Contact&#34;&gt;https://wiki.gnome.org/Sysadmin/Contact&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;what-is-missing-still&#34;&gt;What is missing still?&lt;/h2&gt;
+&lt;p&gt;Now that the Foundation membership information has been moved to LDAP I’ll be looking at porting some of the existing membership scripts to it. What I managed to port already are welcome e-mails for new or existing members. (renewals)&lt;/p&gt;
+&lt;p&gt;Next step will be generating a membership page from LDAP (to populate &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;http://www.gnome.org/foundation/membership&#34;&gt;http://www.gnome.org/foundation/membership&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;) and all the your-membership-is-going-to-lapse e-mails that were being sent till today.&lt;/p&gt;
+&lt;h2 id=&#34;other-news-8211-homeusers-mount-on-mastergnomeorg&#34;&gt;Other news – /home/users mount on master.gnome.org&lt;/h2&gt;
+&lt;p&gt;You will notice that loggin in into &lt;strong&gt;master.gnome.org&lt;/strong&gt; will result in your home directory being empty, don’t worry, you did not lose any of your files but master.gnome.org is now currently hosting your home directories itself. As you may have been aware of adding files to the public_html directory on master resulted in them appearing on your &lt;strong&gt;people.gnome.org/~userid&lt;/strong&gt; space. That was unfortunately expected as both master and webapps2 (the machine serving people.gnome.org’s webspaces) were mounting the same GlusterFS share.&lt;/p&gt;
+&lt;p&gt;We wanted to prevent that behaviour to happen as we wanted to know who has access to what resource and where. From today master’s home directories will be there just as a temporary spot for your tarballs, just scp and use ftpadmin against them, that should be all you need from master. If you are interested in receiving or keeping using your people.gnome.org’s webspace please mail &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt; stating so.&lt;/p&gt;
+&lt;h2 id=&#34;other-news-8211-a-shiny-and-new-error-500-page-has-been-deployed&#34;&gt;Other news – a shiny and new error 500 page has been deployed&lt;/h2&gt;
+&lt;p&gt;Thanks to &lt;strong&gt;Magdalen Berns&lt;/strong&gt; (magpie) a new error 500 web page has been deployed on all the Apache istances we host. The page contains an iframe of &lt;strong&gt;status.gnome.org&lt;/strong&gt; and will appear every single time the web server behind the service you are trying to reach will be unreachable for maintenance or other purposes. While I hope you won’t see the page that often you can still enjoy it at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://static.gnome.org/error-500/500.html&#34;&gt;https://static.gnome.org/error-500/500.html&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;. Make sure to whitelist status.gnome.org on your browser as it currently loads it without https. (as the service is currently hosted on OpenShift which provides us with a *.rhcloud.com wildcard certificate, which differs from the CN the browser would expect it to be)&lt;/p&gt;
+&lt;h2 id=&#34;updates&#34;&gt;Updates&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; on status.gnome.org’s SSL certificate: the certificate has been provisioned and it should result in the 500’s page to be displayed correctly with no warnings from your browser.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;UPDATE&lt;/strong&gt; from Adam Young on Kerberos ports being closed on many DC’s firewalls:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The next version of upstream MIT Kerberos will have support for fetching a ticket via ports 443 and marshalling the request over HTTPS. We’ll need to run a proxy on the server side, but we should be able to make it work:&lt;/p&gt;
+&lt;p&gt;Read up here&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;http://adam.younglogic.com/2014/06/kerberos-firewalls&#34;&gt;http://adam.younglogic.com/2014/06/kerberos-firewalls&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Adding reCAPTCHA support to Mailman</title>
+      <link>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</guid>
+      <description>&lt;p&gt;The &lt;strong&gt;GNOME&lt;/strong&gt; and many other infrastructures have been recently attacked by an huge amount of &lt;strong&gt;subscription-based spam&lt;/strong&gt; against their &lt;strong&gt;Mailman&lt;/strong&gt; istances. What the attackers were doing was simply launching a GET call against a specific REST API URL passing all the parameters it needed for a subscription request (and confirmation) to be sent out. Understanding it becomes very easy when you look at the following example taken from our apache.log:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-verilog&#34; data-lang=&#34;verilog&#34;&gt;May &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;04&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;38&lt;/span&gt; restaurant &lt;span style=&#34;color:#002070;font-weight:bold&#34;&gt;apache:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;81.17.17.90&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;127.0.0.1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; [&lt;span style=&#34;color:#40a070&#34;&gt;03&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;May&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2014&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;04&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;38&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;GET /mailman/subscribe/banshee-list?email=example@me.com&amp;amp;fullname=&amp;amp;pw=123456789&amp;amp;pw-conf=123456789&amp;amp;language=en&amp;amp;digest=0&amp;amp;email-button=Subscribe HTTP/1.1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;403&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;313&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://spam/index2.html&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As you can the see attackers were sending all the relevant details needed for the subscription to go forward (and specifically the full name, the email, the digest option and the password for the target list). At first we tried to either stop the spam by banning the subnets where the requests were coming from, then when it was obvious that more subnets were being used and manual intervention was needed we tried banning their &lt;strong&gt;User-Agents&lt;/strong&gt;. Again no luck, the spammers were smart enough to change it every now and then making it to match an existing browser User-Agent. (with a good percentage to have a lot of false-positives)&lt;/p&gt;
+&lt;p&gt;Now you might be wondering why such an attack caused a lot of issues and pain, well, the attackers made use of addresses found around the web for their malicius subscription requests. That means we received a lot of emails from people that have never heard about the GNOME mailing lists but received around &lt;strong&gt;10k subscription requests&lt;/strong&gt; that were seemingly being sent by themselves.&lt;/p&gt;
+&lt;p&gt;It was obvious we needed to look at a backup solution and luckily someone on our support channel suggested the freedesktop.org sysadmins recently added CAPTCHAs support to Mailman.  I’m now sharing the patch and providing a few more details on how to properly set it up on either DEB or RPM based distributions. Credits for the patch should be given to Debian Developer &lt;!-- raw HTML omitted --&gt;Tollef Fog Heen&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, who has been so kind to share it with us.&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;Before patching your installation make sure to install the &lt;strong&gt;python-recaptcha&lt;/strong&gt; package (tested on Debian with Mailman 2.1.15) on DEB based distributions and &lt;strong&gt;python-recaptcha-client&lt;/strong&gt; on RPM based distributions. (I personally tested it against Mailman release 2.1.15, RHEL 6)&lt;/p&gt;
+&lt;h3 id=&#34;the-patch&#34;&gt;The Patch&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;diff &lt;span style=&#34;color:#666&#34;&gt;--&lt;/span&gt;git a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+index &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;a54517&lt;span style=&#34;color:#666&#34;&gt;..&lt;/span&gt;d6417ca &lt;span style=&#34;color:#40a070&#34;&gt;100644&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Errors
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; i18n
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Set up i18n&lt;/span&gt;
+ _ &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i18n&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;203&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list_listinfo&lt;/span&gt;(mlist, lang):
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatFormStart(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo&amp;#39;&lt;/span&gt;)
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatBox(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;fullname&amp;#39;&lt;/span&gt;, size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;)
+ 
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Captcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mm-recaptcha-javascript&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;displayhtml(mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PUBLIC_KEY, use_ssl&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;False)
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Do the expansion.&lt;/span&gt;
+     doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;AddItem(mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;ParseTags(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo.html&amp;#39;&lt;/span&gt;, replacements, lang))
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;print&lt;/span&gt; doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;Format()
+diff &lt;span style=&#34;color:#666&#34;&gt;--&lt;/span&gt;git a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+index &lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;b0b0e4&lt;span style=&#34;color:#666&#34;&gt;..&lt;/span&gt;c1c7b8c &lt;span style=&#34;color:#40a070&#34;&gt;100644&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;21&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;21&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;sys&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;os&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;cgi&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;signal&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; mm_cfg
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Utils
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;132&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;130&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;17&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;process_form&lt;/span&gt;(mlist, doc, cgidata, lang):
+     remote &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;environ&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;REMOTE_HOST&amp;#39;&lt;/span&gt;,
+                             os&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;environ&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;REMOTE_ADDR&amp;#39;&lt;/span&gt;,
+                                            &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;unidentified origin&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# recaptcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    captcha_response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;submit(
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;recaptcha_challenge_field&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;recaptcha_response_field&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PRIVATE_KEY,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        remote,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        )
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;is_valid:
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Invalid captcha&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Was an attempt made to subscribe the list to itself?&lt;/span&gt;
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; email &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;GetListEmail():
+         syslog(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mischief&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Attempt to self subscribe &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;, email, remote)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-setup&#34;&gt;Additional setup&lt;/h3&gt;
+&lt;p&gt;Then on the &lt;em&gt;/var/lib/mailman/templates/en/listinfo.html&lt;/em&gt; template (right below &lt;em&gt;&lt;!-- raw HTML omitted --&gt;&lt;/em&gt;)  add:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+    Please fill out the following captcha
+  &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TD&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make also sure to generate a public and private key at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://www.google.com/recaptcha&#34;&gt;https://www.google.com/recaptcha&lt;/a&gt;&lt;!-- raw HTML omitted --&gt; and add the following paramaters on your &lt;em&gt;mm_cfg.py&lt;/em&gt; file:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RECAPTCHA_PRIVATE_KEY&lt;/li&gt;
+&lt;li&gt;RECAPTCHA_PUBLIC_KEY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Loading &lt;strong&gt;reCAPTCHAs&lt;/strong&gt; images from a trusted &lt;strong&gt;HTTPS&lt;/strong&gt; source can be done by changing the following line:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;replacements[&amp;#39;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=False)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;replacements[&amp;#39;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=True)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;epel-6-related-details&#34;&gt;EPEL 6 related details&lt;/h3&gt;
+&lt;p&gt;A few additional details should be provided in case you are setting this up against a &lt;strong&gt;RHEL 6&lt;/strong&gt; host: (or any other machine using the EPEL 6 package &lt;em&gt;python-recaptcha-client-1.0.5-3.1.el6&lt;/em&gt;)&lt;/p&gt;
+&lt;p&gt;Importing the recaptcha.client module will fail for some strange reason, importing it correctly can be done this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ln -s /usr/lib/python2.6/site-packages/recaptcha/client /usr/lib/mailman/pythonlib/recaptcha&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and then fix the imports also making sure &lt;em&gt;sys.path.append(“/usr/share/pyshared”)&lt;/em&gt; is not there:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s not all, the package still won’t work as expected given the API_SSL_SERVER, API_SERVER and VERIFY_SERVER variables on captcha.py are outdated (filed as &lt;!-- raw HTML omitted --&gt;bug #1093855&lt;!-- raw HTML omitted --&gt;), substitute them with the following ones:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;API_SSL_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://www.google.com/recaptcha/api&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;API_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://www.google.com/recaptcha/api&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;VERIFY_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;www.google.com&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then on line 76:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://%s/recaptcha/api/verify&amp;#34; % VERIFY_SERVER,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;recaptcha-v2&#34;&gt;reCAPTCHA v2&lt;/h3&gt;
+&lt;p&gt;Google’s reCAPTCHA v1 will be deactivated starting from the 31th of March 2018, read more on how to migrate your Mailman install to version 2 &lt;a href=&#34;https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;That should be all! Enjoy!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Manage passwords with ‘pass’</title>
+      <link>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
+      <description>&lt;p&gt;Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the &lt;!-- raw HTML omitted --&gt;following wiki page&lt;!-- raw HTML omitted --&gt; has a pretty nice overview of them.&lt;/p&gt;
+&lt;p&gt;Said that, when using sudo it’s definitely ideal to combine a &lt;strong&gt;strong password&lt;/strong&gt; that is also easy to remember and type again when prompted. Sadly strong passwords that are also easy to remember can be considered an oxymoron. How hard would it be to recall a 30+ chars long password? Honestly that would be close to impossible for an human being but what if a little software available on the major GNU/Linux distributions could handle that for us? That’s where &lt;em&gt;pass&lt;/em&gt; comes handy, but what is pass? from the pass manpage itself:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pass is a very simple password store that keeps passwords inside gpg2(1) encrypted files inside a simple directory tree residing at ~/.password-store. The pass utility provides a series of commands for manipulating the password store, allowing the user to add, remove, edit, synchronize, generate, and manipulate passwords.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I’m sure that a lot of you guys have been looking for a tool like this one for ages: &lt;em&gt;pass&lt;/em&gt; allows you to generate very strong passwords with &lt;!-- raw HTML omitted --&gt;pwgen&lt;!-- raw HTML omitted --&gt;, GPG encrypt them with your GPG Key, store them safely on your disk and make them available whenever you need them with a single command. But let’s move to the practice, give the following steps a try and enjoy how powerful your pass setup will be.&lt;/p&gt;
+&lt;h3 id=&#34;first-setup&#34;&gt;First setup&lt;/h3&gt;
+&lt;p&gt;Install the software:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;yum/apt-get install pass&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate a GPG Key if you don’t have one already, a detailed guide can be found &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. Initialize your passwords storage. (&lt;strong&gt;GPGKEYID&lt;/strong&gt; can be retrieved by running &lt;strong&gt;gpg –list-keys&lt;/strong&gt; and then looking for a line similar to this one: &lt;strong&gt;pub 4096R/B3A6223D 2012-06-25&lt;/strong&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass init GPGKEYID&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate your first password and call it ‘sudo_password’ given you are going to make use of it as your brand new sudo password. (we want it at least 30+ chars long)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate sudo_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(Optional) Create as much passwords as you need and make sure to save them with unique names, that way you will be able to identify what a password is used for easily.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate gmail_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-maintenance-commands-on-your-password-database&#34;&gt;Additional maintenance commands on your password database&lt;/h3&gt;
+&lt;p&gt;Look at the existing passwords on your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass ls&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Password Store
+├── gmail_password
+├── sudo_password
+└── root_password&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Manually edit a password.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass edit password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Remove a password from your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass rm password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Copy a password on your clipboard and paste it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass -c password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Are you wondering if &lt;em&gt;pass&lt;/em&gt; supports a VCS? Yeah, it does, it currently allows you to manage your passwords database with Git, so that each applied change to the database will be tracked through a VCS so that you won’t forget when and how you updated a specific password.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Configuring DNSSEC on your personal domain</title>
+      <link>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</link>
+      <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</guid>
+      <description>&lt;p&gt;Today I’ll be working out how to properly configure &lt;!-- raw HTML omitted --&gt;DNSSEC&lt;!-- raw HTML omitted --&gt; on a &lt;strong&gt;BIND9&lt;/strong&gt; installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant &lt;strong&gt;SSHFP&lt;/strong&gt;‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible &lt;!-- raw HTML omitted --&gt;MITM&lt;!-- raw HTML omitted --&gt; attack.&lt;/p&gt;
+&lt;p&gt;First of all, let’s create the Zone Signing Key (&lt;strong&gt;ZSK&lt;/strong&gt;) which is the key that will be responsible to sign any other record on the zone file which is not a DNSKEY record itself:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;dnssec-keygen -a RSASHA1 -b &lt;span style=&#34;color:#40a070&#34;&gt;1024&lt;/span&gt; -n ZONE gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the dnssec-keygen binary file should be part of bind97 (RHEL 5) or bind (RHEL6) package according to yum whatprovides:&lt;/p&gt;
+&lt;p&gt;RHEL 5:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;32:bind97-9.7.0-17.P2.el5_9.2.x86_64 : The Berkeley Internet Name Domain &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;BIND&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; DNS &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Domain Name System&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; server
+Repo : rhel-x86_64-server-5
+Matched from:
+Filename : /usr/sbin/dnssec-keygen&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;RHEL 6:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;32:bind-9.8.2-0.17.rc1.el6.3.x86_64 : The Berkeley Internet Name Domain &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;BIND&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; DNS &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Domain Name System&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; server
+Repo : rhel-x86_64-server-6
+Matched from:
+Filename : /usr/sbin/dnssec-keygen&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Then, create the Key Signing Key (&lt;!-- raw HTML omitted --&gt;KSK&lt;!-- raw HTML omitted --&gt;), which will be used to sign all the DNSKEY records:&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;dnssec-keygen -a RSASHA1 -b &lt;span style=&#34;color:#40a070&#34;&gt;2048&lt;/span&gt; -n ZONE -f KSK gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Creating the above keys can take several minutes, when done copy the public keys to the zone file this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;cat Kgnome.org*.key &amp;gt;&amp;gt; gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When done you can clean out the useless bits from the zone file and just leave the DNSKEY records (which are not commented out as you will notice)&lt;/p&gt;
+&lt;p&gt;An additional and cleaner way of accomplishing the above is to use the INCLUDE rule on the zone file itself as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$INCLUDE&lt;/span&gt; /srv/dnssec-keys/Kgnome.org+005+12345.key
+&lt;span style=&#34;color:#bb60d5&#34;&gt;$INCLUDE&lt;/span&gt; /srv/dnssec-keys/Kgnome.org+005+67890.key&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Choosing which method to use is really up to you.&lt;/p&gt;
+&lt;p&gt;&lt;!-- raw HTML omitted --&gt;Once that is done you can go ahead and sign the zone file. As of myself I’m making use of the &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;do-domain&lt;!-- raw HTML omitted --&gt; &lt;!-- raw HTML omitted --&gt;script taken from the Fedora Infrastructure Team’s repositories. If you are going to use it yourself, make sure to adjust all the relevant variables to match your setup, especially &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;keyspath&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;region_zones&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;template_zone&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;signed_zones&lt;!-- raw HTML omitted --&gt; &lt;!-- raw HTML omitted --&gt;and &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;ARE&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;A&lt;!-- raw HTML omitted --&gt;. The do-domain script also checks your zone file through &lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;named-checkzone&lt;!-- raw HTML omitted --&gt; &lt;!-- raw HTML omitted --&gt;before signing it.&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/11/gedit-code-assistance.png&#34; alt=&#34;/me while editing the do-domains script with the preview of gnome-code-assistance!&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;If instead you don’t want to use the script above, you can sign the zone file manually in the following way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;dnssec-signzone -K /path/to/your/dnssec/keys -e +3024000 -N INCREMENT gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;By default, the above command will append ‘.signed’ to the file name, you can modify that behaviour by appending the ‘-f’ flag to the dnssec-signzone call. The ‘-N INCREMENT’ will increment the serial number automatically making use of the RFC 1982 arithmetics while the ‘-e’ flag will extend the zone signature end date from the default 30 days to 35. (this way we can safely run a monthly cron job that will sign the zone file automatically)&lt;/p&gt;
+&lt;p&gt;You can make use of the following script to achieve the above:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/sh
+&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;SIGNZONE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/usr/sbin/dnssec-signzone&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;DNSSEC_KEYS&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/srv/dnssec-keys&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;NAMEDCHROOT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;/var/named/chroot&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;ZONEFILES&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gnome.org&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020&#34;&gt;cd&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;$NAMEDCHROOT&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;for&lt;/span&gt; ZONE in &lt;span style=&#34;color:#bb60d5&#34;&gt;$ZONEFILES&lt;/span&gt;; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;do&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;$SIGNZONE&lt;/span&gt; -K &lt;span style=&#34;color:#bb60d5&#34;&gt;$DNSSEC_KEYS&lt;/span&gt; -e +3024000 -f &lt;span style=&#34;color:#bb60d5&#34;&gt;$ZONE&lt;/span&gt;.signed -N INCREMENT &lt;span style=&#34;color:#bb60d5&#34;&gt;$ZONE&lt;/span&gt;
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;done&lt;/span&gt;
+
+/sbin/service named reload&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Once the zone file has been signed just make sure to include it on named.conf and restart named:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;zone &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gnome.org&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;{&lt;/span&gt;
+file &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;gnome.org.signed&amp;#34;&lt;/span&gt;;
+&lt;span style=&#34;color:#666&#34;&gt;}&lt;/span&gt;;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When you’re done with that we should be moving ahead adding a &lt;strong&gt;DS&lt;/strong&gt; record for our domain at our domain registrar. My example is taken from the known &lt;strong&gt;gandi.net&lt;/strong&gt; registrar.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/11/gandi.png&#34; alt=&#34;Gandi DNSSEC Interface&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Select &lt;strong&gt;KSK (257)&lt;/strong&gt; and &lt;strong&gt;(RSA/SHA-1)&lt;/strong&gt; on the dropdown list and paste your public key on the box. You will find the public key you need on one of the Kgnome.org*.key files, you should look for the DNSKEY 257 entry as ‘_dig DNSKEY gnome.org_‘ shows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;;; ANSWER SECTION:
+gnome.org. &lt;span style=&#34;color:#40a070&#34;&gt;888&lt;/span&gt; IN DNSKEY &lt;span style=&#34;color:#40a070&#34;&gt;257&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;5&lt;/span&gt; AwEAAbRD7AymDFuKc2iXta7HXZMleMkUMwjOZTsn4f75ZUp0of8TJdlU DtFtqifEBnFcGJU5r+ZVvkBKQ0qDTTjayL54Nz56XGGoIBj6XxbG8Es+ VbZCg0RsetDk5EsxLst0egrvOXga27jbsJ+7Me3D5Xp1bkBnQMrXEXQ9 C43QfO2KUWJVljo1Bii3fTfnHSLRUsbRn8Puz+orK71qxs3G9mgGR6rm n91brkpfmHKr3S9Rbxq8iDRWDPiCaWkI7qfASdFk4TLV0gSVlA3OxyW9 TCkPZStZ5r/WRW2jhUY/kjHERQd4qX5dHAuYrjJSV99P6FfCFXoJ3ty5 &lt;span style=&#34;color:#bb60d5&#34;&gt;s3fl1RZaTo8&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Once that is done you should have a fully covered DNSSEC domain, you can verify that this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;dig . DNSKEY | grep -Ev &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;^($|;)&amp;#39;&lt;/span&gt; &amp;gt; root.keys
+
+dig +sigchase +trusted-key&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;./root.keys gnome.org. A | cat -n&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#40a070&#34;&gt;105&lt;/span&gt; ;; WE HAVE MATERIAL, WE NOW DO VALIDATION
+&lt;span style=&#34;color:#40a070&#34;&gt;106&lt;/span&gt; ;; VERIFYING DS RRset &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;for&lt;/span&gt; org. with DNSKEY:59085: success
+&lt;span style=&#34;color:#40a070&#34;&gt;107&lt;/span&gt; ;; OK We found DNSKEY &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;or more&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt; to validate the RRset
+&lt;span style=&#34;color:#40a070&#34;&gt;108&lt;/span&gt; ;; Ok, find a Trusted Key in the DNSKEY RRset: &lt;span style=&#34;color:#40a070&#34;&gt;19036&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;109&lt;/span&gt; ;; VERIFYING DNSKEY RRset &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;for&lt;/span&gt; . with DNSKEY:19036: success
+&lt;span style=&#34;color:#40a070&#34;&gt;110&lt;/span&gt;
+&lt;span style=&#34;color:#40a070&#34;&gt;111&lt;/span&gt; ;; Ok this DNSKEY is a Trusted Key, DNSSEC validation is ok: SUCCESS&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Bonus content: Adding SSHFP entries for your domain and verifying them&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;You can retrieve the SSHFP entries for a specific host with the following command:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ssh-keygen -r &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;$(&lt;/span&gt;hostname --fqdn&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;)&lt;/span&gt; -f /etc/ssh/ssh_host_rsa_key.pub&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;When retrieved just add the &lt;strong&gt;SSHFP&lt;/strong&gt; entry on the zone file for your domain and verify it:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ssh -oVerifyHostKeyDNS&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes -v subdomain.gnome.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or directly add the above parameter into your /etc/ssh/ssh_config file this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;VerifyHostKeyDNS&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And run ‘ssh -v subdomain.gnome.org’, the result you should receive:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;debug1: Server host key: RSA 00:39:fd:1a:a4:2c:6b:28:b8:2e:95:31:c2:90:72:03
+debug1: found &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; secure fingerprints in DNS
+debug1: matching host key fingerprint found in DNS
+debug1: ssh_rsa_verify: signature correct&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s it! Enjoy!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Two years later: Vim, Tmux and my Linux desktop</title>
+      <link>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</link>
+      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</guid>
+      <description>&lt;p&gt;It’s been two years since my &lt;!-- raw HTML omitted --&gt;latest blog post&lt;!-- raw HTML omitted --&gt; about my Linux desktop and many things have changed since then. I completely moved all my machines to &lt;strong&gt;GNOME 3&lt;/strong&gt;, switched my main editor from &lt;strong&gt;nano&lt;/strong&gt; to &lt;strong&gt;vim&lt;/strong&gt; and my terminal multiplexer from &lt;strong&gt;screen&lt;/strong&gt; to &lt;strong&gt;tmux&lt;/strong&gt;. What didn’t change at all except for a tweaks on the theme is my &lt;strong&gt;Irssi&lt;/strong&gt; setup.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/dircolors_solarized.png&#34; alt=&#34;dircolors_solarized&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming. Vim on the other hand is highly customizable in every single part also thanks to its huge amount of plugins. Honestly I admit I spent several hours watching videos, reading documentation, trying out key bindings and I’m not completely used to vim to be as much productive I would like to be with it.&lt;/p&gt;
+&lt;p&gt;What I found to be the common error of vim’s newcomers is their willingness to look around the web for a complete vimrc configuration file, full of key bindings, custom settings and personalizations. That’s definitely something you should avoid when learning to use vim, the perfect &lt;strong&gt;vimrc&lt;/strong&gt; doesn’t objectively exist, each of us should spend some time investigating what is the best configuration for your needs and build a vimrc accordingly time by time.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/vim.png&#34; alt=&#34;vim&#34;&gt;&lt;/p&gt;
+&lt;p&gt;It will probably take months to have a complex vimrc file matching your needs completely, until then you won’t be able to define your vimrc to be “ultimate”. And that’s actually why wgetting someone else’s vimrc and copying it to your home folder won’t make you an expert of vim, it’ll probably make your life harder when trying a specific action with the stock settings will result in something you wouldn’t have expected thanks to a particular key binding on the vimrc you downloaded.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/tmux.png&#34; alt=&#34;tmux&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The other tool that definitely improved my productivity is &lt;strong&gt;Tmux&lt;/strong&gt; given the huge amount of open terminals I had every day during my sysadmin’s duties at GNOME. Each day usually started with one or two open terminals mainly meant for random maintenance issues, after a few hours the amount of open terminals jumped to around 30.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/irssi.png&#34; alt=&#34;irssi&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IPv6 tunneling with Hurricane Electrics (HE)</title>
+      <link>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</link>
+      <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</guid>
+      <description>&lt;p&gt;I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. &lt;strong&gt;Hurricane Electrics&lt;/strong&gt; (HE) provides (for free) five configurable &lt;strong&gt;IPv4-to-IPv6&lt;/strong&gt; tunnels together with a free &lt;strong&gt;DNS service&lt;/strong&gt; and an interesting &lt;strong&gt;certification program&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/certificate_badge.png&#34; alt=&#34;Hurricane Electrics IPv6 Certification&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Willing to test the latest revision of the Internet Protocol on your &lt;strong&gt;Debian&lt;/strong&gt;, &lt;strong&gt;Ubuntu&lt;/strong&gt;, &lt;strong&gt;Fedora&lt;/strong&gt; machines? Here’s &lt;strong&gt;how&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Register yourself at Hurricane Electrics by visiting &lt;!-- raw HTML omitted --&gt;tunnelbroker.net&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; &lt;!-- raw HTML omitted --&gt;Create a new tunnel&lt;!-- raw HTML omitted --&gt; and make sure to use your &lt;strong&gt;public IP&lt;/strong&gt; address as your &lt;strong&gt;IPv4 Endpoint&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Write down the relevant details of your tunnel, specifically:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Server IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::1 /64&lt;/li&gt;
+&lt;li&gt;Server IPv4 Address: 216.66.84.46 (this actually depends on which server did you choose on the previous step)&lt;/li&gt;
+&lt;li&gt;Client IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::2/64&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/tunnel_broker.png&#34; alt=&#34;Tunnel Broker&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Create a little script that will update your &lt;strong&gt;IPv4 tunnel endpoint&lt;/strong&gt; every time your internet IP &lt;strong&gt;changes&lt;/strong&gt;. (this step is not needed if you have an internet connection with a &lt;strong&gt;static IP&lt;/strong&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;USERNAME&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEUsername
+&lt;span style=&#34;color:#bb60d5&#34;&gt;PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEPassword
+&lt;span style=&#34;color:#bb60d5&#34;&gt;TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHETunnelID
+GET &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$USERNAME&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;@ipv4.tunnelbroker.net/ipv4_end.php?tid=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; Create the networking &lt;strong&gt;configuration&lt;/strong&gt; files on your computer:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Debian / Ubuntu&lt;/strong&gt;, on the &lt;strong&gt;/etc/network/interfaces&lt;/strong&gt; file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+address 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2
+netmask &lt;span style=&#34;color:#40a070&#34;&gt;64&lt;/span&gt;
+endpoint 216.66.80.30
+&lt;span style=&#34;color:#007020&#34;&gt;local&lt;/span&gt; 192.168.X.X &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
+ttl &lt;span style=&#34;color:#40a070&#34;&gt;255&lt;/span&gt;
+gateway 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1
+pre-up /home/user/bin/update_tunnel.sh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Fedora&lt;/strong&gt;, on the ** /etc/sysconfig/network-scripts/ifcfg-he-ipv6** file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;DEVICE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;he-ipv6
+&lt;span style=&#34;color:#bb60d5&#34;&gt;TYPE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;sit
+&lt;span style=&#34;color:#bb60d5&#34;&gt;BOOTPROTO&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;none
+&lt;span style=&#34;color:#bb60d5&#34;&gt;ONBOOT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6INIT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;216.66.80.30&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4LOCAL&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;192.168.X.X&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6ADDR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2/64&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and on the &lt;strong&gt;/etc/sysconfig/network&lt;/strong&gt; file, add:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;NETWORKING_IPV6&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTGW&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTDEV&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;he-ipv6&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can then set up a little &lt;strong&gt;/sbin/ifup-pre-local&lt;/strong&gt; script to update the IPv4 tunnel endpoint when your dynamic IP changes or simply add the script on the &lt;strong&gt;/etc/cron.daily&lt;/strong&gt; directory and have it executed when you turn up your computer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/ipv6_test.png&#34; alt=&#34;A sample image taken from ipv6-test.com.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; Change the DNS servers on &lt;strong&gt;/etc/resolv.conf&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OpenDNS:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2620:0:ccc::2
+nameserver 2620:0:ccd::2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Google DNS&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt; Restart your network and enjoy IPv6!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; If you want to know more about IPv6 take some time for the &lt;!-- raw HTML omitted --&gt;HE Certification program&lt;!-- raw HTML omitted --&gt;, you will learn a lot and eventually win a sponsored &lt;strong&gt;t-shirt&lt;/strong&gt;, I just finished mine :-)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;EDIT&lt;/strong&gt;: Be aware of the fact that as soon as the tunnel is up, your computer will be exposed to to the internet without any kind of firewall (the tunnel sets up a direct connection to the internet, even bypassing your router’s firewall), you can secure your machine by using &lt;strong&gt;ip6tables&lt;/strong&gt;. Thanks Michael Zanetti for pointing this out!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Building Debian packages with Deb-o-Matic</title>
+      <link>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</link>
+      <pubDate>Mon, 17 Sep 2012 13:07:14 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/</guid>
+      <description>&lt;p&gt;Today I’ll be telling you about an interesting way to build your Debian packages using &lt;strong&gt;Deb-o-Matic&lt;/strong&gt;, a tool developed and maintained by &lt;!-- raw HTML omitted --&gt;Luca Falavigna&lt;!-- raw HTML omitted --&gt;. Some more details about this tool from the package’s description:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.&lt;/p&gt;
+&lt;p&gt;It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration. It has some useful features such as automatic update of pbuilder, automatic scan and selection of source packages to build and modules support.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &lt;strong&gt;setup.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Download the package.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;apt-get install debomatic&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Modify the &lt;strong&gt;main&lt;/strong&gt; configuration file as follows:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[default]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;builder: pbuilder&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;packagedir: /home/john/debomatic # Take note of the following path since we&amp;#39;ll need it for later use.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;configdir: /etc/debomatic/distributions&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;pbuilderhooks: /usr/share/debomatic/pbuilderhooks&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;maxbuilds: 3 # The number of builds you can perform at the same time.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;inotify: 1&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;sleep: 60 # The sleep time between one build and another.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;logfile: /var/log/debomatic.log&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[gpg]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[modules]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;modules: 1 # A list of all the available modules will follow right after.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;modulespath: /usr/share/debomatic/modules&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[runtime]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;alwaysupdate: unstable experimental precise&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;distblacklist:&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;modulesblacklist: Lintian Mailer&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;mapper: {&amp;#39;sid&amp;#39;: &amp;#39;unstable&amp;#39;,&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;wheezy&amp;#39;: &amp;#39;testing&amp;#39;,&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;squeeze&amp;#39;: &amp;#39;stable&amp;#39;}&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[lintian]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.&lt;/span&gt;
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &amp;#39;Ssmtp&amp;#39; daemon which is a one-minute-setup MTA, check an example over &amp;lt;a href&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&amp;#34; target=&amp;#34;_blank&amp;#34;&amp;gt;here&amp;lt;/a&amp;gt;.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;fromaddr: debomatic@localhost&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;smtphost: localhost&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;smtpport: 25&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;authrequired: 0&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;smtpuser: user&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;smtppass: pass&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;failure: /etc/debomatic/mailer/build_failure.mail-template&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[internals]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;configversion&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;010a&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The available modules are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt; “&lt;strong&gt;Contents&lt;/strong&gt;“, which acts as a ‘dpkg -c’ over the built packages.&lt;/li&gt;
+&lt;li&gt;“&lt;strong&gt;DateStamp&lt;/strong&gt;“, which displays build start and finish times into a file in the build directory.&lt;/li&gt;
+&lt;li&gt;“&lt;strong&gt;Lintian&lt;/strong&gt;“, which stores Lintian output on top of the built package in the pool directory.&lt;/li&gt;
+&lt;li&gt;“&lt;strong&gt;Mailer&lt;/strong&gt;“, which sends a reply to the uploader once the build has finished.&lt;/li&gt;
+&lt;li&gt;“&lt;strong&gt;PrevBuildCleaner&lt;/strong&gt;“, which deletes all files generated by the previous build.&lt;/li&gt;
+&lt;li&gt;“&lt;strong&gt;Repository&lt;/strong&gt;“, which generates a local repository of built packages.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Configure ‘&lt;!-- raw HTML omitted --&gt;dput&lt;!-- raw HTML omitted --&gt;‘ to upload package’s sources to your local repository, edit the &lt;strong&gt;/etc/dput.cf&lt;/strong&gt; file and add this entry:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[debomatic]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;local&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;incoming&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/home/john/debomatic&lt;/span&gt;
+
+&lt;span style=&#34;color:#4070a0&#34;&gt;or the following if you are going to upload the files to a different machine through SSH:&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;[debomatic]&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;login&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;john&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;fqdn&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;debomatic.example.net&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;method&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;scp&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;incoming&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/debomatic&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Add a new &lt;strong&gt;Virtual Host&lt;/strong&gt; on Apache and access the repository / built packages directly through your browser:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Apache&#34; data-lang=&#34;Apache&#34;&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;VirtualHost&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;*:80&lt;/span&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#007020&#34;&gt;ServerAdmin&lt;/span&gt; john@example.net
+&lt;span style=&#34;color:#007020&#34;&gt;ServerName&lt;/span&gt; debomatic.example.net
+&lt;span style=&#34;color:#007020&#34;&gt;DocumentRoot&lt;/span&gt; &lt;span style=&#34;color:#c65d09&#34;&gt;/home/john/debomatic&lt;/span&gt;
+
+&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;Directory&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;/home/john/debomatic&lt;/span&gt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;Options&lt;/span&gt; Indexes FollowSymLinks MultiViews
+&lt;span style=&#34;color:#007020&#34;&gt;AllowOverride&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;None&lt;/span&gt;
+&lt;span style=&#34;color:#007020&#34;&gt;Order&lt;/span&gt; allow,deny
+&lt;span style=&#34;color:#007020&#34;&gt;allow&lt;/span&gt; from &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;all&lt;/span&gt;
+&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;Directory&amp;gt;&lt;/span&gt;
+
+&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Start the daemon:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;sudo /etc/init.d/debomatic start&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(&lt;strong&gt;Optional&lt;/strong&gt;) Add your repository to &lt;strong&gt;APT&lt;/strong&gt;‘s sources.list:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;deb http://debomatic.example.net/ unstable main contrib non-free&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(&lt;strong&gt;Optional&lt;/strong&gt;) Start Deb-O-Matic at system’s startup by modifying the &lt;strong&gt;/etc/init.d/debomatic&lt;/strong&gt; file at &lt;strong&gt;line 21&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;- &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; -x &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DAEMON&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
+- &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DEBOMATIC_AUTOSTART&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
+
++ &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; -x &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DAEMON&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;
++ &lt;span style=&#34;color:#666&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$DEBOMATIC_AUTOSTART&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span style=&#34;color:#007020&#34;&gt;exit&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;0&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and finally add it to the desired &lt;strong&gt;runlevels&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;update-rc.d debomatic defaults&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bits from September / October</title>
+      <link>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Debian maintainer:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some days ago I had the great announcement that my &lt;a href=&#34;http://wiki.debian.org/Maintainers&#34;&gt;Debian Maintainer&lt;/a&gt;‘s application was accepted and thanks to Jonathan McDowell my key is finally into the debian-maintainers keyring. (which is now part of the debian-keyring itself thanks to the ftp-masters / keyring maintainer &lt;a href=&#34;http://lists.debian.org/debian-devel-announce/2009/08/msg00010.html&#34;&gt;work&lt;/a&gt; that made the changes on both DAK and keyring)&lt;/p&gt;
+&lt;p&gt;I &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00083.html&#34;&gt;applied&lt;/a&gt; on the 22th of August, and thanks to Reinhard’s &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00090.html&#34;&gt;advocation&lt;/a&gt;, everything went on the right side. Many thanks to all the people who made this possible.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-mozext:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Around 3 weeks ago I started being involved with the pkg-mozext team working on the new policy and to &lt;a href=&#34;http://packages.debian.org/mozilla-devscripts&#34;&gt;mozilla-devscripts&lt;/a&gt; transition for all iceweasel / icedove extensions. The work is going great so far and we managed to update several extensions that are now part of the team itself. For a fast look at our package list, feel free to browse pkg-mozext’s &lt;a href=&#34;http://qa.debian.org/developer.php?login=pkg-mozext-maintainers@lists.alioth.debian.org&#34;&gt;QA page&lt;/a&gt;. A lot of work needs to be done, so if anyone wanna jump in, I would suggest to read our guidelines / policy into the team’s &lt;a href=&#34;http://wiki.debian.org/Teams/DebianMozExtTeam&#34;&gt;Wiki Page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-gnome:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;GNOME 2.28 is now released, and the pkg-gnome team is now working hard to provide all the needed updates into unstable and experimental. Everything is going great and we are cleaning up everything listed on &lt;a href=&#34;http://www.0d.be/debian/debian-gnome-2.28-status.html&#34;&gt;our schedule&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ephipany is under transition (gecko –&amp;gt; webkit) so there are still some open issues / bugs, but now it looks fine so far and it can be used without any particular problem.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

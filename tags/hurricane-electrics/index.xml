@@ -1,0 +1,76 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hurricane Electrics on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/hurricane-electrics/</link>
+    <description>Recent content in Hurricane Electrics on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 21 Dec 2012 13:08:20 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/hurricane-electrics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IPv6 tunneling with Hurricane Electrics (HE)</title>
+      <link>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</link>
+      <pubDate>Fri, 21 Dec 2012 13:08:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/</guid>
+      <description>&lt;p&gt;I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. &lt;strong&gt;Hurricane Electrics&lt;/strong&gt; (HE) provides (for free) five configurable &lt;strong&gt;IPv4-to-IPv6&lt;/strong&gt; tunnels together with a free &lt;strong&gt;DNS service&lt;/strong&gt; and an interesting &lt;strong&gt;certification program&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/certificate_badge.png&#34; alt=&#34;Hurricane Electrics IPv6 Certification&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Willing to test the latest revision of the Internet Protocol on your &lt;strong&gt;Debian&lt;/strong&gt;, &lt;strong&gt;Ubuntu&lt;/strong&gt;, &lt;strong&gt;Fedora&lt;/strong&gt; machines? Here’s &lt;strong&gt;how&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.&lt;/strong&gt; Register yourself at Hurricane Electrics by visiting &lt;!-- raw HTML omitted --&gt;tunnelbroker.net&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.&lt;/strong&gt; &lt;!-- raw HTML omitted --&gt;Create a new tunnel&lt;!-- raw HTML omitted --&gt; and make sure to use your &lt;strong&gt;public IP&lt;/strong&gt; address as your &lt;strong&gt;IPv4 Endpoint&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.&lt;/strong&gt; Write down the relevant details of your tunnel, specifically:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Server IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::1 /64&lt;/li&gt;
+&lt;li&gt;Server IPv4 Address: 216.66.84.46 (this actually depends on which server did you choose on the previous step)&lt;/li&gt;
+&lt;li&gt;Client IPv6 Address: 2001:470:&lt;strong&gt;1f0a&lt;/strong&gt;:a6f::2/64&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/tunnel_broker.png&#34; alt=&#34;Tunnel Broker&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;4.&lt;/strong&gt; Create a little script that will update your &lt;strong&gt;IPv4 tunnel endpoint&lt;/strong&gt; every time your internet IP &lt;strong&gt;changes&lt;/strong&gt;. (this step is not needed if you have an internet connection with a &lt;strong&gt;static IP&lt;/strong&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#007020&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;span style=&#34;color:#007020&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;USERNAME&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEUsername
+&lt;span style=&#34;color:#bb60d5&#34;&gt;PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHEPassword
+&lt;span style=&#34;color:#bb60d5&#34;&gt;TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yourHETunnelID
+GET &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$USERNAME&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$PASSWORD&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;@ipv4.tunnelbroker.net/ipv4_end.php?tid=&lt;/span&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;$TUNNELID&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;5.&lt;/strong&gt; Create the networking &lt;strong&gt;configuration&lt;/strong&gt; files on your computer:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Debian / Ubuntu&lt;/strong&gt;, on the &lt;strong&gt;/etc/network/interfaces&lt;/strong&gt; file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+address 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2
+netmask &lt;span style=&#34;color:#40a070&#34;&gt;64&lt;/span&gt;
+endpoint 216.66.80.30
+&lt;span style=&#34;color:#007020&#34;&gt;local&lt;/span&gt; 192.168.X.X &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
+ttl &lt;span style=&#34;color:#40a070&#34;&gt;255&lt;/span&gt;
+gateway 2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1
+pre-up /home/user/bin/update_tunnel.sh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Fedora&lt;/strong&gt;, on the ** /etc/sysconfig/network-scripts/ifcfg-he-ipv6** file:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;DEVICE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;he-ipv6
+&lt;span style=&#34;color:#bb60d5&#34;&gt;TYPE&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;sit
+&lt;span style=&#34;color:#bb60d5&#34;&gt;BOOTPROTO&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;none
+&lt;span style=&#34;color:#bb60d5&#34;&gt;ONBOOT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6INIT&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;216.66.80.30&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6TUNNELIPV4LOCAL&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;192.168.X.X&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;(&lt;/span&gt;Your PC&lt;span style=&#34;&#34;&gt;&amp;#39;&lt;/span&gt;s LAN IP address&lt;span style=&#34;color:#666&#34;&gt;)&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6ADDR&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::2/64&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and on the &lt;strong&gt;/etc/sysconfig/network&lt;/strong&gt; file, add:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;NETWORKING_IPV6&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;yes
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTGW&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;2001:470:&amp;lt;b&amp;gt;1f0a&amp;lt;/b&amp;gt;:a6f::1&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#bb60d5&#34;&gt;IPV6_DEFAULTDEV&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;he-ipv6&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can then set up a little &lt;strong&gt;/sbin/ifup-pre-local&lt;/strong&gt; script to update the IPv4 tunnel endpoint when your dynamic IP changes or simply add the script on the &lt;strong&gt;/etc/cron.daily&lt;/strong&gt; directory and have it executed when you turn up your computer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2012/12/ipv6_test.png&#34; alt=&#34;A sample image taken from ipv6-test.com.&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;6.&lt;/strong&gt; Change the DNS servers on &lt;strong&gt;/etc/resolv.conf&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;OpenDNS:&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2620:0:ccc::2
+nameserver 2620:0:ccd::2&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Google DNS&lt;/strong&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;7.&lt;/strong&gt; Restart your network and enjoy IPv6!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;8.&lt;/strong&gt; If you want to know more about IPv6 take some time for the &lt;!-- raw HTML omitted --&gt;HE Certification program&lt;!-- raw HTML omitted --&gt;, you will learn a lot and eventually win a sponsored &lt;strong&gt;t-shirt&lt;/strong&gt;, I just finished mine :-)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;EDIT&lt;/strong&gt;: Be aware of the fact that as soon as the tunnel is up, your computer will be exposed to to the internet without any kind of firewall (the tunnel sets up a direct connection to the internet, even bypassing your router’s firewall), you can secure your machine by using &lt;strong&gt;ip6tables&lt;/strong&gt;. Thanks Michael Zanetti for pointing this out!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

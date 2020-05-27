@@ -1,0 +1,226 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Planet GNOME on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/planet-gnome/</link>
+    <description>Recent content in Planet GNOME on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/planet-gnome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>GNOME Infrastructure updates</title>
+      <link>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</link>
+      <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</guid>
+      <description>&lt;p&gt;As you may have noticed from outage and maintenance notes we sent out last week the GNOME Infrastructure has been undergoing a major redesign due to the need of moving to a different datacenter. It&amp;rsquo;s probably a good time to update the Foundation membership, contributors and generally anyone consuming the multitude of services we maintain of what we&amp;rsquo;ve been up to during these past months.&lt;/p&gt;
+&lt;h2 id=&#34;new-data-center&#34;&gt;New Data Center&lt;/h2&gt;
+&lt;p&gt;One of the core projects for 2020 was moving off services from the previous DC we were in (located in PHX2, Arizona) over to the Red Hat community cage located in RAL3. This specific task was made possible right after we received a new set of machines that allowed us to refresh some of the ancient hardware we had (with the average box dating back to 2013). The new layout is composed of a total of 5 (five) bare metals and 2 (two) core technologies: Openshift (v. 3.11) and Ceph (v. 4).&lt;/p&gt;
+&lt;p&gt;The major improvements that are worth being mentioned:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;VMs can be easily scheduled across the hypervisors stack without having to copy disks over across hypervisors themselves. VM disks and data is now hosted within Ceph.&lt;/li&gt;
+&lt;li&gt;IPv6 is available (not yet enabled/configured at the OS, Openshift router level)&lt;/li&gt;
+&lt;li&gt;Overall better external internet uplink bandwidth&lt;/li&gt;
+&lt;li&gt;Most of the VMs that we had running were turned into pods and are now successfully running from within Openshift&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;rhel-8-and-ansible&#34;&gt;RHEL 8 and Ansible&lt;/h2&gt;
+&lt;p&gt;One of the things we had to take into account was running Ceph on top of RHEL 8 to benefit from its containarized setup. This originally presented itself as a challenge due to the fact RHEL 8 ships with a much newer Puppet release than the one RHEL 7 provides. At the same time we didn&amp;rsquo;t want to invest much time in upgrading our Puppet code base due to the amount of VMs we were able to migrate to Openshift and to the general willingess of slowly moving to use Ansible (client-side, no more need of maintaining server side pieces). On this specific regard we:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Landed support for RHEL 8 provisioning&lt;/li&gt;
+&lt;li&gt;Started experimenting with Image Based deployments (much more faster than Cobbler provisioning)&lt;/li&gt;
+&lt;li&gt;Cooked a set of &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/ansible/-/tree/master/roles&#34;&gt;base Ansible roles&lt;/a&gt; to support our RHEL 8 installs including IDM, chrony, Satellite, Dell OMSA , NRPE etc.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;openshift&#34;&gt;Openshift&lt;/h2&gt;
+&lt;p&gt;As &lt;a href=&#34;https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift&#34;&gt;originally announced&lt;/a&gt;, the migration to the Openshift Container Platform (OSCP) has progressed and we now count a total of 34 tenants (including the entirety of GIMP websites). This allowed us to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Retire running VMs and prevented the need to upgrade their OS whenever they&amp;rsquo;re close to EOL. Also, in general, less maintenance burden&lt;/li&gt;
+&lt;li&gt;Allow the community to easily provision services on top of the platform with total autonomy by choosing from a wide variety of frameworks, programming languages and database types (currently Galera and PSQL, both managed outside of OSCP itself)&lt;/li&gt;
+&lt;li&gt;Easily scale the platform by adding more nodes/masters/routers whenever that is made necessary by additional load&lt;/li&gt;
+&lt;li&gt;Data replicated and made redundant across a GlusterFS cluster (next on the list will be introducing Ceph support for pods persistent storage)&lt;/li&gt;
+&lt;li&gt;Easily set up services such as Rocket.Chat and Discourse without having to mess much around with Node.JS or Ruby dependencies&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;special-thanks&#34;&gt;Special thanks&lt;/h2&gt;
+&lt;p&gt;I&amp;rsquo;d like to thank Bartłomiej Piotrowski for all the efforts in helping me out with the migration during the past couple of weeks and Milan Zink from the Red Hat Storage Team who helped out reviewing the Ceph infrastructure design and providing useful information about possible provisioning techniques.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The GNOME Infrastructure is moving to Openshift</title>
+      <link>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</link>
+      <pubDate>Thu, 18 Oct 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</guid>
+      <description>&lt;p&gt;During GUADEC 2018 we &lt;a href=&#34;https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018&#34;&gt;announced&lt;/a&gt; one of the core plans of this and the coming year: it being moving as many GNOME web applications as possible to the GNOME Openshift instance we architected, deployed and configured back in July. Moving to Openshift will allow us to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Save up on resources as we&amp;rsquo;re deprecating and decommissioning VMs only running a single service&lt;/li&gt;
+&lt;li&gt;Allow app maintainers to use the most recent Python, Ruby, preferred framework or programming language release without being tied to the release RHEL ships with&lt;/li&gt;
+&lt;li&gt;Additional layer of security: containers&lt;/li&gt;
+&lt;li&gt;Allow app owners to modify and publish content without requiring external help&lt;/li&gt;
+&lt;li&gt;Increased apps redundancy, scalability, availability&lt;/li&gt;
+&lt;li&gt;Direct integration with any VCS that ships with webhooks support as we can trigger the Openshift provided endpoint whenever a commit has occurred to generate a new build / deployment&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;The cluster consists of 3 master nodes (controllers, api, etcd), 4 compute nodes and 2 infrastructure nodes (internal docker registry, cluster console, haproxy-based routers, SSL edge termination). For the persistent storage we&amp;rsquo;re currently making good use of the Red Hat Gluster Storage (RHGS) product that Red Hat is kindly sponsoring together with the Openshift subscriptions. For any app that might require a database we have an external (as not managed as part of Openshift) fully redundant, synchronous, multi-master MariaDB cluster based on Galera (2 data nodes, 1 arbiter).&lt;/p&gt;
+&lt;p&gt;The release we&amp;rsquo;re currently running is the &lt;a href=&#34;https://docs.openshift.com/container-platform/3.11/release_notes/ocp_3_11_release_notes.html&#34;&gt;recently released&lt;/a&gt; 3.11, which comes with the so-called &amp;ldquo;Cluster Console&amp;rdquo;, a web UI that allows you to manage a wide set of the underlying objects that previously were only available to the oc cli client and with a set of Monitoring and Metrics toolings (Prometheus, Grafana) that can be accessed as part of the Cluster Console (Grafana dashboards that show how the cluster is behaving) or externally via their own route.&lt;/p&gt;
+&lt;h2 id=&#34;ssl-termination&#34;&gt;SSL Termination&lt;/h2&gt;
+&lt;p&gt;The SSL termination is currently happening on the edge routers via a wildcard certificate for the gnome.org and guadec.org zones. The process of renewing these certificates is automated via Puppet as we&amp;rsquo;re using Let&amp;rsquo;s Encrypt behind the scenes (domain verification for the wildcard certs happen at the DNS level, we built &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/sysadmin-bin/tree/master/letsencrypt&#34;&gt;specific hooks&lt;/a&gt; in order to make that happen via the &lt;a href=&#34;https://github.com/srvrco/getssl&#34;&gt;getssl&lt;/a&gt; tool). The backend connections are following two different paths:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;edge termination with no re-encryption in case of pods containing static files (no logins, no personal information ever entered by users): in this case the traffic is encrypted between the client and the edge routers, plain text between the routers and the pods (as they&amp;rsquo;re running on the same local broadcast domain)&lt;/li&gt;
+&lt;li&gt;re-encrypt for any service that requires authentication or personal information to be entered for authorization: in this case the traffic is encrypted from end to end&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;app-migrations&#34;&gt;App migrations&lt;/h2&gt;
+&lt;p&gt;App migrations have started already, we&amp;rsquo;ve successfully migrated and deprecated a set of GUADEC-related web applications, specifically:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$year.guadec.org where $year spaces from 2013 to 2019&lt;/li&gt;
+&lt;li&gt;wordpress.guadec.org has been deprecated&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We&amp;rsquo;re currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a &lt;a href=&#34;https://github.com/LINKIWI/modern-paste&#34;&gt;supported one&lt;/a&gt;. Next on the list will be the Wordpress-based websites such as &lt;a href=&#34;http://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt; and blogs.gnome.org (Wordpress Network). I&amp;rsquo;d like to thank the GNOME Websites Team and specifically &lt;strong&gt;Tom Tryfonidis&lt;/strong&gt; for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Back from GUADEC 2018</title>
+      <link>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</link>
+      <pubDate>Mon, 30 Jul 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/</guid>
+      <description>&lt;p&gt;Been a while since GUADEC 2018 has ended but subsequent travels and tasks reduced the time to write up a quick summary of what happened during this year&amp;rsquo;s GNOME conference. The topics I&amp;rsquo;d like to emphasize mainly are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;We&amp;rsquo;re hiring another Infrastructure Team member&lt;/li&gt;
+&lt;li&gt;We&amp;rsquo;ve successfully finalized the cgit to GitLab migration&lt;/li&gt;
+&lt;li&gt;Future plans including the migration to Openshift&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;gnome-foundation-hirings&#34;&gt;GNOME Foundation hirings&lt;/h2&gt;
+&lt;p&gt;With the recent donation of 1M the Foundation has started recruiting on a variety of different new professional roles including a new Infrastructure team member. On this side I want to make sure that although the &lt;a href=&#34;https://www.gnome.org/foundation/careers/devops-sysadmin/&#34;&gt;job description&lt;/a&gt; mentions the word &lt;strong&gt;sysadmin&lt;/strong&gt; the figure we&amp;rsquo;re looking for is a systems engineer with a proven experience on Cloud computing platforms and tools such as AWS, Openshift and generally configuration management softwares such as Puppet and Ansible. Additionally this person should prove to have a clear understanding of the network and operating system (mainly RHEL) layers.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ve already identified a set of candidates and will be proceeding with interviews in the coming weeks. This doesn&amp;rsquo;t mean we&amp;rsquo;ve hired anyone already, please keep sending CVs if interested and feeling the position would match your skills and expectations.&lt;/p&gt;
+&lt;h2 id=&#34;cgit-to-gitlab&#34;&gt;cgit to GitLab&lt;/h2&gt;
+&lt;p&gt;As announced on several occasions the GNOME Infrastructure has &lt;a href=&#34;https://mail.gnome.org/archives/desktop-devel-list/2018-May/msg00051.html&#34;&gt;successfully finalized the cgit to GitLab migration&lt;/a&gt;. From a read-only view against .git directories to a fully compliant CI/CD infrastructure. The next step on this side will be deprecating Bugzilla which has already started with bugmasters turning products read-only in case they were migrated to the new platform or by identifying whether any of the not-yet-migrated products can be archived. The idea here is waiting to see zero activity on BZ in terms of new comments to existing bugs and no new bugs being submitted at all (we have redirects in place to make sure whenever enter_bug.cgi is triggered the request gets sent to the /issues/new endpoint for that specific GitLab project) and then turn the entire BZ instance into an HTML archive for posterity and to reduce the maintenance burden of keeping an instance up-to-date with upstream in terms of CVEs.&lt;/p&gt;
+&lt;p&gt;Thanks to all the involved parties including Carlos, Javier and GitLab itself given the prompt and detailed responses they always provided to our queries. Also thanks for sponsoring our AWS activities related to GitLab!&lt;/p&gt;
+&lt;h2 id=&#34;future-plans&#34;&gt;Future plans&lt;/h2&gt;
+&lt;p&gt;With the service == VM equation we&amp;rsquo;ve been following for several years it&amp;rsquo;s probably time for us to move to a more scalable infrastructure. The next generation platform we&amp;rsquo;ve picked up is going to be Openshift, its benefits:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It&amp;rsquo;s not important where a service runs behind scenes: it only has to run (VM vs pods and containers that are part of a pod that get scheduled randomly on the available Openshift nodes)&lt;/li&gt;
+&lt;li&gt;Easily scalable in case additional resources are needed for a small period of time&lt;/li&gt;
+&lt;li&gt;Built-in monitoring starting from Openshift 3.9 (the release we&amp;rsquo;ll be running) based on Prometheus (+ Grafana for dashboarding)&lt;/li&gt;
+&lt;li&gt;GNOME services as containers&lt;/li&gt;
+&lt;li&gt;Individual application developers to schedule their own builds and see their code deployed with one click directly in production&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The base set of VMs and bare metals has been already configured. Red Hat has been so great to provide the GNOME Project with a set of Red Hat Container Platform (and GlusterFS for heketi-based brick provisioning) subscriptions. We&amp;rsquo;ll start moving over to the infrastructure in the coming weeks. It&amp;rsquo;s going to take some good time but in the end we&amp;rsquo;ll be able to free up a lot of resources and retire several VMs and related deprecated configurations.&lt;/p&gt;
+&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
+&lt;p&gt;Slides from the Foundation AGM Infrastructure team report are available &lt;a href=&#34;https://www.dragonsreach.it/files/guadec-reports/guadec2018.html&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Many thanks to the GNOME Foundation for the sponsorship of my travel!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/img/2018-GUADEC-badge.png&#34; alt=&#34;GUADEC 2018 Badge&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A second round of updates from the GNOME Sysadmin Team</title>
+      <link>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</link>
+      <pubDate>Fri, 14 Jun 2013 11:37:06 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/nagios.gnome_.org_.png&#34; alt=&#34;nagios.gnome.org&#34;&gt;&lt;/p&gt;
+&lt;p&gt;I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt; lately it’s time for me to announce all the updates we did since my &lt;!-- raw HTML omitted --&gt;latest blog post&lt;!-- raw HTML omitted --&gt;. So here we come with all the items we’ve been looking at recently:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Our main &lt;strong&gt;LDAP&lt;/strong&gt; istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports. (a little script written by &lt;strong&gt;Owen Taylor&lt;/strong&gt; for creating and storing several reports mainly related to backups and SSL certificates expiration dates) In addition to migrating our LDAP master to a newer machine, we did configure and setup replication to an LDAP slave to share a bit the load and most of all to link all the external (machines outside the RH’s internal network) machines to it.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;A lot of efforts have been spent in the so-called “&lt;strong&gt;Puppet-ization&lt;/strong&gt;” (Puppet allows you to reproduce a complete environment with just a few commands, it’s very very handy in the case of host’s migrations) and several new modules are now stored into our internal Puppet repository. Specifically all the &lt;strong&gt;Iptables&lt;/strong&gt; rules are currently managed in a centralized way, each node has its own rules and policies, finally there’s no need to ssh into each machine to retrieve the information we need for a specific firewall. In addition to the Iptables class, also Cobbler, Owncloud, Jabberd, Denyhosts and several other modules have been properly configured and currently reside in Puppet.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Another item that had top priority on the list was setting up another “webapps” virtual machine to migrate several services from one of the existing ancient machines to it. I can finally tell that the GNOME Infrastructure has get rid of all the old machines, all the services have been migrated to newer machines and most of all all the services are currently being served through SSL. (git, planet, &lt;a href=&#34;http://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt;, l10n, guadec.org, bugzilla, blogs, developer, help, people, news etc.) In regard of SSL and &lt;strong&gt;Bugzilla&lt;/strong&gt;, we’ve configured our Bugzilla istance to serve attachments through a secondary domain which will look like: &lt;strong&gt;&lt;em&gt;&lt;a href=&#34;https://bug-id.bugzilla-attachments.gnome.org&#34;&gt;https://bug-id.bugzilla-attachments.gnome.org&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;, this to prevent cross-site scripting attacks in a better way than what we did before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We’ve also spent some time working on our Nagios istance hosted at &lt;strong&gt;&lt;a href=&#34;https://nagios.gnome.org&#34;&gt;https://nagios.gnome.org&lt;/a&gt;&lt;/strong&gt;. We’ve improved it dramatically by adding several new checks and covering all the services we currently take care of but that’s not all. &lt;strong&gt;Event Handlers&lt;/strong&gt; have been setup to help us addressing problems right after they occur on our web servers. The Nagios event handlers are currently configured to read the status of a specific Nagios service and in the case the status is set to CRITICAL, they restart httpd once, which is usually enough in the case of random Apache’s timeouts. But that’s again not all. A public view for &lt;strong&gt;Nagios&lt;/strong&gt; is now ready, every single GNOME contributor and developer should be able to check the current status of all the services we maintain just by loggin in with the username “&lt;strong&gt;anonymous&lt;/strong&gt;” and the password “&lt;strong&gt;anonymous&lt;/strong&gt;” at nagios.gnome.org.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Our wiki was upgraded to the latest &lt;strong&gt;MoinMoin&lt;/strong&gt; release, at the moment of writing, version &lt;strong&gt;1.9.7&lt;/strong&gt;. This release introduces stronger password hashes, please make sure to update your password as soon as you can to strenghten the security of your account. It was also clear that live.gnome.org was behaving a bit sluggish lately, we spent some time cleaning up spammers, old and deleted pages and things started flushing way better. More details about the cleanup can be found at &lt;a href=&#34;https://mail.gnome.org/archives/foundation-list/2013-May/msg00098.html&#34;&gt;https://mail.gnome.org/archives/foundation-list/2013-May/msg00098.html&lt;/a&gt;. (we cleaned up around 23000 spammers!)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The most exciting things I usually love to announce are new services. While I always prefer keeping the number of maintained services as low as possible it was time for the GNOME Infrastructure to broaden its horizons satisfying the requests coming from the community and the developers involved into the project. I won’t spend any more word about this since I’m sure you are all waiting for me to list the new services, so here they are:&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt; A completely new &lt;strong&gt;Jabber&lt;/strong&gt; service hosted at jabber.gnome.org and accessible by all the GNOME Foundation members requesting access to it. More details about it can be found at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://live.gnome.org/Sysadmin/Jabber&#34;&gt;https://live.gnome.org/Sysadmin/Jabber&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GNOME is extensively using IRC as its main communication tool, thus we’ve improved our Services IRC Bot to use a plugin called &lt;strong&gt;MeetBot&lt;/strong&gt;. Having a meeting and storing the logs in a public web server is currently possible with a really minor effort of learning a few commands to administer the plugin correctly. If you are going to have a meeting and you want to make use of MeetBot, make sure that Services is there, and give a look at &lt;a href=&#34;http://meetbot.gnome.org/Manual.html&#34;&gt;http://meetbot.gnome.org/Manual.html&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Do you want to be always up-to-date with the status of the GNOME Infrastructure? and are you actually wondering what’s the best way to do so? if yes, you should probably have a look at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;http://status.gnome.org&#34;&gt;http://status.gnome.org&lt;/a&gt;&lt;!-- raw HTML omitted --&gt;. This service makes use of &lt;!-- raw HTML omitted --&gt;Fedora-Status&lt;!-- raw HTML omitted --&gt; by &lt;strong&gt;Patrick Uiterwijk&lt;/strong&gt; and allows the GNOME Sysadmin Team to let everyone know whether there is a problem with any of the services listed in the page. This service, together with the public view for Nagios and the brand new &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;mailto:infrastructure-announce@gnome.org&#34;&gt;infrastructure-announce@gnome.org&lt;/a&gt; &lt;!-- raw HTML omitted --&gt;mailing list will definitely help everyone finding out what’s going on, where and how long it’ll take for the issue to be fixed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;It took me a lot of pain having the &lt;strong&gt;KGB IRC Collaboration bot&lt;/strong&gt; packaged into the EPEL repositories but I finally managed to set it up on the GNOME Infrastructure. KGB has become very handy since the time Cia.vc closed its hosting and it’s available for anyone requesting access to it at &lt;strong&gt;irc.gnome.org&lt;/strong&gt;. If you are looking for Git commit notifications of a specific module directly on your IRC channel, this is what you want :-)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;An Owncloud instance is also available, more reading about what are the requirements for requesting access to it at the following &lt;!-- raw HTML omitted --&gt;link&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;An Etherpad istance is also available at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://etherpad.gnome.org&#34;&gt;https://etherpad.gnome.org&lt;/a&gt;&lt;!-- raw HTML omitted --&gt; to all the GNOME Teams that need it! Please drop me an e-mail at &lt;!-- raw HTML omitted --&gt; if you are interested. (Pad’s creation is currently disabled for preventing spam)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Build.gnome.org has been revived and it’s currently hosting an &lt;!-- raw HTML omitted --&gt;OSTree&lt;!-- raw HTML omitted --&gt; istance. GNOME Daily images are costantly being generated, interested in testing one the those images? give this &lt;!-- raw HTML omitted --&gt;article&lt;!-- raw HTML omitted --&gt; a look.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;That’s all for now! See you all at &lt;strong&gt;GUADEC&lt;/strong&gt; and thanks everyone for all the hints, suggestions and mails you’ve been sending me in the past months! And a special thanks to &lt;strong&gt;Ekaterina Gerasimova&lt;/strong&gt; for taking the time to brainstorm with me suggesting new features and improvements over the GNOME Infrastructure!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/06/status.gnome_.org_.png&#34; alt=&#34;status.gnome.org&#34;&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Some updates from the GNOME Sysadmin Team</title>
+      <link>https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/</link>
+      <pubDate>Thu, 07 Mar 2013 14:49:26 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/</guid>
+      <description>&lt;p&gt;It’s been more than a month now since I started looking into the many outstanding items we had waiting on our To Do list here at the &lt;strong&gt;GNOME Infrastructure&lt;/strong&gt;. A lot has been done and a lot has yet to come during the next months, but I would like to share with you some of the things I managed to look at during these weeks.&lt;/p&gt;
+&lt;p&gt;As you may understand many Sysadmin’s tasks are not perceived at all by users especially the ones related to the so-called “Puppet-ization” which refers to the process of creating / modifying / improving our internal Puppet repository. A lot of work has been done on that side and several new modules have been added, specifically Cobbler, Amavisd, SpamAssassin, ClamAV, Bind, Nagios / Check_MK (enabling Apache eventhandlers for automatic restart of faulty httpd processes), Apache.&lt;/p&gt;
+&lt;p&gt;Another top priority item was migrating some of our services off to the old physical machines to virtual machines I did setup earlier. The machines that are now recycled are the following: (Two more are missing on the list, specifically window (which still hosts art.gnome.org, people.gnome.org and projects.gnome.org due to be migrated to another host in the next weeks) and label. (which still hosts our Jabberd, an &lt;!-- raw HTML omitted --&gt;interesting discussion&lt;!-- raw HTML omitted --&gt; on its future is currently ongoing on Foundation-list)&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;menubar&lt;/strong&gt;, our old Postfix host served the GNOME Foundation since 2004 and processed millions of e-mails from and to @gnome.org addresses.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;container&lt;/strong&gt;, our old main NFS node was serving the GNOME Foundation since 2003, it hosted our mail archives, our FTP archives and all the /home/users/* directories.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;button&lt;/strong&gt; hosted many services (MySQL databases, LDAP, Mango) and served the Foundation since 2004, a faulty hardware took it down on January 2012.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And if you ever wanted to see how menubar, container and button look like, I have two photos for you with the machines being pulled out the &lt;strong&gt;GNOME&lt;/strong&gt; rack:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/03/old-machines.jpg&#34; alt=&#34;old-machines&#34;&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;img src=&#34;https://www.dragonsreach.it/wp-content/uploads/2013/03/old-machines-2.jpg&#34; alt=&#34;old-machines-2&#34;&gt;&lt;/p&gt;
+&lt;p&gt;Some of the things you may have perceived directly on your skin should be the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Our live.gnome.org istance has been upgraded to the latest MoinMoin stable release, 1.9.6.&lt;/li&gt;
+&lt;li&gt;The Services bot has been added to the &lt;strong&gt;GIMPNET&lt;/strong&gt; network and currently manages all GNOME channels, it currently acts as a Nickserv, Chanserv. More information about how you can register your nickname and gain the needed ACLs at the following &lt;!-- raw HTML omitted --&gt;wiki page&lt;!-- raw HTML omitted --&gt;.&lt;/li&gt;
+&lt;li&gt;Several &lt;strong&gt;GNOME&lt;/strong&gt; services and domains are now covered by SSL as you may have noticed on planet.gnome.org, news.gnome.org, blogs.gnome.org, l10n.gnome.org, git.gnome.org, help.gnome.org, developer.gnome.org.&lt;/li&gt;
+&lt;li&gt;Re-design of our Mailman archives as you can see at &lt;a href=&#34;https://mail.gnome.org/archives/foundation-list/&#34;&gt;https://mail.gnome.org/archives/foundation-list&lt;/a&gt;. A big “thank you” goes to Olav Vitters for taking the time to rebuild our “archive” script from Perl to Python. About the Mailman topic, someone proposed me the use of &lt;!-- raw HTML omitted --&gt;HyperKitty&lt;!-- raw HTML omitted --&gt;, that’s something we will evaluate in the next coming months but I find it a very interesting alternative to the current mail archiving.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;What should you expect next?&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Bugzilla&lt;/strong&gt; will be moved to another virtual machine and will be upgraded to the latest release.&lt;/li&gt;
+&lt;li&gt;An &lt;strong&gt;Owncloud&lt;/strong&gt; istance will be setup for all the GNOME Foundation members and GNOME Teams that will need access to it.&lt;/li&gt;
+&lt;li&gt;A discussion will be started for setting up a &lt;strong&gt;Gitorious&lt;/strong&gt; istance on the GNOME Infrastructure.&lt;/li&gt;
+&lt;li&gt;A long-term item will be rewriting &lt;!-- raw HTML omitted --&gt;Mango&lt;!-- raw HTML omitted --&gt; in Django and adding several other features to it than the ones it has now. (ideally voting for Board elections, logins for managing your LDAP information such as your @gnome.org’s alias forward, shutdown of old an unused accounts after a certain period of time, automatic @gnome.org’s alias creation after the “Foundation Membership” flag is selected on LDAP, etc.)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Thanks a lot for all the mails I’ve received during these weeks containing reports and suggestions about how we should improve our Infrastructure! Please stay tuned, a lot more news are yet to come!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Bits from September / October</title>
+      <link>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2009/10/11/bits-from-september-october/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Debian maintainer:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Some days ago I had the great announcement that my &lt;a href=&#34;http://wiki.debian.org/Maintainers&#34;&gt;Debian Maintainer&lt;/a&gt;‘s application was accepted and thanks to Jonathan McDowell my key is finally into the debian-maintainers keyring. (which is now part of the debian-keyring itself thanks to the ftp-masters / keyring maintainer &lt;a href=&#34;http://lists.debian.org/debian-devel-announce/2009/08/msg00010.html&#34;&gt;work&lt;/a&gt; that made the changes on both DAK and keyring)&lt;/p&gt;
+&lt;p&gt;I &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00083.html&#34;&gt;applied&lt;/a&gt; on the 22th of August, and thanks to Reinhard’s &lt;a href=&#34;http://lists.debian.org/debian-newmaint/2009/08/msg00090.html&#34;&gt;advocation&lt;/a&gt;, everything went on the right side. Many thanks to all the people who made this possible.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-mozext:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Around 3 weeks ago I started being involved with the pkg-mozext team working on the new policy and to &lt;a href=&#34;http://packages.debian.org/mozilla-devscripts&#34;&gt;mozilla-devscripts&lt;/a&gt; transition for all iceweasel / icedove extensions. The work is going great so far and we managed to update several extensions that are now part of the team itself. For a fast look at our package list, feel free to browse pkg-mozext’s &lt;a href=&#34;http://qa.debian.org/developer.php?login=pkg-mozext-maintainers@lists.alioth.debian.org&#34;&gt;QA page&lt;/a&gt;. A lot of work needs to be done, so if anyone wanna jump in, I would suggest to read our guidelines / policy into the team’s &lt;a href=&#34;http://wiki.debian.org/Teams/DebianMozExtTeam&#34;&gt;Wiki Page&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pkg-gnome:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;GNOME 2.28 is now released, and the pkg-gnome team is now working hard to provide all the needed updates into unstable and experimental. Everything is going great and we are cleaning up everything listed on &lt;a href=&#34;http://www.0d.be/debian/debian-gnome-2.28-status.html&#34;&gt;our schedule&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Ephipany is under transition (gecko –&amp;gt; webkit) so there are still some open issues / bugs, but now it looks fine so far and it can be used without any particular problem.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

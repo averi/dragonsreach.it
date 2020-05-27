@@ -1,0 +1,311 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/categories/linux/</link>
+    <description>Recent content in Linux on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 03 May 2014 09:37:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Adding reCAPTCHA support to Mailman</title>
+      <link>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</link>
+      <pubDate>Sat, 03 May 2014 09:37:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/</guid>
+      <description>&lt;p&gt;The &lt;strong&gt;GNOME&lt;/strong&gt; and many other infrastructures have been recently attacked by an huge amount of &lt;strong&gt;subscription-based spam&lt;/strong&gt; against their &lt;strong&gt;Mailman&lt;/strong&gt; istances. What the attackers were doing was simply launching a GET call against a specific REST API URL passing all the parameters it needed for a subscription request (and confirmation) to be sent out. Understanding it becomes very easy when you look at the following example taken from our apache.log:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-verilog&#34; data-lang=&#34;verilog&#34;&gt;May &lt;span style=&#34;color:#40a070&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;04&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;38&lt;/span&gt; restaurant &lt;span style=&#34;color:#002070;font-weight:bold&#34;&gt;apache:&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;81.17.17.90&lt;/span&gt;, &lt;span style=&#34;color:#40a070&#34;&gt;127.0.0.1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; [&lt;span style=&#34;color:#40a070&#34;&gt;03&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;May&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;2014&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;04&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;14&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;38&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;0000&lt;/span&gt;] &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;GET /mailman/subscribe/banshee-list?email=example@me.com&amp;amp;fullname=&amp;amp;pw=123456789&amp;amp;pw-conf=123456789&amp;amp;language=en&amp;amp;digest=0&amp;amp;email-button=Subscribe HTTP/1.1&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;403&lt;/span&gt; &lt;span style=&#34;color:#40a070&#34;&gt;313&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://spam/index2.html&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;As you can the see attackers were sending all the relevant details needed for the subscription to go forward (and specifically the full name, the email, the digest option and the password for the target list). At first we tried to either stop the spam by banning the subnets where the requests were coming from, then when it was obvious that more subnets were being used and manual intervention was needed we tried banning their &lt;strong&gt;User-Agents&lt;/strong&gt;. Again no luck, the spammers were smart enough to change it every now and then making it to match an existing browser User-Agent. (with a good percentage to have a lot of false-positives)&lt;/p&gt;
+&lt;p&gt;Now you might be wondering why such an attack caused a lot of issues and pain, well, the attackers made use of addresses found around the web for their malicius subscription requests. That means we received a lot of emails from people that have never heard about the GNOME mailing lists but received around &lt;strong&gt;10k subscription requests&lt;/strong&gt; that were seemingly being sent by themselves.&lt;/p&gt;
+&lt;p&gt;It was obvious we needed to look at a backup solution and luckily someone on our support channel suggested the freedesktop.org sysadmins recently added CAPTCHAs support to Mailman.  I’m now sharing the patch and providing a few more details on how to properly set it up on either DEB or RPM based distributions. Credits for the patch should be given to Debian Developer &lt;!-- raw HTML omitted --&gt;Tollef Fog Heen&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;, who has been so kind to share it with us.&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;
+&lt;p&gt;Before patching your installation make sure to install the &lt;strong&gt;python-recaptcha&lt;/strong&gt; package (tested on Debian with Mailman 2.1.15) on DEB based distributions and &lt;strong&gt;python-recaptcha-client&lt;/strong&gt; on RPM based distributions. (I personally tested it against Mailman release 2.1.15, RHEL 6)&lt;/p&gt;
+&lt;h3 id=&#34;the-patch&#34;&gt;The Patch&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;diff &lt;span style=&#34;color:#666&#34;&gt;--&lt;/span&gt;git a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+index &lt;span style=&#34;color:#40a070&#34;&gt;4&lt;/span&gt;a54517&lt;span style=&#34;color:#666&#34;&gt;..&lt;/span&gt;d6417ca &lt;span style=&#34;color:#40a070&#34;&gt;100644&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;listinfo&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;31&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Errors
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; i18n
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.htmlformat&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman.Logging.Syslog&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; syslog
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Set up i18n&lt;/span&gt;
+ _ &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i18n&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;_
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;200&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;203&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;9&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;list_listinfo&lt;/span&gt;(mlist, lang):
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatFormStart(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo&amp;#39;&lt;/span&gt;)
+     replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;FormatBox(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;fullname&amp;#39;&lt;/span&gt;, size&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;)
+ 
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Captcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    replacements[&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mm-recaptcha-javascript&amp;#39;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;displayhtml(mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PUBLIC_KEY, use_ssl&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;False)
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Do the expansion.&lt;/span&gt;
+     doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;AddItem(mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;ParseTags(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;listinfo.html&amp;#39;&lt;/span&gt;, replacements, lang))
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;print&lt;/span&gt; doc&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;Format()
+diff &lt;span style=&#34;color:#666&#34;&gt;--&lt;/span&gt;git a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+index &lt;span style=&#34;color:#40a070&#34;&gt;7&lt;/span&gt;b0b0e4&lt;span style=&#34;color:#666&#34;&gt;..&lt;/span&gt;c1c7b8c &lt;span style=&#34;color:#40a070&#34;&gt;100644&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;---&lt;/span&gt; a&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;color:#666&#34;&gt;+++&lt;/span&gt; b&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Mailman&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;Cgi&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;subscribe&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;py
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;21&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;21&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;8&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;sys&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;os&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;cgi&lt;/span&gt;
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;signal&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha.client&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha
+ 
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; mm_cfg
+ &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;Mailman&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; Utils
+&lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;132&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;130&lt;/span&gt;,&lt;span style=&#34;color:#40a070&#34;&gt;17&lt;/span&gt; &lt;span style=&#34;&#34;&gt;@@&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#06287e&#34;&gt;process_form&lt;/span&gt;(mlist, doc, cgidata, lang):
+     remote &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; os&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;environ&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;REMOTE_HOST&amp;#39;&lt;/span&gt;,
+                             os&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;environ&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;get(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;REMOTE_ADDR&amp;#39;&lt;/span&gt;,
+                                            &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;unidentified origin&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# recaptcha&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    captcha_response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; captcha&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;submit(
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;recaptcha_challenge_field&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        cgidata&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;getvalue(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;recaptcha_response_field&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;),
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        mm_cfg&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;RECAPTCHA_PRIVATE_KEY,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        remote,
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        )
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;    &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;not&lt;/span&gt; captcha_response&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;is_valid:
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;        results&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;append(_(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Invalid captcha&amp;#39;&lt;/span&gt;))
+&lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+     &lt;span style=&#34;color:#60a0b0;font-style:italic&#34;&gt;# Was an attempt made to subscribe the list to itself?&lt;/span&gt;
+     &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;if&lt;/span&gt; email &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; mlist&lt;span style=&#34;color:#666&#34;&gt;.&lt;/span&gt;GetListEmail():
+         syslog(&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;mischief&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;Attempt to self subscribe &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#70a0d0;font-style:italic&#34;&gt;%s&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;&lt;/span&gt;, email, remote)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-setup&#34;&gt;Additional setup&lt;/h3&gt;
+&lt;p&gt;Then on the &lt;em&gt;/var/lib/mailman/templates/en/listinfo.html&lt;/em&gt; template (right below &lt;em&gt;&lt;!-- raw HTML omitted --&gt;&lt;/em&gt;)  add:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+    Please fill out the following captcha
+  &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+  &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;td&lt;/span&gt;&amp;gt;
+    &amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;
+  &amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;TD&lt;/span&gt;&amp;gt;
+&amp;lt;/&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;tr&lt;/span&gt;&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make also sure to generate a public and private key at &lt;!-- raw HTML omitted --&gt;&lt;a href=&#34;https://www.google.com/recaptcha&#34;&gt;https://www.google.com/recaptcha&lt;/a&gt;&lt;!-- raw HTML omitted --&gt; and add the following paramaters on your &lt;em&gt;mm_cfg.py&lt;/em&gt; file:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RECAPTCHA_PRIVATE_KEY&lt;/li&gt;
+&lt;li&gt;RECAPTCHA_PUBLIC_KEY&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Loading &lt;strong&gt;reCAPTCHAs&lt;/strong&gt; images from a trusted &lt;strong&gt;HTTPS&lt;/strong&gt; source can be done by changing the following line:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;replacements[&amp;#39;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=False)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;to&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;replacements[&amp;#39;&amp;lt;&lt;span style=&#34;color:#062873;font-weight:bold&#34;&gt;mm-recaptcha-javascript&lt;/span&gt;&amp;gt;&amp;#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=True)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;epel-6-related-details&#34;&gt;EPEL 6 related details&lt;/h3&gt;
+&lt;p&gt;A few additional details should be provided in case you are setting this up against a &lt;strong&gt;RHEL 6&lt;/strong&gt; host: (or any other machine using the EPEL 6 package &lt;em&gt;python-recaptcha-client-1.0.5-3.1.el6&lt;/em&gt;)&lt;/p&gt;
+&lt;p&gt;Importing the recaptcha.client module will fail for some strange reason, importing it correctly can be done this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ln -s /usr/lib/python2.6/site-packages/recaptcha/client /usr/lib/mailman/pythonlib/recaptcha&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;and then fix the imports also making sure &lt;em&gt;sys.path.append(“/usr/share/pyshared”)&lt;/em&gt; is not there:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Python&#34; data-lang=&#34;Python&#34;&gt;&lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;from&lt;/span&gt; &lt;span style=&#34;color:#0e84b5;font-weight:bold&#34;&gt;recaptcha&lt;/span&gt; &lt;span style=&#34;color:#007020;font-weight:bold&#34;&gt;import&lt;/span&gt; captcha&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;That’s not all, the package still won’t work as expected given the API_SSL_SERVER, API_SERVER and VERIFY_SERVER variables on captcha.py are outdated (filed as &lt;!-- raw HTML omitted --&gt;bug #1093855&lt;!-- raw HTML omitted --&gt;), substitute them with the following ones:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;API_SSL_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://www.google.com/recaptcha/api&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;API_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;http://www.google.com/recaptcha/api&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#4070a0&#34;&gt;VERIFY_SERVER&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;www.google.com&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;And then on line 76:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;color:#4070a0&#34;&gt;url&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;https://%s/recaptcha/api/verify&amp;#34; % VERIFY_SERVER,&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;recaptcha-v2&#34;&gt;reCAPTCHA v2&lt;/h3&gt;
+&lt;p&gt;Google’s reCAPTCHA v1 will be deactivated starting from the 31th of March 2018, read more on how to migrate your Mailman install to version 2 &lt;a href=&#34;https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;That should be all! Enjoy!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fedora 20 on a Samsung Chronos Series 7</title>
+      <link>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</link>
+      <pubDate>Thu, 20 Mar 2014 15:36:38 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/</guid>
+      <description>&lt;p&gt;It’s been a while now since the very first time I posed my hands on this shiny new &lt;strong&gt;Samsung Chronos Series 7&lt;/strong&gt; laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?&lt;/p&gt;
+&lt;p&gt;What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual. Right after booting the machine I disabled Windows 8’s Secure Boot, configured the laptop to boot from the USB Key I plugged in and restarted it to finally perform the real OS installation.&lt;/p&gt;
+&lt;p&gt;The laptop booted back (with UEFI mode marked as on) and the installation started. The Chronos Series 7 came with an iSSD of 16G in size, not much but definitely enough for keeping the root partition, swap and home directory. (I don’t need an huge home dir given all the various data is stored and mounted through NFS directly from the NAS)&lt;/p&gt;
+&lt;p&gt;The installation went just fine and no issues arised at all until I booted into the system. The laptop since the beginning started to reach high CPU and graphics card temperatures (sticking around &lt;strong&gt;75-78 C&lt;/strong&gt; for the CPU and &lt;strong&gt;60 C&lt;/strong&gt; for the NVIDIA card), the fans were constantly on and I could feel the heat of the machine while typing. But that’s not all, the backlit keyboard had its lights always set as on (even in the case of a locked screen) and the battery life was sticking around one hour and an half.&lt;/p&gt;
+&lt;p&gt;I’m now going to list all my findings and solutions for the above issues after spending some time debugging and trying hard.&lt;/p&gt;
+&lt;h2 id=&#34;uefi-vs-csm-legacy-bios-compatibility-mode&#34;&gt;UEFI vs CSM (Legacy BIOS Compatibility mode)&lt;/h2&gt;
+&lt;p&gt;Installing Fedora 20 with UEFI will result in your laptop not loading the &lt;strong&gt;samsung-laptop&lt;/strong&gt; kernel module at all. That is the result of a known bug (with a good chance to brick your laptop) on Samsung laptops and UEFI boots (mainly related to the incompatibility between the samsung-laptop kernel module and the Samsung’s UEFI firmware and its corruption when the module is loaded) . More details &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt; and &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;That said, before starting the installation, press &lt;strong&gt;Fn+F2&lt;/strong&gt; right after powering up your laptop, you will be then prompted with the laptop’s Setup configuration. Switch to the &lt;strong&gt;Boot&lt;/strong&gt; tab and disable Secure Boot making sure &lt;strong&gt;CSM&lt;/strong&gt; is selected on the dropdown window. (before moving on make also sure to disable the &lt;strong&gt;Fast BIOS Mode&lt;/strong&gt; on the Advanced tab before proceeding)&lt;/p&gt;
+&lt;p&gt;When done, boot up a copy of Fedora 20 with your preferred media (I did use the Live CD myself) and make your way through the installation. Make sure to read on before touching the disk partitioning schemas.&lt;/p&gt;
+&lt;h2 id=&#34;issd-not-recognized-with-csm-mode-marked-as-on&#34;&gt;iSSD not recognized with CSM mode marked as on&lt;/h2&gt;
+&lt;p&gt;During one of my trials I did try to install the OS directly on the iSSD (in our examples, &lt;em&gt;/dev/sdb&lt;/em&gt;) itself. The result was the system being completely un-bootable probably cause the EFI firmware being unable to recognize the iSSD on CSM mode. (the only disk that was getting recognized was the 750G HDD (in our examples, &lt;em&gt;/dev/sda&lt;/em&gt;) the laptop has as an additional storage)&lt;/p&gt;
+&lt;p&gt;While the EFI firmware is not able to recognize the iSSD at all properly (when in CSM mode) it can flawlessly detect the HDD. That means one thing: we can keep the root, home and swap partitions on the iSSD and move the boot, bios boot partitions on the HDD itself and boot up the machine from there.&lt;/p&gt;
+&lt;h2 id=&#34;the-installation&#34;&gt;The installation&lt;/h2&gt;
+&lt;p&gt;We left our installation tutorial right before starting the installation itself through Anaconda. Let’s resume from there by making sure the following partitions are created on the HDD (from now on &lt;em&gt;/dev/sda&lt;/em&gt;):&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;a &lt;strong&gt;bios-boot&lt;/strong&gt; partition (details on how to set it up at &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;).&lt;/li&gt;
+&lt;li&gt;a &lt;strong&gt;boot&lt;/strong&gt; partition (ext4, 500M in size)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Once done, perform the installation on the iSSD (from now on &lt;em&gt;/dev/sdb&lt;/em&gt;), my setup on the 16G iSSD:&lt;/p&gt;
+&lt;p&gt;LVM Volume Group with three logical volumes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;5.12 G&lt;/strong&gt; /home + Luks (5.12 G for an home directory seems not enough but that’s definitely more than enough when you have a local HDD and a NAS with more than 2T of storage)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;7.8 G&lt;/strong&gt; / (I prefer keeping root a big bigger than home to prevent the need to cleanup the yum cache and other packages cruft every now and then)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;1.5 G&lt;/strong&gt; swap space&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Another working setup might be:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A &lt;strong&gt;15G&lt;/strong&gt; / partition on the iSSD, no need for LVM here&lt;/li&gt;
+&lt;li&gt;An LVM Volume Group that will store the /home and swap space so you can expand it to be more than just &lt;strong&gt;5G / 1.5G&lt;/strong&gt;. The LVM VolGroup should ideally go on its own partition on &lt;em&gt;/dev/sda&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;When the system has been installed, mount the &lt;em&gt;/dev/sda&lt;/em&gt; boot partition you previously created and install grub:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mount /dev/sda3 /mnt/boot-sda
+
+grub2-install /dev/sda&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I did assume &lt;em&gt;/dev/sda3&lt;/em&gt; was your /boot partition, make sure to check that is right for your case as well. (just run &lt;em&gt;fdisk -l /dev/sda&lt;/em&gt; to find out)&lt;/p&gt;
+&lt;p&gt;When done, mount the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition and copy all the files to the previously created mount point /mnt/boot-sda. From there figure out the UUID (&lt;em&gt;ls -l /dev/disk/by-uuid&lt;/em&gt;) for the /dev/sda3 partition and modify the relevant entries on the &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; file removing the UUID for the &lt;em&gt;/dev/sdb1&lt;/em&gt; (in my case that was the partition containing /boot) partition with the one of &lt;em&gt;/dev/sda3&lt;/em&gt;. Save the file and reboot the machine.&lt;/p&gt;
+&lt;p&gt;You should then be able to unmount the /boot partition from &lt;em&gt;/dev/sdb1&lt;/em&gt; and modify the relevant &lt;em&gt;/etc/fstab&lt;/em&gt; entry with &lt;em&gt;/dev/sda3&lt;/em&gt;‘s UUID. That way new kernel’s installations will be handled correctly without the need to manually edit &lt;em&gt;/boot/grub2/grub.cfg&lt;/em&gt; and moving around the initramfs / vmlinuz images. At this point it should be safe to remove the &lt;em&gt;/dev/sdb1&lt;/em&gt; partition completely.&lt;/p&gt;
+&lt;h2 id=&#34;things-to-do-after-installing-fedora-20&#34;&gt;Things to do after installing Fedora 20&lt;/h2&gt;
+&lt;h3 id=&#34;installing-bumblebee&#34;&gt;Installing Bumblebee&lt;/h3&gt;
+&lt;p&gt;The &lt;strong&gt;NP700Z3C&lt;/strong&gt; has a &lt;strong&gt;NVIDIA GeForce GT 630M&lt;/strong&gt; that benefits from the &lt;strong&gt;NVIDIA Optimus technology&lt;/strong&gt; which allows the user to gather the maximum performance possible when launching specific high-demand applications (like during gameplay or while watching an HD movie) and fallback to the integrated GPU when the user is performing normal operations like browsing the web, writing emails or text editing.&lt;/p&gt;
+&lt;p&gt;Luckily the Bumblebee project comes in help about this providing Optimus support for a variety of Linux distributions. More details on how to set it up &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. (you will need &lt;strong&gt;bumblebee&lt;/strong&gt;, &lt;strong&gt;bumblebee-nvidia&lt;/strong&gt; and &lt;strong&gt;bbswitch&lt;/strong&gt;)&lt;/p&gt;
+&lt;h3 id=&#34;installing-tlp&#34;&gt;Installing TLP&lt;/h3&gt;
+&lt;p&gt;From the &lt;strong&gt;tlp&lt;/strong&gt;‘s website:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;TLP brings you the benefits of advanced power management for Linux without the need to understand every technical detail. TLP comes with a default configuration already optimized for battery life, so you may just install and forget it. Nevertheless TLP is highly customizable to fulfil your specific requirements.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I can tell you power management for your laptop has never been easier with tlp. Make sure to visit tlp’s &lt;!-- raw HTML omitted --&gt;homepage&lt;!-- raw HTML omitted --&gt; for more details on how to set it up.&lt;/p&gt;
+&lt;h3 id=&#34;samsung-tools&#34;&gt;Samsung Tools&lt;/h3&gt;
+&lt;p&gt;From the &lt;strong&gt;samsung-tool&lt;/strong&gt;‘s homepage:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Samsung Tools is the successor of Samsung Scripts provided by the ‘Linux On My Samsung’ project.&lt;/p&gt;
+&lt;p&gt;It enables control in a friendly way of the devices available on Samsung laptops (bluetooth, wireless, webcam, backlight, CPU fan, special keys) and the control of various aspects related to power management, like the CPU undervolting (when a PHC-enabled kernel is available).&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Given there’s no RPM available for samsung-tools, downloading the tarball and running make as root should suffice for installing it on your laptop.&lt;/p&gt;
+&lt;h3 id=&#34;kernel-flags&#34;&gt;Kernel flags&lt;/h3&gt;
+&lt;p&gt;What seem to have helped me a lot with the high CPU temperatures (and thus with the noisy fans going on and on) are the following Kernel flags you should pass to Grub through the &lt;em&gt;/etc/sysconfig/grub&lt;/em&gt; file on the &lt;em&gt;GRUB_CMDLINE_LINUX&lt;/em&gt; line:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;pcie_aspm&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;force i915.i915_enable_rc6&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.i915_enable_fbc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.lvds_downclock&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.semaphores&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; i915.modeset&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#bb60d5&#34;&gt;acpi_osi&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;Linux &lt;span style=&#34;color:#bb60d5&#34;&gt;rdblacklist&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;nouveau&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-notes&#34;&gt;Additional notes&lt;/h3&gt;
+&lt;p&gt;The above procedure has been tested with the laptop having the following &lt;!-- raw HTML omitted --&gt;specs&lt;!-- raw HTML omitted --&gt;.&lt;/p&gt;
+&lt;p&gt;The average temperature for the CPU is sticking around &lt;strong&gt;47-51 C&lt;/strong&gt;, while the discrete GPU at &lt;strong&gt;49-51C&lt;/strong&gt;. I could also get around 3.5 – 4 hours of battery life!&lt;/p&gt;
+&lt;p&gt;That should be all! Please leave me a comment in case of questions, troubles with the above setup!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Manage passwords with ‘pass’</title>
+      <link>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</link>
+      <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
+      <description>&lt;p&gt;Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the &lt;!-- raw HTML omitted --&gt;following wiki page&lt;!-- raw HTML omitted --&gt; has a pretty nice overview of them.&lt;/p&gt;
+&lt;p&gt;Said that, when using sudo it’s definitely ideal to combine a &lt;strong&gt;strong password&lt;/strong&gt; that is also easy to remember and type again when prompted. Sadly strong passwords that are also easy to remember can be considered an oxymoron. How hard would it be to recall a 30+ chars long password? Honestly that would be close to impossible for an human being but what if a little software available on the major GNU/Linux distributions could handle that for us? That’s where &lt;em&gt;pass&lt;/em&gt; comes handy, but what is pass? from the pass manpage itself:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;pass is a very simple password store that keeps passwords inside gpg2(1) encrypted files inside a simple directory tree residing at ~/.password-store. The pass utility provides a series of commands for manipulating the password store, allowing the user to add, remove, edit, synchronize, generate, and manipulate passwords.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I’m sure that a lot of you guys have been looking for a tool like this one for ages: &lt;em&gt;pass&lt;/em&gt; allows you to generate very strong passwords with &lt;!-- raw HTML omitted --&gt;pwgen&lt;!-- raw HTML omitted --&gt;, GPG encrypt them with your GPG Key, store them safely on your disk and make them available whenever you need them with a single command. But let’s move to the practice, give the following steps a try and enjoy how powerful your pass setup will be.&lt;/p&gt;
+&lt;h3 id=&#34;first-setup&#34;&gt;First setup&lt;/h3&gt;
+&lt;p&gt;Install the software:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;yum/apt-get install pass&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate a GPG Key if you don’t have one already, a detailed guide can be found &lt;!-- raw HTML omitted --&gt;here&lt;!-- raw HTML omitted --&gt;. Initialize your passwords storage. (&lt;strong&gt;GPGKEYID&lt;/strong&gt; can be retrieved by running &lt;strong&gt;gpg –list-keys&lt;/strong&gt; and then looking for a line similar to this one: &lt;strong&gt;pub 4096R/B3A6223D 2012-06-25&lt;/strong&gt;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass init GPGKEYID&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Generate your first password and call it ‘sudo_password’ given you are going to make use of it as your brand new sudo password. (we want it at least 30+ chars long)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate sudo_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;(Optional) Create as much passwords as you need and make sure to save them with unique names, that way you will be able to identify what a password is used for easily.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass generate gmail_password &lt;span style=&#34;color:#40a070&#34;&gt;30&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-maintenance-commands-on-your-password-database&#34;&gt;Additional maintenance commands on your password database&lt;/h3&gt;
+&lt;p&gt;Look at the existing passwords on your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass ls&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Result:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;Password Store
+├── gmail_password
+├── sudo_password
+└── root_password&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Manually edit a password.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass edit password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Remove a password from your database.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass rm password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Copy a password on your clipboard and paste it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;pass -c password_name&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Are you wondering if &lt;em&gt;pass&lt;/em&gt; supports a VCS? Yeah, it does, it currently allows you to manage your passwords database with Git, so that each applied change to the database will be tracked through a VCS so that you won’t forget when and how you updated a specific password.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</title>
+      <link>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</link>
+      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/</guid>
+      <description>&lt;p&gt;I’ve recently spent some time setting up &lt;strong&gt;TLS/SSL&lt;/strong&gt; encryption (&lt;strong&gt;SSSD&lt;/strong&gt; won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an &lt;strong&gt;OpenLDAP&lt;/strong&gt; istance and as you may know the only way for doing that on a &lt;strong&gt;RHEL / CentOS&lt;/strong&gt; environment is dealing with a &lt;strong&gt;Mozilla NSS&lt;/strong&gt; database (which is, in fact, a &lt;strong&gt;SQLite&lt;/strong&gt; database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal. Even if you aren’t running an RPM based system you can opt to use a Mozilla NSS database to store your certificates as your preferred setup.&lt;/p&gt;
+&lt;h3 id=&#34;on-the-ldap-slapd-server&#34;&gt;On the LDAP (SLAPD) server&lt;/h3&gt;
+&lt;p&gt;*&lt;em&gt;Re-create &lt;em&gt;.db files&lt;/em&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;mkdir /etc/openldap/certs
+modutil -create -dbdir /etc/openldap/certs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Setup a CA Certificate&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -A -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My CA Certificate&amp;#34;&lt;/span&gt; -t TCu,Cu,Tuw -a -i /etc/openldap/cacerts/ca.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;where &lt;strong&gt;ca.pem&lt;/strong&gt; should be your CA’s certificate file.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Remove the password from the Database&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;modutil -dbdir /etc/openldap/certs -changepw &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;NSS Certificate DB&amp;#39;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Creates the .p12 file and imports it on the Database&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;openssl pkcs12 -inkey domain.org.key -in domain.org.crt -export -out domain.org.p12 -nodes -name &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;LDAP-Certificate&amp;#39;&lt;/span&gt;
+
+pk12util -i domain.org.p12 -d /etc/openldap/certs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;where **domain.org.key **and **domain.org.crt **are the names of the certificates you previously created at your CA’s website.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;List all the certificates on the database and make sure all the informations are correct&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -L&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Configure /etc/openldap/slapd.conf and make sure the TLSCACertificatePath points to your Mozilla NSS database&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;TLSCACertificateFile /etc/openldap/cacerts/ca.pem
+TLSCACertificatePath /etc/openldap/certs/
+TLSCertificateFile LDAP-Certificate&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;additional-commands&#34;&gt;Additional commands&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Modify the trust flags if necessary&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -M -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My CA Certificate&amp;#34;&lt;/span&gt; -t &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;TCu,Cu,Tuw&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Delete a certificate from the database&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;certutil -d /etc/openldap/certs -D -n &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;My LDAP Certificate&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;on-the-clients-nslcd-uses-ldapconf-while-sssd-uses-etcsssdsssdconf&#34;&gt;On the clients (nslcd uses ldap.conf while sssd uses /etc/sssd/sssd.conf)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;On /etc/openldap/ldap.conf&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;BASE &lt;span style=&#34;color:#bb60d5&#34;&gt;dc&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;domain,dc&lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;org
+URI ldaps://ldap.domain.org
+
+TLS_REQCERT demand
+TLS_CACERT /etc/openldap/cacerts/ca.pem&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;On /etc/sssd/sssd.conf&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_tls_cacert&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; /etc/openldap/cacerts/ca.pem
+&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_tls_reqcert&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; demand
+&lt;span style=&#34;color:#bb60d5&#34;&gt;ldap_uri&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; ldaps://ldap.domain.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&#34;How_to_test_the_whole_setup&#34;&gt;How to test the whole setup&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ldapsearch -x -b &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;dc=domain,dc=org&amp;#39;&lt;/span&gt; -D &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;cn=Manager,dc=domain,dc=org&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#39;(objectclass=*)&amp;#39;&lt;/span&gt; -H ldaps://ldap.domain.org -W -v&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Troubleshooting&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;If anything goes wrong you can run SLAPD with the following args for its debug mode:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;/usr/sbin/slapd -d &lt;span style=&#34;color:#40a070&#34;&gt;256&lt;/span&gt; -f /etc/openldap/slapd.conf -h &lt;span style=&#34;color:#4070a0&#34;&gt;&amp;#34;ldaps:/// ldap:///&amp;#34;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;**Possible errors: **&lt;/p&gt;
+&lt;p&gt;If you happen to see an error similar to this one: “&lt;strong&gt;TLS error -8049:Unrecognized Object Identifier.&lt;/strong&gt;“, try running ldapsearch with its debug mode this way:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Bash&#34; data-lang=&#34;Bash&#34;&gt;ldapsearch -d &lt;span style=&#34;color:#40a070&#34;&gt;1&lt;/span&gt; -x -ZZ -H ldap://ldap.domain.org&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Make also sure that the &lt;strong&gt;FQDN&lt;/strong&gt; you are trying to connect to is listed on the trusted FQDN’s list of your &lt;strong&gt;domain.org.crt&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: as SSSD’s developer &lt;strong&gt;Stephen Gallagher&lt;/strong&gt; correctly pointed out on the comments using ldap_tls_reqcert = allow isn’t a best practice since it may take in &lt;!-- raw HTML omitted --&gt;Man in the Midle Attacks&lt;!-- raw HTML omitted --&gt;, adjusting the how to to match his suggestions.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Linux’s perception of my neighbours</title>
+      <link>https://www.dragonsreach.it/2012/11/22/the-linux-perception-of-my-neighbours/</link>
+      <pubDate>Thu, 22 Nov 2012 11:45:04 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2012/11/22/the-linux-perception-of-my-neighbours/</guid>
+      <description>&lt;p&gt;I live in a little village close to the city and one of the houses close to my property is for rent since more than ten years. A lot of families and people succeeded in that house and every time someone new joined my &lt;strong&gt;Linux&lt;/strong&gt; evangelist hat jumped in my head.&lt;/p&gt;
+&lt;p&gt;I’ve always presented myself as a &lt;strong&gt;Linux&lt;/strong&gt; geek to my neighbours and it has been nice seeing how the Linux word evolved (with funny and surprising quotes) during the past ten years in their minds. A friend of mine (&lt;a href=&#34;mailto:aretha.battistutta@gmail.com&#34;&gt;Aretha Battistutta&lt;/a&gt;) made a little comic strip out of the topic and the result is simply amazing.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.dragonsreach.it/wp-content/uploads/2012/11/Linux.jpg&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>New Desktop, Mutt and Irssi setup!</title>
+      <link>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</link>
+      <pubDate>Sun, 04 Sep 2011 14:41:10 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/</guid>
+      <description>&lt;p&gt;I bought a new PC a few weeks ago and I then decided to renew a bit my &lt;strong&gt;Desktop&lt;/strong&gt;, my &lt;strong&gt;Mutt&lt;/strong&gt; and my &lt;strong&gt;Irssi&lt;/strong&gt; setup. I’ve been spending several hours cleaning up old scripts, logs and configuration files but the result definitely seems to reward me the right way. But here they come a few &lt;strong&gt;screenshots&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Desktop&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/my_Desktop.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Irssi&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/irssi.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Mutt&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.dragonsreach.it/wp-content/uploads/2011/09/mutt.png&#34;&gt;&lt;!-- raw HTML omitted --&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you liked all the above and would like to reproduce everything yourself, you should consider having a look at my GitHub’s &lt;!-- raw HTML omitted --&gt;repository&lt;!-- raw HTML omitted --&gt;. See you on the next blog post!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

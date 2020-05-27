@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>IPv6 tunneling with Hurricane Electrics (HE)</title>
+  <meta property="og:title" content="IPv6 tunneling with Hurricane Electrics (HE)" />
+  <meta name="twitter:title" content="IPv6 tunneling with Hurricane Electrics (HE)" />
+  <meta name="description" content="I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. Hurricane Electrics (HE) provides (for free) five configurable IPv4-to-IPv6 tunnels together with a free DNS service and an interesting certification program.
+Willing to test the latest revision of the Internet Protocol on your Debian, Ubuntu, Fedora machines?">
+  <meta property="og:description" content="I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. Hurricane Electrics (HE) provides (for free) five configurable IPv4-to-IPv6 tunnels together with a free DNS service and an interesting certification program.
+Willing to test the latest revision of the Internet Protocol on your Debian, Ubuntu, Fedora machines?">
+  <meta name="twitter:description" content="I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2012/12/21/ipv6-tunneling-hurricane-electrics/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>IPv6 tunneling with Hurricane Electrics (HE)</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on December 21, 2012
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>I’ve been looking around for a possible way to connect to the IPv6 internet for some time now and given the fact my provider didn’t allow me to run IPv6 natively I had to find an alternative solution. <strong>Hurricane Electrics</strong> (HE) provides (for free) five configurable <strong>IPv4-to-IPv6</strong> tunnels together with a free <strong>DNS service</strong> and an interesting <strong>certification program</strong>.</p>
+<p><img src="/wp-content/uploads/2012/12/certificate_badge.png" alt="Hurricane Electrics IPv6 Certification"></p>
+<p>Willing to test the latest revision of the Internet Protocol on your <strong>Debian</strong>, <strong>Ubuntu</strong>, <strong>Fedora</strong> machines? Here’s <strong>how</strong>:</p>
+<p><strong>1.</strong> Register yourself at Hurricane Electrics by visiting <!-- raw HTML omitted -->tunnelbroker.net<!-- raw HTML omitted -->.</p>
+<p><strong>2.</strong> <!-- raw HTML omitted -->Create a new tunnel<!-- raw HTML omitted --> and make sure to use your <strong>public IP</strong> address as your <strong>IPv4 Endpoint</strong>.</p>
+<p><strong>3.</strong> Write down the relevant details of your tunnel, specifically:</p>
+<ol>
+<li>Server IPv6 Address: 2001:470:<strong>1f0a</strong>:a6f::1 /64</li>
+<li>Server IPv4 Address: 216.66.84.46 (this actually depends on which server did you choose on the previous step)</li>
+<li>Client IPv6 Address: 2001:470:<strong>1f0a</strong>:a6f::2/64</li>
+</ol>
+<p><img src="/wp-content/uploads/2012/12/tunnel_broker.png" alt="Tunnel Broker"></p>
+<p><strong>4.</strong> Create a little script that will update your <strong>IPv4 tunnel endpoint</strong> every time your internet IP <strong>changes</strong>. (this step is not needed if you have an internet connection with a <strong>static IP</strong>):</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#007020">#!/bin/bash
+</span><span style="color:#007020"></span><span style="color:#bb60d5">USERNAME</span><span style="color:#666">=</span>yourHEUsername
+<span style="color:#bb60d5">PASSWORD</span><span style="color:#666">=</span>yourHEPassword
+<span style="color:#bb60d5">TUNNELID</span><span style="color:#666">=</span>yourHETunnelID
+GET <span style="color:#4070a0">&#34;https://</span><span style="color:#bb60d5">$USERNAME</span><span style="color:#4070a0">:</span><span style="color:#bb60d5">$PASSWORD</span><span style="color:#4070a0">@ipv4.tunnelbroker.net/ipv4_end.php?tid=</span><span style="color:#bb60d5">$TUNNELID</span><span style="color:#4070a0">&#34;</span></code></pre></div>
+<p><strong>5.</strong> Create the networking <strong>configuration</strong> files on your computer:</p>
+<p><strong>Debian / Ubuntu</strong>, on the <strong>/etc/network/interfaces</strong> file:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+address 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2
+netmask <span style="color:#40a070">64</span>
+endpoint 216.66.80.30
+<span style="color:#007020">local</span> 192.168.X.X <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
+ttl <span style="color:#40a070">255</span>
+gateway 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1
+pre-up /home/user/bin/update_tunnel.sh</code></pre></div>
+<p><strong>Fedora</strong>, on the ** /etc/sysconfig/network-scripts/ifcfg-he-ipv6** file:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">DEVICE</span><span style="color:#666">=</span>he-ipv6
+<span style="color:#bb60d5">TYPE</span><span style="color:#666">=</span>sit
+<span style="color:#bb60d5">BOOTPROTO</span><span style="color:#666">=</span>none
+<span style="color:#bb60d5">ONBOOT</span><span style="color:#666">=</span>yes
+<span style="color:#bb60d5">IPV6INIT</span><span style="color:#666">=</span>yes
+<span style="color:#bb60d5">IPV6TUNNELIPV4</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;216.66.80.30&#34;</span>
+<span style="color:#bb60d5">IPV6TUNNELIPV4LOCAL</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;192.168.X.X&#34;</span> <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
+<span style="color:#bb60d5">IPV6ADDR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2/64&#34;</span></code></pre></div>
+<p>and on the <strong>/etc/sysconfig/network</strong> file, add:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">NETWORKING_IPV6</span><span style="color:#666">=</span>yes
+<span style="color:#bb60d5">IPV6_DEFAULTGW</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1&#34;</span>
+<span style="color:#bb60d5">IPV6_DEFAULTDEV</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;he-ipv6&#34;</span></code></pre></div>
+<p>You can then set up a little <strong>/sbin/ifup-pre-local</strong> script to update the IPv4 tunnel endpoint when your dynamic IP changes or simply add the script on the <strong>/etc/cron.daily</strong> directory and have it executed when you turn up your computer.</p>
+<p><img src="/wp-content/uploads/2012/12/ipv6_test.png" alt="A sample image taken from ipv6-test.com."></p>
+<p><strong>6.</strong> Change the DNS servers on <strong>/etc/resolv.conf</strong>:</p>
+<p><strong>OpenDNS:</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">nameserver 2620:0:ccc::2
+nameserver 2620:0:ccd::2</code></pre></div>
+<p><strong>Google DNS</strong>:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844</code></pre></div>
+<p><strong>7.</strong> Restart your network and enjoy IPv6!</p>
+<p><strong>8.</strong> If you want to know more about IPv6 take some time for the <!-- raw HTML omitted -->HE Certification program<!-- raw HTML omitted -->, you will learn a lot and eventually win a sponsored <strong>t-shirt</strong>, I just finished mine :-)</p>
+<p><strong>EDIT</strong>: Be aware of the fact that as soon as the tunnel is up, your computer will be exposed to to the internet without any kind of firewall (the tunnel sets up a direct connection to the internet, even bypassing your router’s firewall), you can secure your machine by using <strong>ip6tables</strong>. Thanks Michael Zanetti for pointing this out!</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/hurricane-electrics/">Hurricane Electrics</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/ipv6/">IPv6</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2012/12/13/the-future-is-cloudy/" data-toggle="tooltip" data-placement="top" title="The future is Cloudy">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/" data-toggle="tooltip" data-placement="top" title="Some updates from the GNOME Sysadmin Team">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

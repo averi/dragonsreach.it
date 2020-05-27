@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Adding reCAPTCHA v2 support to Mailman</title>
+  <meta property="og:title" content="Adding reCAPTCHA v2 support to Mailman" />
+  <meta name="twitter:title" content="Adding reCAPTCHA v2 support to Mailman" />
+  <meta name="description" content="As a follow-up to the reCAPTCHA v1 post published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The original python-recaptcha library was forked into https://github.com/redhat-infosec/python-recaptcha and made compatible with reCAPTCHA version 2.
+The relevant changes against the original library can be resumed as follows:
+ Added ‘version=2’ against displayhtml, load_scripts functions Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2 The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1  The required changes are located on the following files:">
+  <meta property="og:description" content="As a follow-up to the reCAPTCHA v1 post published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The original python-recaptcha library was forked into https://github.com/redhat-infosec/python-recaptcha and made compatible with reCAPTCHA version 2.
+The relevant changes against the original library can be resumed as follows:
+ Added ‘version=2’ against displayhtml, load_scripts functions Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2 The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1  The required changes are located on the following files:">
+  <meta name="twitter:description" content="As a follow-up to the reCAPTCHA v1 post published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Adding reCAPTCHA v2 support to Mailman</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on February 26, 2018
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>As a follow-up to the reCAPTCHA v1 <a href="https://www.dragonsreach.it/2014/05/03/adding-recaptcha-support-to-mailman/">post</a> published back in 2014 here it comes an updated version for migrating your Mailman instance off from version 1 (being decommissioned on the 31th of March 2018) to version 2. The <a href="https://pypi.python.org/pypi/recaptcha-client">original python-recaptcha library</a> was forked into <a href="https://github.com/redhat-infosec/python-recaptcha">https://github.com/redhat-infosec/python-recaptcha</a> and made compatible with reCAPTCHA version 2.</p>
+<p>The relevant changes against the original library can be resumed as follows:</p>
+<ol>
+<li>Added ‘version=2’ against displayhtml, load_scripts functions</li>
+<li>Introduce the v2submit (along with submit to keep backwards compatibility) function to support reCAPTCHA v2</li>
+<li>The updated library is backwards compatible with version 1 to avoid unexpected code breakages for instances still running version 1</li>
+</ol>
+<p>The required changes are located on the following files:</p>
+<p><strong>/usr/lib/mailman/Mailman/Cgi/listinfo.py</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#666">---</span> listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">48.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+<span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">34.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">31</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">31</span>,<span style="color:#40a070">7</span> <span style="">@@</span>
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> i18n
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
+<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+ 
+ <span style="color:#60a0b0;font-style:italic"># Set up i18n</span>
+ _ <span style="color:#666">=</span> i18n<span style="color:#666">.</span>_
+<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">244</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">245</span>,<span style="color:#40a070">10</span> <span style="">@@</span>
+     replacements[<span style="color:#4070a0">&#39;&lt;mm-lang-form-start&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatFormStart(<span style="color:#4070a0">&#39;listinfo&#39;</span>)
+     replacements[<span style="color:#4070a0">&#39;&lt;mm-fullname-box&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatBox(<span style="color:#4070a0">&#39;fullname&#39;</span>, size<span style="color:#666">=</span><span style="color:#40a070">30</span>)
+ 
+<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># Captcha</span>
+<span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-javascript&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>displayhtml(mm_cfg<span style="color:#666">.</span>RECAPTCHA_PUBLIC_KEY, use_ssl<span style="color:#666">=</span>True, version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
+<span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-script&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>load_script(version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
+<span style="color:#666">+</span>
+     <span style="color:#60a0b0;font-style:italic"># Do the expansion.</span>
+     doc<span style="color:#666">.</span>AddItem(mlist<span style="color:#666">.</span>ParseTags(<span style="color:#4070a0">&#39;listinfo.html&#39;</span>, replacements, lang))
+     <span style="color:#007020;font-weight:bold">print</span> doc<span style="color:#666">.</span>Format()</code></pre></div>
+<p><strong>/usr/lib/mailman/Mailman/Cgi/subscribe.py</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#666">---</span> subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">38.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+<span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">18.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">32</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">32</span>,<span style="color:#40a070">7</span> <span style="">@@</span>
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.UserDesc</span> <span style="color:#007020;font-weight:bold">import</span> UserDesc
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
+ <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
+<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+ 
+ SLASH <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/&#39;</span>
+ ERRORSEP <span style="color:#666">=</span> <span style="color:#4070a0">&#39;</span><span style="color:#4070a0;font-weight:bold">\n\n</span><span style="color:#4070a0">&lt;p&gt;&#39;</span>
+<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">165</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">166</span>,<span style="color:#40a070">17</span> <span style="">@@</span>
+             results<span style="color:#666">.</span>append(
+     _(<span style="color:#4070a0">&#39;There was no hidden token in your submission or it was corrupted.&#39;</span>))
+             results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;You must GET the form before submitting it.&#39;</span>))
+<span style="color:#666">+</span>
+<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># recaptcha</span>
+<span style="color:#666">+</span>    captcha_response <span style="color:#666">=</span> captcha<span style="color:#666">.</span>v2submit(
+<span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;g-recaptcha-response&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+<span style="color:#666">+</span>        mm_cfg<span style="color:#666">.</span>RECAPTCHA_PRIVATE_KEY,
+<span style="color:#666">+</span>        remote,
+<span style="color:#666">+</span>    )
+<span style="color:#666">+</span>
+<span style="color:#666">+</span>    <span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> captcha_response<span style="color:#666">.</span>is_valid:
+<span style="color:#666">+</span>        results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;Invalid captcha: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span> <span style="color:#666">%</span> captcha_response<span style="color:#666">.</span>error_code))
+<span style="color:#666">+</span>
+     <span style="color:#60a0b0;font-style:italic"># Was an attempt made to subscribe the list to itself?</span>
+     <span style="color:#007020;font-weight:bold">if</span> email <span style="color:#666">==</span> mlist<span style="color:#666">.</span>GetListEmail():
+         syslog(<span style="color:#4070a0">&#39;mischief&#39;</span>, <span style="color:#4070a0">&#39;Attempt to self subscribe </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span>, email, remote)</code></pre></div>
+<!-- raw HTML omitted -->
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">--- listinfo.html	2018-02-26 15:02:34.000000000 +0000
++++ /usr/lib/mailman/templates/en/listinfo.html	2018-02-26 14:18:52.000000000 +0000
+@@ -3,7 +3,7 @@
+ &lt;<span style="color:#062873;font-weight:bold">HTML</span>&gt;
+   &lt;<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
+     &lt;<span style="color:#062873;font-weight:bold">TITLE</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-List-Name</span>&gt; Info Page&lt;/<span style="color:#062873;font-weight:bold">TITLE</span>&gt;
+-  
++    &lt;<span style="color:#062873;font-weight:bold">MM-Recaptcha-Script</span>&gt; 
+   &lt;/<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
+   &lt;<span style="color:#062873;font-weight:bold">BODY</span> <span style="color:#4070a0">BGCOLOR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;#ffffff&#34;</span>&gt;
+ 
+@@ -116,6 +116,11 @@
+       &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
+       &lt;<span style="color:#062873;font-weight:bold">mm-digest-question-end</span>&gt;
+       &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
++      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
++        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;Please fill out the following captcha&lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;
++        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">TD</span>&gt;
++      &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
++      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
+ 	&lt;<span style="color:#062873;font-weight:bold">td</span> <span style="color:#4070a0">colspan</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;3&#34;</span>&gt;
+ 	  &lt;<span style="color:#062873;font-weight:bold">center</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-Subscribe-Button</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">center</span>&gt;
+     &lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;</code></pre></div>
+<!-- raw HTML omitted -->
+
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2016/07/05/a-childhood-dream/" data-toggle="tooltip" data-placement="top" title="A childhood’s dream">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018/" data-toggle="tooltip" data-placement="top" title="Back from GUADEC 2018">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

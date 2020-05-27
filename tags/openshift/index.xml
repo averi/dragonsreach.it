@@ -1,0 +1,47 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>openshift on Andrea Veri&#39;s Blog</title>
+    <link>https://www.dragonsreach.it/tags/openshift/</link>
+    <description>Recent content in openshift on Andrea Veri&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 18 Oct 2018 10:27:23 +0000</lastBuildDate>
+    
+        <atom:link href="https://www.dragonsreach.it/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The GNOME Infrastructure is moving to Openshift</title>
+      <link>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</link>
+      <pubDate>Thu, 18 Oct 2018 10:27:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</guid>
+      <description>&lt;p&gt;During GUADEC 2018 we &lt;a href=&#34;https://www.dragonsreach.it/2018/07/30/back-from-guadec-2018&#34;&gt;announced&lt;/a&gt; one of the core plans of this and the coming year: it being moving as many GNOME web applications as possible to the GNOME Openshift instance we architected, deployed and configured back in July. Moving to Openshift will allow us to:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Save up on resources as we&amp;rsquo;re deprecating and decommissioning VMs only running a single service&lt;/li&gt;
+&lt;li&gt;Allow app maintainers to use the most recent Python, Ruby, preferred framework or programming language release without being tied to the release RHEL ships with&lt;/li&gt;
+&lt;li&gt;Additional layer of security: containers&lt;/li&gt;
+&lt;li&gt;Allow app owners to modify and publish content without requiring external help&lt;/li&gt;
+&lt;li&gt;Increased apps redundancy, scalability, availability&lt;/li&gt;
+&lt;li&gt;Direct integration with any VCS that ships with webhooks support as we can trigger the Openshift provided endpoint whenever a commit has occurred to generate a new build / deployment&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;The cluster consists of 3 master nodes (controllers, api, etcd), 4 compute nodes and 2 infrastructure nodes (internal docker registry, cluster console, haproxy-based routers, SSL edge termination). For the persistent storage we&amp;rsquo;re currently making good use of the Red Hat Gluster Storage (RHGS) product that Red Hat is kindly sponsoring together with the Openshift subscriptions. For any app that might require a database we have an external (as not managed as part of Openshift) fully redundant, synchronous, multi-master MariaDB cluster based on Galera (2 data nodes, 1 arbiter).&lt;/p&gt;
+&lt;p&gt;The release we&amp;rsquo;re currently running is the &lt;a href=&#34;https://docs.openshift.com/container-platform/3.11/release_notes/ocp_3_11_release_notes.html&#34;&gt;recently released&lt;/a&gt; 3.11, which comes with the so-called &amp;ldquo;Cluster Console&amp;rdquo;, a web UI that allows you to manage a wide set of the underlying objects that previously were only available to the oc cli client and with a set of Monitoring and Metrics toolings (Prometheus, Grafana) that can be accessed as part of the Cluster Console (Grafana dashboards that show how the cluster is behaving) or externally via their own route.&lt;/p&gt;
+&lt;h2 id=&#34;ssl-termination&#34;&gt;SSL Termination&lt;/h2&gt;
+&lt;p&gt;The SSL termination is currently happening on the edge routers via a wildcard certificate for the gnome.org and guadec.org zones. The process of renewing these certificates is automated via Puppet as we&amp;rsquo;re using Let&amp;rsquo;s Encrypt behind the scenes (domain verification for the wildcard certs happen at the DNS level, we built &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/sysadmin-bin/tree/master/letsencrypt&#34;&gt;specific hooks&lt;/a&gt; in order to make that happen via the &lt;a href=&#34;https://github.com/srvrco/getssl&#34;&gt;getssl&lt;/a&gt; tool). The backend connections are following two different paths:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;edge termination with no re-encryption in case of pods containing static files (no logins, no personal information ever entered by users): in this case the traffic is encrypted between the client and the edge routers, plain text between the routers and the pods (as they&amp;rsquo;re running on the same local broadcast domain)&lt;/li&gt;
+&lt;li&gt;re-encrypt for any service that requires authentication or personal information to be entered for authorization: in this case the traffic is encrypted from end to end&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;app-migrations&#34;&gt;App migrations&lt;/h2&gt;
+&lt;p&gt;App migrations have started already, we&amp;rsquo;ve successfully migrated and deprecated a set of GUADEC-related web applications, specifically:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;$year.guadec.org where $year spaces from 2013 to 2019&lt;/li&gt;
+&lt;li&gt;wordpress.guadec.org has been deprecated&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We&amp;rsquo;re currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a &lt;a href=&#34;https://github.com/LINKIWI/modern-paste&#34;&gt;supported one&lt;/a&gt;. Next on the list will be the Wordpress-based websites such as &lt;a href=&#34;http://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt; and blogs.gnome.org (Wordpress Network). I&amp;rsquo;d like to thank the GNOME Websites Team and specifically &lt;strong&gt;Tom Tryfonidis&lt;/strong&gt; for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

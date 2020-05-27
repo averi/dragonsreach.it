@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</title>
+  <meta property="og:title" content="Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database" />
+  <meta name="twitter:title" content="Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS …" />
+  <meta name="description" content="I’ve recently spent some time setting up TLS/SSL encryption (SSSD won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an OpenLDAP istance and as you may know the only way for doing that on a RHEL / CentOS environment is dealing with a Mozilla NSS database (which is, in fact, a SQLite database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal.">
+  <meta property="og:description" content="I’ve recently spent some time setting up TLS/SSL encryption (SSSD won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an OpenLDAP istance and as you may know the only way for doing that on a RHEL / CentOS environment is dealing with a Mozilla NSS database (which is, in fact, a SQLite database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal.">
+  <meta name="twitter:description" content="I’ve recently spent some time setting up TLS/SSL encryption (SSSD won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an OpenLDAP istance and as you …">
+  <meta name="author" content="Andrea Veri"/>
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@andrea_veri" />
+  <meta name="twitter:creator" content="@andrea_veri" />
+  <meta property="og:url" content="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
+
+  <meta name="generator" content="Hugo 0.69.0" />
+  <link rel="canonical" href="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/" />
+  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" />
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+</head>
+
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="About me" href="/about-me">About me</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    <div class="avatar-container">
+      <div class="avatar-img-border">
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+
+
+    
+  
+  
+  
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="post-heading">
+              <h1>Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</h1>
+                
+                
+                  <span class="post-meta">
+  
+  
+  <i class="fa fa-calendar-o"></i>&nbsp;Posted on March 27, 2013
+  
+  
+  
+</span>
+
+
+                
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>I’ve recently spent some time setting up <strong>TLS/SSL</strong> encryption (<strong>SSSD</strong> won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an <strong>OpenLDAP</strong> istance and as you may know the only way for doing that on a <strong>RHEL / CentOS</strong> environment is dealing with a <strong>Mozilla NSS</strong> database (which is, in fact, a <strong>SQLite</strong> database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal. Even if you aren’t running an RPM based system you can opt to use a Mozilla NSS database to store your certificates as your preferred setup.</p>
+<h3 id="on-the-ldap-slapd-server">On the LDAP (SLAPD) server</h3>
+<p>*<em>Re-create <em>.db files</em></em></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">mkdir /etc/openldap/certs
+modutil -create -dbdir /etc/openldap/certs</code></pre></div>
+<p><strong>Setup a CA Certificate</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">certutil -d /etc/openldap/certs -A -n <span style="color:#4070a0">&#34;My CA Certificate&#34;</span> -t TCu,Cu,Tuw -a -i /etc/openldap/cacerts/ca.pem</code></pre></div>
+<p>where <strong>ca.pem</strong> should be your CA’s certificate file.</p>
+<p><strong>Remove the password from the Database</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">modutil -dbdir /etc/openldap/certs -changepw <span style="color:#4070a0">&#39;NSS Certificate DB&#39;</span></code></pre></div>
+<p><strong>Creates the .p12 file and imports it on the Database</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">openssl pkcs12 -inkey domain.org.key -in domain.org.crt -export -out domain.org.p12 -nodes -name <span style="color:#4070a0">&#39;LDAP-Certificate&#39;</span>
+
+pk12util -i domain.org.p12 -d /etc/openldap/certs</code></pre></div>
+<p>where **domain.org.key **and **domain.org.crt **are the names of the certificates you previously created at your CA’s website.</p>
+<p><strong>List all the certificates on the database and make sure all the informations are correct</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">certutil -d /etc/openldap/certs -L</code></pre></div>
+<p><strong>Configure /etc/openldap/slapd.conf and make sure the TLSCACertificatePath points to your Mozilla NSS database</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">TLSCACertificateFile /etc/openldap/cacerts/ca.pem
+TLSCACertificatePath /etc/openldap/certs/
+TLSCertificateFile LDAP-Certificate</code></pre></div>
+<h3 id="additional-commands">Additional commands</h3>
+<p><strong>Modify the trust flags if necessary</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">certutil -d /etc/openldap/certs -M -n <span style="color:#4070a0">&#34;My CA Certificate&#34;</span> -t <span style="color:#4070a0">&#34;TCu,Cu,Tuw&#34;</span></code></pre></div>
+<p><strong>Delete a certificate from the database</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">certutil -d /etc/openldap/certs -D -n <span style="color:#4070a0">&#34;My LDAP Certificate&#34;</span></code></pre></div>
+<h3 id="on-the-clients-nslcd-uses-ldapconf-while-sssd-uses-etcsssdsssdconf">On the clients (nslcd uses ldap.conf while sssd uses /etc/sssd/sssd.conf)</h3>
+<p><strong>On /etc/openldap/ldap.conf</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">BASE <span style="color:#bb60d5">dc</span><span style="color:#666">=</span>domain,dc<span style="color:#666">=</span>org
+URI ldaps://ldap.domain.org
+
+TLS_REQCERT demand
+TLS_CACERT /etc/openldap/cacerts/ca.pem</code></pre></div>
+<p><strong>On /etc/sssd/sssd.conf</strong></p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">ldap_tls_cacert</span> <span style="color:#666">=</span> /etc/openldap/cacerts/ca.pem
+<span style="color:#bb60d5">ldap_tls_reqcert</span> <span style="color:#666">=</span> demand
+<span style="color:#bb60d5">ldap_uri</span> <span style="color:#666">=</span> ldaps://ldap.domain.org</code></pre></div>
+<h3 id="How_to_test_the_whole_setup">How to test the whole setup</h3>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ldapsearch -x -b <span style="color:#4070a0">&#39;dc=domain,dc=org&#39;</span> -D <span style="color:#4070a0">&#34;cn=Manager,dc=domain,dc=org&#34;</span> <span style="color:#4070a0">&#39;(objectclass=*)&#39;</span> -H ldaps://ldap.domain.org -W -v</code></pre></div>
+<p><strong>Troubleshooting</strong></p>
+<p>If anything goes wrong you can run SLAPD with the following args for its debug mode:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">/usr/sbin/slapd -d <span style="color:#40a070">256</span> -f /etc/openldap/slapd.conf -h <span style="color:#4070a0">&#34;ldaps:/// ldap:///&#34;</span></code></pre></div>
+<p>**Possible errors: **</p>
+<p>If you happen to see an error similar to this one: “<strong>TLS error -8049:Unrecognized Object Identifier.</strong>“, try running ldapsearch with its debug mode this way:</p>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ldapsearch -d <span style="color:#40a070">1</span> -x -ZZ -H ldap://ldap.domain.org</code></pre></div>
+<p>Make also sure that the <strong>FQDN</strong> you are trying to connect to is listed on the trusted FQDN’s list of your <strong>domain.org.crt</strong>.</p>
+<p><strong>Update</strong>: as SSSD’s developer <strong>Stephen Gallagher</strong> correctly pointed out on the comments using ldap_tls_reqcert = allow isn’t a best practice since it may take in <!-- raw HTML omitted -->Man in the Midle Attacks<!-- raw HTML omitted -->, adjusting the how to to match his suggestions.</p>
+
+
+        
+          <div class="blog-tags">
+            
+              <a href="https://www.dragonsreach.it/tags/mozilla-nss/">Mozilla NSS</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/openldap/">OpenLDAP</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/ssl/">SSL</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/sssd/">SSSD</a>&nbsp;
+            
+              <a href="https://www.dragonsreach.it/tags/tls/">TLS</a>&nbsp;
+            
+          </div>
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/" data-toggle="tooltip" data-placement="top" title="Some updates from the GNOME Sysadmin Team">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/" data-toggle="tooltip" data-placement="top" title="A second round of updates from the GNOME Sysadmin Team">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+              <li>
+                <a href="https://twitter.com/andrea_veri" title="Twitter">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+          
+          <li>
+            
+            <a href="https://www.dragonsreach.it/index.xml" title="RSS">
+            
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+            
+              <a href="https://www.dragonsreach.it">Andrea Veri</a>
+            
+          
+
+          &nbsp;&bull;&nbsp;
+          2020
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="http://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme by <a href="http://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a> adapted to <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script>
+<script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
