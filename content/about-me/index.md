@@ -53,22 +53,13 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 
 #### Email:
 
-  * [av AT linux DOT it][34]
   * [av AT gnome DOT org][35]
   * [averi AT redhat DOT com][36]
-  * [averi AT fedoraproject DOT org][37]
 
 #### IRC:
 
   * **av** on irc<span style="font-weight: bold;">.gnome.</span>org.
   * **averi** on irc<span style="font-weight: bold;">.freenode.</span>net.
-
-### Verify my identity
-
-You can verify my identity with the following keys:
-
-  * SSH Key: [here][38].
-  * GPG Key: [here][39].
 
  [1]: https://www.redhat.com
  [2]: https://en.wikipedia.org/wiki/Udine
@@ -101,9 +92,5 @@ You can verify my identity with the following keys:
  [31]: https://www.dragonsreach.it/files/Tesi-Andrea-Veri.pdf
  [32]: https://averi.fedorapeople.org/The-Fedora-Infrastructure.odp
  [33]: https://www.dragonsreach.it/files/open-source-day-2014 
- [34]: mailto:av@linux.it
  [35]: mailto:av@gnome.org
  [36]: mailto:averi@redhat.com
- [37]: mailto:averi@fedoraproject.org
- [38]: https://www.dragonsreach.it/files/ssh_key.asc
- [39]: https://www.dragonsreach.it/files/gpg_key.asc
