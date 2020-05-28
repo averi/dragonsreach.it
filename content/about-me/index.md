@@ -91,6 +91,6 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
  [30]: https://www.worldtrademarkreview.com/brand-management/groupon-trademark-back-down-shows-power-fired-community
  [31]: https://www.dragonsreach.it/files/Tesi-Andrea-Veri.pdf
  [32]: https://averi.fedorapeople.org/The-Fedora-Infrastructure.odp
- [33]: https://www.dragonsreach.it/files/open-source-day-2014 
+ [33]: https://www.dragonsreach.it/files/open-source-day-2014/open-source-day-2014.html 
  [35]: mailto:av@gnome.org
  [36]: mailto:averi@redhat.com
