@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sysadmin Team Report</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .logo { position: absolute ; bottom: 2px ; }
+      .background-main {background-color: #E0E4CC; }
+      .background-slides {background-color: #F1F1F4; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, background-main
+
+# Sysadmin Team Report
+## GUADEC 2014, Strasbourg
+### Presented by Andrea Veri
+
+---
+
+class: background-slides
+
+# Rack
+
+- We moved all our machines away from a shared rack to a dedicated rack
+- All the KVM consoles and PDUs were correctly configured for each machine at PHX2
+- All the iLOs for the Ubuntu machines hosted at the Canonical London DC have been configured
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# New physical machines
+
+- accelerator.gnome.org
+- range.gnome.org
+- pitomba.canonical.com (aka socket.gnome.org)
+- dragonfruit.canonical.com (aka progress.gnome.org)
+- Thank you Red Hat and Canonical for making all this happen!
+
+# Retired physical machines:
+- drawable.gnome.org (donated to the Cockpit Project)
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# New virtual machines
+- buildable.gnome.org (serving as our GTK3 Win32 bundles builder, thanks Tarnyko for all the efforts on this iniative!)
+- pentagon.gimp.org (serving all the content and services previously hosted on cube.gtk.org, thanks to Shawn Amundson for hosting cube for all the past years!)
+
+# New projects on the GNOME Infrastructure!
+- Yorba (Geary, Shotwell, Valencia)
+- GIMP (and its subprojects, BABL, GEGL) , GTK
+- We are glad to have you on board and hosting your services!
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# Uptime
+- We now have at least one sysadmin on-call 24/7 for major issues sent to emergency@gnome.org or picked up by Nagios  (Currently Andrea and Patrick switch daily)
+
+# ...and a new member!
+Wondering who Patrick is? Patrick 'puiterwijk' Uiterwijk is a new addition to the Sysadmin Team helping me sharing the load! It's
+amazing	how passionate he is about his new role on the team!
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# New services:     
+- Mirrorbrain is now serving our main download area at https://download.gnome.org
+  - Mirrorbrain and all its dependencies have been packaged for Fedora / EPEL    
+- DNSSEC on all the major hosted domains such as gnome.org, guadec.org, gimp.org, gtk.org 
+- static.gnome.org, it is currently serving all the static content for the various GNOME websites! 
+- GlusterFS is now being used on our data servers!
+  - it substituted our old NFS node 
+  - data is replicated over two nodes 
+  - automatic fail over setup in case one of the two nodes goes down
+- We have one more surprise for you! Make sure to be around at Patrick's talk on the 28th! 
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# Changes on existing services
+- Automatic commit robot for l10n.gnome.org
+- RT3 (Request Tracker) to RT4 migration
+- Mysqld replica setup
+- Dell's OpenManage Nagios services to perform targeted hardware checks
+- Mass cleanup of inactive git / master account (performed monthly)
+- CATPCHAs on mail.gnome.org
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+---
+
+class: background-slides
+
+# Backups:     
+- New backups solution!       
+- One of the Fedora's main backup machines makes use of rdiff-backup to backup every single GNOME machine
+- rdiff-backup allows us to benefit from both incremental and historical backups
+- Only downside is the Fedora machine being hosted on the same DC as the GNOME machines (not ideal as a Disaster Recovery plan) 
+- Soon an off-site backup facility. 
+- Thanks to Kevin, Patrick and Stephen for helping us out on this!
+
+.logo[
+  <img src='https://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png' alt='GNOME Logo'>
+]
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
