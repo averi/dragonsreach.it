@@ -10,6 +10,9 @@ pygmentsStyle: "friendly"
 params:
     subtitle: Me, Myself and I
     rss: true
+    mainSections:
+     - "post"
+     - "posts"
 
 menu:
   main:
