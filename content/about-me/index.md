@@ -45,8 +45,9 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
   * My presentation for the Open Source Day 2014 in Udine about Puppet is [here][33] (italian only)
   * GNOME Foundation Annual General Meeting (AGM) reports (GNOME Infrastructure)
     * GUADEC 2013 [slides](http://www.dragonsreach.it/wp-content/uploads/2013/08/The-GNOME-Infrastructure.odp) [video](http://www.superlectures.com/guadec2013/the-gnome-infrastructure) 
-    * GUADEC 2014 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec2014.html)
-    * GUADEC 2018 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec2018.html)
+    * GUADEC 2014 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2014.html)
+    * GUADEC 2015 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2015-infra.odp)
+    * GUADEC 2018 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2018.html)
 
 ### Contact:
 
