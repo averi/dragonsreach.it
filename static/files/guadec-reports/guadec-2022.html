@@ -4,8 +4,8 @@
     <title>GNOME Infrastructure Team Report</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
-      @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css); 
-    
+      @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
       body, h1, h2, h3 { font-family: 'FontAwesome'; }
       .background-main { background-color: #272822; color: #F8F8FF; }
       .background-slides { background-color: #F8F8FF; color: #000000}
@@ -16,7 +16,7 @@
 
 class: center, middle, background-main
 
-# GNOME Infrastructure Team Report 
+# GNOME Infrastructure Team Report
 ### Andrea Veri
 #### In my father's memory
 
@@ -42,7 +42,7 @@ class: background-slides
 ## Hardware specs
 
 - 3 Dell R650 - 260G RAM, 56 cores, OCP 4
-- 3 Dell R640 - 190G RAM, 48 cores, Ceph 
+- 3 Dell R640 - 190G RAM, 48 cores, Ceph
 
 ---
 
@@ -92,7 +92,7 @@ class: background-slides
 ## Architecture
 
 For Prometheus:
- - Multiple exporters: OCP 4, BBB, Node, GitLab, Ceph 
+ - Multiple exporters: OCP 4, BBB, Node, GitLab, Ceph
  - Grafana with multiple datasources
  - Alertmanager with a set of predefined rules + Pagerduty
  - Blackbox for anything HTTP/HTTPS and latency monitoring
@@ -148,11 +148,11 @@ class: background-slides
 - Switched to Fedora, latest kernel
 - Docuum deployed to keep disk usage in check
   - Image removal kicks in after certain disk usage is passed
-  - It tracks used images, least used are removed first 
+  - It tracks used images, least used are removed first
 - All runners shared so non just GNOME projects can use them
   – This to improve developer experience and make CI feedback
     cycle faster for contributors
-- We combine dockerd with crun from github.com/containers (vs default runc) 
+- We combine dockerd with crun from github.com/containers (vs default runc)
   - Seems to better support new system calls
 
 ???
