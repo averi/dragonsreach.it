@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -45,7 +45,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2014\/05\/03\/adding-recaptcha-support-to-mailman\/",
-          "name": "Adding re c a p t c h a support to mailman"
+          "name": "Adding re captcha support to mailman"
         }
     }]
 }
@@ -89,7 +89,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -239,96 +239,95 @@
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
         <p>The <strong>GNOME</strong> and many other infrastructures have been recently attacked by an huge amount of <strong>subscription-based spam</strong> against their <strong>Mailman</strong> istances. What the attackers were doing was simply launching a GET call against a specific REST API URL passing all the parameters it needed for a subscription request (and confirmation) to be sent out. Understanding it becomes very easy when you look at the following example taken from our apache.log:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-verilog" data-lang="verilog">May <span style="color:#40a070">3</span> <span style="color:#40a070">04</span><span style="color:#666">:</span><span style="color:#40a070">14</span><span style="color:#666">:</span><span style="color:#40a070">38</span> restaurant <span style="color:#002070;font-weight:bold">apache:</span> <span style="color:#40a070">81.17.17.90</span>, <span style="color:#40a070">127.0.0.1</span> <span style="color:#666">-</span> <span style="color:#666">-</span> [<span style="color:#40a070">03</span><span style="color:#666">/</span>May<span style="color:#666">/</span><span style="color:#40a070">2014</span><span style="color:#666">:</span><span style="color:#40a070">04</span><span style="color:#666">:</span><span style="color:#40a070">14</span><span style="color:#666">:</span><span style="color:#40a070">38</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>] <span style="color:#4070a0">&#34;GET /mailman/subscribe/banshee-list?email=example@me.com&amp;fullname=&amp;pw=123456789&amp;pw-conf=123456789&amp;language=en&amp;digest=0&amp;email-button=Subscribe HTTP/1.1&#34;</span> <span style="color:#40a070">403</span> <span style="color:#40a070">313</span> <span style="color:#4070a0">&#34;http://spam/index2.html&#34;</span> <span style="color:#4070a0">&#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-verilog" data-lang="verilog"><span style="display:flex;"><span>May <span style="color:#40a070">3</span> <span style="color:#40a070">04</span><span style="color:#666">:</span><span style="color:#40a070">14</span><span style="color:#666">:</span><span style="color:#40a070">38</span> restaurant <span style="color:#002070;font-weight:bold">apache:</span> <span style="color:#40a070">81.17.17.90</span>, <span style="color:#40a070">127.0.0.1</span> <span style="color:#666">-</span> <span style="color:#666">-</span> [<span style="color:#40a070">03</span><span style="color:#666">/</span>May<span style="color:#666">/</span><span style="color:#40a070">2014</span><span style="color:#666">:</span><span style="color:#40a070">04</span><span style="color:#666">:</span><span style="color:#40a070">14</span><span style="color:#666">:</span><span style="color:#40a070">38</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>] <span style="color:#4070a0">&#34;GET /mailman/subscribe/banshee-list?email=example@me.com&amp;fullname=&amp;pw=123456789&amp;pw-conf=123456789&amp;language=en&amp;digest=0&amp;email-button=Subscribe HTTP/1.1&#34;</span> <span style="color:#40a070">403</span> <span style="color:#40a070">313</span> <span style="color:#4070a0">&#34;http://spam/index2.html&#34;</span> <span style="color:#4070a0">&#34;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.131 Safari/537.36&#34;</span></span></span></code></pre></div>
 <p>As you can the see attackers were sending all the relevant details needed for the subscription to go forward (and specifically the full name, the email, the digest option and the password for the target list). At first we tried to either stop the spam by banning the subnets where the requests were coming from, then when it was obvious that more subnets were being used and manual intervention was needed we tried banning their <strong>User-Agents</strong>. Again no luck, the spammers were smart enough to change it every now and then making it to match an existing browser User-Agent. (with a good percentage to have a lot of false-positives)</p>
 <p>Now you might be wondering why such an attack caused a lot of issues and pain, well, the attackers made use of addresses found around the web for their malicius subscription requests. That means we received a lot of emails from people that have never heard about the GNOME mailing lists but received around <strong>10k subscription requests</strong> that were seemingly being sent by themselves.</p>
 <p>It was obvious we needed to look at a backup solution and luckily someone on our support channel suggested the freedesktop.org sysadmins recently added CAPTCHAs support to Mailman.  I’m now sharing the patch and providing a few more details on how to properly set it up on either DEB or RPM based distributions. Credits for the patch should be given to Debian Developer <!-- raw HTML omitted -->Tollef Fog Heen<!-- raw HTML omitted --><!-- raw HTML omitted -->, who has been so kind to share it with us.<!-- raw HTML omitted --></p>
 <p>Before patching your installation make sure to install the <strong>python-recaptcha</strong> package (tested on Debian with Mailman 2.1.15) on DEB based distributions and <strong>python-recaptcha-client</strong> on RPM based distributions. (I personally tested it against Mailman release 2.1.15, RHEL 6)</p>
 <h3 id="the-patch">The Patch</h3>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python">diff <span style="color:#666">--</span>git a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
-index <span style="color:#40a070">4</span>a54517<span style="color:#666">..</span>d6417ca <span style="color:#40a070">100644</span>
-<span style="color:#666">---</span> a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
-<span style="color:#666">+++</span> b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">30</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">31</span>,<span style="color:#40a070">8</span> <span style="">@@</span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> Errors
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> i18n
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
-<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
- 
- <span style="color:#60a0b0;font-style:italic"># Set up i18n</span>
- _ <span style="color:#666">=</span> i18n<span style="color:#666">.</span>_
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">200</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">203</span>,<span style="color:#40a070">9</span> <span style="">@@</span> <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">list_listinfo</span>(mlist, lang):
-     replacements[<span style="color:#4070a0">&#39;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatFormStart(<span style="color:#4070a0">&#39;listinfo&#39;</span>)
-     replacements[<span style="color:#4070a0">&#39;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatBox(<span style="color:#4070a0">&#39;fullname&#39;</span>, size<span style="color:#666">=</span><span style="color:#40a070">30</span>)
- 
-<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># Captcha</span>
-<span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;mm-recaptcha-javascript&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>displayhtml(mm_cfg<span style="color:#666">.</span>RECAPTCHA_PUBLIC_KEY, use_ssl<span style="color:#666">=</span>False)
-<span style="color:#666">+</span>
-     <span style="color:#60a0b0;font-style:italic"># Do the expansion.</span>
-     doc<span style="color:#666">.</span>AddItem(mlist<span style="color:#666">.</span>ParseTags(<span style="color:#4070a0">&#39;listinfo.html&#39;</span>, replacements, lang))
-     <span style="color:#007020;font-weight:bold">print</span> doc<span style="color:#666">.</span>Format()
-diff <span style="color:#666">--</span>git a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
-index <span style="color:#40a070">7</span>b0b0e4<span style="color:#666">..</span>c1c7b8c <span style="color:#40a070">100644</span>
-<span style="color:#666">---</span> a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
-<span style="color:#666">+++</span> b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">21</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">21</span>,<span style="color:#40a070">8</span> <span style="">@@</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">sys</span>
- <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">os</span>
- <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">cgi</span>
- <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">signal</span>
-<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
- 
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> mm_cfg
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> Utils
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">132</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">130</span>,<span style="color:#40a070">17</span> <span style="">@@</span> <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">process_form</span>(mlist, doc, cgidata, lang):
-     remote <span style="color:#666">=</span> os<span style="color:#666">.</span>environ<span style="color:#666">.</span>get(<span style="color:#4070a0">&#39;REMOTE_HOST&#39;</span>,
-                             os<span style="color:#666">.</span>environ<span style="color:#666">.</span>get(<span style="color:#4070a0">&#39;REMOTE_ADDR&#39;</span>,
-                                            <span style="color:#4070a0">&#39;unidentified origin&#39;</span>))
-<span style="color:#666">+</span>
-<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># recaptcha</span>
-<span style="color:#666">+</span>    captcha_response <span style="color:#666">=</span> captcha<span style="color:#666">.</span>submit(
-<span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;recaptcha_challenge_field&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
-<span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;recaptcha_response_field&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
-<span style="color:#666">+</span>        mm_cfg<span style="color:#666">.</span>RECAPTCHA_PRIVATE_KEY,
-<span style="color:#666">+</span>        remote,
-<span style="color:#666">+</span>        )
-<span style="color:#666">+</span>    <span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> captcha_response<span style="color:#666">.</span>is_valid:
-<span style="color:#666">+</span>        results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;Invalid captcha&#39;</span>))
-<span style="color:#666">+</span>
-     <span style="color:#60a0b0;font-style:italic"># Was an attempt made to subscribe the list to itself?</span>
-     <span style="color:#007020;font-weight:bold">if</span> email <span style="color:#666">==</span> mlist<span style="color:#666">.</span>GetListEmail():
-         syslog(<span style="color:#4070a0">&#39;mischief&#39;</span>, <span style="color:#4070a0">&#39;Attempt to self subscribe </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span>, email, remote)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>diff <span style="color:#666">--</span>git a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span>index <span style="color:#40a070">4</span>a54517<span style="color:#666">..</span>d6417ca <span style="color:#40a070">100644</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">---</span> a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span><span style="color:#666">+++</span> b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">30</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">31</span>,<span style="color:#40a070">8</span> <span style="color:#666">@@</span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> Errors
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> i18n
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#60a0b0;font-style:italic"># Set up i18n</span>
+</span></span><span style="display:flex;"><span> _ <span style="color:#666">=</span> i18n<span style="color:#666">.</span>_
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">200</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">203</span>,<span style="color:#40a070">9</span> <span style="color:#666">@@</span> <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">list_listinfo</span>(mlist, lang):
+</span></span><span style="display:flex;"><span>     replacements[<span style="color:#4070a0">&#39;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatFormStart(<span style="color:#4070a0">&#39;listinfo&#39;</span>)
+</span></span><span style="display:flex;"><span>     replacements[<span style="color:#4070a0">&#39;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatBox(<span style="color:#4070a0">&#39;fullname&#39;</span>, size<span style="color:#666">=</span><span style="color:#40a070">30</span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># Captcha</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;mm-recaptcha-javascript&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>displayhtml(mm_cfg<span style="color:#666">.</span>RECAPTCHA_PUBLIC_KEY, use_ssl<span style="color:#666">=</span><span style="color:#007020;font-weight:bold">False</span>)
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#60a0b0;font-style:italic"># Do the expansion.</span>
+</span></span><span style="display:flex;"><span>     doc<span style="color:#666">.</span>AddItem(mlist<span style="color:#666">.</span>ParseTags(<span style="color:#4070a0">&#39;listinfo.html&#39;</span>, replacements, lang))
+</span></span><span style="display:flex;"><span>     <span style="color:#007020">print</span> doc<span style="color:#666">.</span>Format()
+</span></span><span style="display:flex;"><span>diff <span style="color:#666">--</span>git a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span>index <span style="color:#40a070">7</span>b0b0e4<span style="color:#666">..</span>c1c7b8c <span style="color:#40a070">100644</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">---</span> a<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span><span style="color:#666">+++</span> b<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">21</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">21</span>,<span style="color:#40a070">8</span> <span style="color:#666">@@</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">sys</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">os</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">cgi</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">signal</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> mm_cfg
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> Utils
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">132</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">130</span>,<span style="color:#40a070">17</span> <span style="color:#666">@@</span> <span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">process_form</span>(mlist, doc, cgidata, lang):
+</span></span><span style="display:flex;"><span>     remote <span style="color:#666">=</span> os<span style="color:#666">.</span>environ<span style="color:#666">.</span>get(<span style="color:#4070a0">&#39;REMOTE_HOST&#39;</span>,
+</span></span><span style="display:flex;"><span>                             os<span style="color:#666">.</span>environ<span style="color:#666">.</span>get(<span style="color:#4070a0">&#39;REMOTE_ADDR&#39;</span>,
+</span></span><span style="display:flex;"><span>                                            <span style="color:#4070a0">&#39;unidentified origin&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># recaptcha</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    captcha_response <span style="color:#666">=</span> captcha<span style="color:#666">.</span>submit(
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;recaptcha_challenge_field&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;recaptcha_response_field&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        mm_cfg<span style="color:#666">.</span>RECAPTCHA_PRIVATE_KEY,
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        remote,
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        )
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> captcha_response<span style="color:#666">.</span>is_valid:
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;Invalid captcha&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#60a0b0;font-style:italic"># Was an attempt made to subscribe the list to itself?</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#007020;font-weight:bold">if</span> email <span style="color:#666">==</span> mlist<span style="color:#666">.</span>GetListEmail():
+</span></span><span style="display:flex;"><span>         syslog(<span style="color:#4070a0">&#39;mischief&#39;</span>, <span style="color:#4070a0">&#39;Attempt to self subscribe </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span>, email, remote)</span></span></code></pre></div>
 <h3 id="additional-setup">Additional setup</h3>
 <p>Then on the <em>/var/lib/mailman/templates/en/listinfo.html</em> template (right below <em><!-- raw HTML omitted --></em>)  add:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
-  &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;
-    Please fill out the following captcha
-  &lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;
-  &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;
-    &lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;
-  &lt;/<span style="color:#062873;font-weight:bold">TD</span>&gt;
-&lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;
+</span></span><span style="display:flex;"><span>    Please fill out the following captcha
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#062873;font-weight:bold">TD</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;</span></span></code></pre></div>
 <p>Make also sure to generate a public and private key at <!-- raw HTML omitted --><a href="https://www.google.com/recaptcha">https://www.google.com/recaptcha</a><!-- raw HTML omitted --> and add the following paramaters on your <em>mm_cfg.py</em> file:</p>
 <ul>
 <li>RECAPTCHA_PRIVATE_KEY</li>
 <li>RECAPTCHA_PUBLIC_KEY</li>
 </ul>
 <p>Loading <strong>reCAPTCHAs</strong> images from a trusted <strong>HTTPS</strong> source can be done by changing the following line:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">replacements[&#39;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=False)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>replacements[&#39;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=False)</span></span></code></pre></div>
 <p>to</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">replacements[&#39;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=True)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>replacements[&#39;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&#39;] = captcha.displayhtml(mm_cfg.RECAPTCHA_PUBLIC_KEY, use_ssl=True)</span></span></code></pre></div>
 <h3 id="epel-6-related-details">EPEL 6 related details</h3>
 <p>A few additional details should be provided in case you are setting this up against a <strong>RHEL 6</strong> host: (or any other machine using the EPEL 6 package <em>python-recaptcha-client-1.0.5-3.1.el6</em>)</p>
 <p>Importing the recaptcha.client module will fail for some strange reason, importing it correctly can be done this way:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ln -s /usr/lib/python2.6/site-packages/recaptcha/client /usr/lib/mailman/pythonlib/recaptcha</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ln -s /usr/lib/python2.6/site-packages/recaptcha/client /usr/lib/mailman/pythonlib/recaptcha</span></span></code></pre></div>
 <p>and then fix the imports also making sure <em>sys.path.append(“/usr/share/pyshared”)</em> is not there:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha</span> <span style="color:#007020;font-weight:bold">import</span> captcha</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha</span> <span style="color:#007020;font-weight:bold">import</span> captcha</span></span></code></pre></div>
 <p>That’s not all, the package still won’t work as expected given the API_SSL_SERVER, API_SERVER and VERIFY_SERVER variables on captcha.py are outdated (filed as <!-- raw HTML omitted -->bug #1093855<!-- raw HTML omitted -->), substitute them with the following ones:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#4070a0">API_SSL_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;https://www.google.com/recaptcha/api&#34;</span>
-<span style="color:#4070a0">API_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;http://www.google.com/recaptcha/api&#34;</span>
-<span style="color:#4070a0">VERIFY_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;www.google.com&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#4070a0">API_SSL_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;https://www.google.com/recaptcha/api&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">API_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;http://www.google.com/recaptcha/api&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">VERIFY_SERVER</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;www.google.com&#34;</span></span></span></code></pre></div>
 <p>And then on line 76:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#4070a0">url</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;https://%s/recaptcha/api/verify&#34; % VERIFY_SERVER,</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#4070a0">url</span> <span style="color:#666">=</span> <span style="color:#4070a0">&#34;https://%s/recaptcha/api/verify&#34; % VERIFY_SERVER,</span></span></span></code></pre></div>
 <h3 id="recaptcha-v2">reCAPTCHA v2</h3>
 <p>Google’s reCAPTCHA v1 will be deactivated starting from the 31th of March 2018, read more on how to migrate your Mailman install to version 2 <a href="https://www.dragonsreach.it/2018/02/26/adding-recaptcha-v2-support-mailman/">here</a>.</p>
 <p>That should be all! Enjoy!</p>
@@ -428,7 +427,7 @@ index <span style="color:#40a070">7</span>b0b0e4<span style="color:#666">..</spa
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

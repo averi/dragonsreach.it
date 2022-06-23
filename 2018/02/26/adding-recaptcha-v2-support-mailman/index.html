@@ -15,7 +15,7 @@ The relevant changes against the original library can be resumed as follows:
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -47,7 +47,7 @@ The relevant changes against the original library can be resumed as follows:
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2018\/02\/26\/adding-recaptcha-v2-support-mailman\/",
-          "name": "Adding re c a p t c h a v2 support to mailman"
+          "name": "Adding re captcha v2 support to mailman"
         }
     }]
 }
@@ -93,7 +93,7 @@ The relevant changes against the original library can be resumed as follows:
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -251,80 +251,80 @@ The relevant changes against the original library can be resumed as follows:
 </ol>
 <p>The required changes are located on the following files:</p>
 <p><strong>/usr/lib/mailman/Mailman/Cgi/listinfo.py</strong></p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#666">---</span> listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">48.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
-<span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">34.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">31</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">31</span>,<span style="color:#40a070">7</span> <span style="">@@</span>
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> i18n
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
-<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
- 
- <span style="color:#60a0b0;font-style:italic"># Set up i18n</span>
- _ <span style="color:#666">=</span> i18n<span style="color:#666">.</span>_
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">244</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">245</span>,<span style="color:#40a070">10</span> <span style="">@@</span>
-     replacements[<span style="color:#4070a0">&#39;&lt;mm-lang-form-start&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatFormStart(<span style="color:#4070a0">&#39;listinfo&#39;</span>)
-     replacements[<span style="color:#4070a0">&#39;&lt;mm-fullname-box&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatBox(<span style="color:#4070a0">&#39;fullname&#39;</span>, size<span style="color:#666">=</span><span style="color:#40a070">30</span>)
- 
-<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># Captcha</span>
-<span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-javascript&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>displayhtml(mm_cfg<span style="color:#666">.</span>RECAPTCHA_PUBLIC_KEY, use_ssl<span style="color:#666">=</span>True, version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
-<span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-script&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>load_script(version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
-<span style="color:#666">+</span>
-     <span style="color:#60a0b0;font-style:italic"># Do the expansion.</span>
-     doc<span style="color:#666">.</span>AddItem(mlist<span style="color:#666">.</span>ParseTags(<span style="color:#4070a0">&#39;listinfo.html&#39;</span>, replacements, lang))
-     <span style="color:#007020;font-weight:bold">print</span> doc<span style="color:#666">.</span>Format()</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#666">---</span> listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">48.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>listinfo<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">34.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">31</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">31</span>,<span style="color:#40a070">7</span> <span style="color:#666">@@</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman</span> <span style="color:#007020;font-weight:bold">import</span> i18n
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> <span style="color:#60a0b0;font-style:italic"># Set up i18n</span>
+</span></span><span style="display:flex;"><span> _ <span style="color:#666">=</span> i18n<span style="color:#666">.</span>_
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">244</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">245</span>,<span style="color:#40a070">10</span> <span style="color:#666">@@</span>
+</span></span><span style="display:flex;"><span>     replacements[<span style="color:#4070a0">&#39;&lt;mm-lang-form-start&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatFormStart(<span style="color:#4070a0">&#39;listinfo&#39;</span>)
+</span></span><span style="display:flex;"><span>     replacements[<span style="color:#4070a0">&#39;&lt;mm-fullname-box&gt;&#39;</span>] <span style="color:#666">=</span> mlist<span style="color:#666">.</span>FormatBox(<span style="color:#4070a0">&#39;fullname&#39;</span>, size<span style="color:#666">=</span><span style="color:#40a070">30</span>)
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># Captcha</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-javascript&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>displayhtml(mm_cfg<span style="color:#666">.</span>RECAPTCHA_PUBLIC_KEY, use_ssl<span style="color:#666">=</span><span style="color:#007020;font-weight:bold">True</span>, version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    replacements[<span style="color:#4070a0">&#39;&lt;mm-recaptcha-script&gt;&#39;</span>] <span style="color:#666">=</span> captcha<span style="color:#666">.</span>load_script(version<span style="color:#666">=</span><span style="color:#40a070">2</span>)
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#60a0b0;font-style:italic"># Do the expansion.</span>
+</span></span><span style="display:flex;"><span>     doc<span style="color:#666">.</span>AddItem(mlist<span style="color:#666">.</span>ParseTags(<span style="color:#4070a0">&#39;listinfo.html&#39;</span>, replacements, lang))
+</span></span><span style="display:flex;"><span>     <span style="color:#007020">print</span> doc<span style="color:#666">.</span>Format()</span></span></code></pre></div>
 <p><strong>/usr/lib/mailman/Mailman/Cgi/subscribe.py</strong></p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#666">---</span> subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">38.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
-<span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">18.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">32</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">32</span>,<span style="color:#40a070">7</span> <span style="">@@</span>
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.UserDesc</span> <span style="color:#007020;font-weight:bold">import</span> UserDesc
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
- <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
-<span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
- 
- SLASH <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/&#39;</span>
- ERRORSEP <span style="color:#666">=</span> <span style="color:#4070a0">&#39;</span><span style="color:#4070a0;font-weight:bold">\n\n</span><span style="color:#4070a0">&lt;p&gt;&#39;</span>
-<span style="">@@</span> <span style="color:#666">-</span><span style="color:#40a070">165</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">166</span>,<span style="color:#40a070">17</span> <span style="">@@</span>
-             results<span style="color:#666">.</span>append(
-     _(<span style="color:#4070a0">&#39;There was no hidden token in your submission or it was corrupted.&#39;</span>))
-             results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;You must GET the form before submitting it.&#39;</span>))
-<span style="color:#666">+</span>
-<span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># recaptcha</span>
-<span style="color:#666">+</span>    captcha_response <span style="color:#666">=</span> captcha<span style="color:#666">.</span>v2submit(
-<span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;g-recaptcha-response&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
-<span style="color:#666">+</span>        mm_cfg<span style="color:#666">.</span>RECAPTCHA_PRIVATE_KEY,
-<span style="color:#666">+</span>        remote,
-<span style="color:#666">+</span>    )
-<span style="color:#666">+</span>
-<span style="color:#666">+</span>    <span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> captcha_response<span style="color:#666">.</span>is_valid:
-<span style="color:#666">+</span>        results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;Invalid captcha: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span> <span style="color:#666">%</span> captcha_response<span style="color:#666">.</span>error_code))
-<span style="color:#666">+</span>
-     <span style="color:#60a0b0;font-style:italic"># Was an attempt made to subscribe the list to itself?</span>
-     <span style="color:#007020;font-weight:bold">if</span> email <span style="color:#666">==</span> mlist<span style="color:#666">.</span>GetListEmail():
-         syslog(<span style="color:#4070a0">&#39;mischief&#39;</span>, <span style="color:#4070a0">&#39;Attempt to self subscribe </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span>, email, remote)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#666">---</span> subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">56</span>:<span style="color:#40a070">38.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+++</span> <span style="color:#666">/</span>usr<span style="color:#666">/</span>lib<span style="color:#666">/</span>mailman<span style="color:#666">/</span>Mailman<span style="color:#666">/</span>Cgi<span style="color:#666">/</span>subscribe<span style="color:#666">.</span>py	<span style="color:#40a070">2018</span><span style="color:#666">-</span><span style="color:#40a070">02</span><span style="color:#666">-</span><span style="color:#40a070">26</span> <span style="color:#40a070">14</span>:<span style="color:#40a070">08</span>:<span style="color:#40a070">18.000000000</span> <span style="color:#666">+</span><span style="color:#40a070">0000</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">32</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">32</span>,<span style="color:#40a070">7</span> <span style="color:#666">@@</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.UserDesc</span> <span style="color:#007020;font-weight:bold">import</span> UserDesc
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.htmlformat</span> <span style="color:#007020;font-weight:bold">import</span> <span style="color:#666">*</span>
+</span></span><span style="display:flex;"><span> <span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">Mailman.Logging.Syslog</span> <span style="color:#007020;font-weight:bold">import</span> syslog
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">recaptcha.client</span> <span style="color:#007020;font-weight:bold">import</span> captcha
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> SLASH <span style="color:#666">=</span> <span style="color:#4070a0">&#39;/&#39;</span>
+</span></span><span style="display:flex;"><span> ERRORSEP <span style="color:#666">=</span> <span style="color:#4070a0">&#39;</span><span style="color:#4070a0;font-weight:bold">\n\n</span><span style="color:#4070a0">&lt;p&gt;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">@@</span> <span style="color:#666">-</span><span style="color:#40a070">165</span>,<span style="color:#40a070">6</span> <span style="color:#666">+</span><span style="color:#40a070">166</span>,<span style="color:#40a070">17</span> <span style="color:#666">@@</span>
+</span></span><span style="display:flex;"><span>             results<span style="color:#666">.</span>append(
+</span></span><span style="display:flex;"><span>     _(<span style="color:#4070a0">&#39;There was no hidden token in your submission or it was corrupted.&#39;</span>))
+</span></span><span style="display:flex;"><span>             results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;You must GET the form before submitting it.&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#60a0b0;font-style:italic"># recaptcha</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    captcha_response <span style="color:#666">=</span> captcha<span style="color:#666">.</span>v2submit(
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        cgidata<span style="color:#666">.</span>getvalue(<span style="color:#4070a0">&#39;g-recaptcha-response&#39;</span>, <span style="color:#4070a0">&#34;&#34;</span>),
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        mm_cfg<span style="color:#666">.</span>RECAPTCHA_PRIVATE_KEY,
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        remote,
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    )
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>    <span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> captcha_response<span style="color:#666">.</span>is_valid:
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>        results<span style="color:#666">.</span>append(_(<span style="color:#4070a0">&#39;Invalid captcha: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span> <span style="color:#666">%</span> captcha_response<span style="color:#666">.</span>error_code))
+</span></span><span style="display:flex;"><span><span style="color:#666">+</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#60a0b0;font-style:italic"># Was an attempt made to subscribe the list to itself?</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#007020;font-weight:bold">if</span> email <span style="color:#666">==</span> mlist<span style="color:#666">.</span>GetListEmail():
+</span></span><span style="display:flex;"><span>         syslog(<span style="color:#4070a0">&#39;mischief&#39;</span>, <span style="color:#4070a0">&#39;Attempt to self subscribe </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">: </span><span style="color:#70a0d0;font-style:italic">%s</span><span style="color:#4070a0">&#39;</span>, email, remote)</span></span></code></pre></div>
 <!-- raw HTML omitted -->
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">--- listinfo.html	2018-02-26 15:02:34.000000000 +0000
-+++ /usr/lib/mailman/templates/en/listinfo.html	2018-02-26 14:18:52.000000000 +0000
-@@ -3,7 +3,7 @@
- &lt;<span style="color:#062873;font-weight:bold">HTML</span>&gt;
-   &lt;<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
-     &lt;<span style="color:#062873;font-weight:bold">TITLE</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-List-Name</span>&gt; Info Page&lt;/<span style="color:#062873;font-weight:bold">TITLE</span>&gt;
--  
-+    &lt;<span style="color:#062873;font-weight:bold">MM-Recaptcha-Script</span>&gt; 
-   &lt;/<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
-   &lt;<span style="color:#062873;font-weight:bold">BODY</span> <span style="color:#4070a0">BGCOLOR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;#ffffff&#34;</span>&gt;
- 
-@@ -116,6 +116,11 @@
-       &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
-       &lt;<span style="color:#062873;font-weight:bold">mm-digest-question-end</span>&gt;
-       &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
-+      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
-+        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;Please fill out the following captcha&lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;
-+        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">TD</span>&gt;
-+      &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
-+      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
- 	&lt;<span style="color:#062873;font-weight:bold">td</span> <span style="color:#4070a0">colspan</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;3&#34;</span>&gt;
- 	  &lt;<span style="color:#062873;font-weight:bold">center</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-Subscribe-Button</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">center</span>&gt;
-     &lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>--- listinfo.html	2018-02-26 15:02:34.000000000 +0000
+</span></span><span style="display:flex;"><span>+++ /usr/lib/mailman/templates/en/listinfo.html	2018-02-26 14:18:52.000000000 +0000
+</span></span><span style="display:flex;"><span>@@ -3,7 +3,7 @@
+</span></span><span style="display:flex;"><span> &lt;<span style="color:#062873;font-weight:bold">HTML</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;<span style="color:#062873;font-weight:bold">TITLE</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-List-Name</span>&gt; Info Page&lt;/<span style="color:#062873;font-weight:bold">TITLE</span>&gt;
+</span></span><span style="display:flex;"><span>-  
+</span></span><span style="display:flex;"><span>+    &lt;<span style="color:#062873;font-weight:bold">MM-Recaptcha-Script</span>&gt; 
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#062873;font-weight:bold">HEAD</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#062873;font-weight:bold">BODY</span> <span style="color:#4070a0">BGCOLOR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;#ffffff&#34;</span>&gt;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>@@ -116,6 +116,11 @@
+</span></span><span style="display:flex;"><span>       &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span>       &lt;<span style="color:#062873;font-weight:bold">mm-digest-question-end</span>&gt;
+</span></span><span style="display:flex;"><span>       &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span>+      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span>+        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;Please fill out the following captcha&lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;
+</span></span><span style="display:flex;"><span>+        &lt;<span style="color:#062873;font-weight:bold">td</span>&gt;&lt;<span style="color:#062873;font-weight:bold">mm-recaptcha-javascript</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">TD</span>&gt;
+</span></span><span style="display:flex;"><span>+      &lt;/<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span>+      &lt;<span style="color:#062873;font-weight:bold">tr</span>&gt;
+</span></span><span style="display:flex;"><span> 	&lt;<span style="color:#062873;font-weight:bold">td</span> <span style="color:#4070a0">colspan</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;3&#34;</span>&gt;
+</span></span><span style="display:flex;"><span> 	  &lt;<span style="color:#062873;font-weight:bold">center</span>&gt;&lt;<span style="color:#062873;font-weight:bold">MM-Subscribe-Button</span>&gt;&lt;/<span style="color:#062873;font-weight:bold">center</span>&gt;
+</span></span><span style="display:flex;"><span>     &lt;/<span style="color:#062873;font-weight:bold">td</span>&gt;</span></span></code></pre></div>
 <!-- raw HTML omitted -->
 
 
@@ -410,7 +410,7 @@ The relevant changes against the original library can be resumed as follows:
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

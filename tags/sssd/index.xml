@@ -5,11 +5,7 @@
     <link>https://www.dragonsreach.it/tags/sssd/</link>
     <description>Recent content in SSSD on Andrea Veri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 07 Oct 2014 09:21:33 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.dragonsreach.it/tags/sssd/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 07 Oct 2014 09:21:33 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/sssd/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The GNOME Infrastructure is now powered by FreeIPA!</title>
       <link>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</link>

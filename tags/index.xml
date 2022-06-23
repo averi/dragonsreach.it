@@ -5,11 +5,7 @@
     <link>https://www.dragonsreach.it/tags/</link>
     <description>Recent content in Tags on Andrea Veri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.dragonsreach.it/tags/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Planet GNOME</title>
       <link>https://www.dragonsreach.it/tags/planet-gnome/</link>
@@ -245,15 +241,6 @@
     </item>
     
     <item>
-      <title>Linux</title>
-      <link>https://www.dragonsreach.it/tags/linux/</link>
-      <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
-      
-      <guid>https://www.dragonsreach.it/tags/linux/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>linux desktop</title>
       <link>https://www.dragonsreach.it/tags/linux-desktop/</link>
       <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
@@ -286,15 +273,6 @@
       <pubDate>Fri, 14 Jun 2013 11:37:06 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/tags/infrastructure/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Mozilla</title>
-      <link>https://www.dragonsreach.it/tags/mozilla/</link>
-      <pubDate>Wed, 27 Mar 2013 12:04:02 +0000</pubDate>
-      
-      <guid>https://www.dragonsreach.it/tags/mozilla/</guid>
       <description></description>
     </item>
     
@@ -358,6 +336,15 @@
       <pubDate>Thu, 13 Dec 2012 14:22:25 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/tags/cloud-computing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://www.dragonsreach.it/tags/linux/</link>
+      <pubDate>Thu, 22 Nov 2012 11:45:04 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/linux/</guid>
       <description></description>
     </item>
     
@@ -691,6 +678,15 @@
       <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/tags/debian-maintainer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mozilla</title>
+      <link>https://www.dragonsreach.it/tags/mozilla/</link>
+      <pubDate>Sat, 10 Oct 2009 22:17:23 +0000</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/mozilla/</guid>
       <description></description>
     </item>
     

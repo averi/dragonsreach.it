@@ -5,11 +5,7 @@
     <link>https://www.dragonsreach.it/tags/dnssec/</link>
     <description>Recent content in DNSSEC on Andrea Veri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 13 Nov 2013 13:53:31 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.dragonsreach.it/tags/dnssec/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Wed, 13 Nov 2013 13:53:31 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/dnssec/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Configuring DNSSEC on your personal domain</title>
       <link>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</link>

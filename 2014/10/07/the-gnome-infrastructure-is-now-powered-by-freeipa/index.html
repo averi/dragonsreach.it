@@ -14,7 +14,7 @@ Introduction It’s been a while since someone actually touched the underlying a
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -46,7 +46,7 @@ Introduction It’s been a while since someone actually touched the underlying a
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2014\/10\/07\/the-gnome-infrastructure-is-now-powered-by-freeipa\/",
-          "name": "The g n o m e infrastructure is now powered by free ip a!"
+          "name": "The gnome infrastructure is now powered by free IP a!"
         }
     }]
 }
@@ -92,7 +92,7 @@ Introduction It’s been a while …">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -258,7 +258,7 @@ Introduction It’s been a while …">
 <h2 id="where-can-i-get-my-first-login-credentials">Where can I get my first login credentials?</h2>
 <p>Let’s make a little distinction between users that previously had access to Mango (usually maintainers) and users that didn’t. If you were used to access Mango before you should be able to login on the new Account Management System by entering your GNOME username and the password you were used to use for loggin in into Mango. (after loggin in the very first time you will be prompted to update your password, please choose a strong password as this account will be unique across all the GNOME Infrastructure)</p>
 <p>If you never had access to Mango, you lost your password or the first time you read the word Mango on this post you thought “why is he talking about a fruit now?” you should be able to reset it by using the following command:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ssh -l yourgnomeuserid account.gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ssh -l yourgnomeuserid account.gnome.org</span></span></code></pre></div>
 <p>The command will start an SSH connection between you and account.gnome.org, once authenticated (with the SSH key you previously had registered on our Infrastructure) you will trigger a command that will directly send your brand new password on the e-mail registered for your account. From my tests seems GMail sees the e-mail as a phishing attempt probably because the body contains the word “password” twice. That said if the e-mail won’t appear on your INBOX, please <strong>double-check</strong> your Spam folder.</p>
 <h2 id="now-that-mango-is-gone-how-can-i-request-a-new-account">Now that Mango is gone how can I request a new account?</h2>
 <p>With Mango we used to have a form that automatically e-mailed the maintainer of the selected GNOME module which was then going to approve / reject the request. From there and in the case of a positive vote from the maintainer the Accounts Team was going to create the account itself.</p>
@@ -385,7 +385,7 @@ Introduction It’s been a while …">
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

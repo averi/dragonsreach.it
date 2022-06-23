@@ -14,7 +14,7 @@ Willing to test the latest revision of the Internet Protocol on your Debian, Ubu
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -46,7 +46,7 @@ Willing to test the latest revision of the Internet Protocol on your Debian, Ubu
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2012\/12\/21\/ipv6-tunneling-hurricane-electrics\/",
-          "name": "Ipv6 tunneling with hurricane electrics ( h e)"
+          "name": "Ipv6 tunneling with hurricane electrics ( he)"
         }
     }]
 }
@@ -91,7 +91,7 @@ Willing to test the latest revision of the Internet Protocol on your Debian, Ubu
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -253,44 +253,44 @@ Willing to test the latest revision of the Internet Protocol on your Debian, Ubu
 </ol>
 <p><img src="/wp-content/uploads/2012/12/tunnel_broker.png" alt="Tunnel Broker"></p>
 <p><strong>4.</strong> Create a little script that will update your <strong>IPv4 tunnel endpoint</strong> every time your internet IP <strong>changes</strong>. (this step is not needed if you have an internet connection with a <strong>static IP</strong>):</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#007020">#!/bin/bash
-</span><span style="color:#007020"></span><span style="color:#bb60d5">USERNAME</span><span style="color:#666">=</span>yourHEUsername
-<span style="color:#bb60d5">PASSWORD</span><span style="color:#666">=</span>yourHEPassword
-<span style="color:#bb60d5">TUNNELID</span><span style="color:#666">=</span>yourHETunnelID
-GET <span style="color:#4070a0">&#34;https://</span><span style="color:#bb60d5">$USERNAME</span><span style="color:#4070a0">:</span><span style="color:#bb60d5">$PASSWORD</span><span style="color:#4070a0">@ipv4.tunnelbroker.net/ipv4_end.php?tid=</span><span style="color:#bb60d5">$TUNNELID</span><span style="color:#4070a0">&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#007020">#!/bin/bash
+</span></span></span><span style="display:flex;"><span><span style="color:#007020"></span><span style="color:#bb60d5">USERNAME</span><span style="color:#666">=</span>yourHEUsername
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">PASSWORD</span><span style="color:#666">=</span>yourHEPassword
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">TUNNELID</span><span style="color:#666">=</span>yourHETunnelID
+</span></span><span style="display:flex;"><span>GET <span style="color:#4070a0">&#34;https://</span><span style="color:#bb60d5">$USERNAME</span><span style="color:#4070a0">:</span><span style="color:#bb60d5">$PASSWORD</span><span style="color:#4070a0">@ipv4.tunnelbroker.net/ipv4_end.php?tid=</span><span style="color:#bb60d5">$TUNNELID</span><span style="color:#4070a0">&#34;</span></span></span></code></pre></div>
 <p><strong>5.</strong> Create the networking <strong>configuration</strong> files on your computer:</p>
 <p><strong>Debian / Ubuntu</strong>, on the <strong>/etc/network/interfaces</strong> file:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">auto he-ipv6
-iface he-ipv6 inet6 v4tunnel
-address 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2
-netmask <span style="color:#40a070">64</span>
-endpoint 216.66.80.30
-<span style="color:#007020">local</span> 192.168.X.X <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
-ttl <span style="color:#40a070">255</span>
-gateway 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1
-pre-up /home/user/bin/update_tunnel.sh</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>auto he-ipv6
+</span></span><span style="display:flex;"><span>iface he-ipv6 inet6 v4tunnel
+</span></span><span style="display:flex;"><span>address 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2
+</span></span><span style="display:flex;"><span>netmask <span style="color:#40a070">64</span>
+</span></span><span style="display:flex;"><span>endpoint 216.66.80.30
+</span></span><span style="display:flex;"><span><span style="color:#007020">local</span> 192.168.X.X <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span>ttl <span style="color:#40a070">255</span>
+</span></span><span style="display:flex;"><span>gateway 2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1
+</span></span><span style="display:flex;"><span>pre-up /home/user/bin/update_tunnel.sh</span></span></code></pre></div>
 <p><strong>Fedora</strong>, on the ** /etc/sysconfig/network-scripts/ifcfg-he-ipv6** file:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">DEVICE</span><span style="color:#666">=</span>he-ipv6
-<span style="color:#bb60d5">TYPE</span><span style="color:#666">=</span>sit
-<span style="color:#bb60d5">BOOTPROTO</span><span style="color:#666">=</span>none
-<span style="color:#bb60d5">ONBOOT</span><span style="color:#666">=</span>yes
-<span style="color:#bb60d5">IPV6INIT</span><span style="color:#666">=</span>yes
-<span style="color:#bb60d5">IPV6TUNNELIPV4</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;216.66.80.30&#34;</span>
-<span style="color:#bb60d5">IPV6TUNNELIPV4LOCAL</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;192.168.X.X&#34;</span> <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
-<span style="color:#bb60d5">IPV6ADDR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2/64&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">DEVICE</span><span style="color:#666">=</span>he-ipv6
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">TYPE</span><span style="color:#666">=</span>sit
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">BOOTPROTO</span><span style="color:#666">=</span>none
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">ONBOOT</span><span style="color:#666">=</span>yes
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6INIT</span><span style="color:#666">=</span>yes
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6TUNNELIPV4</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;216.66.80.30&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6TUNNELIPV4LOCAL</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;192.168.X.X&#34;</span> <span style="color:#666">(</span>Your PC<span style="">&#39;</span>s LAN IP address<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6ADDR</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::2/64&#34;</span></span></span></code></pre></div>
 <p>and on the <strong>/etc/sysconfig/network</strong> file, add:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">NETWORKING_IPV6</span><span style="color:#666">=</span>yes
-<span style="color:#bb60d5">IPV6_DEFAULTGW</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1&#34;</span>
-<span style="color:#bb60d5">IPV6_DEFAULTDEV</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;he-ipv6&#34;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">NETWORKING_IPV6</span><span style="color:#666">=</span>yes
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6_DEFAULTGW</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;2001:470:&lt;b&gt;1f0a&lt;/b&gt;:a6f::1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">IPV6_DEFAULTDEV</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;he-ipv6&#34;</span></span></span></code></pre></div>
 <p>You can then set up a little <strong>/sbin/ifup-pre-local</strong> script to update the IPv4 tunnel endpoint when your dynamic IP changes or simply add the script on the <strong>/etc/cron.daily</strong> directory and have it executed when you turn up your computer.</p>
 <p><img src="/wp-content/uploads/2012/12/ipv6_test.png" alt="A sample image taken from ipv6-test.com."></p>
 <p><strong>6.</strong> Change the DNS servers on <strong>/etc/resolv.conf</strong>:</p>
 <p><strong>OpenDNS:</strong></p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">nameserver 2620:0:ccc::2
-nameserver 2620:0:ccd::2</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>nameserver 2620:0:ccc::2
+</span></span><span style="display:flex;"><span>nameserver 2620:0:ccd::2</span></span></code></pre></div>
 <p><strong>Google DNS</strong>:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">nameserver 2001:4860:4860::8888
-nameserver 2001:4860:4860::8844</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>nameserver 2001:4860:4860::8888
+</span></span><span style="display:flex;"><span>nameserver 2001:4860:4860::8844</span></span></code></pre></div>
 <p><strong>7.</strong> Restart your network and enjoy IPv6!</p>
 <p><strong>8.</strong> If you want to know more about IPv6 take some time for the <!-- raw HTML omitted -->HE Certification program<!-- raw HTML omitted -->, you will learn a lot and eventually win a sponsored <strong>t-shirt</strong>, I just finished mine :-)</p>
 <p><strong>EDIT</strong>: Be aware of the fact that as soon as the tunnel is up, your computer will be exposed to to the internet without any kind of firewall (the tunnel sets up a direct connection to the internet, even bypassing your router’s firewall), you can secure your machine by using <strong>ip6tables</strong>. Thanks Michael Zanetti for pointing this out!</p>
@@ -386,7 +386,7 @@ nameserver 2001:4860:4860::8844</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

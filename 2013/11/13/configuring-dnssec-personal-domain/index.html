@@ -13,7 +13,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -45,7 +45,7 @@
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2013\/11\/13\/configuring-dnssec-personal-domain\/",
-          "name": "Configuring dns s e c on your personal domain"
+          "name": "Configuring DNS sec on your personal domain"
         }
     }]
 }
@@ -89,7 +89,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -240,79 +240,79 @@
       <article role="main" class="blog-post">
         <p>Today I’ll be working out how to properly configure <!-- raw HTML omitted -->DNSSEC<!-- raw HTML omitted --> on a <strong>BIND9</strong> installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant <strong>SSHFP</strong>‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible <!-- raw HTML omitted -->MITM<!-- raw HTML omitted --> attack.</p>
 <p>First of all, let’s create the Zone Signing Key (<strong>ZSK</strong>) which is the key that will be responsible to sign any other record on the zone file which is not a DNSKEY record itself:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">dnssec-keygen -a RSASHA1 -b <span style="color:#40a070">1024</span> -n ZONE gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>dnssec-keygen -a RSASHA1 -b <span style="color:#40a070">1024</span> -n ZONE gnome.org</span></span></code></pre></div>
 <p><strong>Note:</strong> the dnssec-keygen binary file should be part of bind97 (RHEL 5) or bind (RHEL6) package according to yum whatprovides:</p>
 <p>RHEL 5:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">32:bind97-9.7.0-17.P2.el5_9.2.x86_64 : The Berkeley Internet Name Domain <span style="color:#666">(</span>BIND<span style="color:#666">)</span> DNS <span style="color:#666">(</span>Domain Name System<span style="color:#666">)</span> server
-Repo : rhel-x86_64-server-5
-Matched from:
-Filename : /usr/sbin/dnssec-keygen</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>32:bind97-9.7.0-17.P2.el5_9.2.x86_64 : The Berkeley Internet Name Domain <span style="color:#666">(</span>BIND<span style="color:#666">)</span> DNS <span style="color:#666">(</span>Domain Name System<span style="color:#666">)</span> server
+</span></span><span style="display:flex;"><span>Repo : rhel-x86_64-server-5
+</span></span><span style="display:flex;"><span>Matched from:
+</span></span><span style="display:flex;"><span>Filename : /usr/sbin/dnssec-keygen</span></span></code></pre></div>
 <p>RHEL 6:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">32:bind-9.8.2-0.17.rc1.el6.3.x86_64 : The Berkeley Internet Name Domain <span style="color:#666">(</span>BIND<span style="color:#666">)</span> DNS <span style="color:#666">(</span>Domain Name System<span style="color:#666">)</span> server
-Repo : rhel-x86_64-server-6
-Matched from:
-Filename : /usr/sbin/dnssec-keygen</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>32:bind-9.8.2-0.17.rc1.el6.3.x86_64 : The Berkeley Internet Name Domain <span style="color:#666">(</span>BIND<span style="color:#666">)</span> DNS <span style="color:#666">(</span>Domain Name System<span style="color:#666">)</span> server
+</span></span><span style="display:flex;"><span>Repo : rhel-x86_64-server-6
+</span></span><span style="display:flex;"><span>Matched from:
+</span></span><span style="display:flex;"><span>Filename : /usr/sbin/dnssec-keygen</span></span></code></pre></div>
 <p><!-- raw HTML omitted -->Then, create the Key Signing Key (<!-- raw HTML omitted -->KSK<!-- raw HTML omitted -->), which will be used to sign all the DNSKEY records:<!-- raw HTML omitted --></p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">dnssec-keygen -a RSASHA1 -b <span style="color:#40a070">2048</span> -n ZONE -f KSK gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>dnssec-keygen -a RSASHA1 -b <span style="color:#40a070">2048</span> -n ZONE -f KSK gnome.org</span></span></code></pre></div>
 <p>Creating the above keys can take several minutes, when done copy the public keys to the zone file this way:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">cat Kgnome.org*.key &gt;&gt; gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>cat Kgnome.org*.key &gt;&gt; gnome.org</span></span></code></pre></div>
 <p>When done you can clean out the useless bits from the zone file and just leave the DNSKEY records (which are not commented out as you will notice)</p>
 <p>An additional and cleaner way of accomplishing the above is to use the INCLUDE rule on the zone file itself as follows:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">$INCLUDE</span> /srv/dnssec-keys/Kgnome.org+005+12345.key
-<span style="color:#bb60d5">$INCLUDE</span> /srv/dnssec-keys/Kgnome.org+005+67890.key</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">$INCLUDE</span> /srv/dnssec-keys/Kgnome.org+005+12345.key
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">$INCLUDE</span> /srv/dnssec-keys/Kgnome.org+005+67890.key</span></span></code></pre></div>
 <p>Choosing which method to use is really up to you.</p>
 <p><!-- raw HTML omitted -->Once that is done you can go ahead and sign the zone file. As of myself I’m making use of the <!-- raw HTML omitted --><!-- raw HTML omitted -->do-domain<!-- raw HTML omitted --> <!-- raw HTML omitted -->script taken from the Fedora Infrastructure Team’s repositories. If you are going to use it yourself, make sure to adjust all the relevant variables to match your setup, especially <!-- raw HTML omitted --><!-- raw HTML omitted -->keyspath<!-- raw HTML omitted --><!-- raw HTML omitted -->, <!-- raw HTML omitted --><!-- raw HTML omitted -->region_zones<!-- raw HTML omitted --><!-- raw HTML omitted -->, <!-- raw HTML omitted --><!-- raw HTML omitted -->template_zone<!-- raw HTML omitted --><!-- raw HTML omitted -->, <!-- raw HTML omitted --><!-- raw HTML omitted -->signed_zones<!-- raw HTML omitted --> <!-- raw HTML omitted -->and <!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->ARE<!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted -->A<!-- raw HTML omitted -->. The do-domain script also checks your zone file through <!-- raw HTML omitted --><!-- raw HTML omitted -->named-checkzone<!-- raw HTML omitted --> <!-- raw HTML omitted -->before signing it.<!-- raw HTML omitted --></p>
-<p><img src="/wp-content/uploads/2013/11/gedit-code-assistance.png" alt="/me while editing the do-domains script with the preview of gnome-code-assistance!""></p>
+<p><img src="/wp-content/uploads/2013/11/gedit-code-assistance.png" alt="/me while editing the do-domains script with the preview of gnome-code-assistance!&quot;"></p>
 <p>If instead you don’t want to use the script above, you can sign the zone file manually in the following way:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">dnssec-signzone -K /path/to/your/dnssec/keys -e +3024000 -N INCREMENT gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>dnssec-signzone -K /path/to/your/dnssec/keys -e +3024000 -N INCREMENT gnome.org</span></span></code></pre></div>
 <p>By default, the above command will append ‘.signed’ to the file name, you can modify that behaviour by appending the ‘-f’ flag to the dnssec-signzone call. The ‘-N INCREMENT’ will increment the serial number automatically making use of the RFC 1982 arithmetics while the ‘-e’ flag will extend the zone signature end date from the default 30 days to 35. (this way we can safely run a monthly cron job that will sign the zone file automatically)</p>
 <p>You can make use of the following script to achieve the above:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#007020">#!/bin/sh
-</span><span style="color:#007020"></span><span style="color:#bb60d5">SIGNZONE</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/usr/sbin/dnssec-signzone&#34;</span>
-<span style="color:#bb60d5">DNSSEC_KEYS</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/srv/dnssec-keys&#34;</span>
-<span style="color:#bb60d5">NAMEDCHROOT</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/var/named/chroot&#34;</span>
-<span style="color:#bb60d5">ZONEFILES</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;gnome.org&#34;</span>
-
-<span style="color:#007020">cd</span> <span style="color:#bb60d5">$NAMEDCHROOT</span>
-
-<span style="color:#007020;font-weight:bold">for</span> ZONE in <span style="color:#bb60d5">$ZONEFILES</span>; <span style="color:#007020;font-weight:bold">do</span>
-<span style="color:#bb60d5">$SIGNZONE</span> -K <span style="color:#bb60d5">$DNSSEC_KEYS</span> -e +3024000 -f <span style="color:#bb60d5">$ZONE</span>.signed -N INCREMENT <span style="color:#bb60d5">$ZONE</span>
-<span style="color:#007020;font-weight:bold">done</span>
-
-/sbin/service named reload</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#007020">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#007020"></span><span style="color:#bb60d5">SIGNZONE</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/usr/sbin/dnssec-signzone&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">DNSSEC_KEYS</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/srv/dnssec-keys&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">NAMEDCHROOT</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;/var/named/chroot&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">ZONEFILES</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;gnome.org&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">cd</span> <span style="color:#bb60d5">$NAMEDCHROOT</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">for</span> ZONE in <span style="color:#bb60d5">$ZONEFILES</span>; <span style="color:#007020;font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">$SIGNZONE</span> -K <span style="color:#bb60d5">$DNSSEC_KEYS</span> -e +3024000 -f <span style="color:#bb60d5">$ZONE</span>.signed -N INCREMENT <span style="color:#bb60d5">$ZONE</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>/sbin/service named reload</span></span></code></pre></div>
 <p>Once the zone file has been signed just make sure to include it on named.conf and restart named:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">zone <span style="color:#4070a0">&#34;gnome.org&#34;</span> <span style="color:#666">{</span>
-file <span style="color:#4070a0">&#34;gnome.org.signed&#34;</span>;
-<span style="color:#666">}</span>;</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>zone <span style="color:#4070a0">&#34;gnome.org&#34;</span> <span style="color:#666">{</span>
+</span></span><span style="display:flex;"><span>file <span style="color:#4070a0">&#34;gnome.org.signed&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#666">}</span>;</span></span></code></pre></div>
 <p>When you’re done with that we should be moving ahead adding a <strong>DS</strong> record for our domain at our domain registrar. My example is taken from the known <strong>gandi.net</strong> registrar.</p>
 <p><img src="/wp-content/uploads/2013/11/gandi.png" alt="Gandi DNSSEC Interface"></p>
-<p>Select <strong>KSK (257)</strong> and <strong>(RSA/SHA-1)</strong> on the dropdown list and paste your public key on the box. You will find the public key you need on one of the Kgnome.org*.key files, you should look for the DNSKEY 257 entry as ‘_dig DNSKEY gnome.org_‘ shows:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">;; ANSWER SECTION:
-gnome.org. <span style="color:#40a070">888</span> IN DNSKEY <span style="color:#40a070">257</span> <span style="color:#40a070">3</span> <span style="color:#40a070">5</span> AwEAAbRD7AymDFuKc2iXta7HXZMleMkUMwjOZTsn4f75ZUp0of8TJdlU DtFtqifEBnFcGJU5r+ZVvkBKQ0qDTTjayL54Nz56XGGoIBj6XxbG8Es+ VbZCg0RsetDk5EsxLst0egrvOXga27jbsJ+7Me3D5Xp1bkBnQMrXEXQ9 C43QfO2KUWJVljo1Bii3fTfnHSLRUsbRn8Puz+orK71qxs3G9mgGR6rm n91brkpfmHKr3S9Rbxq8iDRWDPiCaWkI7qfASdFk4TLV0gSVlA3OxyW9 TCkPZStZ5r/WRW2jhUY/kjHERQd4qX5dHAuYrjJSV99P6FfCFXoJ3ty5 <span style="color:#bb60d5">s3fl1RZaTo8</span><span style="color:#666">=</span></code></pre></div>
+<p>Select <strong>KSK (257)</strong> and <strong>(RSA/SHA-1)</strong> on the dropdown list and paste your public key on the box. You will find the public key you need on one of the Kgnome.org*.key files, you should look for the DNSKEY 257 entry as ‘<em>dig DNSKEY gnome.org</em>‘ shows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>;; ANSWER SECTION:
+</span></span><span style="display:flex;"><span>gnome.org. <span style="color:#40a070">888</span> IN DNSKEY <span style="color:#40a070">257</span> <span style="color:#40a070">3</span> <span style="color:#40a070">5</span> AwEAAbRD7AymDFuKc2iXta7HXZMleMkUMwjOZTsn4f75ZUp0of8TJdlU DtFtqifEBnFcGJU5r+ZVvkBKQ0qDTTjayL54Nz56XGGoIBj6XxbG8Es+ VbZCg0RsetDk5EsxLst0egrvOXga27jbsJ+7Me3D5Xp1bkBnQMrXEXQ9 C43QfO2KUWJVljo1Bii3fTfnHSLRUsbRn8Puz+orK71qxs3G9mgGR6rm n91brkpfmHKr3S9Rbxq8iDRWDPiCaWkI7qfASdFk4TLV0gSVlA3OxyW9 TCkPZStZ5r/WRW2jhUY/kjHERQd4qX5dHAuYrjJSV99P6FfCFXoJ3ty5 <span style="color:#bb60d5">s3fl1RZaTo8</span><span style="color:#666">=</span></span></span></code></pre></div>
 <p>Once that is done you should have a fully covered DNSSEC domain, you can verify that this way:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">dig . DNSKEY | grep -Ev <span style="color:#4070a0">&#39;^($|;)&#39;</span> &gt; root.keys
-
-dig +sigchase +trusted-key<span style="color:#666">=</span>./root.keys gnome.org. A | cat -n</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>dig . DNSKEY | grep -Ev <span style="color:#4070a0">&#39;^($|;)&#39;</span> &gt; root.keys
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dig +sigchase +trusted-key<span style="color:#666">=</span>./root.keys gnome.org. A | cat -n</span></span></code></pre></div>
 <p>The result:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#40a070">105</span> ;; WE HAVE MATERIAL, WE NOW DO VALIDATION
-<span style="color:#40a070">106</span> ;; VERIFYING DS RRset <span style="color:#007020;font-weight:bold">for</span> org. with DNSKEY:59085: success
-<span style="color:#40a070">107</span> ;; OK We found DNSKEY <span style="color:#666">(</span>or more<span style="color:#666">)</span> to validate the RRset
-<span style="color:#40a070">108</span> ;; Ok, find a Trusted Key in the DNSKEY RRset: <span style="color:#40a070">19036</span>
-<span style="color:#40a070">109</span> ;; VERIFYING DNSKEY RRset <span style="color:#007020;font-weight:bold">for</span> . with DNSKEY:19036: success
-<span style="color:#40a070">110</span>
-<span style="color:#40a070">111</span> ;; Ok this DNSKEY is a Trusted Key, DNSSEC validation is ok: SUCCESS</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#40a070">105</span> ;; WE HAVE MATERIAL, WE NOW DO VALIDATION
+</span></span><span style="display:flex;"><span><span style="color:#40a070">106</span> ;; VERIFYING DS RRset <span style="color:#007020;font-weight:bold">for</span> org. with DNSKEY:59085: success
+</span></span><span style="display:flex;"><span><span style="color:#40a070">107</span> ;; OK We found DNSKEY <span style="color:#666">(</span>or more<span style="color:#666">)</span> to validate the RRset
+</span></span><span style="display:flex;"><span><span style="color:#40a070">108</span> ;; Ok, find a Trusted Key in the DNSKEY RRset: <span style="color:#40a070">19036</span>
+</span></span><span style="display:flex;"><span><span style="color:#40a070">109</span> ;; VERIFYING DNSKEY RRset <span style="color:#007020;font-weight:bold">for</span> . with DNSKEY:19036: success
+</span></span><span style="display:flex;"><span><span style="color:#40a070">110</span>
+</span></span><span style="display:flex;"><span><span style="color:#40a070">111</span> ;; Ok this DNSKEY is a Trusted Key, DNSSEC validation is ok: SUCCESS</span></span></code></pre></div>
 <p><strong>Bonus content: Adding SSHFP entries for your domain and verifying them</strong></p>
 <p>You can retrieve the SSHFP entries for a specific host with the following command:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ssh-keygen -r <span style="color:#007020;font-weight:bold">$(</span>hostname --fqdn<span style="color:#007020;font-weight:bold">)</span> -f /etc/ssh/ssh_host_rsa_key.pub</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ssh-keygen -r <span style="color:#007020;font-weight:bold">$(</span>hostname --fqdn<span style="color:#007020;font-weight:bold">)</span> -f /etc/ssh/ssh_host_rsa_key.pub</span></span></code></pre></div>
 <p>When retrieved just add the <strong>SSHFP</strong> entry on the zone file for your domain and verify it:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">ssh -oVerifyHostKeyDNS<span style="color:#666">=</span>yes -v subdomain.gnome.org</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ssh -oVerifyHostKeyDNS<span style="color:#666">=</span>yes -v subdomain.gnome.org</span></span></code></pre></div>
 <p>Or directly add the above parameter into your /etc/ssh/ssh_config file this way:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">VerifyHostKeyDNS</span><span style="color:#666">=</span>yes</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">VerifyHostKeyDNS</span><span style="color:#666">=</span>yes</span></span></code></pre></div>
 <p>And run ‘ssh -v subdomain.gnome.org’, the result you should receive:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">debug1: Server host key: RSA 00:39:fd:1a:a4:2c:6b:28:b8:2e:95:31:c2:90:72:03
-debug1: found <span style="color:#40a070">1</span> secure fingerprints in DNS
-debug1: matching host key fingerprint found in DNS
-debug1: ssh_rsa_verify: signature correct</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>debug1: Server host key: RSA 00:39:fd:1a:a4:2c:6b:28:b8:2e:95:31:c2:90:72:03
+</span></span><span style="display:flex;"><span>debug1: found <span style="color:#40a070">1</span> secure fingerprints in DNS
+</span></span><span style="display:flex;"><span>debug1: matching host key fingerprint found in DNS
+</span></span><span style="display:flex;"><span>debug1: ssh_rsa_verify: signature correct</span></span></code></pre></div>
 <p>That’s it! Enjoy!</p>
 
 
@@ -406,7 +406,7 @@ debug1: ssh_rsa_verify: signature correct</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

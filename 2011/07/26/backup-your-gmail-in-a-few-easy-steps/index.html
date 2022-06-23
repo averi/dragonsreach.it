@@ -14,7 +14,7 @@
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -91,7 +91,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -247,64 +247,64 @@
 <li>Keep your backups <strong>up-to-date</strong> with the <strong>latest</strong> content from your mailbox. (by default getmail grabs all the DATA from your mailbox and fills up the Mbox / Maildir content keeping deleted mails. So let’s say I deleted a mail two days ago, well it’ll still appear on today’s backups. This behaviour is definitely unwanted)</li>
 </ol>
 <p>I’ll now move to explain a few details about my new configuration but before moving to tweak getmail’s main config file, please do the following change on <strong>_retrieverbases.py</strong>* :</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(RFC822)&#39;</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(RFC822)&#39;</span>)</span></span></code></pre></div>
 <p><strong>to</strong></p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Python" data-lang="Python"><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(BODY.PEEK[])&#39;</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(BODY.PEEK[])&#39;</span>)</span></span></code></pre></div>
 <p>When done grab the following <em><strong>getmailrc</strong></em> and adapt it to your needs**:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#007020;font-weight:bold">[retriever]</span>
-<span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.</span>
-<span style="color:#4070a0">server</span> <span style="color:#666">=</span> <span style="color:#4070a0">imap.gmail.com ## or pop.gmail.com for POP3.</span>
-<span style="color:#4070a0">username</span> <span style="color:#666">=</span> <span style="color:#4070a0">example@gmail.com</span>
-<span style="color:#4070a0">password</span> <span style="color:#666">=</span> <span style="color:#4070a0">password</span>
-
-<span style="color:#60a0b0;font-style:italic">## so-called Gmail&#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.</span>
-
-<span style="color:#4070a0">mailboxes</span> <span style="color:#666">=</span> <span style="color:#4070a0">(&#34;INBOX&#34;, &#34;[Gmail]/Sent mail&#34;,</span>
-<span style="color:#4070a0">&#34;ubuntu&#34;, &#34;gnome/example&#34;, &#34;linux/example&#34;)</span>
-
-<span style="color:#007020;font-weight:bold">[destination]</span>
-<span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">Mboxrd</span>
-<span style="color:#4070a0">path</span> <span style="color:#666">=</span> <span style="color:#4070a0">~/.getmail/backup.mbox</span>
-
-<span style="color:#007020;font-weight:bold">[options]</span>
-<span style="color:#4070a0">delivered_to</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No delivered_to header added automatically.</span>
-<span style="color:#4070a0">received</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No received header added automatically.</span>
-<span style="color:#4070a0">verbose</span> <span style="color:#666">=</span> <span style="color:#4070a0">2 ## getmail will print messages about each of its actions.</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[retriever]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">server</span> <span style="color:#666">=</span> <span style="color:#4070a0">imap.gmail.com ## or pop.gmail.com for POP3.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">username</span> <span style="color:#666">=</span> <span style="color:#4070a0">example@gmail.com</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">password</span> <span style="color:#666">=</span> <span style="color:#4070a0">password</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">## so-called Gmail&#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">mailboxes</span> <span style="color:#666">=</span> <span style="color:#4070a0">(&#34;INBOX&#34;, &#34;[Gmail]/Sent mail&#34;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#34;ubuntu&#34;, &#34;gnome/example&#34;, &#34;linux/example&#34;)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[destination]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">Mboxrd</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">path</span> <span style="color:#666">=</span> <span style="color:#4070a0">~/.getmail/backup.mbox</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[options]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">delivered_to</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No delivered_to header added automatically.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">received</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No received header added automatically.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">verbose</span> <span style="color:#666">=</span> <span style="color:#4070a0">2 ## getmail will print messages about each of its actions.</span></span></span></code></pre></div>
 <p>When done we should go ahead setting up getmail’s directories and config file:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">mkdir <span style="color:#bb60d5">$HOME</span>/.getmail
-cp <span style="color:#bb60d5">$HOME</span>/getmailrc <span style="color:#bb60d5">$HOME</span>/.getmail/</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>mkdir <span style="color:#bb60d5">$HOME</span>/.getmail
+</span></span><span style="display:flex;"><span>cp <span style="color:#bb60d5">$HOME</span>/getmailrc <span style="color:#bb60d5">$HOME</span>/.getmail/</span></span></code></pre></div>
 <p>Adapt <strong>$HOME/getmailrc</strong> to whatever dir you put that file into. But…pretty much all the remaining work will be done by a small shell script I wrote:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#007020">#!/bin/sh
-</span><span style="color:#007020"></span>
-<span style="color:#bb60d5">WORKDIR</span><span style="color:#666">=</span><span style="color:#bb60d5">$HOME</span>/.getmail
-<span style="color:#bb60d5">date</span><span style="color:#666">=</span><span style="color:#4070a0">`</span>date <span style="color:#4070a0">&#34;+%d-%m-%Y_%H:%M&#34;</span><span style="color:#4070a0">`</span>
-
-<span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f  <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#666">]</span>
-<span style="color:#007020;font-weight:bold">then</span>
-touch <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox
-<span style="color:#007020;font-weight:bold">fi</span>
-
-getmail &gt; <span style="color:#bb60d5">$WORKDIR</span>/getmail.log
-<span style="color:#bb60d5">OUT</span><span style="color:#666">=</span><span style="color:#bb60d5">$?</span>
-<span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">0</span> <span style="color:#666">]</span>
-<span style="color:#007020;font-weight:bold">then</span>
-mkdir -p <span style="color:#bb60d5">$WORKDIR</span>/backups/ <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> mv <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#bb60d5">$WORKDIR</span>/backups/backup_<span style="color:#bb60d5">$date</span>.mbox ;<span style="color:#666">}</span>
-<span style="color:#007020;font-weight:bold">else</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">1</span> <span style="color:#666">]</span>
-<span style="color:#007020">exit</span> <span style="color:#40a070">1</span>
-<span style="color:#007020;font-weight:bold">fi</span>
-
-<span style="color:#60a0b0;font-style:italic">## Cleanup older than 3 days backups</span>
-find <span style="color:#bb60d5">$WORKDIR</span>/backups/* -mtime +3 -exec rm <span style="color:#666">{}</span> ;
-<span style="color:#007020">cd</span> <span style="color:#bb60d5">$WORKDIR</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> rm -rf oldmail-* ;<span style="color:#666">}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#007020">#!/bin/sh
+</span></span></span><span style="display:flex;"><span><span style="color:#007020"></span>
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">WORKDIR</span><span style="color:#666">=</span><span style="color:#bb60d5">$HOME</span>/.getmail
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">date</span><span style="color:#666">=</span><span style="color:#4070a0">`</span>date <span style="color:#4070a0">&#34;+%d-%m-%Y_%H:%M&#34;</span><span style="color:#4070a0">`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f  <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>touch <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>getmail &gt; <span style="color:#bb60d5">$WORKDIR</span>/getmail.log
+</span></span><span style="display:flex;"><span><span style="color:#bb60d5">OUT</span><span style="color:#666">=</span><span style="color:#bb60d5">$?</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">0</span> <span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">then</span>
+</span></span><span style="display:flex;"><span>mkdir -p <span style="color:#bb60d5">$WORKDIR</span>/backups/ <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> mv <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#bb60d5">$WORKDIR</span>/backups/backup_<span style="color:#bb60d5">$date</span>.mbox ;<span style="color:#666">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">else</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">1</span> <span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">exit</span> <span style="color:#40a070">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">fi</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">## Cleanup older than 3 days backups</span>
+</span></span><span style="display:flex;"><span>find <span style="color:#bb60d5">$WORKDIR</span>/backups/* -mtime +3 -exec rm <span style="color:#666">{}</span> ;
+</span></span><span style="display:flex;"><span><span style="color:#007020">cd</span> <span style="color:#bb60d5">$WORKDIR</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> rm -rf oldmail-* ;<span style="color:#666">}</span></span></span></code></pre></div>
 <p>This script will:</p>
 <ol>
 <li>Run getmail using the getmailrc config file you previously worked on.</li>
-<li>If the above command will be successful, it’ll create a_ **backups**_ dir into **$HOME/.getmail** and move the latest Mbox file there appending a date and time to its name. (by doing this we are sure next getmail run will happen on an empty **backup.mbox** file, thus it will just contain the **latest** content from your mailbox)</li>
+<li>If the above command will be successful, it’ll create a_ <strong>backups</strong>_ dir into <strong>$HOME/.getmail</strong> and move the latest Mbox file there appending a date and time to its name. (by doing this we are sure next getmail run will happen on an empty <strong>backup.mbox</strong> file, thus it will just contain the <strong>latest</strong> content from your mailbox)</li>
 <li>It’ll re-create a <strong>backup.mbox</strong> file on <strong>$HOME/.getmail</strong> to avoid the next getmail run to fail.</li>
 <li>In the end, it’ll clean up older than 3 days backups to avoid a too crowded <strong>backups</strong> folder. (it removes the oldmail file as well since it is useless in our case)</li>
 </ol>
 <p>In the end set up a cronjob that will run the above script and generate the backups for you every one hour:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#40a070">0</span> * * * * <span style="color:#bb60d5">$HOME</span>/.getmail/getmail_run.sh &gt; /dev/null</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#40a070">0</span> * * * * <span style="color:#bb60d5">$HOME</span>/.getmail/getmail_run.sh &gt; /dev/null</span></span></code></pre></div>
 <p>Feel free to let me know if you’ve encountered any issue while following the above HowTo. Enjoy!</p>
 <p>* /usr/share/getmail4/getmailcore/<strong>_retrieverbases.py</strong> on line <strong>901</strong>.</p>
 <p>** More documentation about the <em><strong>getmailrc</strong></em> file and syntax can be found on getmail’s <!-- raw HTML omitted -->documentation<!-- raw HTML omitted --> page.</p>
@@ -402,7 +402,7 @@ find <span style="color:#bb60d5">$WORKDIR</span>/backups/* -mtime +3 -exec rm <s
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

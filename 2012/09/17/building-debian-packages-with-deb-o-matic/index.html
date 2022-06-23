@@ -15,7 +15,7 @@ It provides a simple tool to automate build of source packages with limited user
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -93,7 +93,7 @@ It provides a simple tool to automate build of source packages with limited user
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -249,49 +249,49 @@ It provides a simple tool to automate build of source packages with limited user
 </blockquote>
 <p>The <strong>setup.</strong></p>
 <p>Download the package.</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">apt-get install debomatic</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>apt-get install debomatic</span></span></code></pre></div>
 <p>Modify the <strong>main</strong> configuration file as follows:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#007020;font-weight:bold">[default]</span>
-<span style="color:#4070a0">builder: pbuilder</span>
-<span style="color:#4070a0">packagedir: /home/john/debomatic # Take note of the following path since we&#39;ll need it for later use.</span>
-<span style="color:#4070a0">configdir: /etc/debomatic/distributions</span>
-<span style="color:#4070a0">pbuilderhooks: /usr/share/debomatic/pbuilderhooks</span>
-<span style="color:#4070a0">maxbuilds: 3 # The number of builds you can perform at the same time.</span>
-<span style="color:#4070a0">inotify: 1</span>
-<span style="color:#4070a0">sleep: 60 # The sleep time between one build and another.</span>
-<span style="color:#4070a0">logfile: /var/log/debomatic.log</span>
-
-<span style="color:#007020;font-weight:bold">[gpg]</span>
-<span style="color:#4070a0">gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.</span>
-<span style="color:#4070a0">keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.</span>
-
-<span style="color:#007020;font-weight:bold">[modules]</span>
-<span style="color:#4070a0">modules: 1 # A list of all the available modules will follow right after.</span>
-<span style="color:#4070a0">modulespath: /usr/share/debomatic/modules</span>
-
-<span style="color:#007020;font-weight:bold">[runtime]</span>
-<span style="color:#4070a0">alwaysupdate: unstable experimental precise</span>
-<span style="color:#4070a0">distblacklist:</span>
-<span style="color:#4070a0">modulesblacklist: Lintian Mailer</span>
-<span style="color:#4070a0">mapper: {&#39;sid&#39;: &#39;unstable&#39;,</span>
-<span style="color:#4070a0">&#39;wheezy&#39;: &#39;testing&#39;,</span>
-<span style="color:#4070a0">&#39;squeeze&#39;: &#39;stable&#39;}</span>
-
-<span style="color:#007020;font-weight:bold">[lintian]</span>
-<span style="color:#4070a0">lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.</span>
-
-<span style="color:#4070a0">[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &#39;Ssmtp&#39; daemon which is a one-minute-setup MTA, check an example over &lt;a href</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.</span>
-<span style="color:#4070a0">fromaddr: debomatic@localhost</span>
-<span style="color:#4070a0">smtphost: localhost</span>
-<span style="color:#4070a0">smtpport: 25</span>
-<span style="color:#4070a0">authrequired: 0</span>
-<span style="color:#4070a0">smtpuser: user</span>
-<span style="color:#4070a0">smtppass: pass</span>
-<span style="color:#4070a0">success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.</span>
-<span style="color:#4070a0">failure: /etc/debomatic/mailer/build_failure.mail-template</span>
-
-<span style="color:#007020;font-weight:bold">[internals]</span>
-<span style="color:#4070a0">configversion</span> <span style="color:#666">=</span> <span style="color:#4070a0">010a</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[default]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">builder: pbuilder</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">packagedir: /home/john/debomatic # Take note of the following path since we&#39;ll need it for later use.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">configdir: /etc/debomatic/distributions</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">pbuilderhooks: /usr/share/debomatic/pbuilderhooks</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">maxbuilds: 3 # The number of builds you can perform at the same time.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">inotify: 1</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">sleep: 60 # The sleep time between one build and another.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">logfile: /var/log/debomatic.log</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[gpg]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[modules]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">modules: 1 # A list of all the available modules will follow right after.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">modulespath: /usr/share/debomatic/modules</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[runtime]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">alwaysupdate: unstable experimental precise</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">distblacklist:</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">modulesblacklist: Lintian Mailer</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">mapper: {&#39;sid&#39;: &#39;unstable&#39;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;wheezy&#39;: &#39;testing&#39;,</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;squeeze&#39;: &#39;stable&#39;}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[lintian]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &#39;Ssmtp&#39; daemon which is a one-minute-setup MTA, check an example over &lt;a href</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">fromaddr: debomatic@localhost</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtphost: localhost</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtpport: 25</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">authrequired: 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtpuser: user</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtppass: pass</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">failure: /etc/debomatic/mailer/build_failure.mail-template</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[internals]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">configversion</span> <span style="color:#666">=</span> <span style="color:#4070a0">010a</span></span></span></code></pre></div>
 <p>The available modules are:</p>
 <ol>
 <li> “<strong>Contents</strong>“, which acts as a ‘dpkg -c’ over the built packages.</li>
@@ -302,44 +302,44 @@ It provides a simple tool to automate build of source packages with limited user
 <li>“<strong>Repository</strong>“, which generates a local repository of built packages.</li>
 </ol>
 <p>Configure ‘<!-- raw HTML omitted -->dput<!-- raw HTML omitted -->‘ to upload package’s sources to your local repository, edit the <strong>/etc/dput.cf</strong> file and add this entry:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#007020;font-weight:bold">[debomatic]</span>
-<span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">local</span>
-<span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/home/john/debomatic</span>
-
-<span style="color:#4070a0">or the following if you are going to upload the files to a different machine through SSH:</span>
-
-<span style="color:#007020;font-weight:bold">[debomatic]</span>
-<span style="color:#4070a0">login</span> <span style="color:#666">=</span> <span style="color:#4070a0">john</span>
-<span style="color:#4070a0">fqdn</span> <span style="color:#666">=</span> <span style="color:#4070a0">debomatic.example.net</span>
-<span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">scp</span>
-<span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/debomatic</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[debomatic]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">local</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/home/john/debomatic</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">or the following if you are going to upload the files to a different machine through SSH:</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[debomatic]</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">login</span> <span style="color:#666">=</span> <span style="color:#4070a0">john</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">fqdn</span> <span style="color:#666">=</span> <span style="color:#4070a0">debomatic.example.net</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">scp</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/debomatic</span></span></span></code></pre></div>
 <p>Add a new <strong>Virtual Host</strong> on Apache and access the repository / built packages directly through your browser:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Apache" data-lang="Apache"><span style="color:#062873;font-weight:bold">&lt;VirtualHost</span> <span style="color:#4070a0">*:80</span><span style="color:#062873;font-weight:bold">&gt;</span>
-
-<span style="color:#007020">ServerAdmin</span> john@example.net
-<span style="color:#007020">ServerName</span> debomatic.example.net
-<span style="color:#007020">DocumentRoot</span> <span style="color:#c65d09">/home/john/debomatic</span>
-
-<span style="color:#062873;font-weight:bold">&lt;Directory</span> <span style="color:#4070a0">/home/john/debomatic</span><span style="color:#062873;font-weight:bold">&gt;</span>
-<span style="color:#007020">Options</span> Indexes FollowSymLinks MultiViews
-<span style="color:#007020">AllowOverride</span> <span style="color:#007020;font-weight:bold">None</span>
-<span style="color:#007020">Order</span> allow,deny
-<span style="color:#007020">allow</span> from <span style="color:#007020;font-weight:bold">all</span>
-<span style="color:#062873;font-weight:bold">&lt;Directory&gt;</span>
-
-<span style="color:#062873;font-weight:bold">&lt;/VirtualHost&gt;</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Apache" data-lang="Apache"><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;VirtualHost</span> <span style="color:#4070a0">*:80</span><span style="color:#062873;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">ServerAdmin</span> john@example.net
+</span></span><span style="display:flex;"><span><span style="color:#007020">ServerName</span> debomatic.example.net
+</span></span><span style="display:flex;"><span><span style="color:#007020">DocumentRoot</span> <span style="color:#c65d09">/home/john/debomatic</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;Directory</span> <span style="color:#4070a0">/home/john/debomatic</span><span style="color:#062873;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">Options</span> Indexes FollowSymLinks MultiViews
+</span></span><span style="display:flex;"><span><span style="color:#007020">AllowOverride</span> <span style="color:#007020;font-weight:bold">None</span>
+</span></span><span style="display:flex;"><span><span style="color:#007020">Order</span> allow,deny
+</span></span><span style="display:flex;"><span><span style="color:#007020">allow</span> from <span style="color:#007020;font-weight:bold">all</span>
+</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;Directory&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;/VirtualHost&gt;</span></span></span></code></pre></div>
 <p>Start the daemon:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">sudo /etc/init.d/debomatic start</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>sudo /etc/init.d/debomatic start</span></span></code></pre></div>
 <p>(<strong>Optional</strong>) Add your repository to <strong>APT</strong>‘s sources.list:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">deb http://debomatic.example.net/ unstable main contrib non-free</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>deb http://debomatic.example.net/ unstable main contrib non-free</span></span></code></pre></div>
 <p>(<strong>Optional</strong>) Start Deb-O-Matic at system’s startup by modifying the <strong>/etc/init.d/debomatic</strong> file at <strong>line 21</strong>:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">- <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-- <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">0</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-
-+ <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-+ <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>- <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
+</span></span><span style="display:flex;"><span>- <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">0</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>+ <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
+</span></span><span style="display:flex;"><span>+ <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span></span></span></code></pre></div>
 <p>and finally add it to the desired <strong>runlevels</strong>:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">update-rc.d debomatic defaults</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>update-rc.d debomatic defaults</span></span></code></pre></div>
 <p>Enjoy!</p>
 
 
@@ -433,7 +433,7 @@ It provides a simple tool to automate build of source packages with limited user
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

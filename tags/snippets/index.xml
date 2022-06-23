@@ -5,11 +5,7 @@
     <link>https://www.dragonsreach.it/tags/snippets/</link>
     <description>Recent content in snippets on Andrea Veri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Tue, 31 Jan 2012 18:43:26 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.dragonsreach.it/tags/snippets/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 31 Jan 2012 18:43:26 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/snippets/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>A few useful Puppet snippets</title>
       <link>https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/</link>

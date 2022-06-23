@@ -14,7 +14,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -46,7 +46,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2011\/07\/03\/automatic-gmails-trash-spam-folders-cleanup\/",
-          "name": "Automatic gmail’s trash \x26 spam folders cleanup"
+          "name": "Automatic gmail’s trash \u0026 spam folders cleanup"
         }
     }]
 }
@@ -57,8 +57,8 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
   "author": {
     "name" : "Andrea Veri"
   },
-  "headline": "Automatic Gmail’s Trash \x26 Spam folders cleanup",
-  "description" : "Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash \x26amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash\x26amp;Spam folders empty as they should be makes me pretty happy)\nA few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.",
+  "headline": "Automatic Gmail’s Trash \u0026 Spam folders cleanup",
+  "description" : "Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash \u0026amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash\u0026amp;Spam folders empty as they should be makes me pretty happy)\nA few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.",
   "inLanguage" : "en",
   "wordCount":  389 ,
   "datePublished" : "2011-07-03T21:29:35",
@@ -91,7 +91,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -243,30 +243,30 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
         <p>Since some time I’ve been thinking about a possible way to delete my <strong>Gmail’s Trash &amp; Spam folders</strong> content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I <strong>love</strong> keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty <strong>happy</strong>)</p>
 <p>A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a <strong>great</strong> piece of software: <!-- raw HTML omitted -->imapfilter<!-- raw HTML omitted -->. Today while analyzing the above quoted issue I suddenly told myself: “Hey, but why don’t you use your dear and old friend imapfilter to fulfil your needs?”</p>
 <p>After a few minutes I came up with a small <em>lua</em> script that was doing exactly what I wanted: my <strong>Trash&amp;Spam folders</strong> are no longer crowded and I finally don’t have to delete mails twice! But here they come a few details about my script:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#4070a0">options.timeout</span> <span style="color:#666">=</span> <span style="color:#4070a0">120</span>
-<span style="color:#4070a0">options.subscribe</span> <span style="color:#666">=</span> <span style="color:#4070a0">true</span>
-
-<span style="color:#4070a0">account</span> <span style="color:#666">=</span> <span style="color:#4070a0">IMAP {
-</span><span style="color:#4070a0"> server = &#39;imap.gmail.com&#39;,
-</span><span style="color:#4070a0"> username = &#39;example@gmail.com&#39;,
-</span><span style="color:#4070a0"> password = &#39;password&#39;,
-</span><span style="color:#4070a0"> ssl = &#39;ssl3&#39;
-</span><span style="color:#4070a0"> }</span>
-
-<span style="color:#4070a0">trash</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
-<span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
-
-<span style="color:#4070a0">spam</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
-<span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#4070a0">options.timeout</span> <span style="color:#666">=</span> <span style="color:#4070a0">120</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">options.subscribe</span> <span style="color:#666">=</span> <span style="color:#4070a0">true</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">account</span> <span style="color:#666">=</span> <span style="color:#4070a0">IMAP {
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> server = &#39;imap.gmail.com&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> username = &#39;example@gmail.com&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> password = &#39;password&#39;,
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> ssl = &#39;ssl3&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> }</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">trash</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">spam</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
+</span></span><span style="display:flex;"><span><span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></span></span></code></pre></div>
 <p>The script does two things:</p>
 <ol>
 <li>It checks whether a mail is <strong>not</strong> marked as “deleted” (moving an e-mail into the Trash does <strong>not</strong> mark it as “<strong>to be deleted</strong>” automatically) already and removes it.</li>
 <li>It checks whether a mail on the Spam folder has been <strong>answered</strong> (I never had to answer a single e-mail contained into my Spam folder)  and if <strong>not</strong> removes it.</li>
 </ol>
 <p>Using the above script is really easy (you should run imapfilter on <strong>interactive mode</strong> first to generate Gmail’s <strong>certificates,</strong> do that before having cron to run the script for you or otherwise it’ll just hang), just make sure to have <strong>imapfilter</strong> installed on your system and then run it through cron every half an hour or less depending on your needs:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">crontab -e
-
-*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>crontab -e
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</span></span></code></pre></div>
 <p>Please also remember to setup appropriate permissions on the config file since it contains your Gmail’s <strong>password</strong> and most of all make sure that your Spam folder is <strong>visible</strong> through IMAP (this option can be found on the <strong>label</strong> menu available under your <!-- raw HTML omitted -->Gmail’s settings<!-- raw HTML omitted -->) otherwise imapfilter will just report an error.</p>
 <p>Enjoy!</p>
 <p> </p>
@@ -366,7 +366,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

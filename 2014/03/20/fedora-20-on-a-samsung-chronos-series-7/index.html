@@ -14,7 +14,7 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -91,7 +91,7 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -271,9 +271,9 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
 <li>An LVM Volume Group that will store the /home and swap space so you can expand it to be more than just <strong>5G / 1.5G</strong>. The LVM VolGroup should ideally go on its own partition on <em>/dev/sda</em></li>
 </ol>
 <p>When the system has been installed, mount the <em>/dev/sda</em> boot partition you previously created and install grub:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">mount /dev/sda3 /mnt/boot-sda
-
-grub2-install /dev/sda</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>mount /dev/sda3 /mnt/boot-sda
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>grub2-install /dev/sda</span></span></code></pre></div>
 <p>I did assume <em>/dev/sda3</em> was your /boot partition, make sure to check that is right for your case as well. (just run <em>fdisk -l /dev/sda</em> to find out)</p>
 <p>When done, mount the <em>/dev/sdb1</em> partition and copy all the files to the previously created mount point /mnt/boot-sda. From there figure out the UUID (<em>ls -l /dev/disk/by-uuid</em>) for the /dev/sda3 partition and modify the relevant entries on the <em>/boot/grub2/grub.cfg</em> file removing the UUID for the <em>/dev/sdb1</em> (in my case that was the partition containing /boot) partition with the one of <em>/dev/sda3</em>. Save the file and reboot the machine.</p>
 <p>You should then be able to unmount the /boot partition from <em>/dev/sdb1</em> and modify the relevant <em>/etc/fstab</em> entry with <em>/dev/sda3</em>‘s UUID. That way new kernel’s installations will be handled correctly without the need to manually edit <em>/boot/grub2/grub.cfg</em> and moving around the initramfs / vmlinuz images. At this point it should be safe to remove the <em>/dev/sdb1</em> partition completely.</p>
@@ -296,7 +296,7 @@ grub2-install /dev/sda</code></pre></div>
 <p>Given there’s no RPM available for samsung-tools, downloading the tarball and running make as root should suffice for installing it on your laptop.</p>
 <h3 id="kernel-flags">Kernel flags</h3>
 <p>What seem to have helped me a lot with the high CPU temperatures (and thus with the noisy fans going on and on) are the following Kernel flags you should pass to Grub through the <em>/etc/sysconfig/grub</em> file on the <em>GRUB_CMDLINE_LINUX</em> line:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#bb60d5">pcie_aspm</span><span style="color:#666">=</span>force i915.i915_enable_rc6<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.i915_enable_fbc<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.lvds_downclock<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.semaphores<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.modeset<span style="color:#666">=</span><span style="color:#40a070">1</span> <span style="color:#bb60d5">acpi_osi</span><span style="color:#666">=</span>Linux <span style="color:#bb60d5">rdblacklist</span><span style="color:#666">=</span>nouveau</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">pcie_aspm</span><span style="color:#666">=</span>force i915.i915_enable_rc6<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.i915_enable_fbc<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.lvds_downclock<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.semaphores<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.modeset<span style="color:#666">=</span><span style="color:#40a070">1</span> <span style="color:#bb60d5">acpi_osi</span><span style="color:#666">=</span>Linux <span style="color:#bb60d5">rdblacklist</span><span style="color:#666">=</span>nouveau</span></span></code></pre></div>
 <h3 id="additional-notes">Additional notes</h3>
 <p>The above procedure has been tested with the laptop having the following <!-- raw HTML omitted -->specs<!-- raw HTML omitted -->.</p>
 <p>The average temperature for the CPU is sticking around <strong>47-51 C</strong>, while the discrete GPU at <strong>49-51C</strong>. I could also get around 3.5 – 4 hours of battery life!</p>
@@ -395,7 +395,7 @@ grub2-install /dev/sda</code></pre></div>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

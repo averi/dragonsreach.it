@@ -14,7 +14,7 @@ But here we go with a little step-by-step guide:">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
-    "name": "Andrea Veri\x27s Blog",
+    "name": "Andrea Veri\u0027s Blog",
     
     "url": "https:\/\/www.dragonsreach.it"
 }
@@ -46,7 +46,7 @@ But here we go with a little step-by-step guide:">
         "position": 3,
         "item": {
           "@id": "https:\/\/www.dragonsreach.it\/2012\/06\/30\/nagios-irc-notifications\/",
-          "name": "Nagios i r c notifications"
+          "name": "Nagios irc notifications"
         }
     }]
 }
@@ -58,7 +58,7 @@ But here we go with a little step-by-step guide:">
     "name" : "Andrea Veri"
   },
   "headline": "Nagios IRC Notifications",
-  "description" : "Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: supybot \x2b supybot-notify, all that mixed up with a few grains of Nagios command definitions.\nBut here we go with a little step-by-step guide:",
+  "description" : "Lately (as I earlier pointed out on my blog) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: supybot \u002b supybot-notify, all that mixed up with a few grains of Nagios command definitions.\nBut here we go with a little step-by-step guide:",
   "inLanguage" : "en",
   "wordCount":  316 ,
   "datePublished" : "2012-06-30T12:59:28",
@@ -91,7 +91,7 @@ But here we go with a little step-by-step guide:">
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@andrea_veri" />
   <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.69.0" />
+  <meta name="generator" content="Hugo 0.93.3" />
   <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
@@ -246,44 +246,44 @@ But here we go with a little step-by-step guide:">
 <ol>
 <li>Install supybot and configure a new installation:</li>
 </ol>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">apt-get install supybot or yum install supybot
-mkdir /home/<span style="color:#bb60d5">$user</span>/nagbot <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> /home/<span style="color:#bb60d5">$user</span>/nagbot
-supybot-wizard <span style="color:#666">(</span>follow the directions to get the bot initially configured<span style="color:#666">)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>apt-get install supybot or yum install supybot
+</span></span><span style="display:flex;"><span>mkdir /home/<span style="color:#bb60d5">$user</span>/nagbot <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> /home/<span style="color:#bb60d5">$user</span>/nagbot
+</span></span><span style="display:flex;"><span>supybot-wizard <span style="color:#666">(</span>follow the directions to get the bot initially configured<span style="color:#666">)</span></span></span></code></pre></div>
 <ol start="2">
 <li>Install and load the supybot-notify plugin by doing:</li>
 </ol>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">git clone git://git.fedorahosted.org/supybot-notify.git <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> supybot-notify
-mkdir -p /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify <span style="color:#666">&amp;&amp;</span> cp -r * /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>git clone git://git.fedorahosted.org/supybot-notify.git <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">cd</span> supybot-notify
+</span></span><span style="display:flex;"><span>mkdir -p /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify <span style="color:#666">&amp;&amp;</span> cp -r * /home/<span style="color:#bb60d5">$user</span>/nagbot/plugins/notify</span></span></code></pre></div>
 <p>Finally, <strong><a href="http://supybook.fealdia.org/devel/#_plugins">load</a></strong> the plugin. (this will require you to <a href="http://supybook.fealdia.org/devel/#_identifying_to_the_bot">authenticate</a> to the bot)</p>
 <p><strong>Nagios configuration</strong></p>
 <p>Add the relevant command definitions to the <strong>commands.cfg</strong> file:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash"><span style="color:#60a0b0;font-style:italic"># &#39;notify-by-ircbot&#39; command definition</span>
-define command<span style="color:#666">{</span>
-    command_name    notify-by-ircbot
-    command_line    /usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0">/</span><span style="color:#bb60d5">$SERVICEDESC</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$SERVICESTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$SERVICEOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
-    <span style="color:#666">}</span>
-
-<span style="color:#60a0b0;font-style:italic"># &#39;host-notify-by-ircbot&#39; command definition</span>
-define command<span style="color:#666">{</span>
-	command_name	host-notify-by-ircbot
-	command_line	/usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$HOSTSTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$HOSTOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
-	<span style="color:#666">}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># &#39;notify-by-ircbot&#39; command definition</span>
+</span></span><span style="display:flex;"><span>define command<span style="color:#666">{</span>
+</span></span><span style="display:flex;"><span>    command_name    notify-by-ircbot
+</span></span><span style="display:flex;"><span>    command_line    /usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0">/</span><span style="color:#bb60d5">$SERVICEDESC</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$SERVICESTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$SERVICEOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#666">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># &#39;host-notify-by-ircbot&#39; command definition</span>
+</span></span><span style="display:flex;"><span>define command<span style="color:#666">{</span>
+</span></span><span style="display:flex;"><span>	command_name	host-notify-by-ircbot
+</span></span><span style="display:flex;"><span>	command_line	/usr/bin/printf <span style="color:#4070a0">&#34;%b&#34;</span> <span style="color:#4070a0">&#34;#channel </span><span style="color:#bb60d5">$NOTIFICATIONTYPE</span>$<span style="color:#4070a0"> - </span><span style="color:#bb60d5">$HOSTALIAS</span>$<span style="color:#4070a0"> is </span><span style="color:#bb60d5">$HOSTSTATE</span>$<span style="color:#4070a0">: </span><span style="color:#bb60d5">$HOSTOUTPUT</span>$<span style="color:#4070a0"> (</span><span style="color:#bb60d5">$$</span><span style="color:#4070a0">(hostname -s))&#34;</span> | nc -w <span style="color:#40a070">1</span> localhost <span style="color:#40a070">5050</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#666">}</span></span></span></code></pre></div>
 <p>* adjust the <strong>Netcat’s</strong> host and port to your needs, in my case Supybot and Nagios were running on the same host. In the case of a Supybot running on a different host than Nagios, tweak Iptables to allow the desired port:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span style="color:#40a070">5050</span> -j ACCEPT</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span style="color:#40a070">5050</span> -j ACCEPT</span></span></code></pre></div>
 <p>Add a new entry on the <strong>contacts.cfg</strong> file:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">define contact<span style="color:#666">{</span>
- 	contact_name    nagbot
-   	use             generic-contact        
-        <span style="color:#007020">alias</span>		Nagios IRC Bot
-        email           example@example.com
-        service_notification_commands   notify-by-ircbot
- 	host_notification_commands      host-notify-by-ircbot
-<span style="color:#666">}</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>define contact<span style="color:#666">{</span>
+</span></span><span style="display:flex;"><span> 	contact_name    nagbot
+</span></span><span style="display:flex;"><span>   	use             generic-contact        
+</span></span><span style="display:flex;"><span>        <span style="color:#007020">alias</span>		Nagios IRC Bot
+</span></span><span style="display:flex;"><span>        email           example@example.com
+</span></span><span style="display:flex;"><span>        service_notification_commands   notify-by-ircbot
+</span></span><span style="display:flex;"><span> 	host_notification_commands      host-notify-by-ircbot
+</span></span><span style="display:flex;"><span><span style="color:#666">}</span></span></span></code></pre></div>
 <p>Reload Nagios:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">sudo /etc/init.d/nagios3 reload</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>sudo /etc/init.d/nagios3 reload</span></span></code></pre></div>
 <p>And finally, enjoy the result:</p>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Bash" data-lang="Bash">PROBLEM - <span style="color:#bb60d5">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span>
- RECOVERY - <span style="color:#bb60d5">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>PROBLEM - <span style="color:#bb60d5">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span> RECOVERY - <span style="color:#bb60d5">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span style="color:#666">(</span>nagioshost<span style="color:#666">)</span></span></span></code></pre></div>
 
 
         
@@ -378,7 +378,7 @@ define command<span style="color:#666">{</span>
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.69.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>

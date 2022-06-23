@@ -5,11 +5,7 @@
     <link>https://www.dragonsreach.it/tags/openshift/</link>
     <description>Recent content in openshift on Andrea Veri&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 18 Oct 2018 10:27:23 +0000</lastBuildDate>
-    
-	<atom:link href="https://www.dragonsreach.it/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 18 Oct 2018 10:27:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The GNOME Infrastructure is moving to Openshift</title>
       <link>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</link>
