@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GNOME Infrastructure Team Report</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css); 
+    
+      body, h1, h2, h3 { font-family: 'FontAwesome'; }
+      .background-main { background-color: #272822; color: #F8F8FF; }
+      .background-slides { background-color: #F8F8FF; color: #000000}
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, background-main
+
+# GNOME Infrastructure Team Report 
+### Andrea Veri
+#### In my father's memory
+
+GUADEC 2022, Guadalajara, Mexico
+
+---
+
+class: background-slides
+
+## Core Technologies in use
+
+- Openshift 4
+- Openshift Virtualization
+- Ceph Storage (2 clusters)
+- GitLab CI/CD
+- Quay.io
+- Prometheus/Alertmanager
+
+---
+
+class: background-slides
+
+## Hardware specs
+
+- 3 Dell R650 - 260G RAM, 56 cores, OCP 4
+- 3 Dell R640 - 190G RAM, 48 cores, Ceph 
+
+---
+
+class: background-slides
+
+## Architecture
+
+- For OCP 4
+  - 3 nodes cluster, masters == workers
+  - LB via DNS RR (not ideal, we approached several
+    vendors in order to receive a discount for any of
+    the available LB services, no luck as of today)
+  - On demand SSD storage via Rook
+  - Support for container and VM based workloads (OCP Virt)
+  - Infrastructure as code: each of the hosted tenants
+    is managed on GitLab with images built via CI/CD and
+    pushed to quay.io for consumption
+  - Monitored via Prometheus, Alertmanager
+  - Cert management handled via cert-manager and LE
+
+???
+About quay.io benefits: no need to maintain a self hosted
+image registry + unlimited number of publicly available
+images.
+
+---
+
+class: background-slides
+
+## Architecture
+
+- For Ceph, 3 nodes cluster, storage types:
+  - Block
+  - CephFS
+  - RadosGW
+
+- For GitLab:
+  - Most of the services running on a single VM
+  - Pages runs on OCP 4
+  - Storage for static content lives on S3
+  - Repositories on Ceph RBD
+
+---
+
+class: background-slides
+
+## Architecture
+
+For Prometheus:
+ - Multiple exporters: OCP 4, BBB, Node, GitLab, Ceph 
+ - Grafana with multiple datasources
+ - Alertmanager with a set of predefined rules + Pagerduty
+ - Blackbox for anything HTTP/HTTPS and latency monitoring
+
+---
+
+class: background-slides
+
+## Achievements over the past 4 years
+
+- Ceph cluster architecture and deployment
+- OCP 3 deployment and mass migration of services
+  from VMs to containers
+- OCP 4 deployment and migration from OCP 3 (EOL in June 2022)
+- RHEL 7 to RHEL 8
+- Puppet --> Ansible
+- Static resources served via CDN77
+
+---
+
+class: background-slides
+
+## CI/CD @ GNOME - some stats
+
+|Runner name|Days since added|Total number of jobs|Jobs per day|
+|bbb-gitlab-runner|22|4319|196|
+|progress.gnome.org-KVM|21|167|7|
+|osuosl-x86-2-ASAN|21|123|5|
+|osuosl-x86-2-flatpak|21|1061|50|
+|osuosl-x86-2|21|3214|153|
+|osuosl-x86-1-asan|22|157|7|
+|osuosl-x86-1-flatpak|22|1137|51|
+|osuosl-x86-1|22|3569|162|
+|osuosl-managed-aarch64-1|33|237|7|
+|osuosl-managed-x86-2|33|5901|178
+|osuosl-managed-x86-1|33|6440|195|
+|codethink-arm-1|613|3985|6|
+|codethink-arm-2|610|4938|8|
+|codethink-arm-3|613|5504|8|
+|codethink-arm-4|580|3744|6|
+|fosshost-arm-2|378|3078|8|
+|fosshost-arm-1|379|3026|7|
+|progress|271|27973|103|
+|progress-flatpak|271|6393|23|
+|progress-asan|271|1170|4|
+
+---
+
+class: background-slides
+
+## CI/CD @ GNOME - Achievements
+
+- Switched to Fedora, latest kernel
+- Docuum deployed to keep disk usage in check
+  - Image removal kicks in after certain disk usage is passed
+  - It tracks used images, least used are removed first 
+- All runners shared so non just GNOME projects can use them
+  – This to improve developer experience and make CI feedback
+    cycle faster for contributors
+- We combine dockerd with crun from github.com/containers (vs default runc) 
+  - Seems to better support new system calls
+
+???
+Fedora container unhappy on CentOS 7 kernel for example
+---
+
+class: background-slides
+
+## Future Plans
+
+- Fully retire Puppet
+  - Build missing Ansible roles
+  - Move missing systems to Ansible
+  - Decommission former Puppet masters
+- Retire GlusterFS, only current volume is Puppet manifests/modules
+- OS currency: retire RHEL 7, build RHEL 9 systems
+- GitLab on OCP 4
+- Databases on OCP 4 via existing Galera/PSQL operators
+- Introduce Loki
+- Deploy a Load Balancer in front of OCP 4 (any sponsor?)
+- Move IPA to RHEL 9 and upgrade to latest IDM release
+- Accounts / membership management self-service app
+
+???
+For accounts/membership management app, also mention password.gnome.org and
+the idea of self-service being what we'd opt for to ease contributors accounts
+and foundation membership management
+
+---
+
+class: background-main, middle
+
+Twitter: @andrea_veri
+Website: dragonsreach.it
+
+    </textarea>
+    <script src="//remarkjs.com/downloads/remark-latest.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          highlightStyle: 'monokai'
+        }) ;
+    </script>
+  </body>
+</html>

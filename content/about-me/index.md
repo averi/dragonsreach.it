@@ -48,6 +48,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
     * GUADEC 2014 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2014.html)
     * GUADEC 2015 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2015.odp)
     * GUADEC 2018 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2018.html)
+    * GUADEC 2022 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2022.html)
 
 ### Contact:
 
