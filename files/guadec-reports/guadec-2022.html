@@ -10,6 +10,8 @@
       .background-main { background-color: #272822; color: #F8F8FF; }
       .background-slides { background-color: #F8F8FF; color: #000000}
       .background-slides-table { background-color: #F8F8FF; color: #000000; font-size: 18px;}
+      .colored-header { color: #E69F66; }
+      .colored-header-2 { color: #F92672; }
     </style>
   </head>
   <body>
@@ -17,8 +19,8 @@
 
 class: center, middle, background-main
 
-## GNOME Infrastructure Team Report
-### Andrea Veri
+## .colored-header[GNOME Infrastructure Team Report]
+### .colored-header-2[Andrea Veri]
 #### In my father's memory
 
 GUADEC 2022, Guadalajara, Mexico
@@ -38,10 +40,6 @@ class: background-slides
 - Quay.io
 - Prometheus/Alertmanager
 
----
-
-class: background-slides
-
 ### Hardware specs
 
 - 3 Dell R650 - 260G RAM, 56 cores, OCP 4
@@ -49,7 +47,7 @@ class: background-slides
 
 ---
 
-class: background-slides
+class: background-slides-table
 
 ### Architecture
 
@@ -66,17 +64,6 @@ class: background-slides
   - Monitored via Prometheus, Alertmanager
   - Cert management handled via cert-manager and LE
 
-???
-About quay.io benefits: no need to maintain a self hosted
-image registry + unlimited number of publicly available
-images.
-
----
-
-class: background-slides
-
-### Architecture
-
 - For Ceph, 3 nodes cluster, storage types:
   - Block
   - CephFS
@@ -87,6 +74,11 @@ class: background-slides
   - Pages runs on OCP 4
   - Storage for static content lives on S3
   - Repositories on Ceph RBD
+
+???
+About quay.io benefits: no need to maintain a self hosted
+image registry + unlimited number of publicly available
+images.
 
 ---
 
@@ -161,6 +153,7 @@ class: background-slides
 
 ???
 Fedora container unhappy on CentOS 7 kernel for example
+
 ---
 
 class: background-slides
@@ -184,6 +177,36 @@ class: background-slides
 For accounts/membership management app, also mention password.gnome.org and
 the idea of self-service being what we'd opt for to ease contributors accounts
 and foundation membership management
+
+---
+
+class: background-slides
+
+### Tenant onboardings on OCP 4
+
+- Are you interested in hosting an app on Openshift?
+  - If yes, anyone with a GNOME Account has that capability
+  - GNOME Project and eco-system related apps only
+- Reach out to me directly after the talk if interested
+
+---
+
+class: background-slides
+
+### Our Sponsors
+
+- Red Hat
+  - Rack space, unlimited bandwidth
+  - Refreshed systems
+  - RH products unlimited subscriptions
+
+- AWS, 10k USD credits based on our yearly resource usage
+
+- DigitalOcean, 1k USD credits
+
+- CDN77, unlimited bandwidth
+
+- OSUOSL, FossHost, Codethink, Equinix Metal, Canonical - GitLab runners
 
 ---
 
