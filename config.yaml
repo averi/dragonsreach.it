@@ -1,27 +1,40 @@
-baseurl: https://www.dragonsreach.it
-name: "Andrea Veri's Blog"
-description:
-theme: 'beautifulhugo'
-title: "Andrea Veri's Blog"
-pygmentsCodeFences: true
-pygmentsStyle: "friendly"
-#googleanalytics: UA-34660847-2
-
-params:
-    subtitle: Me, Myself and I
-    rss: true
-    mainSections:
-     - "post"
-     - "posts"
-
+---
+contentdir: "content"
+layoutdir: "layouts"
+publishdir: "public"
+builddrafts: false
+theme: "lanyon-hugo"
+baseurl: "https://www.dragonsreach.it"
+canonifyurls: true
+permalinks:
+  post: ":year/:month/:day/:title/"
+  fixed: ":title/"
+markup:
+  goldmark:
+    extensions:
+      typographer: true
+    renderer:
+      unsafe: true
+pygmentsuseclasses: true
 menu:
   main:
-    - name: "About me"
-      url: "/about-me"
-      weight: 0
-
-author:
-  twitter: andrea_veri
-  linkedin: andrea-veri-bb23a091
-  name: Andrea Veri
-  website: https://www.dragonsreach.it
+  - identifier: "tags"
+    name: "Categories"
+    title: "Categories"
+    url: "/tags/"
+    weight: -1
+  - identifier: "about-me"
+    name: "About me"
+    title: "About me"
+    url: "/about-me/"
+    weight: 0
+params:
+  Title: "Andrea Veri's Blog"
+  Tagline: "Me, myself and I"
+  Author: "Andrea Veri"
+  DateForm: "Jan 2, 2006"
+  description: "Andrea Veri's Blog"
+  mainSections:
+  - "post"
+  disableFonts: false
+paginate: 5

@@ -39,6 +39,7 @@ During the event, I had the great pleasure to present two talks:
 
 Overall the whole event has been a blast, thanks to the **GNOME Foundation** making this possible by sponsoring my attendance at the event! I&#8217;m looking forward to **Strasburg 2014** already and last but not least I&#8217;m preparing the greatest bid of all times for **GUADEC 2015** to happen in **Italy**. Stay tuned!
 
+{{< load-photoswipe >}}
 {{< gallery hover-effect="none" caption-position="center" >}}
   {{< figure src="/wp-content/uploads/2013/08/seth_guadec.jpg" >}}
   {{< figure src="/wp-content/uploads/2013/08/guadec_friends.jpg" >}}

@@ -12,7 +12,7 @@ tags:
 ---
 Coming back from **GUADEC** has never been easy, so much fun, so much great people to speak with and amazing talks to watch but this year has definitely been harder as I totally felt in love with the city that was hosting the event. Honestly speaking I&#8217;ve been amazed by how Strasbourg looks like: alsace houses and buildings are just delightful, the cathedral is stunning and people have been so welcoming during my whole stay. (cooks at the Canteen even prepared a few italian dishes and welcomed us in italian every time we were heading there&#8230;how cool is that?)
 
-But let&#8217;s get back to our business now as I would probably never stop talking about Strasbourg and how great it was staying there! I did not have a personal talk this year but I presented the yearly Sysadmin Team report during the Foundation&#8217;s AGM. If you weren&#8217;t there all the slides are available <a href="https://people.gnome.org/~av/sysadmin-team-report/guadec2014.html" target="_blank">here</a>.
+But let&#8217;s get back to our business now as I would probably never stop talking about Strasbourg and how great it was staying there! I did not have a personal talk this year but I presented the yearly Sysadmin Team report during the Foundation&#8217;s AGM. If you weren&#8217;t there all the slides are available <a href="https://www.dragonsreach.it/files/guadec-reports/guadec-2014.html" target="_blank">here</a>.
 
 Apart from presenting what we did and what the changes we introduced on the GNOME Infrastructure were I participated to Patrick Uiterwijk&#8217;s talk about FedOAuth and all the upcoming changes that are planned on the infrastructure during the next months. If you were not able to attend Patrick&#8217;s talk this little resume should be for you:
 
@@ -42,7 +42,7 @@ Apart from presenting what we did and what the changes we introduced on the GNOM
 
 More information, slides and screenshots from Patrick&#8217;s talk are available <a href="http://patrick.uiterwijk.org/2014/07/28/gnome-authentication/#1" target="_blank">here</a>. Stay tuned and many thanks to the **GNOME Foundation** for sponsoring my travel and accomodation expenses!
 
-
+{{< load-photoswipe >}}
 {{< gallery hover-effect="none" caption-position="center" >}}
   {{< figure caption="The GUADEC 2014 group photo!" src="/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg" >}}
   {{< figure caption="A view of the Petite France district" src="/wp-content/uploads/2014/08/IMG_20140729_193107.jpg" >}}
