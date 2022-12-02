@@ -12,13 +12,12 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 ### What I am doing now:
 
   * GNOME: 
-      * Being the GNOME [Infrastructure Team][5] Coordinator and leading the [Accounts Team][6].
+      * Being the GNOME [Infrastructure Team][5] Coordinator
       * Being the GNOME Foundation [Membership Committee][7]&#8216;s Chairman.
-  * Fedora: 
-      * Maintaining a set of RPM packages for the Fedora / EPEL repositories
 
 ### What I have done in the past:
 
+  * Maintained a [set of RPM packages][37] for the Fedora / EPEL repositories
   * Designed the old Edubuntu's Homepage for the Ubuntu Italian LoCo Team as reported on my [announcement][10] on the Ubuntu-it's forums.
   * Wrote several Wiki pages and their translations for the Ubuntu [international][11] and [italian][12] communities.
   * Have been an Ubuntu [Developer][13] uploading several packages into the main and universe repositories, full list available at my Launchpad [ID][14].
@@ -60,14 +59,13 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 #### IRC:
 
   * **av** on irc<span style="font-weight: bold;">.gnome.</span>org.
-  * **averi** on irc<span style="font-weight: bold;">.freenode.</span>net.
+  * **averi** on irc<span style="font-weight: bold;">.libera.</span>chat.
 
  [1]: https://www.redhat.com
  [2]: https://en.wikipedia.org/wiki/Udine
  [3]: https://www.gnome.org
  [4]: https://www.fedoraproject.org
- [5]: https://wiki.gnome.org/Sysadmin/Team
- [6]: https://wiki.gnome.org/AccountsTeam
+ [5]: https://wiki.gnome.org/Infrastructure/Team
  [7]: https://wiki.gnome.org/MembershipCommittee
  [8]: https://fedoraproject.org/wiki/Infrastructure
  [10]: https://forum.ubuntu-it.org/index.php?topic=79871.0
@@ -95,3 +93,4 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
  [33]: https://www.dragonsreach.it/files/open-source-day-2014/open-source-day-2014.html 
  [35]: mailto:av@gnome.org
  [36]: mailto:averi@redhat.com
+ [37]: https://src.fedoraproject.org/user/averi
