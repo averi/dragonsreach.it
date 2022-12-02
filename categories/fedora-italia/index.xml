@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fedora Italia on Andrea Veri&#39;s Blog</title>
+    <title>Fedora Italia on </title>
     <link>https://www.dragonsreach.it/categories/fedora-italia/</link>
-    <description>Recent content in Fedora Italia on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Fedora Italia on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sat, 03 Nov 2012 16:38:28 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/categories/fedora-italia/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</guid>
-      <description>Exactly one week ago I was attending the Fedora Activity Dayorganized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
+      <description>Exactly one week ago I was attending the Fedora Activity Day organized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
 Each of us presented a specific Fedora-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following link) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</description>
     </item>
     

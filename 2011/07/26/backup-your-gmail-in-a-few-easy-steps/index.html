@@ -1,301 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Backup your Gmail in a few easy steps! - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying the following setup is:
- A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well) Prevent getmail to mark all mails as read after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all) Keep your backups up-to-date with the latest content from your mailbox.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      Backup your Gmail in a few easy steps! &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2011\/07\/26\/backup-your-gmail-in-a-few-easy-steps\/",
-          "name": "Backup your gmail in a few easy steps!"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "Backup your Gmail in a few easy steps!",
-  "description" : "I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying the following setup is:\n A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels \/ folders as well) Prevent getmail to mark all mails as read after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all) Keep your backups up-to-date with the latest content from your mailbox.",
-  "inLanguage" : "en",
-  "wordCount":  576 ,
-  "datePublished" : "2011-07-25T22:50:57",
-  "dateModified" : "2011-07-25T22:50:57",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "Backup, Getmail, Gmail" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2011\/07\/26\/backup-your-gmail-in-a-few-easy-steps\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Backup your Gmail in a few easy steps!" />
-<meta property="og:description" content="I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying the following setup is:
- A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well) Prevent getmail to mark all mails as read after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all) Keep your backups up-to-date with the latest content from your mailbox.">
-<meta property="og:url" content="https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="Backup your Gmail in a few easy steps!" />
-  <meta name="twitter:description" content="I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with getmail. What you’ll be able to achieve after reading this HowTo and deploying …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Backup your Gmail in a few easy steps!</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 25, 2011
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with <!-- raw HTML omitted -->getmail<!-- raw HTML omitted -->.  What you’ll be able to achieve after reading this HowTo and deploying the following setup is:</p>
+<div class="post">
+  <h1 class="post-title">Backup your Gmail in a few easy steps!</h1>
+  <span class="post-date">Jul 25, 2011</span>
+  <p>I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with <a href="http://pyropus.ca/software/getmail/" target="_blank">getmail</a>.  What you’ll be able to achieve after reading this HowTo and deploying the following setup is:</p>
 <ol>
 <li>A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well)</li>
 <li>Prevent getmail to mark all mails as <strong>read</strong> after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all)</li>
 <li>Keep your backups <strong>up-to-date</strong> with the <strong>latest</strong> content from your mailbox. (by default getmail grabs all the DATA from your mailbox and fills up the Mbox / Maildir content keeping deleted mails. So let’s say I deleted a mail two days ago, well it’ll still appear on today’s backups. This behaviour is definitely unwanted)</li>
 </ol>
 <p>I’ll now move to explain a few details about my new configuration but before moving to tweak getmail’s main config file, please do the following change on <strong>_retrieverbases.py</strong>* :</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(RFC822)&#39;</span>)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getmsgpartbyid</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="s1">&#39;(RFC822)&#39;</span><span class="p">)</span></span></span></code></pre></div>
 <p><strong>to</strong></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> self<span style="color:#666">.</span>_getmsgpartbyid(msgid, <span style="color:#4070a0">&#39;(BODY.PEEK[])&#39;</span>)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getmsgpartbyid</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="s1">&#39;(BODY.PEEK[])&#39;</span><span class="p">)</span></span></span></code></pre></div>
 <p>When done grab the following <em><strong>getmailrc</strong></em> and adapt it to your needs**:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[retriever]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">server</span> <span style="color:#666">=</span> <span style="color:#4070a0">imap.gmail.com ## or pop.gmail.com for POP3.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">username</span> <span style="color:#666">=</span> <span style="color:#4070a0">example@gmail.com</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">password</span> <span style="color:#666">=</span> <span style="color:#4070a0">password</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">## so-called Gmail&#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">mailboxes</span> <span style="color:#666">=</span> <span style="color:#4070a0">(&#34;INBOX&#34;, &#34;[Gmail]/Sent mail&#34;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#34;ubuntu&#34;, &#34;gnome/example&#34;, &#34;linux/example&#34;)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[destination]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">type</span> <span style="color:#666">=</span> <span style="color:#4070a0">Mboxrd</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">path</span> <span style="color:#666">=</span> <span style="color:#4070a0">~/.getmail/backup.mbox</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[options]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">delivered_to</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No delivered_to header added automatically.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">received</span> <span style="color:#666">=</span> <span style="color:#4070a0">false ## No received header added automatically.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">verbose</span> <span style="color:#666">=</span> <span style="color:#4070a0">2 ## getmail will print messages about each of its actions.</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-INI" data-lang="INI"><span class="line"><span class="cl"><span class="k">[retriever]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.</span>
+</span></span><span class="line"><span class="cl"><span class="na">server</span> <span class="o">=</span> <span class="s">imap.gmail.com ## or pop.gmail.com for POP3.</span>
+</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">example@gmail.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">password</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## so-called Gmail&#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">mailboxes</span> <span class="o">=</span> <span class="s">(&#34;INBOX&#34;, &#34;[Gmail]/Sent mail&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#34;ubuntu&#34;, &#34;gnome/example&#34;, &#34;linux/example&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[destination]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">Mboxrd</span>
+</span></span><span class="line"><span class="cl"><span class="na">path</span> <span class="o">=</span> <span class="s">~/.getmail/backup.mbox</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[options]</span>
+</span></span><span class="line"><span class="cl"><span class="na">delivered_to</span> <span class="o">=</span> <span class="s">false ## No delivered_to header added automatically.</span>
+</span></span><span class="line"><span class="cl"><span class="na">received</span> <span class="o">=</span> <span class="s">false ## No received header added automatically.</span>
+</span></span><span class="line"><span class="cl"><span class="na">verbose</span> <span class="o">=</span> <span class="s">2 ## getmail will print messages about each of its actions.</span></span></span></code></pre></div>
 <p>When done we should go ahead setting up getmail’s directories and config file:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>mkdir <span style="color:#bb60d5">$HOME</span>/.getmail
-</span></span><span style="display:flex;"><span>cp <span style="color:#bb60d5">$HOME</span>/getmailrc <span style="color:#bb60d5">$HOME</span>/.getmail/</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">mkdir <span class="nv">$HOME</span>/.getmail
+</span></span><span class="line"><span class="cl">cp <span class="nv">$HOME</span>/getmailrc <span class="nv">$HOME</span>/.getmail/</span></span></code></pre></div>
 <p>Adapt <strong>$HOME/getmailrc</strong> to whatever dir you put that file into. But…pretty much all the remaining work will be done by a small shell script I wrote:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#007020">#!/bin/sh
-</span></span></span><span style="display:flex;"><span><span style="color:#007020"></span>
-</span></span><span style="display:flex;"><span><span style="color:#bb60d5">WORKDIR</span><span style="color:#666">=</span><span style="color:#bb60d5">$HOME</span>/.getmail
-</span></span><span style="display:flex;"><span><span style="color:#bb60d5">date</span><span style="color:#666">=</span><span style="color:#4070a0">`</span>date <span style="color:#4070a0">&#34;+%d-%m-%Y_%H:%M&#34;</span><span style="color:#4070a0">`</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f  <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#666">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">then</span>
-</span></span><span style="display:flex;"><span>touch <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>getmail &gt; <span style="color:#bb60d5">$WORKDIR</span>/getmail.log
-</span></span><span style="display:flex;"><span><span style="color:#bb60d5">OUT</span><span style="color:#666">=</span><span style="color:#bb60d5">$?</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">0</span> <span style="color:#666">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">then</span>
-</span></span><span style="display:flex;"><span>mkdir -p <span style="color:#bb60d5">$WORKDIR</span>/backups/ <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> mv <span style="color:#bb60d5">$WORKDIR</span>/backup.mbox <span style="color:#bb60d5">$WORKDIR</span>/backups/backup_<span style="color:#bb60d5">$date</span>.mbox ;<span style="color:#666">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">else</span> <span style="color:#666">[</span> <span style="color:#bb60d5">$OUT</span> -eq <span style="color:#40a070">1</span> <span style="color:#666">]</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020">exit</span> <span style="color:#40a070">1</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">fi</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">## Cleanup older than 3 days backups</span>
-</span></span><span style="display:flex;"><span>find <span style="color:#bb60d5">$WORKDIR</span>/backups/* -mtime +3 -exec rm <span style="color:#666">{}</span> ;
-</span></span><span style="display:flex;"><span><span style="color:#007020">cd</span> <span style="color:#bb60d5">$WORKDIR</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#666">{</span> rm -rf oldmail-* ;<span style="color:#666">}</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">WORKDIR</span><span class="o">=</span><span class="nv">$HOME</span>/.getmail
+</span></span><span class="line"><span class="cl"><span class="nv">date</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&#34;+%d-%m-%Y_%H:%M&#34;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -f  <span class="nv">$WORKDIR</span>/backup.mbox <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">touch <span class="nv">$WORKDIR</span>/backup.mbox
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">getmail &gt; <span class="nv">$WORKDIR</span>/getmail.log
+</span></span><span class="line"><span class="cl"><span class="nv">OUT</span><span class="o">=</span><span class="nv">$?</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$OUT</span> -eq <span class="m">0</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$WORKDIR</span>/backups/ <span class="o">&amp;&amp;</span> <span class="o">{</span> mv <span class="nv">$WORKDIR</span>/backup.mbox <span class="nv">$WORKDIR</span>/backups/backup_<span class="nv">$date</span>.mbox <span class="p">;</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="o">[</span> <span class="nv">$OUT</span> -eq <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Cleanup older than 3 days backups</span>
+</span></span><span class="line"><span class="cl">find <span class="nv">$WORKDIR</span>/backups/* -mtime +3 -exec rm <span class="o">{}</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$WORKDIR</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> rm -rf oldmail-* <span class="p">;</span><span class="o">}</span></span></span></code></pre></div>
 <p>This script will:</p>
 <ol>
 <li>Run getmail using the getmailrc config file you previously worked on.</li>
@@ -304,125 +133,17 @@
 <li>In the end, it’ll clean up older than 3 days backups to avoid a too crowded <strong>backups</strong> folder. (it removes the oldmail file as well since it is useless in our case)</li>
 </ol>
 <p>In the end set up a cronjob that will run the above script and generate the backups for you every one hour:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#40a070">0</span> * * * * <span style="color:#bb60d5">$HOME</span>/.getmail/getmail_run.sh &gt; /dev/null</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="m">0</span> * * * * <span class="nv">$HOME</span>/.getmail/getmail_run.sh &gt; /dev/null</span></span></code></pre></div>
 <p>Feel free to let me know if you’ve encountered any issue while following the above HowTo. Enjoy!</p>
 <p>* /usr/share/getmail4/getmailcore/<strong>_retrieverbases.py</strong> on line <strong>901</strong>.</p>
-<p>** More documentation about the <em><strong>getmailrc</strong></em> file and syntax can be found on getmail’s <!-- raw HTML omitted -->documentation<!-- raw HTML omitted --> page.</p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/backup/">Backup</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/getmail/">Getmail</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/gmail/">Gmail</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/" data-toggle="tooltip" data-placement="top" title="Automatic Gmail’s Trash &amp; Spam folders cleanup">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/" data-toggle="tooltip" data-placement="top" title="New Desktop, Mutt and Irssi setup!">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
+<p>** More documentation about the <em><strong>getmailrc</strong></em> file and syntax can be found on getmail’s <a href="http://pyropus.ca/software/getmail/configuration.html#conf-retriever" target="_blank">documentation</a> page.</p>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

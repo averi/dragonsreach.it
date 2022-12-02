@@ -1,297 +1,124 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Building Debian packages with Deb-o-Matic - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the package’s description:
- Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.
-It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      Building Debian packages with Deb-o-Matic &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2012\/09\/17\/building-debian-packages-with-deb-o-matic\/",
-          "name": "Building debian packages with deb o matic"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "Building Debian packages with Deb-o-Matic",
-  "description" : "Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the package’s description:\n Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.\nIt provides a simple tool to automate build of source packages with limited user interaction and a simple configuration.",
-  "inLanguage" : "en",
-  "wordCount":  566 ,
-  "datePublished" : "2012-09-17T13:07:14",
-  "dateModified" : "2012-09-17T13:07:14",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "Deb-o-Matic, Planet Debian" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2012\/09\/17\/building-debian-packages-with-deb-o-matic\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Building Debian packages with Deb-o-Matic" />
-<meta property="og:description" content="Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the package’s description:
- Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.
-It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration.">
-<meta property="og:url" content="https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="Building Debian packages with Deb-o-Matic" />
-  <meta name="twitter:description" content="Today I’ll be telling you about an interesting way to build your Debian packages using Deb-o-Matic, a tool developed and maintained by Luca Falavigna. Some more details about this tool from the …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Building Debian packages with Deb-o-Matic</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on September 17, 2012
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>Today I’ll be telling you about an interesting way to build your Debian packages using <strong>Deb-o-Matic</strong>, a tool developed and maintained by <!-- raw HTML omitted -->Luca Falavigna<!-- raw HTML omitted -->. Some more details about this tool from the package’s description:</p>
+<div class="post">
+  <h1 class="post-title">Building Debian packages with Deb-o-Matic</h1>
+  <span class="post-date">Sep 17, 2012</span>
+  <p>Today I’ll be telling you about an interesting way to build your Debian packages using <strong>Deb-o-Matic</strong>, a tool developed and maintained by <a href="http://dktrkranz.wordpress.com" target="_blank">Luca Falavigna</a>. Some more details about this tool from the package’s description:</p>
 <blockquote>
 <p>Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.</p>
 <p>It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration. It has some useful features such as automatic update of pbuilder, automatic scan and selection of source packages to build and modules support.</p>
 </blockquote>
 <p>The <strong>setup.</strong></p>
 <p>Download the package.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>apt-get install debomatic</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install debomatic</span></span></code></pre></div>
 <p>Modify the <strong>main</strong> configuration file as follows:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[default]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">builder: pbuilder</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">packagedir: /home/john/debomatic # Take note of the following path since we&#39;ll need it for later use.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">configdir: /etc/debomatic/distributions</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">pbuilderhooks: /usr/share/debomatic/pbuilderhooks</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">maxbuilds: 3 # The number of builds you can perform at the same time.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">inotify: 1</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">sleep: 60 # The sleep time between one build and another.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">logfile: /var/log/debomatic.log</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[gpg]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[modules]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">modules: 1 # A list of all the available modules will follow right after.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">modulespath: /usr/share/debomatic/modules</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[runtime]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">alwaysupdate: unstable experimental precise</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">distblacklist:</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">modulesblacklist: Lintian Mailer</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">mapper: {&#39;sid&#39;: &#39;unstable&#39;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;wheezy&#39;: &#39;testing&#39;,</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;squeeze&#39;: &#39;stable&#39;}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[lintian]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &#39;Ssmtp&#39; daemon which is a one-minute-setup MTA, check an example over &lt;a href</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">fromaddr: debomatic@localhost</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtphost: localhost</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtpport: 25</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">authrequired: 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtpuser: user</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">smtppass: pass</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">failure: /etc/debomatic/mailer/build_failure.mail-template</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[internals]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">configversion</span> <span style="color:#666">=</span> <span style="color:#4070a0">010a</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[default]</span>
+</span></span><span class="line"><span class="cl"><span class="na">builder: pbuilder</span>
+</span></span><span class="line"><span class="cl"><span class="na">packagedir: /home/john/debomatic # Take note of the following path since we&#39;ll need it for later use.</span>
+</span></span><span class="line"><span class="cl"><span class="na">configdir: /etc/debomatic/distributions</span>
+</span></span><span class="line"><span class="cl"><span class="na">pbuilderhooks: /usr/share/debomatic/pbuilderhooks</span>
+</span></span><span class="line"><span class="cl"><span class="na">maxbuilds: 3 # The number of builds you can perform at the same time.</span>
+</span></span><span class="line"><span class="cl"><span class="na">inotify: 1</span>
+</span></span><span class="line"><span class="cl"><span class="na">sleep: 60 # The sleep time between one build and another.</span>
+</span></span><span class="line"><span class="cl"><span class="na">logfile: /var/log/debomatic.log</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[gpg]</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.</span>
+</span></span><span class="line"><span class="cl"><span class="na">keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[modules]</span>
+</span></span><span class="line"><span class="cl"><span class="na">modules: 1 # A list of all the available modules will follow right after.</span>
+</span></span><span class="line"><span class="cl"><span class="na">modulespath: /usr/share/debomatic/modules</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[runtime]</span>
+</span></span><span class="line"><span class="cl"><span class="na">alwaysupdate: unstable experimental precise</span>
+</span></span><span class="line"><span class="cl"><span class="na">distblacklist:</span>
+</span></span><span class="line"><span class="cl"><span class="na">modulesblacklist: Lintian Mailer</span>
+</span></span><span class="line"><span class="cl"><span class="na">mapper: {&#39;sid&#39;: &#39;unstable&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#39;wheezy&#39;: &#39;testing&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#39;squeeze&#39;: &#39;stable&#39;}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[lintian]</span>
+</span></span><span class="line"><span class="cl"><span class="na">lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &#39;Ssmtp&#39; daemon which is a one-minute-setup MTA, check an example over &lt;a href</span><span class="o">=</span><span class="s">&#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.</span>
+</span></span><span class="line"><span class="cl"><span class="na">fromaddr: debomatic@localhost</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtphost: localhost</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtpport: 25</span>
+</span></span><span class="line"><span class="cl"><span class="na">authrequired: 0</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtpuser: user</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtppass: pass</span>
+</span></span><span class="line"><span class="cl"><span class="na">success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.</span>
+</span></span><span class="line"><span class="cl"><span class="na">failure: /etc/debomatic/mailer/build_failure.mail-template</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[internals]</span>
+</span></span><span class="line"><span class="cl"><span class="na">configversion</span> <span class="o">=</span> <span class="s">010a</span></span></span></code></pre></div>
 <p>The available modules are:</p>
 <ol>
 <li> “<strong>Contents</strong>“, which acts as a ‘dpkg -c’ over the built packages.</li>
@@ -301,159 +128,53 @@ It provides a simple tool to automate build of source packages with limited user
 <li>“<strong>PrevBuildCleaner</strong>“, which deletes all files generated by the previous build.</li>
 <li>“<strong>Repository</strong>“, which generates a local repository of built packages.</li>
 </ol>
-<p>Configure ‘<!-- raw HTML omitted -->dput<!-- raw HTML omitted -->‘ to upload package’s sources to your local repository, edit the <strong>/etc/dput.cf</strong> file and add this entry:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[debomatic]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">local</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/home/john/debomatic</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">or the following if you are going to upload the files to a different machine through SSH:</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">[debomatic]</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">login</span> <span style="color:#666">=</span> <span style="color:#4070a0">john</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">fqdn</span> <span style="color:#666">=</span> <span style="color:#4070a0">debomatic.example.net</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">method</span> <span style="color:#666">=</span> <span style="color:#4070a0">scp</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">incoming</span> <span style="color:#666">=</span> <span style="color:#4070a0">/debomatic</span></span></span></code></pre></div>
+<p>Configure ‘<a href="http://manpages.ubuntu.com/manpages/precise/man5/dput.cf.5.html" target="_blank">dput</a>‘ to upload package’s sources to your local repository, edit the <strong>/etc/dput.cf</strong> file and add this entry:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[debomatic]</span>
+</span></span><span class="line"><span class="cl"><span class="na">method</span> <span class="o">=</span> <span class="s">local</span>
+</span></span><span class="line"><span class="cl"><span class="na">incoming</span> <span class="o">=</span> <span class="s">/home/john/debomatic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">or the following if you are going to upload the files to a different machine through SSH:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[debomatic]</span>
+</span></span><span class="line"><span class="cl"><span class="na">login</span> <span class="o">=</span> <span class="s">john</span>
+</span></span><span class="line"><span class="cl"><span class="na">fqdn</span> <span class="o">=</span> <span class="s">debomatic.example.net</span>
+</span></span><span class="line"><span class="cl"><span class="na">method</span> <span class="o">=</span> <span class="s">scp</span>
+</span></span><span class="line"><span class="cl"><span class="na">incoming</span> <span class="o">=</span> <span class="s">/debomatic</span></span></span></code></pre></div>
 <p>Add a new <strong>Virtual Host</strong> on Apache and access the repository / built packages directly through your browser:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Apache" data-lang="Apache"><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;VirtualHost</span> <span style="color:#4070a0">*:80</span><span style="color:#062873;font-weight:bold">&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020">ServerAdmin</span> john@example.net
-</span></span><span style="display:flex;"><span><span style="color:#007020">ServerName</span> debomatic.example.net
-</span></span><span style="display:flex;"><span><span style="color:#007020">DocumentRoot</span> <span style="color:#c65d09">/home/john/debomatic</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;Directory</span> <span style="color:#4070a0">/home/john/debomatic</span><span style="color:#062873;font-weight:bold">&gt;</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020">Options</span> Indexes FollowSymLinks MultiViews
-</span></span><span style="display:flex;"><span><span style="color:#007020">AllowOverride</span> <span style="color:#007020;font-weight:bold">None</span>
-</span></span><span style="display:flex;"><span><span style="color:#007020">Order</span> allow,deny
-</span></span><span style="display:flex;"><span><span style="color:#007020">allow</span> from <span style="color:#007020;font-weight:bold">all</span>
-</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;Directory&gt;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#062873;font-weight:bold">&lt;/VirtualHost&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Apache" data-lang="Apache"><span class="line"><span class="cl"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">ServerAdmin</span> john@example.net
+</span></span><span class="line"><span class="cl"><span class="nb">ServerName</span> debomatic.example.net
+</span></span><span class="line"><span class="cl"><span class="nb">DocumentRoot</span> <span class="sx">/home/john/debomatic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Directory</span> <span class="s">/home/john/debomatic</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Options</span> Indexes FollowSymLinks MultiViews
+</span></span><span class="line"><span class="cl"><span class="nb">AllowOverride</span> <span class="k">None</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Order</span> allow,deny
+</span></span><span class="line"><span class="cl"><span class="nb">allow</span> from <span class="k">all</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Directory&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/VirtualHost&gt;</span></span></span></code></pre></div>
 <p>Start the daemon:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>sudo /etc/init.d/debomatic start</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/debomatic start</span></span></code></pre></div>
 <p>(<strong>Optional</strong>) Add your repository to <strong>APT</strong>‘s sources.list:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>deb http://debomatic.example.net/ unstable main contrib non-free</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">deb http://debomatic.example.net/ unstable main contrib non-free</span></span></code></pre></div>
 <p>(<strong>Optional</strong>) Start Deb-O-Matic at system’s startup by modifying the <strong>/etc/init.d/debomatic</strong> file at <strong>line 21</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>- <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-</span></span><span style="display:flex;"><span>- <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">0</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>+ <span style="color:#666">[</span> -x <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DAEMON</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">]</span> <span style="color:#666">||</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span>
-</span></span><span style="display:flex;"><span>+ <span style="color:#666">[</span> <span style="color:#4070a0">&#34;</span><span style="color:#bb60d5">$DEBOMATIC_AUTOSTART</span><span style="color:#4070a0">&#34;</span> <span style="color:#666">=</span> <span style="color:#40a070">1</span> <span style="color:#666">]</span> <span style="color:#666">&amp;&amp;</span> <span style="color:#007020">exit</span> <span style="color:#40a070">0</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">- <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$DAEMON</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">- <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$DEBOMATIC_AUTOSTART</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+ <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$DAEMON</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">+ <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$DEBOMATIC_AUTOSTART</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">0</span></span></span></code></pre></div>
 <p>and finally add it to the desired <strong>runlevels</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>update-rc.d debomatic defaults</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">update-rc.d debomatic defaults</span></span></code></pre></div>
 <p>Enjoy!</p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/deb-o-matic/">Deb-o-Matic</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/planet-debian/">Planet Debian</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/" data-toggle="tooltip" data-placement="top" title="Manage your website through Git">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2012/09/19/fad-milano-2012/" data-toggle="tooltip" data-placement="top" title="FAD Milano 2012">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>encrypt on Andrea Veri&#39;s Blog</title>
+    <title>encrypt on </title>
     <link>https://www.dragonsreach.it/tags/encrypt/</link>
-    <description>Recent content in encrypt on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in encrypt on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Tue, 24 Dec 2013 15:51:20 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/encrypt/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
-      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki pagehas a pretty nice overview of them.
+      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki page has a pretty nice overview of them.
 Said that, when using sudo it’s definitely ideal to combine a strong password that is also easy to remember and type again when prompted.</description>
     </item>
     

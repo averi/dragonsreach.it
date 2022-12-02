@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>DNS on Andrea Veri&#39;s Blog</title>
+    <title>DNS on </title>
     <link>https://www.dragonsreach.it/categories/dns/</link>
-    <description>Recent content in DNS on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in DNS on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 13 Nov 2013 13:53:31 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/categories/dns/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</guid>
-      <description>Today I’ll be working out how to properly configure DNSSECon a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITMattack.</description>
+      <description>Today I’ll be working out how to properly configure DNSSEC on a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITM attack.</description>
     </item>
     
   </channel>

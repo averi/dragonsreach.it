@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vim on Andrea Veri&#39;s Blog</title>
+    <title>Vim on </title>
     <link>https://www.dragonsreach.it/categories/vim/</link>
-    <description>Recent content in Vim on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Vim on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Thu, 27 Jun 2013 16:59:57 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/categories/vim/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</guid>
-      <description>It’s been two years since my latest blog postabout my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
+      <description>It’s been two years since my latest blog post about my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
 Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming.</description>
     </item>
     

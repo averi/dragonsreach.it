@@ -1,247 +1,76 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>A second round of updates from the GNOME Sysadmin Team - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the GNOME Infrastructure lately it’s time for me to announce all the updates we did since my latest blog post. So here we come with all the items we’ve been looking at recently:
-  Our main LDAP istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      A second round of updates from the GNOME Sysadmin Team &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2013\/06\/14\/a-second-round-of-updates-from-the-gnome-sysadmin-team\/",
-          "name": "A second round of updates from the gnome sysadmin team"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "A second round of updates from the GNOME Sysadmin Team",
-  "description" : "I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the GNOME Infrastructure lately it’s time for me to announce all the updates we did since my latest blog post. So here we come with all the items we’ve been looking at recently:\n  Our main LDAP istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports.",
-  "inLanguage" : "en",
-  "wordCount":  1122 ,
-  "datePublished" : "2013-06-14T11:37:06",
-  "dateModified" : "2013-06-14T11:37:06",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "infrastructure, Planet GNOME, sysadmin" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2013\/06\/14\/a-second-round-of-updates-from-the-gnome-sysadmin-team\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="A second round of updates from the GNOME Sysadmin Team" />
-<meta property="og:description" content="I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the GNOME Infrastructure lately it’s time for me to announce all the updates we did since my latest blog post. So here we come with all the items we’ve been looking at recently:
-  Our main LDAP istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports.">
-<meta property="og:url" content="https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="A second round of updates from the GNOME Sysadmin Team" />
-  <meta name="twitter:description" content="I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the GNOME Infrastructure lately it’s time for me to announce all …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>A second round of updates from the GNOME Sysadmin Team</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on June 14, 2013
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p><img src="/wp-content/uploads/2013/06/nagios.gnome_.org_.png" alt="nagios.gnome.org"></p>
-<p>I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the <strong>GNOME Infrastructure</strong> lately it’s time for me to announce all the updates we did since my <!-- raw HTML omitted -->latest blog post<!-- raw HTML omitted -->. So here we come with all the items we’ve been looking at recently:</p>
+<div class="post">
+  <h1 class="post-title">A second round of updates from the GNOME Sysadmin Team</h1>
+  <span class="post-date">Jun 14, 2013</span>
+  <p><img src="https://www.dragonsreach.it/wp-content/uploads/2013/06/nagios.gnome_.org_.png" alt="nagios.gnome.org"></p>
+<p>I haven’t been blogging so much in the past months as I actually promised myself I would have but given the fact a lot has been done on the <strong>GNOME Infrastructure</strong> lately it’s time for me to announce all the updates we did since my <a href="http://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/" target="_blank">latest blog post</a>. So here we come with all the items we’ve been looking at recently:</p>
 <ul>
 <li>
 <p>Our main <strong>LDAP</strong> istance was moved from a very ancient machine (which unfortunately died with a broken disk a few weeks ago) to a newer box that currently contains several other admin tools like Mango and Daily Reports. (a little script written by <strong>Owen Taylor</strong> for creating and storing several reports mainly related to backups and SSL certificates expiration dates) In addition to migrating our LDAP master to a newer machine, we did configure and setup replication to an LDAP slave to share a bit the load and most of all to link all the external (machines outside the RH’s internal network) machines to it.</p>
@@ -262,144 +91,36 @@
 <p>The most exciting things I usually love to announce are new services. While I always prefer keeping the number of maintained services as low as possible it was time for the GNOME Infrastructure to broaden its horizons satisfying the requests coming from the community and the developers involved into the project. I won’t spend any more word about this since I’m sure you are all waiting for me to list the new services, so here they are:</p>
 </li>
 <li>
-<p> A completely new <strong>Jabber</strong> service hosted at jabber.gnome.org and accessible by all the GNOME Foundation members requesting access to it. More details about it can be found at <!-- raw HTML omitted --><a href="https://live.gnome.org/Sysadmin/Jabber">https://live.gnome.org/Sysadmin/Jabber</a><!-- raw HTML omitted -->.</p>
+<p> A completely new <strong>Jabber</strong> service hosted at jabber.gnome.org and accessible by all the GNOME Foundation members requesting access to it. More details about it can be found at <a href="https://live.gnome.org/Sysadmin/Jabber" target="_blank"><a href="https://live.gnome.org/Sysadmin/Jabber">https://live.gnome.org/Sysadmin/Jabber</a></a>.</p>
 </li>
 <li>
 <p>GNOME is extensively using IRC as its main communication tool, thus we’ve improved our Services IRC Bot to use a plugin called <strong>MeetBot</strong>. Having a meeting and storing the logs in a public web server is currently possible with a really minor effort of learning a few commands to administer the plugin correctly. If you are going to have a meeting and you want to make use of MeetBot, make sure that Services is there, and give a look at <a href="http://meetbot.gnome.org/Manual.html">http://meetbot.gnome.org/Manual.html</a>.</p>
 </li>
 <li>
-<p>Do you want to be always up-to-date with the status of the GNOME Infrastructure? and are you actually wondering what’s the best way to do so? if yes, you should probably have a look at <!-- raw HTML omitted --><a href="http://status.gnome.org">http://status.gnome.org</a><!-- raw HTML omitted -->. This service makes use of <!-- raw HTML omitted -->Fedora-Status<!-- raw HTML omitted --> by <strong>Patrick Uiterwijk</strong> and allows the GNOME Sysadmin Team to let everyone know whether there is a problem with any of the services listed in the page. This service, together with the public view for Nagios and the brand new <!-- raw HTML omitted --><a href="mailto:infrastructure-announce@gnome.org">infrastructure-announce@gnome.org</a> <!-- raw HTML omitted -->mailing list will definitely help everyone finding out what’s going on, where and how long it’ll take for the issue to be fixed.</p>
+<p>Do you want to be always up-to-date with the status of the GNOME Infrastructure? and are you actually wondering what’s the best way to do so? if yes, you should probably have a look at <a href="http://status.gnome.org" target="_blank"><a href="http://status.gnome.org">http://status.gnome.org</a></a>. This service makes use of <a href="http://git.fedorahosted.org/git/fedora-status" target="_blank">Fedora-Status</a> by <strong>Patrick Uiterwijk</strong> and allows the GNOME Sysadmin Team to let everyone know whether there is a problem with any of the services listed in the page. This service, together with the public view for Nagios and the brand new <a href="https://mail.gnome.org/mailman/listinfo/infrastructure-announce" target="_blank"><a href="mailto:infrastructure-announce@gnome.org">infrastructure-announce@gnome.org</a> </a>mailing list will definitely help everyone finding out what’s going on, where and how long it’ll take for the issue to be fixed.</p>
 </li>
 <li>
 <p>It took me a lot of pain having the <strong>KGB IRC Collaboration bot</strong> packaged into the EPEL repositories but I finally managed to set it up on the GNOME Infrastructure. KGB has become very handy since the time Cia.vc closed its hosting and it’s available for anyone requesting access to it at <strong>irc.gnome.org</strong>. If you are looking for Git commit notifications of a specific module directly on your IRC channel, this is what you want :-)</p>
 </li>
 <li>
-<p>An Owncloud instance is also available, more reading about what are the requirements for requesting access to it at the following <!-- raw HTML omitted -->link<!-- raw HTML omitted -->.</p>
+<p>An Owncloud instance is also available, more reading about what are the requirements for requesting access to it at the following <a href="https://live.gnome.org/MembershipCommittee/MembershipBenefits#Account_on_cloud.gnome.org" target="_blank">link</a>.</p>
 </li>
 <li>
-<p>An Etherpad istance is also available at <!-- raw HTML omitted --><a href="https://etherpad.gnome.org">https://etherpad.gnome.org</a><!-- raw HTML omitted --> to all the GNOME Teams that need it! Please drop me an e-mail at <!-- raw HTML omitted --> if you are interested. (Pad’s creation is currently disabled for preventing spam)</p>
+<p>An Etherpad istance is also available at <a href="http://etherpad.gnome.org" target="_blank"><a href="https://etherpad.gnome.org">https://etherpad.gnome.org</a></a> to all the GNOME Teams that need it! Please drop me an e-mail at <av at gnome dot org> if you are interested. (Pad’s creation is currently disabled for preventing spam)</p>
 </li>
 <li>
-<p>Build.gnome.org has been revived and it’s currently hosting an <!-- raw HTML omitted -->OSTree<!-- raw HTML omitted --> istance. GNOME Daily images are costantly being generated, interested in testing one the those images? give this <!-- raw HTML omitted -->article<!-- raw HTML omitted --> a look.</p>
+<p>Build.gnome.org has been revived and it’s currently hosting an <a href="https://live.gnome.org/OSTree" target="_blank">OSTree</a> istance. GNOME Daily images are costantly being generated, interested in testing one the those images? give this <a href="http://worldofgnome.org/how-to-try-gnome-os-yes-gnome-os/" target="_blank">article</a> a look.</p>
 </li>
 </ul>
 <p>That’s all for now! See you all at <strong>GUADEC</strong> and thanks everyone for all the hints, suggestions and mails you’ve been sending me in the past months! And a special thanks to <strong>Ekaterina Gerasimova</strong> for taking the time to brainstorm with me suggesting new features and improvements over the GNOME Infrastructure!</p>
-<p><img src="/wp-content/uploads/2013/06/status.gnome_.org_.png" alt="status.gnome.org"></p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/infrastructure/">infrastructure</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/planet-gnome/">Planet GNOME</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/sysadmin/">sysadmin</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/" data-toggle="tooltip" data-placement="top" title="Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/" data-toggle="tooltip" data-placement="top" title="Two years later: Vim, Tmux and my Linux desktop">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
+<p><img src="https://www.dragonsreach.it/wp-content/uploads/2013/06/status.gnome_.org_.png" alt="status.gnome.org"></p>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

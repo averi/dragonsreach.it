@@ -1,252 +1,81 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Fedora 20 on a Samsung Chronos Series 7 - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?
-What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      Fedora 20 on a Samsung Chronos Series 7 &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2014\/03\/20\/fedora-20-on-a-samsung-chronos-series-7\/",
-          "name": "Fedora 20 on a samsung chronos series 7"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "Fedora 20 on a Samsung Chronos Series 7",
-  "description" : "It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?\nWhat I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI \/ firmware updates) and setting everything up as usual.",
-  "inLanguage" : "en",
-  "wordCount":  1374 ,
-  "datePublished" : "2014-03-20T15:36:38",
-  "dateModified" : "2014-03-20T15:36:38",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "fedora 20, NP700Z3C, samsung chronos series 7" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2014\/03\/20\/fedora-20-on-a-samsung-chronos-series-7\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Fedora 20 on a Samsung Chronos Series 7" />
-<meta property="og:description" content="It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?
-What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual.">
-<meta property="og:url" content="https://www.dragonsreach.it/2014/03/20/fedora-20-on-a-samsung-chronos-series-7/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="Fedora 20 on a Samsung Chronos Series 7" />
-  <meta name="twitter:description" content="It’s been a while now since the very first time I posed my hands on this shiny new Samsung Chronos Series 7 laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Fedora 20 on a Samsung Chronos Series 7</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 20, 2014
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>It’s been a while now since the very first time I posed my hands on this shiny new <strong>Samsung Chronos Series 7</strong> laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?</p>
+<div class="post">
+  <h1 class="post-title">Fedora 20 on a Samsung Chronos Series 7</h1>
+  <span class="post-date">Mar 20, 2014</span>
+  <p>It’s been a while now since the very first time I posed my hands on this shiny new <strong>Samsung Chronos Series 7</strong> laptop and oh dear… how much pain did my metallic-grey fellow take me in order to figure out how properly have every single piece of the hardware working as expected?</p>
 <p>What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 20 (yeah, stupid me, I could have booted Windows 8 at least once to check for UEFI / firmware updates) and setting everything up as usual. Right after booting the machine I disabled Windows 8’s Secure Boot, configured the laptop to boot from the USB Key I plugged in and restarted it to finally perform the real OS installation.</p>
 <p>The laptop booted back (with UEFI mode marked as on) and the installation started. The Chronos Series 7 came with an iSSD of 16G in size, not much but definitely enough for keeping the root partition, swap and home directory. (I don’t need an huge home dir given all the various data is stored and mounted through NFS directly from the NAS)</p>
 <p>The installation went just fine and no issues arised at all until I booted into the system. The laptop since the beginning started to reach high CPU and graphics card temperatures (sticking around <strong>75-78 C</strong> for the CPU and <strong>60 C</strong> for the NVIDIA card), the fans were constantly on and I could feel the heat of the machine while typing. But that’s not all, the backlit keyboard had its lights always set as on (even in the case of a locked screen) and the battery life was sticking around one hour and an half.</p>
 <p>I’m now going to list all my findings and solutions for the above issues after spending some time debugging and trying hard.</p>
 <h2 id="uefi-vs-csm-legacy-bios-compatibility-mode">UEFI vs CSM (Legacy BIOS Compatibility mode)</h2>
-<p>Installing Fedora 20 with UEFI will result in your laptop not loading the <strong>samsung-laptop</strong> kernel module at all. That is the result of a known bug (with a good chance to brick your laptop) on Samsung laptops and UEFI boots (mainly related to the incompatibility between the samsung-laptop kernel module and the Samsung’s UEFI firmware and its corruption when the module is loaded) . More details <!-- raw HTML omitted -->here<!-- raw HTML omitted --> and <!-- raw HTML omitted -->here<!-- raw HTML omitted -->.</p>
+<p>Installing Fedora 20 with UEFI will result in your laptop not loading the <strong>samsung-laptop</strong> kernel module at all. That is the result of a known bug (with a good chance to brick your laptop) on Samsung laptops and UEFI boots (mainly related to the incompatibility between the samsung-laptop kernel module and the Samsung’s UEFI firmware and its corruption when the module is loaded) . More details <a href="https://bugs.launchpad.net/ubuntu-cdimage/+bug/1040557" target="_blank">here</a> and <a href="http://www.bit-tech.net/news/hardware/2013/01/31/linux-samsung-deaths/1" target="_blank">here</a>.</p>
 <p>That said, before starting the installation, press <strong>Fn+F2</strong> right after powering up your laptop, you will be then prompted with the laptop’s Setup configuration. Switch to the <strong>Boot</strong> tab and disable Secure Boot making sure <strong>CSM</strong> is selected on the dropdown window. (before moving on make also sure to disable the <strong>Fast BIOS Mode</strong> on the Advanced tab before proceeding)</p>
 <p>When done, boot up a copy of Fedora 20 with your preferred media (I did use the Live CD myself) and make your way through the installation. Make sure to read on before touching the disk partitioning schemas.</p>
 <h2 id="issd-not-recognized-with-csm-mode-marked-as-on">iSSD not recognized with CSM mode marked as on</h2>
@@ -255,7 +84,7 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
 <h2 id="the-installation">The installation</h2>
 <p>We left our installation tutorial right before starting the installation itself through Anaconda. Let’s resume from there by making sure the following partitions are created on the HDD (from now on <em>/dev/sda</em>):</p>
 <ol>
-<li>a <strong>bios-boot</strong> partition (details on how to set it up at <!-- raw HTML omitted -->here<!-- raw HTML omitted -->).</li>
+<li>a <strong>bios-boot</strong> partition (details on how to set it up at <a href="http://wiki.gentoo.org/wiki/GRUB2#BIOS.2FMBR_or_BIOS.2FGPT" target="_blank">here</a>).</li>
 <li>a <strong>boot</strong> partition (ext4, 500M in size)</li>
 </ol>
 <p>Once done, perform the installation on the iSSD (from now on <em>/dev/sdb</em>), my setup on the 16G iSSD:</p>
@@ -271,22 +100,22 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
 <li>An LVM Volume Group that will store the /home and swap space so you can expand it to be more than just <strong>5G / 1.5G</strong>. The LVM VolGroup should ideally go on its own partition on <em>/dev/sda</em></li>
 </ol>
 <p>When the system has been installed, mount the <em>/dev/sda</em> boot partition you previously created and install grub:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>mount /dev/sda3 /mnt/boot-sda
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>grub2-install /dev/sda</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">mount /dev/sda3 /mnt/boot-sda
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">grub2-install /dev/sda</span></span></code></pre></div>
 <p>I did assume <em>/dev/sda3</em> was your /boot partition, make sure to check that is right for your case as well. (just run <em>fdisk -l /dev/sda</em> to find out)</p>
 <p>When done, mount the <em>/dev/sdb1</em> partition and copy all the files to the previously created mount point /mnt/boot-sda. From there figure out the UUID (<em>ls -l /dev/disk/by-uuid</em>) for the /dev/sda3 partition and modify the relevant entries on the <em>/boot/grub2/grub.cfg</em> file removing the UUID for the <em>/dev/sdb1</em> (in my case that was the partition containing /boot) partition with the one of <em>/dev/sda3</em>. Save the file and reboot the machine.</p>
 <p>You should then be able to unmount the /boot partition from <em>/dev/sdb1</em> and modify the relevant <em>/etc/fstab</em> entry with <em>/dev/sda3</em>‘s UUID. That way new kernel’s installations will be handled correctly without the need to manually edit <em>/boot/grub2/grub.cfg</em> and moving around the initramfs / vmlinuz images. At this point it should be safe to remove the <em>/dev/sdb1</em> partition completely.</p>
 <h2 id="things-to-do-after-installing-fedora-20">Things to do after installing Fedora 20</h2>
 <h3 id="installing-bumblebee">Installing Bumblebee</h3>
 <p>The <strong>NP700Z3C</strong> has a <strong>NVIDIA GeForce GT 630M</strong> that benefits from the <strong>NVIDIA Optimus technology</strong> which allows the user to gather the maximum performance possible when launching specific high-demand applications (like during gameplay or while watching an HD movie) and fallback to the integrated GPU when the user is performing normal operations like browsing the web, writing emails or text editing.</p>
-<p>Luckily the Bumblebee project comes in help about this providing Optimus support for a variety of Linux distributions. More details on how to set it up <!-- raw HTML omitted -->here<!-- raw HTML omitted -->. (you will need <strong>bumblebee</strong>, <strong>bumblebee-nvidia</strong> and <strong>bbswitch</strong>)</p>
+<p>Luckily the Bumblebee project comes in help about this providing Optimus support for a variety of Linux distributions. More details on how to set it up <a href="https://fedoraproject.org/wiki/Bumblebee" target="_blank">here</a>. (you will need <strong>bumblebee</strong>, <strong>bumblebee-nvidia</strong> and <strong>bbswitch</strong>)</p>
 <h3 id="installing-tlp">Installing TLP</h3>
 <p>From the <strong>tlp</strong>‘s website:</p>
 <blockquote>
 <p>TLP brings you the benefits of advanced power management for Linux without the need to understand every technical detail. TLP comes with a default configuration already optimized for battery life, so you may just install and forget it. Nevertheless TLP is highly customizable to fulfil your specific requirements.</p>
 </blockquote>
-<p>I can tell you power management for your laptop has never been easier with tlp. Make sure to visit tlp’s <!-- raw HTML omitted -->homepage<!-- raw HTML omitted --> for more details on how to set it up.</p>
+<p>I can tell you power management for your laptop has never been easier with tlp. Make sure to visit tlp’s <a href="http://linrunner.de/en/tlp/docs/tlp-linux-advanced-power-management.html" target="_blank">homepage</a> for more details on how to set it up.</p>
 <h3 id="samsung-tools">Samsung Tools</h3>
 <p>From the <strong>samsung-tool</strong>‘s homepage:</p>
 <blockquote>
@@ -296,126 +125,18 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
 <p>Given there’s no RPM available for samsung-tools, downloading the tarball and running make as root should suffice for installing it on your laptop.</p>
 <h3 id="kernel-flags">Kernel flags</h3>
 <p>What seem to have helped me a lot with the high CPU temperatures (and thus with the noisy fans going on and on) are the following Kernel flags you should pass to Grub through the <em>/etc/sysconfig/grub</em> file on the <em>GRUB_CMDLINE_LINUX</em> line:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">pcie_aspm</span><span style="color:#666">=</span>force i915.i915_enable_rc6<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.i915_enable_fbc<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.lvds_downclock<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.semaphores<span style="color:#666">=</span><span style="color:#40a070">1</span> i915.modeset<span style="color:#666">=</span><span style="color:#40a070">1</span> <span style="color:#bb60d5">acpi_osi</span><span style="color:#666">=</span>Linux <span style="color:#bb60d5">rdblacklist</span><span style="color:#666">=</span>nouveau</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nv">pcie_aspm</span><span class="o">=</span>force i915.i915_enable_rc6<span class="o">=</span><span class="m">1</span> i915.i915_enable_fbc<span class="o">=</span><span class="m">1</span> i915.lvds_downclock<span class="o">=</span><span class="m">1</span> i915.semaphores<span class="o">=</span><span class="m">1</span> i915.modeset<span class="o">=</span><span class="m">1</span> <span class="nv">acpi_osi</span><span class="o">=</span>Linux <span class="nv">rdblacklist</span><span class="o">=</span>nouveau</span></span></code></pre></div>
 <h3 id="additional-notes">Additional notes</h3>
-<p>The above procedure has been tested with the laptop having the following <!-- raw HTML omitted -->specs<!-- raw HTML omitted -->.</p>
+<p>The above procedure has been tested with the laptop having the following <a href="http://www.samsung.com/uk/consumer/pc-peripherals/notebook-computers/high-performance/NP700Z3C-S02UK-spec" target="_blank">specs</a>.</p>
 <p>The average temperature for the CPU is sticking around <strong>47-51 C</strong>, while the discrete GPU at <strong>49-51C</strong>. I could also get around 3.5 – 4 hours of battery life!</p>
 <p>That should be all! Please leave me a comment in case of questions, troubles with the above setup!</p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/fedora-20/">fedora 20</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/np700z3c/">NP700Z3C</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/samsung-chronos-series-7/">samsung chronos series 7</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/" data-toggle="tooltip" data-placement="top" title="Manage passwords with ‘pass’">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/" data-toggle="tooltip" data-placement="top" title="Fedy’s installation of Brackets bricks your Fedora installation">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sysadmin on Andrea Veri&#39;s Blog</title>
+    <title>sysadmin on </title>
     <link>https://www.dragonsreach.it/tags/sysadmin/</link>
-    <description>Recent content in sysadmin on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in sysadmin on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/sysadmin/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -41,7 +41,7 @@ New Data Center One of the core projects for 2020 was moving off services from t
       <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</guid>
-      <description>As preannounced herethe GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
+      <description>As preannounced here the GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
 Introduction It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by Jonathan Blandford (jrb) who configured an OpenLDAP istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)</description>
     </item>
     

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Fedora Board on Andrea Veri&#39;s Blog</title>
+    <title>Fedora Board on </title>
     <link>https://www.dragonsreach.it/tags/fedora-board/</link>
-    <description>Recent content in Fedora Board on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Fedora Board on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 30 May 2011 21:06:14 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/fedora-board/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -22,7 +22,7 @@
       <pubDate>Wed, 25 May 2011 20:45:10 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</guid>
-      <description>If you are not subscribed to the fedora-announcemailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
+      <description>If you are not subscribed to the fedora-announce mailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
  What will you be able to accomplish by being elected, that you would not otherwise be able to do as a contributor?  (As you will notice by reading the list right down here) Being a single contributor makes achieving these points impossible since changing how localized communities should work, improving our CoC and enforcing its rules and re-thinking Board’s role in our community is something that must be discussed and voted within the Board and its members.</description>
     </item>
     

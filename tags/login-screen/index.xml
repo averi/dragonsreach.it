@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Login Screen on Andrea Veri&#39;s Blog</title>
+    <title>Login Screen on </title>
     <link>https://www.dragonsreach.it/tags/login-screen/</link>
-    <description>Recent content in Login Screen on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Login Screen on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Sun, 11 Sep 2011 18:25:32 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/login-screen/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,8 +12,8 @@
       <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</guid>
-      <description>A few days ago I bloggedabout my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
- Google’s contacts listintegrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
+      <description>A few days ago I blogged about my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
+ Google’s contacts list integrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
     </item>
     
   </channel>

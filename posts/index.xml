@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Andrea Veri&#39;s Blog</title>
+    <title>Posts on </title>
     <link>https://www.dragonsreach.it/posts/</link>
-    <description>Recent content in Posts on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -62,7 +62,7 @@ The relevant changes against the original library can be resumed as follows:
       <pubDate>Wed, 02 Dec 2015 16:32:41 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</guid>
-      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.</description>
+      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishna and Jeff Schroeder proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiring achieved by Karen Sandler back in February 2013.</description>
     </item>
     
     <item>
@@ -80,7 +80,7 @@ The relevant changes against the original library can be resumed as follows:
       <pubDate>Fri, 24 Oct 2014 13:50:52 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</guid>
-      <description>One of the benefits I originally wanted to bring with the FreeIPA moveto GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
+      <description>One of the benefits I originally wanted to bring with the FreeIPA move to GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
     </item>
     
     <item>
@@ -98,7 +98,7 @@ The relevant changes against the original library can be resumed as follows:
       <pubDate>Tue, 07 Oct 2014 09:21:33 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/</guid>
-      <description>As preannounced herethe GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
+      <description>As preannounced here the GNOME Infrastructure switched to a new Account Management System which is reachable at https://account.gnome.org. All the details will follow.
 Introduction It’s been a while since someone actually touched the underlying authentication infrastructure that powers the GNOME machines. The very first setup was originally configured by Jonathan Blandford (jrb) who configured an OpenLDAP istance with several customized schemas. (pServer fields in the old CVS days, pubAuthorizedKeys and GNOME modules related fields in recent times)</description>
     </item>
     
@@ -126,7 +126,7 @@ Introduction It’s been a while since someone actually touched the underlying a
       <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</guid>
-      <description>I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
+      <description>I wanted to give Fedy a try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
     </item>
     
     <item>
@@ -145,7 +145,7 @@ What I did right after unboxing it was dropping Windows 8 with a copy of Fedora 
       <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
-      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki pagehas a pretty nice overview of them.
+      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki page has a pretty nice overview of them.
 Said that, when using sudo it’s definitely ideal to combine a strong password that is also easy to remember and type again when prompted.</description>
     </item>
     
@@ -155,7 +155,7 @@ Said that, when using sudo it’s definitely ideal to combine a strong password 
       <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</guid>
-      <description>Today I’ll be working out how to properly configure DNSSECon a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITMattack.</description>
+      <description>Today I’ll be working out how to properly configure DNSSEC on a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITM attack.</description>
     </item>
     
     <item>
@@ -173,7 +173,7 @@ Said that, when using sudo it’s definitely ideal to combine a strong password 
       <pubDate>Thu, 27 Jun 2013 16:59:57 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</guid>
-      <description>It’s been two years since my latest blog postabout my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
+      <description>It’s been two years since my latest blog post about my Linux desktop and many things have changed since then. I completely moved all my machines to GNOME 3, switched my main editor from nano to vim and my terminal multiplexer from screen to tmux. What didn’t change at all except for a tweaks on the theme is my Irssi setup.
 Switching from nano to vim has been a pain at first, nano is really a straightforward editor, it does what you actually need from a CLI editor but while it works just fine when modifying configuration or text files, it’s a bit limiting when it comes to programming.</description>
     </item>
     
@@ -241,7 +241,7 @@ I’ve always presented myself as a Linux geek to my neighbours and it has been 
       <pubDate>Sat, 03 Nov 2012 16:38:28 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/</guid>
-      <description>Exactly one week ago I was attending the Fedora Activity Dayorganized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
+      <description>Exactly one week ago I was attending the Fedora Activity Day organized in Milan in concomitance with the Linux Day event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.
 Each of us presented a specific Fedora-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following link) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</description>
     </item>
     
@@ -316,8 +316,8 @@ Puppet consists of a custom declarative language to describe system configuratio
       <pubDate>Sun, 11 Sep 2011 18:25:32 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/</guid>
-      <description>A few days ago I bloggedabout my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
- Google’s contacts listintegrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
+      <description>A few days ago I blogged about my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:
+ Google’s contacts list integrated into Mutt a cleaner and nicer Login screen  Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small HowTo:</description>
     </item>
     
     <item>
@@ -372,7 +372,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
       <pubDate>Wed, 25 May 2011 20:45:10 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/05/25/fedora-boards-questionnaire/</guid>
-      <description>If you are not subscribed to the fedora-announcemailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
+      <description>If you are not subscribed to the fedora-announce mailing list but you are still interested in having a look at my responses about community-asked questions, here they are:
  What will you be able to accomplish by being elected, that you would not otherwise be able to do as a contributor?  (As you will notice by reading the list right down here) Being a single contributor makes achieving these points impossible since changing how localized communities should work, improving our CoC and enforcing its rules and re-thinking Board’s role in our community is something that must be discussed and voted within the Board and its members.</description>
     </item>
     
@@ -382,7 +382,7 @@ A few years ago when Mutt was my main mail client I had the need to filter my ma
       <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</guid>
-      <description></description>
+      <description>Today I had the possibility to announce a new tool for the Fedora Project, a sub-planet called &amp;#8216;Edited&amp;#8217; mainly focused on Fedora-related posts and announcements.  The scenario we gonna have when Edited will become a known tool by the whole project can be resumed as it follows:   team leaders or whoever will be appointed to, will send out their team&amp;#8217;s status and any relevant announcement such as important changes, needs for help directed to any contributor unsure about where and how to start contributing to a specific team.</description>
     </item>
     
     <item>

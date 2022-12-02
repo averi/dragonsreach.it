@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+	<meta name="generator" content="Hugo 0.93.3" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Andrea Veri&#39;s Blog &middot; Me, myself and I
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item  active " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+
+
+
+<div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/">SSH Tunneling for VNC</a></h1>
+        <span class="post-date">Oct 6, 2012</span>
+        <p>Logging in into a Linux machine and executing the hundreds commands available is just one of the most common usages of <strong>OpenSSH</strong>. Another interesting and very useful usage is tunneling some specific (or even all) traffic from your local machine to an external machine you have access to.</p>
+<p>Today we’ll analyze how to access a certain virtual machine’s <strong>console</strong> by tunneling the relevant <strong>VNC</strong> port locally and accessing it through your favorite VNC client. The scenario:</p>
+<ol>
+<li>Machine <strong>A</strong> is our main virtualization machine and hosts several virtual machines. (VMs)</li>
+<li>Each <strong>VM</strong> has its own VNC port assigned. (usually the port range goes from <strong>5900</strong> to <strong>5910</strong> or even more if the hosted VMs are more than 10)</li>
+<li>We’ll be using libvirt, thus virsh.</li>
+</ol>
+<p>We first need to find out which port got assigned to the VM we want to have console access to:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo virsh
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">virsh <span class="c1"># list</span>
+</span></span><span class="line"><span class="cl">Id   Name   Status
+</span></span><span class="line"><span class="cl">----------------------------------------------------
+</span></span><span class="line"><span class="cl"><span class="m">5</span>    foo    running
+</span></span><span class="line"><span class="cl"><span class="m">6</span>    bar    running
+</span></span><span class="line"><span class="cl"><span class="m">7</span>    foobar running
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">virsh <span class="c1"># vncdisplay foobar</span>
+</span></span><span class="line"><span class="cl">:3</span></span></code></pre></div>
+<p>We, then, create a tunnel which redirects all the traffic from the main virtualization machine’s port to the port we gonna specify in the next command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ssh -f -N -L 5910:localhost:5903 user@machine-A.com</span></span></code></pre></div>
+<p>A few <strong>details</strong> about the previous command:</p>
+<ol>
+<li>**-N **tells SSH to not execute any command after logging in.</li>
+<li><strong>-f</strong> tells SSH to hide into the background just before the command gets executed.</li>
+<li><strong>-L</strong> enables the port forwarding between the local (client) host and the host on the remote side.</li>
+</ol>
+<p>And…why did I choose respectively port <strong>5903</strong> and <strong>5910</strong></p>
+<p>While you can adjust port <strong>5910</strong> with your own choice (that will just move the tunneled traffic from port <strong>5910</strong> to your favorite port), that won’t work as expected with port 5903 since each VNC port is binded to the number of display virsh assigned to it. (for example, the <strong>bar</strong> VM may be running on display 5, thus its <strong>vncdisplay</strong> port will be <strong>5905</strong>)</p>
+<p>When <strong>done</strong>, fire up your favorite VNC client and create a new connection with the following details:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">Protocol: VNC - Virtual Network Computing
+</span></span><span class="line"><span class="cl">Server: localhost - 127.0.0.1
+</span></span><span class="line"><span class="cl">Port: <span class="m">5910</span></span></span></code></pre></div>
+<p>The connection will load and you’ll be put in front of your <strong>‘foobar’</strong> VM console.</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/09/19/fad-milano-2012/">FAD Milano 2012</a></h1>
+        <span class="post-date">Sep 19, 2012</span>
+        <p>È con piacere che annuncio la mia presenza al <strong>Fedora Activity Day</strong> di Milano in data <strong>27 Ottobre 2012</strong> e con altrettanto piacere ringrazio gli organizzatori per avermi dedicato uno spazio di trenta minuti in cui discutere ed approfondire le tematiche derivanti dall’amministrazione di sistemi Linux, nello specifico, dell’amministrazione degli stessi computer che ospitano e rendono disponibili numerosi servizi alle migliaia di utenti Fedora che contribuiscono quotidianamente al progetto.</p>
+<p>Ho partecipato fisicamente, purtroppo, a pochissimi eventi <strong>Open Source</strong> e per questo motivo sono particolarmente emozionato di aver la possibilità di prender parte ad una manifestazione così sentita ed apprezzata come il <strong>Linux Day</strong>, contesto in cui lo stesso <strong>Fedora Activity Day</strong> prenderà piede. Le aspettative sono tante e mi impegnerò in modo tale da presentare al pubblico il maggior numero di strumenti e attività inerenti all’amministrazione di sistemi Linux, il tutto con la speranza di invogliare il maggior numero dei presenti a contribuire allo stesso progetto <strong>Fedora</strong>.</p>
+<p>A titolo introduttivo elenco alcuni dei <strong>punti</strong> su cui mi soffermerò durante il mio <strong>talk</strong>:</p>
+<ol>
+<li>Quali sono i principi fondamentali a cui l’infrastruttura Fedora si ispira.</li>
+<li>Chi c’è dietro all’infrastruttura Fedora, quante persone e con quali competenze, quali sono i mezzi di comunicazione.</li>
+<li>Quanti e quali Datacenter permettono al progetto Fedora di funzionare.</li>
+<li>Quali sono i software utilizzati, come vengono utilizzati e con quali strumenti il team Infrastruttura provvede alla manutenzione dei sistemi fisici e virtuali disponibili, come vengono monitorati i server Fedora e molto altro!</li>
+</ol>
+<p>Con la speranza di una partecipazione numerosa, vi rimando alla <a href="https://fedoraproject.org/wiki/FAD_LinuxDayMi_2012" target="_blank">pagina </a>dedicata all’evento.</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/09/17/building-debian-packages-with-deb-o-matic/">Building Debian packages with Deb-o-Matic</a></h1>
+        <span class="post-date">Sep 17, 2012</span>
+        <p>Today I’ll be telling you about an interesting way to build your Debian packages using <strong>Deb-o-Matic</strong>, a tool developed and maintained by <a href="http://dktrkranz.wordpress.com" target="_blank">Luca Falavigna</a>. Some more details about this tool from the package’s description:</p>
+<blockquote>
+<p>Deb-o-Matic is an easy to use build machine for Debian source packages based on pbuilder, written in Python.</p>
+<p>It provides a simple tool to automate build of source packages with limited user interaction and a simple configuration. It has some useful features such as automatic update of pbuilder, automatic scan and selection of source packages to build and modules support.</p>
+</blockquote>
+<p>The <strong>setup.</strong></p>
+<p>Download the package.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install debomatic</span></span></code></pre></div>
+<p>Modify the <strong>main</strong> configuration file as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[default]</span>
+</span></span><span class="line"><span class="cl"><span class="na">builder: pbuilder</span>
+</span></span><span class="line"><span class="cl"><span class="na">packagedir: /home/john/debomatic # Take note of the following path since we&#39;ll need it for later use.</span>
+</span></span><span class="line"><span class="cl"><span class="na">configdir: /etc/debomatic/distributions</span>
+</span></span><span class="line"><span class="cl"><span class="na">pbuilderhooks: /usr/share/debomatic/pbuilderhooks</span>
+</span></span><span class="line"><span class="cl"><span class="na">maxbuilds: 3 # The number of builds you can perform at the same time.</span>
+</span></span><span class="line"><span class="cl"><span class="na">inotify: 1</span>
+</span></span><span class="line"><span class="cl"><span class="na">sleep: 60 # The sleep time between one build and another.</span>
+</span></span><span class="line"><span class="cl"><span class="na">logfile: /var/log/debomatic.log</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[gpg]</span>
+</span></span><span class="line"><span class="cl"><span class="na">gpg: 0 # Change to 1 if you want Deb-O-Matic to check the GPG signature of the uploaded packages.</span>
+</span></span><span class="line"><span class="cl"><span class="na">keyring: /etc/debomatic/debomatic.gpg # Add the GPG Keys you want Deb-O-Matic to accept in this keyring.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[modules]</span>
+</span></span><span class="line"><span class="cl"><span class="na">modules: 1 # A list of all the available modules will follow right after.</span>
+</span></span><span class="line"><span class="cl"><span class="na">modulespath: /usr/share/debomatic/modules</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[runtime]</span>
+</span></span><span class="line"><span class="cl"><span class="na">alwaysupdate: unstable experimental precise</span>
+</span></span><span class="line"><span class="cl"><span class="na">distblacklist:</span>
+</span></span><span class="line"><span class="cl"><span class="na">modulesblacklist: Lintian Mailer</span>
+</span></span><span class="line"><span class="cl"><span class="na">mapper: {&#39;sid&#39;: &#39;unstable&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#39;wheezy&#39;: &#39;testing&#39;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#39;squeeze&#39;: &#39;stable&#39;}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[lintian]</span>
+</span></span><span class="line"><span class="cl"><span class="na">lintopts: -i -I -E --pedantic # Run Lintian in Pedantic mode.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">[mailer] # You need an SMTP server running on your machine for the mailer to work. You can have a look at the &#39;Ssmtp&#39; daemon which is a one-minute-setup MTA, check an example over &lt;a href</span><span class="o">=</span><span class="s">&#34;https://github.com/averi/config-files/blob/master/backups/offlineimap%20%2B%20ssmtp%20%2B%20imapfilter/ssmtp.conf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.</span>
+</span></span><span class="line"><span class="cl"><span class="na">fromaddr: debomatic@localhost</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtphost: localhost</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtpport: 25</span>
+</span></span><span class="line"><span class="cl"><span class="na">authrequired: 0</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtpuser: user</span>
+</span></span><span class="line"><span class="cl"><span class="na">smtppass: pass</span>
+</span></span><span class="line"><span class="cl"><span class="na">success: /etc/debomatic/mailer/build_success.mail-template # Update the build success or failure mails as you wish by modifying the relevant files.</span>
+</span></span><span class="line"><span class="cl"><span class="na">failure: /etc/debomatic/mailer/build_failure.mail-template</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[internals]</span>
+</span></span><span class="line"><span class="cl"><span class="na">configversion</span> <span class="o">=</span> <span class="s">010a</span></span></span></code></pre></div>
+<p>The available modules are:</p>
+<ol>
+<li> “<strong>Contents</strong>“, which acts as a ‘dpkg -c’ over the built packages.</li>
+<li>“<strong>DateStamp</strong>“, which displays build start and finish times into a file in the build directory.</li>
+<li>“<strong>Lintian</strong>“, which stores Lintian output on top of the built package in the pool directory.</li>
+<li>“<strong>Mailer</strong>“, which sends a reply to the uploader once the build has finished.</li>
+<li>“<strong>PrevBuildCleaner</strong>“, which deletes all files generated by the previous build.</li>
+<li>“<strong>Repository</strong>“, which generates a local repository of built packages.</li>
+</ol>
+<p>Configure ‘<a href="http://manpages.ubuntu.com/manpages/precise/man5/dput.cf.5.html" target="_blank">dput</a>‘ to upload package’s sources to your local repository, edit the <strong>/etc/dput.cf</strong> file and add this entry:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[debomatic]</span>
+</span></span><span class="line"><span class="cl"><span class="na">method</span> <span class="o">=</span> <span class="s">local</span>
+</span></span><span class="line"><span class="cl"><span class="na">incoming</span> <span class="o">=</span> <span class="s">/home/john/debomatic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">or the following if you are going to upload the files to a different machine through SSH:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[debomatic]</span>
+</span></span><span class="line"><span class="cl"><span class="na">login</span> <span class="o">=</span> <span class="s">john</span>
+</span></span><span class="line"><span class="cl"><span class="na">fqdn</span> <span class="o">=</span> <span class="s">debomatic.example.net</span>
+</span></span><span class="line"><span class="cl"><span class="na">method</span> <span class="o">=</span> <span class="s">scp</span>
+</span></span><span class="line"><span class="cl"><span class="na">incoming</span> <span class="o">=</span> <span class="s">/debomatic</span></span></span></code></pre></div>
+<p>Add a new <strong>Virtual Host</strong> on Apache and access the repository / built packages directly through your browser:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Apache" data-lang="Apache"><span class="line"><span class="cl"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">ServerAdmin</span> john@example.net
+</span></span><span class="line"><span class="cl"><span class="nb">ServerName</span> debomatic.example.net
+</span></span><span class="line"><span class="cl"><span class="nb">DocumentRoot</span> <span class="sx">/home/john/debomatic</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Directory</span> <span class="s">/home/john/debomatic</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Options</span> Indexes FollowSymLinks MultiViews
+</span></span><span class="line"><span class="cl"><span class="nb">AllowOverride</span> <span class="k">None</span>
+</span></span><span class="line"><span class="cl"><span class="nb">Order</span> allow,deny
+</span></span><span class="line"><span class="cl"><span class="nb">allow</span> from <span class="k">all</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;Directory&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/VirtualHost&gt;</span></span></span></code></pre></div>
+<p>Start the daemon:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/debomatic start</span></span></code></pre></div>
+<p>(<strong>Optional</strong>) Add your repository to <strong>APT</strong>‘s sources.list:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">deb http://debomatic.example.net/ unstable main contrib non-free</span></span></code></pre></div>
+<p>(<strong>Optional</strong>) Start Deb-O-Matic at system’s startup by modifying the <strong>/etc/init.d/debomatic</strong> file at <strong>line 21</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">- <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$DAEMON</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">- <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$DEBOMATIC_AUTOSTART</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">+ <span class="o">[</span> -x <span class="s2">&#34;</span><span class="nv">$DAEMON</span><span class="s2">&#34;</span> <span class="o">]</span> <span class="o">||</span> <span class="nb">exit</span> <span class="m">0</span>
+</span></span><span class="line"><span class="cl">+ <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$DEBOMATIC_AUTOSTART</span><span class="s2">&#34;</span> <span class="o">=</span> <span class="m">1</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">exit</span> <span class="m">0</span></span></span></code></pre></div>
+<p>and finally add it to the desired <strong>runlevels</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">update-rc.d debomatic defaults</span></span></code></pre></div>
+<p>Enjoy!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/09/15/manage-your-website-through-git/">Manage your website through Git</a></h1>
+        <span class="post-date">Sep 15, 2012</span>
+        <p>Ever wondered how you can update your <strong>website</strong> (in our case a static website with a bunch of <strong>HTML</strong> and <strong>PHP</strong> files) by committing to a <strong>Git repository</strong> hosted on a <strong>different server</strong>? if the answer to the previous question is <strong>yes</strong>, then you are in the right place.</p>
+<p>The <strong>scenario</strong>:</p>
+<ul>
+<li>
+<p>Website hosted on <strong>server A</strong>.</p>
+</li>
+<li>
+<p>Git repository hosted on <strong>server B</strong>.</p>
+</li>
+</ul>
+<p>and a few details about why would you opt for maintaining your website through <strong>Git</strong>:</p>
+<ol>
+<li>You need multiple people to access the static content of your website and you also want to maintain all the history of changes together with all the Git’s magic.</li>
+<li>You think using an FTP server is not secure enough.</li>
+<li>You think giving out SSH access or more permissions on the server to multiple users it’s not what you want. (also using <strong><a href="http://linux.die.net/man/1/scp" target="_blank">scp</a></strong> will overwrite the files directly with all its consequences)</li>
+</ol>
+<p>the <strong>setup</strong>, on <strong>server A</strong>:</p>
+<p>Clone the Git repository over the directory that your Web server will serve.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nb">cd</span> /srv/www.domain.com/http <span class="o">&amp;&amp;</span> sudo git clone http://git.example.com/git/domain.git</span></span></code></pre></div>
+<p>Grab the needed package:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install fishpolld or yum install fishpolld</span></span></code></pre></div>
+<p>Set up a “<a href="http://git.fishsoup.net/cgit/fishpoll/tree/README" target="_blank">topic</a>” (called <strong>website_update</strong>) that will call a ‘<strong>git pull</strong>‘ each time the repository hosted on <strong>server B</strong> receives an update. (the file has to be placed into the <strong>/etc/fishpoll.d</strong> directory)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">WEBSITEDIR</span><span class="o">=</span><span class="s2">&#34;/srv/www.domain.com/http&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -d <span class="s2">&#34;</span><span class="si">${</span><span class="nv">WEBSITEDIR</span><span class="si">}</span><span class="s2">&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">WEBSITEDIR</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Unable to access theme directory. Failing.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git pull</span></span></code></pre></div>
+<p>Add a little configuration file that will enable the <strong>website_update</strong>‘s topic at daemon’s startup. (you should name it <strong>website_update.conf</strong>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="o">[</span>fishpoll<span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nv">on_start</span> <span class="o">=</span> True</span></span></code></pre></div>
+<p>Open the relevant port on <strong>Iptables</strong> so that <strong>server A</strong> and <strong>server B</strong> can communicate as expected, the daemon runs over** port 27527**.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">-A INPUT -m state --state NEW -m tcp -p tcp -s &lt;strong&gt;server-B-IP&lt;/strong&gt; --dport <span class="m">27527</span> -j ACCEPT</span></span></code></pre></div>
+<p>Start the daemon. (by default, logs are sent to <strong>syslog</strong> but you can run the daemon in <strong>Debug</strong> mode by using the <strong>-D flag</strong>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/fishpolld start or sudo systemctl start fishpolld.service or sudo /usr/sbin/fishpolld -D</span></span></code></pre></div>
+<p>and on <strong>server B:</strong></p>
+<p>Grab the needed package:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install fishpoke or yum install fishpoke</span></span></code></pre></div>
+<p>Configure the relevant Git hook (<strong>post-update</strong>, located into the <strong>hooks</strong> directory) and make it <strong>executable</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Triggering update of configuration on server A&#34;</span>
+</span></span><span class="line"><span class="cl">fishpoke server-A-IP-or-DNS website_update</span></span></code></pre></div>
+<p>Finally test the whole setup by committing to the repository hosted on <strong>server B</strong> and verify your changes being sent live on your website!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/">Nagios IRC Notifications</a></h1>
+        <span class="post-date">Jun 30, 2012</span>
+        <p>Lately (as I earlier pointed out on my <a href="http://blogs.gnome.org/woody/2012/02/18/nagios-xmpp-notifications-for-gtalk/">blog</a>) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: <strong>supybot</strong> + <strong>supybot-notify</strong>, all that mixed up with a few grains of Nagios command definitions.</p>
+<p>But here we go with a little step-by-step guide:</p>
+<p><strong>Requirements</strong></p>
+<ol>
+<li>Install supybot and configure a new installation:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install supybot or yum install supybot
+</span></span><span class="line"><span class="cl">mkdir /home/<span class="nv">$user</span>/nagbot <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/<span class="nv">$user</span>/nagbot
+</span></span><span class="line"><span class="cl">supybot-wizard <span class="o">(</span>follow the directions to get the bot initially configured<span class="o">)</span></span></span></code></pre></div>
+<ol start="2">
+<li>Install and load the supybot-notify plugin by doing:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git clone git://git.fedorahosted.org/supybot-notify.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> supybot-notify
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$user</span>/nagbot/plugins/notify <span class="o">&amp;&amp;</span> cp -r * /home/<span class="nv">$user</span>/nagbot/plugins/notify</span></span></code></pre></div>
+<p>Finally, <strong><a href="http://supybook.fealdia.org/devel/#_plugins">load</a></strong> the plugin. (this will require you to <a href="http://supybook.fealdia.org/devel/#_identifying_to_the_bot">authenticate</a> to the bot)</p>
+<p><strong>Nagios configuration</strong></p>
+<p>Add the relevant command definitions to the <strong>commands.cfg</strong> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="c1"># &#39;notify-by-ircbot&#39; command definition</span>
+</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
+</span></span><span class="line"><span class="cl">    command_name    notify-by-ircbot
+</span></span><span class="line"><span class="cl">    command_line    /usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2">/</span><span class="nv">$SERVICEDESC</span>$<span class="s2"> is </span><span class="nv">$SERVICESTATE</span>$<span class="s2">: </span><span class="nv">$SERVICEOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;host-notify-by-ircbot&#39; command definition</span>
+</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
+</span></span><span class="line"><span class="cl">	command_name	host-notify-by-ircbot
+</span></span><span class="line"><span class="cl">	command_line	/usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2"> is </span><span class="nv">$HOSTSTATE</span>$<span class="s2">: </span><span class="nv">$HOSTOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span></span></span></code></pre></div>
+<p>* adjust the <strong>Netcat’s</strong> host and port to your needs, in my case Supybot and Nagios were running on the same host. In the case of a Supybot running on a different host than Nagios, tweak Iptables to allow the desired port:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span class="m">5050</span> -j ACCEPT</span></span></code></pre></div>
+<p>Add a new entry on the <strong>contacts.cfg</strong> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">define contact<span class="o">{</span>
+</span></span><span class="line"><span class="cl"> 	contact_name    nagbot
+</span></span><span class="line"><span class="cl">   	use             generic-contact        
+</span></span><span class="line"><span class="cl">        <span class="nb">alias</span>		Nagios IRC Bot
+</span></span><span class="line"><span class="cl">        email           example@example.com
+</span></span><span class="line"><span class="cl">        service_notification_commands   notify-by-ircbot
+</span></span><span class="line"><span class="cl"> 	host_notification_commands      host-notify-by-ircbot
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
+<p>Reload Nagios:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/nagios3 reload</span></span></code></pre></div>
+<p>And finally, enjoy the result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">PROBLEM - <span class="nv">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span class="o">(</span>nagioshost<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> RECOVERY - <span class="nv">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span class="o">(</span>nagioshost<span class="o">)</span></span></span></code></pre></div>
+
+    </div>
+  
+</div>
+
+<div class="pagination">
+  
+  <a class="pagination-item older" href="https://www.dragonsreach.it/page/7/">Older</a>
+  
+
+  
+  <a class="pagination-item newer" href="https://www.dragonsreach.it/page/5/">Newer</a>
+  
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+
+    
+  </body>
+</html>
+

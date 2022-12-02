@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Sysadmin on Andrea Veri&#39;s Blog</title>
+    <title>Sysadmin on </title>
     <link>https://www.dragonsreach.it/categories/sysadmin/</link>
-    <description>Recent content in Sysadmin on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Sysadmin on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Mon, 26 Feb 2018 15:13:09 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/categories/sysadmin/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -23,7 +23,7 @@ The relevant changes against the original library can be resumed as follows:
       <pubDate>Wed, 02 Dec 2015 16:32:41 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2015/12/02/three-years-and-counting/</guid>
-      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.</description>
+      <description>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishna and Jeff Schroeder proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiring achieved by Karen Sandler back in February 2013.</description>
     </item>
     
     <item>
@@ -59,7 +59,7 @@ The relevant changes against the original library can be resumed as follows:
       <pubDate>Tue, 24 Dec 2013 15:51:20 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/</guid>
-      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki pagehas a pretty nice overview of them.
+      <description>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the following wiki page has a pretty nice overview of them.
 Said that, when using sudo it’s definitely ideal to combine a strong password that is also easy to remember and type again when prompted.</description>
     </item>
     
@@ -69,7 +69,7 @@ Said that, when using sudo it’s definitely ideal to combine a strong password 
       <pubDate>Wed, 13 Nov 2013 13:53:31 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/</guid>
-      <description>Today I’ll be working out how to properly configure DNSSECon a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITMattack.</description>
+      <description>Today I’ll be working out how to properly configure DNSSEC on a BIND9 installation, I’ll also make sure to give you all the needed instructions to properly verify if a specific domain is being correctly covered by DNSSEC itself. In addition to that a few more details will be provided about adding the relevant SSHFP‘s entries on your DNS zone files to be able to automatically verify the authenticity of your domain when connecting to it with SSH avoiding any possible MITM attack.</description>
     </item>
     
     <item>

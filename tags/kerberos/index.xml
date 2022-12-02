@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kerberos on Andrea Veri&#39;s Blog</title>
+    <title>Kerberos on </title>
     <link>https://www.dragonsreach.it/tags/kerberos/</link>
-    <description>Recent content in Kerberos on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Kerberos on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 24 Oct 2014 13:50:52 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/kerberos/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Fri, 24 Oct 2014 13:50:52 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/</guid>
-      <description>One of the benefits I originally wanted to bring with the FreeIPA moveto GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
+      <description>One of the benefits I originally wanted to bring with the FreeIPA move to GNOME contributors was the introduction of an additional authentication system to connect to to the services hosted on the GNOME Infrastructure. The authentication system that comes with the FreeIPA bundle that I had in mind was Kerberos. Users willing to use Kerberos as their preferred authentication system would just be required to get a TGT (Ticket-Granting Ticket) from the KDC (Key Distribution Center) through the kinit command.</description>
     </item>
     
   </channel>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+	<meta name="generator" content="Hugo 0.93.3" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Andrea Veri&#39;s Blog &middot; Me, myself and I
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item  active " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+
+
+
+<div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/">A few useful Puppet snippets</a></h1>
+        <span class="post-date">Jan 31, 2012</span>
+        <p>As per Wikipedia:</p>
+<blockquote>
+<p>Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.</p>
+<p>Puppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.</p>
+</blockquote>
+<p>I’ve been playing with the aforementioned tool lately both on my home network and within the Fedora’s Infrastructure team and I thought some of the work I did might be useful for anyone out there being stuck with a Puppet’s manifest or an ERB template.</p>
+<p><strong>Snippet #1</strong>: Make sure the user <strong>‘foo’</strong> is always created with its own home directory, password, shell, and full name.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">users</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="na">users</span><span class="p">::</span><span class="na">add</span> <span class="p">{</span> <span class="s">&#34;foo&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">username</span>        <span class="o">=&gt;</span> <span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">comment</span>         <span class="o">=&gt;</span> <span class="s">&#39;Foo&#39;</span><span class="na">s</span> <span class="na">Full</span> <span class="na">Name</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        shell           =&gt; &#39;</span><span class="o">/</span><span class="na">bin</span><span class="o">/</span><span class="na">bash</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        password_hash   =&gt; &#39;</span><span class="na">pwd_hash_as_you_can_see_in_</span><span class="o">/</span><span class="na">etc</span><span class="o">/</span><span class="na">shadow</span><span class="s">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">    }
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">define users::add($username, $comment, $shell, $password_hash) {
+</span></span></span><span class="line"><span class="cl"><span class="s">    user { $username:
+</span></span></span><span class="line"><span class="cl"><span class="s">        ensure =&gt; &#39;</span><span class="k">present</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        home   =&gt; &#34;/home/${username}&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        comment =&gt; $comment,
+</span></span></span><span class="line"><span class="cl"><span class="s">        shell  =&gt; $shell,
+</span></span></span><span class="line"><span class="cl"><span class="s">        managehome =&gt; &#39;</span><span class="k">true</span><span class="err">&#39;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">password</span> <span class="o">=&gt;</span> <span class="nv">$password_hash,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
+<p><strong>Snippet #2:</strong> Make sure the user <strong>‘foo’</strong> gets added into <strong>/etc/sudoers</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">sudoers</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">file</span> <span class="p">{</span> <span class="s">&#34;/etc/sudoers&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">owner</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">group</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">mode</span>    <span class="o">=&gt;</span> <span class="s">&#34;440&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>     <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">augeas</span> <span class="p">{</span> <span class="s">&#34;addfootosudoers&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">context</span> <span class="o">=&gt;</span> <span class="s">&#34;/files/etc/sudoers&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">changes</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/user foo&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/host ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/command ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/command/runas_user ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
+<p><strong>Snippet #3:</strong> Make sure that <strong>openssh-server</strong> is: installed, running on Port 222 and accepting <strong>RSA</strong> authentications only.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">openssh</span><span class="o">-</span><span class="na">server</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="k">package</span> <span class="p">{</span> <span class="s">&#34;openssh-server&#34;</span><span class="p">:</span> <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">ensure</span> <span class="o">=&gt;</span> <span class="s">&#34;installed&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">service</span> <span class="p">{</span> <span class="s">&#34;ssh&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span>    <span class="o">=&gt;</span> <span class="k">running</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">hasstatus</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">require</span>   <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&#34;openssh-server&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">augeas</span> <span class="p">{</span> <span class="s">&#34;sshd_config&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">context</span> <span class="o">=&gt;</span> <span class="s">&#34;/files/etc/ssh/sshd_config&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="na">changes</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PermitRootLogin no&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set RSAAuthentication yes&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PubkeyAuthentication yes&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set AuthorizedKeysFile	%h/.ssh/authorized_keys&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PasswordAuthentication no&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set Port 222&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span> <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
+<p><strong>Snippet #4:</strong> Don’t apply a specific <strong>IPTABLES</strong> rule if an host is tagged as ‘staging’ in the relevant node file.</p>
+<p>On <strong>templates/iptables.erb</strong>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="c"># Allow unlimited traffic on eth0</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">i</span> <span class="na">eth0</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">OUTPUT</span> <span class="o">-</span><span class="na">o</span> <span class="na">eth0</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Allow unlimited traffic from trusted IP addresses</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">s</span> <span class="mf">192.168.1.1</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="k">if</span> <span class="na">environment</span> <span class="o">==</span> <span class="s">&#34;production&#34;</span> <span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">22</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">25</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">80</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">unless</span> <span class="k">defined</span><span class="o">?</span><span class="p">(</span><span class="na">staging</span><span class="p">)</span><span class="err">.</span><span class="na">nil</span><span class="o">?</span> <span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">s</span> <span class="na">X</span><span class="err">.</span><span class="na">X</span><span class="err">.</span><span class="na">X</span><span class="err">.</span><span class="na">X</span> <span class="o">-</span><span class="na">j</span> <span class="na">REJECT</span> <span class="o">--</span><span class="na">reject</span><span class="o">-</span><span class="na">with</span> <span class="na">icmp</span><span class="o">-</span><span class="k">host</span><span class="o">-</span><span class="na">prohibited</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">end</span> <span class="o">-</span><span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">end</span> <span class="o">-</span><span class="err">%</span><span class="o">&gt;</span></span></span></code></pre></div>
+<p>On the <strong>manifest</strong> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">iptables</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">package</span> <span class="p">{</span> <span class="na">iptables</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span> <span class="o">=&gt;</span> <span class="k">installed</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">service</span> <span class="p">{</span> <span class="s">&#34;iptables&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span>    <span class="o">=&gt;</span> <span class="k">running</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">hasstatus</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">require</span>   <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&#34;iptables&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">file</span> <span class="p">{</span> <span class="s">&#34;/etc/sysconfig/iptables&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">owner</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">group</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">mode</span>    <span class="o">=&gt;</span> <span class="mi">644</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">content</span> <span class="o">=&gt;</span> <span class="k">template</span><span class="p">(</span><span class="s">&#34;iptables/iptables.erb&#34;</span><span class="p">),</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="k">notify</span>  <span class="o">=&gt;</span> <span class="k">Service</span><span class="p">[</span><span class="s">&#34;iptables&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
+<p>That’s all for now!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/">A few other additions to my Mutt and Desktop setup!</a></h1>
+        <span class="post-date">Sep 11, 2011</span>
+        <p>A few days ago I <a href="https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/" target="_blank">blogged</a> about my main computer’s configuration files and desktop’s appearance and today I managed to add a few little tweaks to those, they are:</p>
+<ul>
+<li>Google’s <a href="https://www.google.com/contacts" target="_blank">contacts list</a> integrated into Mutt</li>
+<li>a cleaner and nicer Login screen</li>
+</ul>
+<p>Curious to know how you can easily integrate your Google’s contacts into Mutt? Well, you should be able to achieve that within a few minutes after reading this small <strong>HowTo</strong>:</p>
+<p><strong>1.</strong> Download and install <strong>goobook</strong> as explained <a href="http://pypi.python.org/pypi/goobook/1.3a1#source-installation" target="_blank">here</a>.</p>
+<p><strong>2.</strong> Setup a <strong><em>.goobookrc</em></strong> file into your Home directory. It should look like this:</p>
+<div>
+  <pre>
+machine google.com
+login example@gmail.com
+password yourpassword
+</pre>
+</div>
+<p><strong>3.</strong> Add the relevant configuration bits into your <strong><em>/etc/Muttrc</em></strong> file:</p>
+<pre>set query_command="goobook query '%s'"
+bind editor  complete-query
+macro index,pager a ";goobook add" "Add sender's address to your Google contacts"</pre>
+<p><strong>4.</strong> Your configuration should be good to go now, so here’s a few examples on goobook’s <strong>usage</strong> within Mutt:</p>
+<ul>
+<li>Use <strong>TAB</strong> if you want to auto-complete a mail address when specifying the <strong>To:</strong> field.</li>
+<li>Use the <strong>A</strong> key if you want to add sender’s address to your Google contacts.</li>
+<li>Use the <strong>Q</strong> key for querying your contacts list.</li>
+</ul>
+<p>We can now move on on customizing your Login Screen running GDM3. Let’s begin with a <strong>screenshoot</strong>:</p>
+<p><img src="https://www.dragonsreach.it/wp-content/uploads/2011/09/login_screen.png" alt="login_screen"></p>
+<p>I definitely love it, it’s <strong>clear</strong> and <strong>clean</strong> and most of all it has everything I need, no extra toolbars or menus. If you agree with me, open up the <strong><em>/etc/gdm3/greeter.gconf-defaults</em></strong> file and do the needed changes. This is how your greeter.gconf-defaults file should look like:</p>
+<pre>/desktop/gnome/background/picture_filename      /path/to/your/dusty-bg/file # dusty's background can be downloaded <a href="http://gnome-look.org/content/show.php/Dusty?content=94332" target="_blank">here</a>.
+/desktop/gnome/interface/gtk_theme              Darklooks # this is my main theme, feel free to adapt that to your needs.
+/apps/gdm/simple-greeter/logo_icon_name         debian-swirl # this is the default on Debian's systems.
+/desktop/gnome/sound/event_sounds               false # I don't like hearing any sound when when I am prompted to insert my user's details on the Login Screen.
+/apps/gdm/simple-greeter/disable_user_list      true # users list will be disabled, you won't be able to select your username from a list but you'll have to insert that yourself.
+/apps/metacity/general/compositing_manager      false # default, no need to change this.
+/apps/gnome-power-manager/ui/icon_policy        never # default, no need to change this.</pre>
+<p>We are close to the end but we are missing an important <strong>detail</strong>: how can you safely remove bottom’s toolbar and menus for a clearer and cleaner Login Screen? Open up the <strong>/var/lib/gdm3/.gconf.mandatory/%gconf-tree.xml</strong> file, search for the <strong>&lt;dir name=&ldquo;general&rdquo;&gt;</strong> section and apply the following <strong>change</strong>:</p>
+<pre>- &lt;entry name="compositing_manager" mtime="1315580582" type="bool" value="false"/>;
++ &lt;entry name="compositing_manager" mtime="1315580582" type="bool" value="true"/></pre>
+<p>But what if you prefer keeping the toolbar as it is, but you definitely don’t like seeing the <em><strong>Accessibility</strong></em> icon appearing on your Login Screen? On the same file as above, search for the <strong>&lt;dir name=&ldquo;general&rdquo;&gt;</strong> section and <strong>modify</strong> the following string as it follows:</p>
+<pre>- &lt;entry name="enable" mtime="1315580582" type="bool" value="true"/>
++ &lt;entry name="enable" mtime="1315580582" type="bool" value="false"/></pre>
+<p>See you on my next blog post and don’t forget to have a look at my GitHub’s <a href="https://github.com/averi/config-files" target="_blank">repository</a>! Oh…and follow <a href="http://twitter.com/andrea_veri" target="_blank">me</a> on Twitter!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2011/09/04/new-desktop-mutt-and-irssi-setup/">New Desktop, Mutt and Irssi setup!</a></h1>
+        <span class="post-date">Sep 4, 2011</span>
+        <p>I bought a new PC a few weeks ago and I then decided to renew a bit my <strong>Desktop</strong>, my <strong>Mutt</strong> and my <strong>Irssi</strong> setup. I’ve been spending several hours cleaning up old scripts, logs and configuration files but the result definitely seems to reward me the right way. But here they come a few <strong>screenshots</strong>:</p>
+<p><strong>Desktop</strong></p>
+<p><a href="https://www.dragonsreach.it/wp-content/uploads/2011/09/my_Desktop.png"><img class="size-full wp-image-170 alignnone" src="https://www.dragonsreach.it/wp-content/uploads/2011/09/my_Desktop_thumbnail.png" alt="" width="450" height="281" /></a></p>
+<p><strong>Irssi</strong></p>
+<p><a href="https://www.dragonsreach.it/wp-content/uploads/2011/09/irssi.png"><img class="size-full wp-image-173 alignnone" src="https://www.dragonsreach.it/wp-content/uploads/2011/09/irssi_thumbnail.png" alt="" width="450" height="262" /></a></p>
+<p><strong>Mutt</strong></p>
+<p><a href="https://www.dragonsreach.it/wp-content/uploads/2011/09/mutt.png"><img class="size-full wp-image-174 alignnone" src="https://www.dragonsreach.it/wp-content/uploads/2011/09/mutt_thumbnail.png" alt="" width="450" height="262" /></a></p>
+<p>If you liked all the above and would like to reproduce everything yourself, you should consider having a look at my GitHub’s <a href="https://github.com/averi/config-files" target="_blank">repository</a>. See you on the next blog post!</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/">Backup your Gmail in a few easy steps!</a></h1>
+        <span class="post-date">Jul 25, 2011</span>
+        <p>I’ve actually spent a few hours searching around for a good backup solution for my mailbox until I decided to stick with <a href="http://pyropus.ca/software/getmail/" target="_blank">getmail</a>.  What you’ll be able to achieve after reading this HowTo and deploying the following setup is:</p>
+<ol>
+<li>A full backup of your e-mail DATA in the Mbox format. (yes, Gmail’s labels / folders as well)</li>
+<li>Prevent getmail to mark all mails as <strong>read</strong> after delivering them. (this was a pretty bad issue since getmail was marking all my mails as read even if I did not access my e-mail at all)</li>
+<li>Keep your backups <strong>up-to-date</strong> with the <strong>latest</strong> content from your mailbox. (by default getmail grabs all the DATA from your mailbox and fills up the Mbox / Maildir content keeping deleted mails. So let’s say I deleted a mail two days ago, well it’ll still appear on today’s backups. This behaviour is definitely unwanted)</li>
+</ol>
+<p>I’ll now move to explain a few details about my new configuration but before moving to tweak getmail’s main config file, please do the following change on <strong>_retrieverbases.py</strong>* :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getmsgpartbyid</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="s1">&#39;(RFC822)&#39;</span><span class="p">)</span></span></span></code></pre></div>
+<p><strong>to</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_getmsgpartbyid</span><span class="p">(</span><span class="n">msgid</span><span class="p">,</span> <span class="s1">&#39;(BODY.PEEK[])&#39;</span><span class="p">)</span></span></span></code></pre></div>
+<p>When done grab the following <em><strong>getmailrc</strong></em> and adapt it to your needs**:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-INI" data-lang="INI"><span class="line"><span class="cl"><span class="k">[retriever]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">SimpleIMAPSSLRetriever ## or SimplePOP3SSLRetriever.</span>
+</span></span><span class="line"><span class="cl"><span class="na">server</span> <span class="o">=</span> <span class="s">imap.gmail.com ## or pop.gmail.com for POP3.</span>
+</span></span><span class="line"><span class="cl"><span class="na">username</span> <span class="o">=</span> <span class="s">example@gmail.com</span>
+</span></span><span class="line"><span class="cl"><span class="na">password</span> <span class="o">=</span> <span class="s">password</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## so-called Gmail&#39;s labels should be listed one by one here for getmail to retrieve mail from them successfully.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">mailboxes</span> <span class="o">=</span> <span class="s">(&#34;INBOX&#34;, &#34;[Gmail]/Sent mail&#34;,</span>
+</span></span><span class="line"><span class="cl"><span class="na">&#34;ubuntu&#34;, &#34;gnome/example&#34;, &#34;linux/example&#34;)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[destination]</span>
+</span></span><span class="line"><span class="cl"><span class="na">type</span> <span class="o">=</span> <span class="s">Mboxrd</span>
+</span></span><span class="line"><span class="cl"><span class="na">path</span> <span class="o">=</span> <span class="s">~/.getmail/backup.mbox</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[options]</span>
+</span></span><span class="line"><span class="cl"><span class="na">delivered_to</span> <span class="o">=</span> <span class="s">false ## No delivered_to header added automatically.</span>
+</span></span><span class="line"><span class="cl"><span class="na">received</span> <span class="o">=</span> <span class="s">false ## No received header added automatically.</span>
+</span></span><span class="line"><span class="cl"><span class="na">verbose</span> <span class="o">=</span> <span class="s">2 ## getmail will print messages about each of its actions.</span></span></span></code></pre></div>
+<p>When done we should go ahead setting up getmail’s directories and config file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">mkdir <span class="nv">$HOME</span>/.getmail
+</span></span><span class="line"><span class="cl">cp <span class="nv">$HOME</span>/getmailrc <span class="nv">$HOME</span>/.getmail/</span></span></code></pre></div>
+<p>Adapt <strong>$HOME/getmailrc</strong> to whatever dir you put that file into. But…pretty much all the remaining work will be done by a small shell script I wrote:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">WORKDIR</span><span class="o">=</span><span class="nv">$HOME</span>/.getmail
+</span></span><span class="line"><span class="cl"><span class="nv">date</span><span class="o">=</span><span class="sb">`</span>date <span class="s2">&#34;+%d-%m-%Y_%H:%M&#34;</span><span class="sb">`</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -f  <span class="nv">$WORKDIR</span>/backup.mbox <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">touch <span class="nv">$WORKDIR</span>/backup.mbox
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">getmail &gt; <span class="nv">$WORKDIR</span>/getmail.log
+</span></span><span class="line"><span class="cl"><span class="nv">OUT</span><span class="o">=</span><span class="nv">$?</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="nv">$OUT</span> -eq <span class="m">0</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl">mkdir -p <span class="nv">$WORKDIR</span>/backups/ <span class="o">&amp;&amp;</span> <span class="o">{</span> mv <span class="nv">$WORKDIR</span>/backup.mbox <span class="nv">$WORKDIR</span>/backups/backup_<span class="nv">$date</span>.mbox <span class="p">;</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span> <span class="o">[</span> <span class="nv">$OUT</span> -eq <span class="m">1</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">exit</span> <span class="m">1</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">## Cleanup older than 3 days backups</span>
+</span></span><span class="line"><span class="cl">find <span class="nv">$WORKDIR</span>/backups/* -mtime +3 -exec rm <span class="o">{}</span> <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> <span class="nv">$WORKDIR</span> <span class="o">&amp;&amp;</span> <span class="o">{</span> rm -rf oldmail-* <span class="p">;</span><span class="o">}</span></span></span></code></pre></div>
+<p>This script will:</p>
+<ol>
+<li>Run getmail using the getmailrc config file you previously worked on.</li>
+<li>If the above command will be successful, it’ll create a_ <strong>backups</strong>_ dir into <strong>$HOME/.getmail</strong> and move the latest Mbox file there appending a date and time to its name. (by doing this we are sure next getmail run will happen on an empty <strong>backup.mbox</strong> file, thus it will just contain the <strong>latest</strong> content from your mailbox)</li>
+<li>It’ll re-create a <strong>backup.mbox</strong> file on <strong>$HOME/.getmail</strong> to avoid the next getmail run to fail.</li>
+<li>In the end, it’ll clean up older than 3 days backups to avoid a too crowded <strong>backups</strong> folder. (it removes the oldmail file as well since it is useless in our case)</li>
+</ol>
+<p>In the end set up a cronjob that will run the above script and generate the backups for you every one hour:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="m">0</span> * * * * <span class="nv">$HOME</span>/.getmail/getmail_run.sh &gt; /dev/null</span></span></code></pre></div>
+<p>Feel free to let me know if you’ve encountered any issue while following the above HowTo. Enjoy!</p>
+<p>* /usr/share/getmail4/getmailcore/<strong>_retrieverbases.py</strong> on line <strong>901</strong>.</p>
+<p>** More documentation about the <em><strong>getmailrc</strong></em> file and syntax can be found on getmail’s <a href="http://pyropus.ca/software/getmail/configuration.html#conf-retriever" target="_blank">documentation</a> page.</p>
+
+    </div>
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/">Automatic Gmail’s Trash &amp; Spam folders cleanup</a></h1>
+        <span class="post-date">Jul 3, 2011</span>
+        <p>Since some time I’ve been thinking about a possible way to delete my <strong>Gmail’s Trash &amp; Spam folders</strong> content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I <strong>love</strong> keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty <strong>happy</strong>)</p>
+<p>A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a <strong>great</strong> piece of software: <a href="https://github.com/lefcha/imapfilter" target="_blank">imapfilter</a>. Today while analyzing the above quoted issue I suddenly told myself: “Hey, but why don’t you use your dear and old friend imapfilter to fulfil your needs?”</p>
+<p>After a few minutes I came up with a small <em>lua</em> script that was doing exactly what I wanted: my <strong>Trash&amp;Spam folders</strong> are no longer crowded and I finally don’t have to delete mails twice! But here they come a few details about my script:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-INI" data-lang="INI"><span class="line"><span class="cl"><span class="na">options.timeout</span> <span class="o">=</span> <span class="s">120</span>
+</span></span><span class="line"><span class="cl"><span class="na">options.subscribe</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">account</span> <span class="o">=</span> <span class="s">IMAP {
+</span></span></span><span class="line"><span class="cl"><span class="s"> server = &#39;imap.gmail.com&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> username = &#39;example@gmail.com&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> password = &#39;password&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> ssl = &#39;ssl3&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s"> }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">trash</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
+</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">spam</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
+</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></span></span></code></pre></div>
+<p>The script does two things:</p>
+<ol>
+<li>It checks whether a mail is <strong>not</strong> marked as “deleted” (moving an e-mail into the Trash does <strong>not</strong> mark it as “<strong>to be deleted</strong>” automatically) already and removes it.</li>
+<li>It checks whether a mail on the Spam folder has been <strong>answered</strong> (I never had to answer a single e-mail contained into my Spam folder)  and if <strong>not</strong> removes it.</li>
+</ol>
+<p>Using the above script is really easy (you should run imapfilter on <strong>interactive mode</strong> first to generate Gmail’s <strong>certificates,</strong> do that before having cron to run the script for you or otherwise it’ll just hang), just make sure to have <strong>imapfilter</strong> installed on your system and then run it through cron every half an hour or less depending on your needs:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">crontab -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</span></span></code></pre></div>
+<p>Please also remember to setup appropriate permissions on the config file since it contains your Gmail’s <strong>password</strong> and most of all make sure that your Spam folder is <strong>visible</strong> through IMAP (this option can be found on the <strong>label</strong> menu available under your <a href="https://mail.google.com/mail/?hl=it&#038;&#038;shva=1#settings" target="_blank">Gmail’s settings</a>) otherwise imapfilter will just report an error.</p>
+<p>Enjoy!</p>
+<p> </p>
+
+    </div>
+  
+</div>
+
+<div class="pagination">
+  
+  <a class="pagination-item older" href="https://www.dragonsreach.it/page/8/">Older</a>
+  
+
+  
+  <a class="pagination-item newer" href="https://www.dragonsreach.it/page/6/">Newer</a>
+  
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+
+    
+  </body>
+</html>
+

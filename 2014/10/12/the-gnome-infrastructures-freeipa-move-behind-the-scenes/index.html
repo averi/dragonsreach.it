@@ -1,244 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>The GNOME Infrastructure’s FreeIPA move behind the scenes - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      The GNOME Infrastructure’s FreeIPA move behind the scenes &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2014\/10\/12\/the-gnome-infrastructures-freeipa-move-behind-the-scenes\/",
-          "name": "The gnome infrastructure’s free IP a move behind the scenes"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "The GNOME Infrastructure’s FreeIPA move behind the scenes",
-  "description" : "A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.",
-  "inLanguage" : "en",
-  "wordCount":  1737 ,
-  "datePublished" : "2014-10-12T18:02:02",
-  "dateModified" : "2014-10-12T18:02:02",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "foundation, freeipa, OpenLDAP, SSH, sysadmin" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2014\/10\/12\/the-gnome-infrastructures-freeipa-move-behind-the-scenes\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="The GNOME Infrastructure’s FreeIPA move behind the scenes" />
-<meta property="og:description" content="A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to FreeIPA, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it.">
-<meta property="og:url" content="https://www.dragonsreach.it/2014/10/12/the-gnome-infrastructures-freeipa-move-behind-the-scenes/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="The GNOME Infrastructure’s FreeIPA move behind the scenes" />
-  <meta name="twitter:description" content="A few days ago I wrote about the GNOME Infrastructure moving to FreeIPA, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>The GNOME Infrastructure’s FreeIPA move behind the scenes</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on October 12, 2014
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>A few days ago I wrote about the <!-- raw HTML omitted -->GNOME Infrastructure moving to FreeIPA<!-- raw HTML omitted -->, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to <strong>FreeIPA</strong>, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it. Additionally I’ll provide some details about how I performed the migration from our previous <strong>OpenLDAP</strong> setup with a step-by-step guide that will hopefully help more people to migrate the infrastructure they manage themselves.</p>
+<div class="post">
+  <h1 class="post-title">The GNOME Infrastructure’s FreeIPA move behind the scenes</h1>
+  <span class="post-date">Oct 12, 2014</span>
+  <p>A few days ago I wrote about the <a href="https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/" target="_blank">GNOME Infrastructure moving to FreeIPA</a>, the post was mainly an announcement to the relevant involved parties with many informative details for contributors to properly migrate their account details off from the old authentication system to the new one. Today’s post is a follow-up to that announcement but it’s going to take into account the reasons about our choice to migrate to <strong>FreeIPA</strong>, what we found interesting and compelling about the software and why we think more projects (them being either smaller or bigger) should migrate to it. Additionally I’ll provide some details about how I performed the migration from our previous <strong>OpenLDAP</strong> setup with a step-by-step guide that will hopefully help more people to migrate the infrastructure they manage themselves.</p>
 <h2 id="the-gnome-case">The GNOME case</h2>
 <p>It’s very clear to everyone an infrastructure should reflect the needs of its user base, in the case of <strong>GNOME</strong> a multitude between developers, translators, documenters and between them a very good number of Foundation members, contributors that have proven their non-trivial contributions and have received the status of members of the GNOME Foundation with all the relevant benefits connected to it.</p>
 <p>The situation we had before was very tricky, LDAP accounts were managed through our LDAP istance while Foundation members were being stored on a MySQL database with many of the tables being related to the yearly Board of Director’s elections and one specifically meant to store all the information from each of the members. One of the available fields on that table was defined as ‘userid’ and was supposed to store the LDAP ‘uid’ field the Membership Committee member processing a certain application had to update when accepting the application. This procedure had two issues:</p>
@@ -257,27 +88,27 @@
 <p>FreeIPA clearly matched all our expectations on all the above points.</p>
 <h2 id="the-migration-process-8211-rfc2307-vs-rfc2307bis">The Migration process – RFC2307 vs RFC2307bis</h2>
 <p>Our previous OpenLDAP setup was following <a href="https://www.ietf.org/rfc/rfc2307.txt">RFC 2307</a>, which means that above all the other available LDAP attributes (listed on the RFC under point <strong>2.2</strong>) group’s membership was being represented through the ‘memberUid’ attribute. An example:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">cn</span><span style="color:#666">=</span>foundation,cn<span style="color:#666">=</span>groups,cn<span style="color:#666">=</span>compat,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org
-</span></span><span style="display:flex;"><span>objectClass: posixGroup
-</span></span><span style="display:flex;"><span>objectClass: top
-</span></span><span style="display:flex;"><span>gidNumber: <span style="color:#40a070">524</span>
-</span></span><span style="display:flex;"><span>memberUid: foo
-</span></span><span style="display:flex;"><span>memberUid: bar
-</span></span><span style="display:flex;"><span>memberUid: foobar</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nv">cn</span><span class="o">=</span>foundation,cn<span class="o">=</span>groups,cn<span class="o">=</span>compat,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org
+</span></span><span class="line"><span class="cl">objectClass: posixGroup
+</span></span><span class="line"><span class="cl">objectClass: top
+</span></span><span class="line"><span class="cl">gidNumber: <span class="m">524</span>
+</span></span><span class="line"><span class="cl">memberUid: foo
+</span></span><span class="line"><span class="cl">memberUid: bar
+</span></span><span class="line"><span class="cl">memberUid: foobar</span></span></code></pre></div>
 <p>As you can each of the members of the group ‘foundation’ are represented using the ‘memberUid’ attribute followed by the ‘uid’ of the user itself. FreeIPA does not make directly use of RFC2307 for its trees, but RFC2307bis instead. (RFC2307bis was not published as a RFC by the <strong>IETF</strong> as the author didn’t decide to pursue it nor the companies (HP, Sun) that then adopted it)</p>
 <p>RFC2307bis uses a different attribute to represent group’s membership, it being ‘member’. Another example:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span><span style="color:#bb60d5">cn</span><span style="color:#666">=</span>foundation,cn<span style="color:#666">=</span>groups,cn<span style="color:#666">=</span>accounts,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org
-</span></span><span style="display:flex;"><span>objectClass: posixGroup
-</span></span><span style="display:flex;"><span>objectClass: top
-</span></span><span style="display:flex;"><span>gidNumber: <span style="color:#40a070">524</span>
-</span></span><span style="display:flex;"><span>member: <span style="color:#bb60d5">uid</span><span style="color:#666">=</span>foo,cn<span style="color:#666">=</span>users,cn<span style="color:#666">=</span>accounts,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org
-</span></span><span style="display:flex;"><span>member: <span style="color:#bb60d5">uid</span><span style="color:#666">=</span>bar,cn<span style="color:#666">=</span>users,cn<span style="color:#666">=</span>accounts,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org
-</span></span><span style="display:flex;"><span>member: <span style="color:#bb60d5">uid</span><span style="color:#666">=</span>foobar,cn<span style="color:#666">=</span>users,cn<span style="color:#666">=</span>accounts,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nv">cn</span><span class="o">=</span>foundation,cn<span class="o">=</span>groups,cn<span class="o">=</span>accounts,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org
+</span></span><span class="line"><span class="cl">objectClass: posixGroup
+</span></span><span class="line"><span class="cl">objectClass: top
+</span></span><span class="line"><span class="cl">gidNumber: <span class="m">524</span>
+</span></span><span class="line"><span class="cl">member: <span class="nv">uid</span><span class="o">=</span>foo,cn<span class="o">=</span>users,cn<span class="o">=</span>accounts,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org
+</span></span><span class="line"><span class="cl">member: <span class="nv">uid</span><span class="o">=</span>bar,cn<span class="o">=</span>users,cn<span class="o">=</span>accounts,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org
+</span></span><span class="line"><span class="cl">member: <span class="nv">uid</span><span class="o">=</span>foobar,cn<span class="o">=</span>users,cn<span class="o">=</span>accounts,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org</span></span></code></pre></div>
 <p>As you can see the <strong>DN</strong> representing the group ‘foundation’ differs between the two examples. That is why FreeIPA comes with a <strong>Compatibility plugin</strong> (cn=compat) which automatically creates RFC2307-compliant trees and entries whenever an append / modify / delete operation happens on any of the hosted RFC2307bis-compliant trees. What’s the point of doing this when we could just stick with RFC2307bis trees and go with it? As the plugin name points out the Compatibility plugin is there to prevent breakages between the directory server and any of the clients or softwares out there still retrieving information and data by using the ‘memberUid’ attribute as specified on RFC2307.</p>
 <p>FreeIPA migration tools (ipa migrate-ds) do come with a ‘–schema’ flag you can use to specify what attribute the istance you are migrating from was following (values are RFC2307 and RFC2307bis as you may have guessed already), in the case of GNOME the complete command we ran (after installing all the relevant tools through ‘ipa-server-install’ and copying the custom schemas under /etc/dirsrv/slapd-$ISTANCE-NAME/schema) was:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ipa migrate-ds --bind-dn<span style="color:#666">=</span><span style="color:#bb60d5">cn</span><span style="color:#666">=</span>Manager,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org --user-container<span style="color:#666">=</span><span style="color:#bb60d5">ou</span><span style="color:#666">=</span>people,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org --group-container<span style="color:#666">=</span><span style="color:#bb60d5">ou</span><span style="color:#666">=</span>groups,dc<span style="color:#666">=</span>gnome,dc<span style="color:#666">=</span>org --group-objectclass<span style="color:#666">=</span>posixGroup ldap://internal-IP:389 --schema<span style="color:#666">=</span>RFC2307</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ipa migrate-ds --bind-dn<span class="o">=</span><span class="nv">cn</span><span class="o">=</span>Manager,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org --user-container<span class="o">=</span><span class="nv">ou</span><span class="o">=</span>people,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org --group-container<span class="o">=</span><span class="nv">ou</span><span class="o">=</span>groups,dc<span class="o">=</span>gnome,dc<span class="o">=</span>org --group-objectclass<span class="o">=</span>posixGroup ldap://internal-IP:389 --schema<span class="o">=</span>RFC2307</span></span></code></pre></div>
 <p>Please <strong>note</strong> that before running the command you should make sure custom schemas you had on the istance you are migrating from are available to the directory server you are migrating your tree to.</p>
-<p>More information on the <strong>migration process</strong> from an existing OpenLDAP istance can be found <!-- raw HTML omitted -->HERE<!-- raw HTML omitted -->.</p>
+<p>More information on the <strong>migration process</strong> from an existing OpenLDAP istance can be found <a href="http://docs.fedoraproject.org/en-US/Fedora/15/html/FreeIPA_Guide/Migrating_from_a_Directory_Server_to_IPA-Performing_a_Server_based_Migration.html" target="_blank">HERE</a>.</p>
 <h2 id="the-migration-process-8211-extending-the-directory-server-with-custom-schemas">The Migration process – Extending the directory server with custom schemas</h2>
 <p>One of the other challenges we had to face has been extending the available LDAP schemas to include Foundation membership attributes. This operation requires the following changes:</p>
 <ol>
@@ -286,214 +117,102 @@
 <li>Extend the web UI to include the new attributes</li>
 </ol>
 <p>I won’t be explaining how to build a LDIF on this post but I’m however pasting the schema I made to help you getting an idea:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>attributeTypes: <span style="color:#666">(</span> 1.3.6.1.4.1.3319.8.2 NAME <span style="color:#4070a0">&#39;LastRenewedOn&#39;</span> SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC <span style="color:#4070a0">&#39;Last renewed on date&#39;</span> SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 <span style="color:#666">)</span>
-</span></span><span style="display:flex;"><span>attributeTypes: <span style="color:#666">(</span> 1.3.6.1.4.1.3319.8.3 NAME <span style="color:#4070a0">&#39;FirstAdded&#39;</span> SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC <span style="color:#4070a0">&#39;First added date&#39;</span> SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 <span style="color:#666">)</span>
-</span></span><span style="display:flex;"><span>objectClasses: <span style="color:#666">(</span> 1.3.6.1.4.1.3319.8.1 NAME <span style="color:#4070a0">&#39;FoundationFields&#39;</span> AUXILIARY MAY <span style="color:#666">(</span> LastRenewedOn $ FirstAdded <span style="color:#666">)</span> <span style="color:#666">)</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">attributeTypes: <span class="o">(</span> 1.3.6.1.4.1.3319.8.2 NAME <span class="s1">&#39;LastRenewedOn&#39;</span> SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC <span class="s1">&#39;Last renewed on date&#39;</span> SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 <span class="o">)</span>
+</span></span><span class="line"><span class="cl">attributeTypes: <span class="o">(</span> 1.3.6.1.4.1.3319.8.3 NAME <span class="s1">&#39;FirstAdded&#39;</span> SINGLE-VALUE EQUALITY caseIgnoreMatch SUBSTR caseIgnoreSubstringsMatch DESC <span class="s1">&#39;First added date&#39;</span> SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 <span class="o">)</span>
+</span></span><span class="line"><span class="cl">objectClasses: <span class="o">(</span> 1.3.6.1.4.1.3319.8.1 NAME <span class="s1">&#39;FoundationFields&#39;</span> AUXILIARY MAY <span class="o">(</span> LastRenewedOn $ FirstAdded <span class="o">)</span> <span class="o">)</span></span></span></code></pre></div>
 <p>After copying the schema in place and restarting the directory server, extend the web UI:</p>
 <p>on <strong>/usr/lib/python2.7/site-packages/ipalib/plugins/foundation.py</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">ipalib.plugins</span> <span style="color:#007020;font-weight:bold">import</span> user
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">ipalib.parameters</span> <span style="color:#007020;font-weight:bold">import</span> Str
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">ipalib</span> <span style="color:#007020;font-weight:bold">import</span> _
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">from</span> <span style="color:#0e84b5;font-weight:bold">time</span> <span style="color:#007020;font-weight:bold">import</span> strftime
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">import</span> <span style="color:#0e84b5;font-weight:bold">re</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">def</span> <span style="color:#06287e">validate_date</span>(ugettext, value):
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> <span style="color:#007020;font-weight:bold">not</span> re<span style="color:#666">.</span>match(<span style="color:#4070a0">&#34;^[0-9]</span><span style="color:#70a0d0;font-style:italic">{4}</span><span style="color:#4070a0">-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$&#34;</span>, value):
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> _(<span style="color:#4070a0">&#34;The entered date is wrong, please make sure it matches the YYYY-MM-DD syntax&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>user<span style="color:#666">.</span>user<span style="color:#666">.</span>takes_params <span style="color:#666">=</span> user<span style="color:#666">.</span>user<span style="color:#666">.</span>takes_params <span style="color:#666">+</span> (
-</span></span><span style="display:flex;"><span>Str(<span style="color:#4070a0">&#39;firstadded?&#39;</span>, validate_date,
-</span></span><span style="display:flex;"><span>cli_name<span style="color:#666">=</span><span style="color:#4070a0">&#39;firstadded&#39;</span>,
-</span></span><span style="display:flex;"><span>label<span style="color:#666">=</span>_(<span style="color:#4070a0">&#39;First Added date&#39;</span>),
-</span></span><span style="display:flex;"><span>),
-</span></span><span style="display:flex;"><span>Str(<span style="color:#4070a0">&#39;lastrenewedon?&#39;</span>, validate_date,
-</span></span><span style="display:flex;"><span>cli_name<span style="color:#666">=</span><span style="color:#4070a0">&#39;lastrenewedon&#39;</span>,
-</span></span><span style="display:flex;"><span>label<span style="color:#666">=</span>_(<span style="color:#4070a0">&#39;Last Renewed on date&#39;</span>),
-</span></span><span style="display:flex;"><span>),
-</span></span><span style="display:flex;"><span>)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ipalib.plugins</span> <span class="kn">import</span> <span class="n">user</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ipalib.parameters</span> <span class="kn">import</span> <span class="n">Str</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">ipalib</span> <span class="kn">import</span> <span class="n">_</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">strftime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">re</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">validate_date</span><span class="p">(</span><span class="n">ugettext</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s2">&#34;^[0-9]</span><span class="si">{4}</span><span class="s2">-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$&#34;</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s2">&#34;The entered date is wrong, please make sure it matches the YYYY-MM-DD syntax&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">user</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">takes_params</span> <span class="o">=</span> <span class="n">user</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">takes_params</span> <span class="o">+</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl"><span class="n">Str</span><span class="p">(</span><span class="s1">&#39;firstadded?&#39;</span><span class="p">,</span> <span class="n">validate_date</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="n">cli_name</span><span class="o">=</span><span class="s1">&#39;firstadded&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;First Added date&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="n">Str</span><span class="p">(</span><span class="s1">&#39;lastrenewedon?&#39;</span><span class="p">,</span> <span class="n">validate_date</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="n">cli_name</span><span class="o">=</span><span class="s1">&#39;lastrenewedon&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="n">label</span><span class="o">=</span><span class="n">_</span><span class="p">(</span><span class="s1">&#39;Last Renewed on date&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></div>
 <p>on <strong>/usr/share/ipa/ui/js/plugins/foundation/foundation.js</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-JavaScript" data-lang="JavaScript"><span style="display:flex;"><span>define([
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;freeipa/phases&#39;</span>,
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">&#39;freeipa/user&#39;</span>],
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">function</span>(phases, user_mod) {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">// helper function
-</span></span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"></span><span style="color:#007020;font-weight:bold">function</span> get_item(array, attr, value) {
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">for</span> (<span style="color:#007020;font-weight:bold">var</span> i<span style="color:#666">=</span><span style="color:#40a070">0</span>,l<span style="color:#666">=</span>array.length; i<span style="color:#666">&amp;</span>lt;l; i<span style="color:#666">++</span>) {
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">if</span> (array[i][attr] <span style="color:#666">===</span> value) <span style="color:#007020;font-weight:bold">return</span> array[i];
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">null</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">var</span> foundation_plugin <span style="color:#666">=</span> {};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>foundation_plugin.add_foundation_fields <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">function</span>() {
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">var</span> facet <span style="color:#666">=</span> get_item(user_mod.entity_spec.facets, <span style="color:#4070a0">&#39;$type&#39;</span>, <span style="color:#4070a0">&#39;details&#39;</span>);
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">var</span> section <span style="color:#666">=</span> get_item(facet.sections, <span style="color:#4070a0">&#39;name&#39;</span>, <span style="color:#4070a0">&#39;identity&#39;</span>);
-</span></span><span style="display:flex;"><span>section.fields.push({
-</span></span><span style="display:flex;"><span>name<span style="color:#666">:</span> <span style="color:#4070a0">&#39;firstadded&#39;</span>,
-</span></span><span style="display:flex;"><span>label<span style="color:#666">:</span> <span style="color:#4070a0">&#39;Foundation Member since&#39;</span>
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>section.fields.push({
-</span></span><span style="display:flex;"><span>name<span style="color:#666">:</span> <span style="color:#4070a0">&#39;lastrenewedon&#39;</span>,
-</span></span><span style="display:flex;"><span>label<span style="color:#666">:</span> <span style="color:#4070a0">&#39;Last Renewed on date&#39;</span>
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>section.fields.push({
-</span></span><span style="display:flex;"><span>name<span style="color:#666">:</span> <span style="color:#4070a0">&#39;description&#39;</span>,
-</span></span><span style="display:flex;"><span>label<span style="color:#666">:</span> <span style="color:#4070a0">&#39;Previous account changes&#39;</span>
-</span></span><span style="display:flex;"><span>});
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> <span style="color:#007020;font-weight:bold">true</span>;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>phases.on(<span style="color:#4070a0">&#39;customization&#39;</span>, foundation_plugin.add_foundation_fields);
-</span></span><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">return</span> foundation_plugin;
-</span></span><span style="display:flex;"><span>});</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-JavaScript" data-lang="JavaScript"><span class="line"><span class="cl"><span class="nx">define</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;freeipa/phases&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;freeipa/user&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span><span class="p">(</span><span class="nx">phases</span><span class="p">,</span> <span class="nx">user_mod</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// helper function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">get_item</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">attr</span><span class="p">,</span> <span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="nx">l</span><span class="o">=</span><span class="nx">array</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">&amp;</span><span class="nx">lt</span><span class="p">;</span><span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">attr</span><span class="p">]</span> <span class="o">===</span> <span class="nx">value</span><span class="p">)</span> <span class="k">return</span> <span class="nx">array</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">foundation_plugin</span> <span class="o">=</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">foundation_plugin</span><span class="p">.</span><span class="nx">add_foundation_fields</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">facet</span> <span class="o">=</span> <span class="nx">get_item</span><span class="p">(</span><span class="nx">user_mod</span><span class="p">.</span><span class="nx">entity_spec</span><span class="p">.</span><span class="nx">facets</span><span class="p">,</span> <span class="s1">&#39;$type&#39;</span><span class="p">,</span> <span class="s1">&#39;details&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">section</span> <span class="o">=</span> <span class="nx">get_item</span><span class="p">(</span><span class="nx">facet</span><span class="p">.</span><span class="nx">sections</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;identity&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">section</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;firstadded&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Foundation Member since&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">section</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;lastrenewedon&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Last Renewed on date&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">section</span><span class="p">.</span><span class="nx">fields</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl"><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;description&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Previous account changes&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">phases</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;customization&#39;</span><span class="p">,</span> <span class="nx">foundation_plugin</span><span class="p">.</span><span class="nx">add_foundation_fields</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nx">foundation_plugin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></div>
 <p>Once done, restart the web server. The next step would be migrating all the <strong>FirstAdded</strong> and <strong>LastRenewedOn</strong> attributes off from MySQL into LDAP now that our custom schema has been injected.</p>
-<p>The relevant MySQL fields were following the YYYY-MM-DD syntax to store the dates and a little Python script to read from MySQL and populate the LDAP attributes was then made. If interested or you are in a similar situation you can find it <!-- raw HTML omitted -->HERE<!-- raw HTML omitted -->.</p>
+<p>The relevant MySQL fields were following the YYYY-MM-DD syntax to store the dates and a little Python script to read from MySQL and populate the LDAP attributes was then made. If interested or you are in a similar situation you can find it <a href="https://git.gnome.org/browse/sysadmin-bin/tree/membership/migrate-foundation-field-to-freeipa.py" target="_blank">HERE</a>.</p>
 <h2 id="the-migration-process-8211-own-ssl-certificates-for-httpd">The Migration process – Own SSL certificates for HTTPD</h2>
 <p>As you may be aware of FreeIPA comes with its own certificate tools (powered by <strong>Certmonger</strong>), that means a <strong>CA</strong> is created (during the ipa-server-install run) and certificates for the various services you provide are then created and signed with it. This is definitely great and removes the burden to maintain an underlying self-hosted PKI infrastructure. At the same time this seems to be a problem for publicly-facing web services as browsers will start complaining they don’t trust the CA that signed the certificate the website you are trying to reach is using.</p>
 <p>The problem is not really a problem as you can specify what certificate HTTPD should be using for displaying FreeIPA’s web UI. The procedure is simple and involves the NSS database at /etc/httpd/alias:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>certutil -d /etc/httpd/alias/ -A -n <span style="color:#4070a0">&#34;StartSSL CA&#34;</span> -t CT,C, -a -i sub.class2.server.ca.pem
-</span></span><span style="display:flex;"><span>certutil -d /etc/pki/nssdb -A -n <span style="color:#4070a0">&#34;StartSSL CA&#34;</span> -t CT,C, -a -i sub.class2.server.ca.pem
-</span></span><span style="display:flex;"><span>openssl pkcs12 -inkey freeipa.example.org.key -in freeipa.example.org.crt -export -out freeipa.example.org.p12 -nodes -name <span style="color:#4070a0">&#39;HTTPD-Server-Certificate&#39;</span>
-</span></span><span style="display:flex;"><span>pk12util -i freeipa.example.org.p12 -d /etc/httpd/alias/</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/httpd/alias/ -A -n <span class="s2">&#34;StartSSL CA&#34;</span> -t CT,C, -a -i sub.class2.server.ca.pem
+</span></span><span class="line"><span class="cl">certutil -d /etc/pki/nssdb -A -n <span class="s2">&#34;StartSSL CA&#34;</span> -t CT,C, -a -i sub.class2.server.ca.pem
+</span></span><span class="line"><span class="cl">openssl pkcs12 -inkey freeipa.example.org.key -in freeipa.example.org.crt -export -out freeipa.example.org.p12 -nodes -name <span class="s1">&#39;HTTPD-Server-Certificate&#39;</span>
+</span></span><span class="line"><span class="cl">pk12util -i freeipa.example.org.p12 -d /etc/httpd/alias/</span></span></code></pre></div>
 <p>Once done, update /etc/httpd/conf.d/nss.conf with the correct NSSNickname value. (which should match the one you entered after ‘-name’ on the third of the above commands)</p>
 <h2 id="the-migration-process-8211-equivalent-of-authorized_keys8217-8220command8221">The Migration process – Equivalent of authorized_keys’ “command”</h2>
 <p>At GNOME we do run several services that require users to login to specific machines and run a command. At the same time and for security purposes we don’t want all the users to reach a shell. Originally we were making use of SSH’s authorized_keys file to specify the “command” these users should have been restricted to. FreeIPA handles Public Key authentications differently (through the <strong>sss_ssh_authorizedkeys</strong> binary) which means we had to find an alternative way to restrict groups to only a specific command. SSH’s <strong>ForceCommand</strong> came in help, an example given a group called ‘foo’:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>Match Group foo,!bar
-</span></span><span style="display:flex;"><span>X11Forwarding no
-</span></span><span style="display:flex;"><span>PermitTunnel no
-</span></span><span style="display:flex;"><span>ForceCommand /home/admin/bin/reset-my-password.py</span></span></code></pre></div>
-<p>The above <strong>Match Group</strong> will be applied to all the users of the ‘foo’ group except the ones that are also part of the ‘bar’ group. If you are interested in the reset-my-password.py script which resets a certain user password and sends a temporary one to the registered email address (by checking the mail LDAP attr) for the user, click <!-- raw HTML omitted -->HERE<!-- raw HTML omitted -->.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">Match Group foo,!bar
+</span></span><span class="line"><span class="cl">X11Forwarding no
+</span></span><span class="line"><span class="cl">PermitTunnel no
+</span></span><span class="line"><span class="cl">ForceCommand /home/admin/bin/reset-my-password.py</span></span></code></pre></div>
+<p>The above <strong>Match Group</strong> will be applied to all the users of the ‘foo’ group except the ones that are also part of the ‘bar’ group. If you are interested in the reset-my-password.py script which resets a certain user password and sends a temporary one to the registered email address (by checking the mail LDAP attr) for the user, click <a href="https://git.gnome.org/browse/sysadmin-bin/tree/reset-my-password.py" target="_blank">HERE</a>.</p>
 <h2 id="the-migration-process-8211-kerberos-host-keytabs">The Migration process – Kerberos host Keytabs</h2>
 <p>Here, at <strong>GNOME</strong>, we still have one or two RHEL 5 hosts hanging around and SSSD reported a failure when trying to authenticate with the given Keytab (generated with RHEL 7 default values) to the KDC running (as you may have guessed) RHEL 7. The issue is simple as RHEL 5 does not support many of the encryption types which the Keytab was being encrypted with. Apparently the only currently supported Keytab encryption type on a RHEL 5 machine is <strong>rc4-hmac</strong>. Creating a Keytab on the KDC accordingly can be done this way:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>ipa-getkeytab -s server.example.org -p host/client.example.org -e rc4-hmac -k /root/keytabs/client.example.org.keytab</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ipa-getkeytab -s server.example.org -p host/client.example.org -e rc4-hmac -k /root/keytabs/client.example.org.keytab</span></span></code></pre></div>
 <p>That should be all for today, I’ll make sure to update this post with further details or answers to possible comments.</p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/foundation/">foundation</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/freeipa/">freeipa</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/openldap/">OpenLDAP</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/ssh/">SSH</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/sysadmin/">sysadmin</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2014/10/07/the-gnome-infrastructure-is-now-powered-by-freeipa/" data-toggle="tooltip" data-placement="top" title="The GNOME Infrastructure is now powered by FreeIPA!">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2014/10/24/kerberos-over-http-on-a-firewalled-network/" data-toggle="tooltip" data-placement="top" title="Kerberos over HTTP: getting a TGT on a firewalled network">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

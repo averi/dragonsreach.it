@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Planet JustFedora on Andrea Veri&#39;s Blog</title>
+    <title>Planet JustFedora on </title>
     <link>https://www.dragonsreach.it/tags/planet-justfedora/</link>
-    <description>Recent content in Planet JustFedora on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in Planet JustFedora on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Fri, 11 Feb 2011 18:43:24 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/planet-justfedora/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Fri, 11 Feb 2011 18:43:24 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2011/02/11/planet-edited-more-details-to-come/</guid>
-      <description></description>
+      <description>Today I had the possibility to announce a new tool for the Fedora Project, a sub-planet called &amp;#8216;Edited&amp;#8217; mainly focused on Fedora-related posts and announcements.  The scenario we gonna have when Edited will become a known tool by the whole project can be resumed as it follows:   team leaders or whoever will be appointed to, will send out their team&amp;#8217;s status and any relevant announcement such as important changes, needs for help directed to any contributor unsure about where and how to start contributing to a specific team.</description>
     </item>
     
   </channel>

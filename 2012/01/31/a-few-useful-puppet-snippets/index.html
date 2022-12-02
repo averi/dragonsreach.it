@@ -1,472 +1,192 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>A few useful Puppet snippets - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="As per Wikipedia:
- Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.
-Puppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      A few useful Puppet snippets &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2012\/01\/31\/a-few-useful-puppet-snippets\/",
-          "name": "A few useful puppet snippets"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "A few useful Puppet snippets",
-  "description" : "As per Wikipedia:\n Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.\nPuppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.",
-  "inLanguage" : "en",
-  "wordCount":  483 ,
-  "datePublished" : "2012-01-31T18:43:26",
-  "dateModified" : "2012-01-31T18:43:26",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "Puppet, snippets" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2012\/01\/31\/a-few-useful-puppet-snippets\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="A few useful Puppet snippets" />
-<meta property="og:description" content="As per Wikipedia:
- Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.
-Puppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.">
-<meta property="og:url" content="https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="A few useful Puppet snippets" />
-  <meta name="twitter:description" content="As per Wikipedia:
- Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>A few useful Puppet snippets</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on January 31, 2012
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>As per Wikipedia:</p>
+<div class="post">
+  <h1 class="post-title">A few useful Puppet snippets</h1>
+  <span class="post-date">Jan 31, 2012</span>
+  <p>As per Wikipedia:</p>
 <blockquote>
 <p>Puppet is a tool for managing the configuration of Unix-like systems, declaratively. The developer provides puppet templates for describing parts of the system, and, when these templates are deployed, the runtime puts the managed systems into the declared state.</p>
 <p>Puppet consists of a custom declarative language to describe system configuration, distributed using the client-server paradigm (using XML-RPC protocol), and a library to realize the configuration. The resource abstraction layer enables administrators to describe the configuration in high-level terms, such as users, services and packages.</p>
 </blockquote>
 <p>I’ve been playing with the aforementioned tool lately both on my home network and within the Fedora’s Infrastructure team and I thought some of the work I did might be useful for anyone out there being stuck with a Puppet’s manifest or an ERB template.</p>
 <p><strong>Snippet #1</strong>: Make sure the user <strong>‘foo’</strong> is always created with its own home directory, password, shell, and full name.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Puppet" data-lang="Puppet"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">class</span> <span style="color:#4070a0">users</span> {<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">users</span>::<span style="color:#4070a0">add</span> { <span style="color:#4070a0">&#34;foo&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">username</span>        <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#39;foo&#39;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">comment</span>         <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#39;Foo&#39;</span><span style="color:#4070a0">s</span> <span style="color:#4070a0">Full</span> <span style="color:#4070a0">Name</span><span style="color:#4070a0">&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        shell           =&gt; &#39;</span><span style="color:#666">/</span><span style="color:#4070a0">bin</span><span style="color:#666">/</span><span style="color:#4070a0">bash</span><span style="color:#4070a0">&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        password_hash   =&gt; &#39;</span><span style="color:#4070a0">pwd_hash_as_you_can_see_in_</span><span style="color:#666">/</span><span style="color:#4070a0">etc</span><span style="color:#666">/</span><span style="color:#4070a0">shadow</span><span style="color:#4070a0">&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">    }
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">define users::add($username, $comment, $shell, $password_hash) {
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">    user { $username:
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        ensure =&gt; &#39;</span><span style="color:#007020;font-weight:bold">present</span><span style="color:#4070a0">&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        home   =&gt; &#34;/home/${username}&#34;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        comment =&gt; $comment,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        shell  =&gt; $shell,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0">        managehome =&gt; &#39;</span><span style="color:#007020;font-weight:bold">true</span><span style="">&#39;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">password</span> <span style="color:#666">=&gt;</span> <span style="color:#bb60d5">$password_hash,</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    }<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  }<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">users</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="na">users</span><span class="p">::</span><span class="na">add</span> <span class="p">{</span> <span class="s">&#34;foo&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">username</span>        <span class="o">=&gt;</span> <span class="s">&#39;foo&#39;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">comment</span>         <span class="o">=&gt;</span> <span class="s">&#39;Foo&#39;</span><span class="na">s</span> <span class="na">Full</span> <span class="na">Name</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        shell           =&gt; &#39;</span><span class="o">/</span><span class="na">bin</span><span class="o">/</span><span class="na">bash</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        password_hash   =&gt; &#39;</span><span class="na">pwd_hash_as_you_can_see_in_</span><span class="o">/</span><span class="na">etc</span><span class="o">/</span><span class="na">shadow</span><span class="s">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s">    }
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">define users::add($username, $comment, $shell, $password_hash) {
+</span></span></span><span class="line"><span class="cl"><span class="s">    user { $username:
+</span></span></span><span class="line"><span class="cl"><span class="s">        ensure =&gt; &#39;</span><span class="k">present</span><span class="s">&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        home   =&gt; &#34;/home/${username}&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s">        comment =&gt; $comment,
+</span></span></span><span class="line"><span class="cl"><span class="s">        shell  =&gt; $shell,
+</span></span></span><span class="line"><span class="cl"><span class="s">        managehome =&gt; &#39;</span><span class="k">true</span><span class="err">&#39;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">password</span> <span class="o">=&gt;</span> <span class="nv">$password_hash,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
 <p><strong>Snippet #2:</strong> Make sure the user <strong>‘foo’</strong> gets added into <strong>/etc/sudoers</strong>.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Puppet" data-lang="Puppet"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">class</span> <span style="color:#4070a0">sudoers</span> {<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#007020;font-weight:bold">file</span> { <span style="color:#4070a0">&#34;/etc/sudoers&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>      <span style="color:#4070a0">owner</span>   <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;root&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>      <span style="color:#4070a0">group</span>   <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;root&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>      <span style="color:#4070a0">mode</span>    <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;440&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>     }<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>}<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#007020;font-weight:bold">augeas</span> { <span style="color:#4070a0">&#34;addfootosudoers&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  <span style="color:#4070a0">context</span> <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;/files/etc/sudoers&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  <span style="color:#4070a0">changes</span> <span style="color:#666">=&gt;</span> [<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set spec[user = &#39;foo&#39;]/user foo&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set spec[user = &#39;foo&#39;]/host_group/host ALL&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set spec[user = &#39;foo&#39;]/host_group/command ALL&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set spec[user = &#39;foo&#39;]/host_group/command/runas_user ALL&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  ],<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">sudoers</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">file</span> <span class="p">{</span> <span class="s">&#34;/etc/sudoers&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">owner</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">group</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">mode</span>    <span class="o">=&gt;</span> <span class="s">&#34;440&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>     <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">augeas</span> <span class="p">{</span> <span class="s">&#34;addfootosudoers&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">context</span> <span class="o">=&gt;</span> <span class="s">&#34;/files/etc/sudoers&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">changes</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/user foo&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/host ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/command ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set spec[user = &#39;foo&#39;]/host_group/command/runas_user ALL&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
 <p><strong>Snippet #3:</strong> Make sure that <strong>openssh-server</strong> is: installed, running on Port 222 and accepting <strong>RSA</strong> authentications only.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Puppet" data-lang="Puppet"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">class</span> <span style="color:#4070a0">openssh</span><span style="color:#666">-</span><span style="color:#4070a0">server</span> {<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  <span style="color:#007020;font-weight:bold">package</span> { <span style="color:#4070a0">&#34;openssh-server&#34;</span>: <span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>      <span style="color:#4070a0">ensure</span> <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;installed&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  }<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#007020;font-weight:bold">service</span> { <span style="color:#4070a0">&#34;ssh&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">ensure</span>    <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">running</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">hasstatus</span> <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">true</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">require</span>   <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">Package</span>[<span style="color:#4070a0">&#34;openssh-server&#34;</span>],<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    }<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#007020;font-weight:bold">augeas</span> { <span style="color:#4070a0">&#34;sshd_config&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  <span style="color:#4070a0">context</span> <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;/files/etc/ssh/sshd_config&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">changes</span> <span style="color:#666">=&gt;</span> [<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set PermitRootLogin no&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set RSAAuthentication yes&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set PubkeyAuthentication yes&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set AuthorizedKeysFile	%h/.ssh/authorized_keys&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set PasswordAuthentication no&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#4070a0">&#34;set Port 222&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>  ],<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span> }<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">openssh</span><span class="o">-</span><span class="na">server</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="k">package</span> <span class="p">{</span> <span class="s">&#34;openssh-server&#34;</span><span class="p">:</span> <span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>      <span class="na">ensure</span> <span class="o">=&gt;</span> <span class="s">&#34;installed&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">service</span> <span class="p">{</span> <span class="s">&#34;ssh&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span>    <span class="o">=&gt;</span> <span class="k">running</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">hasstatus</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">require</span>   <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&#34;openssh-server&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">augeas</span> <span class="p">{</span> <span class="s">&#34;sshd_config&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="na">context</span> <span class="o">=&gt;</span> <span class="s">&#34;/files/etc/ssh/sshd_config&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="na">changes</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PermitRootLogin no&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set RSAAuthentication yes&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PubkeyAuthentication yes&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set AuthorizedKeysFile	%h/.ssh/authorized_keys&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set PasswordAuthentication no&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="s">&#34;set Port 222&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>  <span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span> <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
 <p><strong>Snippet #4:</strong> Don’t apply a specific <strong>IPTABLES</strong> rule if an host is tagged as ‘staging’ in the relevant node file.</p>
 <p>On <strong>templates/iptables.erb</strong>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Puppet" data-lang="Puppet"><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Allow unlimited traffic on eth0</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">i</span> <span style="color:#4070a0">eth0</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">OUTPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">o</span> <span style="color:#4070a0">eth0</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="color:#60a0b0;font-style:italic">
-</span></span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic">
-</span></span></span><span style="display:flex;"><span><span style="color:#60a0b0;font-style:italic"># Allow unlimited traffic from trusted IP addresses</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">s</span> <span style="color:#40a070">192.168.1.1</span><span style="color:#666">/</span><span style="color:#40a070">24</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">&amp;</span><span style="color:#4070a0">lt</span>;<span style="">%</span> <span style="color:#007020;font-weight:bold">if</span> <span style="color:#4070a0">environment</span> <span style="color:#666">==</span> <span style="color:#4070a0">&#34;production&#34;</span> <span style="">%</span><span style="color:#666">&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">state</span> <span style="color:#666">--</span><span style="color:#4070a0">state</span> <span style="color:#4070a0">NEW</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">-</span><span style="color:#4070a0">p</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">--</span><span style="color:#4070a0">dport</span> <span style="color:#40a070">22</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">state</span> <span style="color:#666">--</span><span style="color:#4070a0">state</span> <span style="color:#4070a0">NEW</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">-</span><span style="color:#4070a0">p</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">--</span><span style="color:#4070a0">dport</span> <span style="color:#40a070">25</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">state</span> <span style="color:#666">--</span><span style="color:#4070a0">state</span> <span style="color:#4070a0">NEW</span> <span style="color:#666">-</span><span style="color:#4070a0">m</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">-</span><span style="color:#4070a0">p</span> <span style="color:#4070a0">tcp</span> <span style="color:#666">--</span><span style="color:#4070a0">dport</span> <span style="color:#40a070">80</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">ACCEPT</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">&amp;</span><span style="color:#4070a0">lt</span>;<span style="">%</span> <span style="color:#4070a0">unless</span> <span style="color:#007020;font-weight:bold">defined</span><span style="color:#666">?</span>(<span style="color:#4070a0">staging</span>)<span style="">.</span><span style="color:#4070a0">nil</span><span style="color:#666">?</span> <span style="">%</span><span style="color:#666">&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="color:#666">-</span><span style="color:#4070a0">A</span> <span style="color:#4070a0">INPUT</span> <span style="color:#666">-</span><span style="color:#4070a0">s</span> <span style="color:#4070a0">X</span><span style="">.</span><span style="color:#4070a0">X</span><span style="">.</span><span style="color:#4070a0">X</span><span style="">.</span><span style="color:#4070a0">X</span> <span style="color:#666">-</span><span style="color:#4070a0">j</span> <span style="color:#4070a0">REJECT</span> <span style="color:#666">--</span><span style="color:#4070a0">reject</span><span style="color:#666">-</span><span style="color:#4070a0">with</span> <span style="color:#4070a0">icmp</span><span style="color:#666">-</span><span style="color:#007020;font-weight:bold">host</span><span style="color:#666">-</span><span style="color:#4070a0">prohibited</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">&amp;</span><span style="color:#4070a0">lt</span>;<span style="">%</span> <span style="color:#4070a0">end</span> <span style="color:#666">-</span><span style="">%</span><span style="color:#666">&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">&amp;</span><span style="color:#4070a0">lt</span>;<span style="">%</span> <span style="color:#4070a0">end</span> <span style="color:#666">-</span><span style="">%</span><span style="color:#666">&gt;</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="c"># Allow unlimited traffic on eth0</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">i</span> <span class="na">eth0</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">OUTPUT</span> <span class="o">-</span><span class="na">o</span> <span class="na">eth0</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c"># Allow unlimited traffic from trusted IP addresses</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">s</span> <span class="mf">192.168.1.1</span><span class="o">/</span><span class="mi">24</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="k">if</span> <span class="na">environment</span> <span class="o">==</span> <span class="s">&#34;production&#34;</span> <span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">22</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">25</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">m</span> <span class="na">state</span> <span class="o">--</span><span class="na">state</span> <span class="na">NEW</span> <span class="o">-</span><span class="na">m</span> <span class="na">tcp</span> <span class="o">-</span><span class="na">p</span> <span class="na">tcp</span> <span class="o">--</span><span class="na">dport</span> <span class="mi">80</span> <span class="o">-</span><span class="na">j</span> <span class="na">ACCEPT</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">unless</span> <span class="k">defined</span><span class="o">?</span><span class="p">(</span><span class="na">staging</span><span class="p">)</span><span class="err">.</span><span class="na">nil</span><span class="o">?</span> <span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">-</span><span class="na">A</span> <span class="na">INPUT</span> <span class="o">-</span><span class="na">s</span> <span class="na">X</span><span class="err">.</span><span class="na">X</span><span class="err">.</span><span class="na">X</span><span class="err">.</span><span class="na">X</span> <span class="o">-</span><span class="na">j</span> <span class="na">REJECT</span> <span class="o">--</span><span class="na">reject</span><span class="o">-</span><span class="na">with</span> <span class="na">icmp</span><span class="o">-</span><span class="k">host</span><span class="o">-</span><span class="na">prohibited</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">end</span> <span class="o">-</span><span class="err">%</span><span class="o">&gt;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">&amp;</span><span class="na">lt</span><span class="p">;</span><span class="err">%</span> <span class="na">end</span> <span class="o">-</span><span class="err">%</span><span class="o">&gt;</span></span></span></code></pre></div>
 <p>On the <strong>manifest</strong> file:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Puppet" data-lang="Puppet"><span style="display:flex;"><span><span style="color:#007020;font-weight:bold">class</span> <span style="color:#4070a0">iptables</span> {<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#007020;font-weight:bold">package</span> { <span style="color:#4070a0">iptables</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">ensure</span> <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">installed</span>;<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    }<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#007020;font-weight:bold">service</span> { <span style="color:#4070a0">&#34;iptables&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">ensure</span>    <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">running</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">hasstatus</span> <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">true</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">require</span>   <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">Package</span>[<span style="color:#4070a0">&#34;iptables&#34;</span>],<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    }<span style="">
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    <span style="color:#007020;font-weight:bold">file</span> { <span style="color:#4070a0">&#34;/etc/sysconfig/iptables&#34;</span>:<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">owner</span>   <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;root&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">group</span>   <span style="color:#666">=&gt;</span> <span style="color:#4070a0">&#34;root&#34;</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">mode</span>    <span style="color:#666">=&gt;</span> <span style="color:#40a070">644</span>,<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#4070a0">content</span> <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">template</span>(<span style="color:#4070a0">&#34;iptables/iptables.erb&#34;</span>),<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>        <span style="color:#007020;font-weight:bold">notify</span>  <span style="color:#666">=&gt;</span> <span style="color:#007020;font-weight:bold">Service</span>[<span style="color:#4070a0">&#34;iptables&#34;</span>],<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>    }<span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>}</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Puppet" data-lang="Puppet"><span class="line"><span class="cl"><span class="k">class</span> <span class="na">iptables</span> <span class="p">{</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">package</span> <span class="p">{</span> <span class="na">iptables</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span> <span class="o">=&gt;</span> <span class="k">installed</span><span class="p">;</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">service</span> <span class="p">{</span> <span class="s">&#34;iptables&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">ensure</span>    <span class="o">=&gt;</span> <span class="k">running</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">hasstatus</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">require</span>   <span class="o">=&gt;</span> <span class="k">Package</span><span class="p">[</span><span class="s">&#34;iptables&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="k">file</span> <span class="p">{</span> <span class="s">&#34;/etc/sysconfig/iptables&#34;</span><span class="p">:</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">owner</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">group</span>   <span class="o">=&gt;</span> <span class="s">&#34;root&#34;</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">mode</span>    <span class="o">=&gt;</span> <span class="mi">644</span><span class="p">,</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="na">content</span> <span class="o">=&gt;</span> <span class="k">template</span><span class="p">(</span><span class="s">&#34;iptables/iptables.erb&#34;</span><span class="p">),</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>        <span class="k">notify</span>  <span class="o">=&gt;</span> <span class="k">Service</span><span class="p">[</span><span class="s">&#34;iptables&#34;</span><span class="p">],</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span>    <span class="p">}</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="p">}</span></span></span></code></pre></div>
 <p>That’s all for now!</p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/puppet/">Puppet</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/snippets/">snippets</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2011/09/11/a-few-other-additions-to-my-mutt-and-desktop-setup/" data-toggle="tooltip" data-placement="top" title="A few other additions to my Mutt and Desktop setup!">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/" data-toggle="tooltip" data-placement="top" title="Nagios IRC Notifications">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>fedy on Andrea Veri&#39;s Blog</title>
+    <title>fedy on </title>
     <link>https://www.dragonsreach.it/tags/fedy/</link>
-    <description>Recent content in fedy on Andrea Veri&#39;s Blog</description>
+    <description>Recent content in fedy on </description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 02 Apr 2014 14:11:27 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/fedy/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -12,7 +12,7 @@
       <pubDate>Wed, 02 Apr 2014 14:11:27 +0000</pubDate>
       
       <guid>https://www.dragonsreach.it/2014/04/02/fedy-installation-of-brackets-bricks-your-fedora-installation/</guid>
-      <description>I wanted to give Fedya try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
+      <description>I wanted to give Fedy a try yesterday, specifically to install the **Brackets **code editor designed for web developers. I’m pretty lazy when it comes to install external packages (from the Brackets.io’s homepage it looked like only a DEB file was available) and after asking a few friends who made heavy use of Fedy in the past about its stability and credibility I went ahead and followed the provided instructions to set it up.</description>
     </item>
     
   </channel>

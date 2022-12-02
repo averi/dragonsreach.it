@@ -1,413 +1,146 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Three years and counting - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      Three years and counting &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2015\/12\/02\/three-years-and-counting\/",
-          "name": "Three years and counting"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "Three years and counting",
-  "description" : "It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.",
-  "inLanguage" : "en",
-  "wordCount":  1520 ,
-  "datePublished" : "2015-12-02T16:32:41",
-  "dateModified" : "2015-12-02T16:32:41",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2015\/12\/02\/three-years-and-counting\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Three years and counting" />
-<meta property="og:description" content="It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when Sriram Ramkrishnaand Jeff Schroederproposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the official hiringachieved by Karen Sandlerback in February 2013.">
-<meta property="og:url" content="https://www.dragonsreach.it/2015/12/02/three-years-and-counting/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="Three years and counting" />
-  <meta name="twitter:description" content="It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Three years and counting</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on December 2, 2015
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when <!-- raw HTML omitted -->Sriram Ramkrishna<!-- raw HTML omitted --> and <!-- raw HTML omitted -->Jeff Schroeder<!-- raw HTML omitted --> proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the <!-- raw HTML omitted -->official hiring<!-- raw HTML omitted --> achieved by <!-- raw HTML omitted -->Karen Sandler<!-- raw HTML omitted --> back in February 2013.</p>
+<div class="post">
+  <h1 class="post-title">Three years and counting</h1>
+  <span class="post-date">Dec 2, 2015</span>
+  <p>It’s been a while since my last “what’s been happening behind the scenes” e-mail so I’m here to report on what has been happening within the GNOME Infrastructure, its future plans and my personal sensations about a challenge that started around three (3) years ago when <a href="https://plus.google.com/115250422803614415116/posts" target="_blank">Sriram Ramkrishna</a> and <a href="http://www.digitalprognosis.com/" target="_blank">Jeff Schroeder</a> proposed my name as a possible candidate for coordinating the team that runs the systems behind the GNOME Project. All this followed by the <a href="https://www.gnome.org/news/2013/03/behind-the-scene-andrea-veri-is-new-gnome-part-time-sysadmin/" target="_blank">official hiring</a> achieved by <a href="https://en.wikipedia.org/wiki/Karen_Sandler" target="_blank">Karen Sandler</a> back in February 2013.</p>
 <p>The <strong>GNOME Infrastructure</strong> has finally reached stability both in terms of reliability and uptime, we didn’t have any service disruption this and the past year and services have been running smoothly as they were expected to in a project like the one we are managing.</p>
 <p>As many of you know service disruptions and a total lack of maintenance were very common before I joined back in 2013, I’m so glad the situation has dramatically changed and developers, users, passionates are now able to reach our websites, code repositories, build machines without experiencing slowness, downtimes or</p>
-<p>unreachability. Additionally all these groups of people now have a reference point they can contact in case they need help when coping with the infrastructure they daily use. The ticketing system allows users to get in touch with the members of the <!-- raw HTML omitted -->Sysadmin<!-- raw HTML omitted --> Team and receive support right away within a very short period of time (Also thanks to <!-- raw HTML omitted -->Pagerduty<!-- raw HTML omitted -->, service the Foundation is kindly sponsoring)</p>
+<p>unreachability. Additionally all these groups of people now have a reference point they can contact in case they need help when coping with the infrastructure they daily use. The ticketing system allows users to get in touch with the members of the <span class="il">Sysadmin</span> Team and receive support right away within a very short period of time (Also thanks to <a href="https://www.pagerduty.com" target="_blank">Pagerduty</a>, service the Foundation is kindly sponsoring)</p>
 <p>Before moving ahead to the future plans I’d like to provide you a summary of what has been done during these roughly three years so you can get an idea of why I define the changes that happened to the infrastructure a complete revamp:</p>
 <ol>
 <li>Recycled several ancient machines migrating services off of them while consolidating them by placing all their configuration on our central configuration management platform ran by Puppet. This includes a grand total of 7 machines that were replaced by new hardware and extended warranties the Foundation kindly sponsored.</li>
 <li>We strenghten our websites security by introducing SSL certificates everywhere and recently replacing them with SHA2 certificates.</li>
 <li>We introduced several services such as Owncloud, the Commits Bot, the Pastebin, the Etherpad, Jabber, the GNOME Github mirror.</li>
-<li>We restructured the way we backup our machines also thanks to the Fedora Project sponsoring the disk space on their backup facility. The way we were used to handle backups drastically changed from early years where a magnetic tape facility was in charge of all the burden of archiving our data to today where a NetApp is used together with <!-- raw HTML omitted -->rdiff-backup<!-- raw HTML omitted -->.</li>
+<li>We restructured the way we backup our machines also thanks to the Fedora Project sponsoring the disk space on their backup facility. The way we were used to handle backups drastically changed from early years where a magnetic tape facility was in charge of all the burden of archiving our data to today where a NetApp is used together with <a href="http://www.nongnu.org/rdiff-backup/" target="_blank">rdiff-backup</a>.</li>
 <li>We upgraded Bugzilla to the latest release, a huge thanks goes to Krzesimir Nowak who kindly helped us building the migration tools.</li>
-<li>We introduced the <!-- raw HTML omitted -->GNOME Apprentice program<!-- raw HTML omitted --> open-sourcing our internal Puppet repository and cleansing it (shallow clones FTW!) from any sensitive information which now lives on a different repository with restricted access.</li>
-<li>We retired Mango and our OpenLDAP instance in favor of <!-- raw HTML omitted -->FreeIPA<!-- raw HTML omitted --> which allows users to modify their account information on their own without waiting for the Accounts Team to process the change.</li>
-<li>We <!-- raw HTML omitted -->documented<!-- raw HTML omitted --> how our internal tools are customized to play together making it easy for future <!-- raw HTML omitted -->Sysadmin<!-- raw HTML omitted --> Team members to learn how the infrastructure works and supersede existing members in case they aren’t able to keep up their position anymore.</li>
+<li>We introduced the <a href="https://wiki.gnome.org/Sysadmin/Apprentices" target="_blank">GNOME Apprentice program</a> open-sourcing our internal Puppet repository and cleansing it (shallow clones FTW!) from any sensitive information which now lives on a different repository with restricted access.</li>
+<li>We retired Mango and our OpenLDAP instance in favor of <a href="https://account.gnome.org" target="_blank">FreeIPA</a> which allows users to modify their account information on their own without waiting for the Accounts Team to process the change.</li>
+<li>We <a href="https://wiki.gnome.org/Sysadmin/SOP" target="_blank">documented</a> how our internal tools are customized to play together making it easy for future <span class="il">Sysadmin</span> Team members to learn how the infrastructure works and supersede existing members in case they aren’t able to keep up their position anymore.</li>
 <li>We started providing hosting to the GIMP and GTK projects which now completely rely on the GNOME Infrastructure. (DNS, email, websites and other services infrastructure hosting)</li>
 <li>We started providing hosting not only to the GIMP and GTK projects but to localized communities as well such as GNOME Hispano and GNOME Greece</li>
 <li>We configured proper monitoring for all the hosted services thanks to Nagios and Check-MK</li>
 <li>We migrated the IRC network to a newer ircd with proper IRC services (Nickserv, Chanserv) in place.</li>
 <li>We made sure each machine had a configured management (mgmt) and KVM interface for direct remote access to the bare metal machine itself, its hardware status and all the operations related to it. (hard reset, reboot, shutdown etc.)</li>
-<li>We <!-- raw HTML omitted -->upgraded MoinMoin<!-- raw HTML omitted --> to the latest release and made a substantial cleanup of old accounts, pages marked as spam and trashed pages.</li>
+<li>We <a href="https://mail.gnome.org/archives/infrastructure-announce/2013-May/msg00000.html" target="_blank">upgraded MoinMoin</a> to the latest release and made a substantial cleanup of old accounts, pages marked as spam and trashed pages.</li>
 <li>We deployed DNSSEC for several domains we manage including gnome.org, guadec.es, gnomehispano.es, guadec.org, gtk.org and gimp.org</li>
-<li>We <!-- raw HTML omitted -->introduced an account de-activation policy<!-- raw HTML omitted --> which comes into play when a contributor not committing to any of the hosted repositories at git.gnome.org since two years is caught by the script. The account in question is marked as inactive and the gnomecvs (from the old cvs days) and ftpadmin groups are removed.</li>
+<li>We <a href="https://mail.gnome.org/archives/infrastructure-announce/2014-March/msg00000.html" target="_blank">introduced an account de-activation policy</a> which comes into play when a contributor not committing to any of the hosted repositories at git.gnome.org since two years is caught by the script. The account in question is marked as inactive and the gnomecvs (from the old cvs days) and ftpadmin groups are removed.</li>
 <li>We planned mass reboots of all the machines roughly every month for properly applying security and kernel updates.</li>
-<li>We introduced <!-- raw HTML omitted -->Mirrorbrain<!-- raw HTML omitted --> (MB), the mirroring service serving GNOME and related modules tarballs and software all over the world. Before introducing MB GNOME had several mirrors located in all the main continents and at the same time a very low amount of users making good use of them. Many organizations and companies behind these mirrors decided to not host GNOME sources anymore as the statistics of usage were very poor and preferred providing the same service to projects that really had a demand for these resources. MB solved all this allowing a proper redirect to the closest mirror (through mod_geoip) and making sure the sources checksum matched across all the mirrors and against the original tarball uploaded by a GNOME maintainer and hosted at master.gnome.org.</li>
+<li>We introduced <a href="http://mirrorbrain.org/" target="_blank">Mirrorbrain</a> (MB), the mirroring service serving GNOME and related modules tarballs and software all over the world. Before introducing MB GNOME had several mirrors located in all the main continents and at the same time a very low amount of users making good use of them. Many organizations and companies behind these mirrors decided to not host GNOME sources anymore as the statistics of usage were very poor and preferred providing the same service to projects that really had a demand for these resources. MB solved all this allowing a proper redirect to the closest mirror (through mod_geoip) and making sure the sources checksum matched across all the mirrors and against the original tarball uploaded by a GNOME maintainer and hosted at master.gnome.org.</li>
 </ol>
 <p>I can keep the list going for dozens of other accomplished tasks but I’m sure many of you are now more interested in what the future plans actually are in terms of where the <strong>GNOME Infrastructure</strong> should be in the next couple of years.</p>
 <p>One of the main topics we’ve been discussing will be migrating our Git infrastructure away from cgit (which is mainly serving as a code browsing tool) to a more complete platform that is surely going to include a code review tool of some sort. (Gerrit, Gitlab, Phabricator)</p>
 <p>Another topic would be migrating our mailing lists to Mailman 3 / Hyperkitty. This also means we definitely need a staging infrastructure in place for testing these kind of transitions ideally bound to a separate Puppet / Ansible repository or branch. Having a different repository for testing purposes will also mean helping apprentices to test their changes directly on a live system and not on their personal computer which might be running a different OS / set of tools than the ones we run on the GNOME Infrastructure.</p>
-<p>What I also aim would be seeing <strong>GNOME</strong> Accounts being the only authentication resource in use within the whole GNOME Infrastructure. That means one should be able to login to a specific service with the same username / password in use on the other hosted services. That’s been on my todo list for a while already and it’s probably time to push it forward together with Patrick Uiterwijk, responsible of <!-- raw HTML omitted -->Ipsilon<!-- raw HTML omitted -->‘s development at Red Hat and GNOME Sysadmin.</p>
+<p>What I also aim would be seeing <strong>GNOME</strong> Accounts being the only authentication resource in use within the whole GNOME Infrastructure. That means one should be able to login to a specific service with the same username / password in use on the other hosted services. That’s been on my todo list for a while already and it’s probably time to push it forward together with Patrick Uiterwijk, responsible of <a href="https://fedorahosted.org/ipsilon/" target="_blank">Ipsilon</a>‘s development at Red Hat and GNOME Sysadmin.</p>
 <p>While these are the top priority items we are soon receiving new hardware (plus extended warranty renewals for two out of the three machines that had their warranty renewed a while back) and migrating some of the VMs off from the current set of machines to the new boxes is definitely another task I’d be willing to look at in the next couple of months (one machine (ns-master.gnome.org) is being decommissioned giving me a chance to migrate away from BIND into NSD).</p>
-<p>The <strong>GNOME Infrastructure</strong> is evolving and it’s crucial to have someone maintaining it. On this side I’m bringing to your attention the fact the assigned <!-- raw HTML omitted -->Sysadmin<!-- raw HTML omitted --> funds are running out as reported on the Board minutes from the <!-- raw HTML omitted -->27th of October<!-- raw HTML omitted -->. On this side <!-- raw HTML omitted -->Jeff Fortin<!-- raw HTML omitted --> started looking for possible sponsors and came up with the idea of making a brochure with a set of accomplished tasks that couldn’t have been possible without the <!-- raw HTML omitted --><!-- raw HTML omitted -->Sysadmin <!-- raw HTML omitted -->fundraising campaign<!-- raw HTML omitted --> launched by <!-- raw HTML omitted -->Stormy Peters<!-- raw HTML omitted --> back in <!-- raw HTML omitted -->June 2010<!-- raw HTML omitted --> being a success. The Board is well aware of the importance of having someone looking at the infrastructure that runs the GNOME Project and is making sure the brochure will be properly reviewed and published.</p>
+<p>The <strong>GNOME Infrastructure</strong> is evolving and it’s crucial to have someone maintaining it. On this side I’m bringing to your attention the fact the assigned <span class="il">Sysadmin</span> funds are running out as reported on the Board minutes from the <a href="https://mail.gnome.org/archives/foundation-announce/2015-November/msg00003.html" target="_blank">27th of October</a>. On this side <a href="http://jeff.ecchi.ca/" target="_blank">Jeff Fortin</a> started looking for possible sponsors and came up with the idea of making a brochure with a set of accomplished tasks that couldn’t have been possible without the <a href="https://mail.gnome.org/archives/foundation-announce/2010-June/msg00000.html" target="_blank"><span class="il">Sysadmin </span>fundraising campaign</a> launched by <a href="https://en.wikipedia.org/wiki/Stormy_Peters" target="_blank">Stormy Peters</a> back in <a href="http://stormyscorner.com/2010/03/one-step-closer-to-a-sys-admin.html" target="_blank">June 2010</a> being a success. The Board is well aware of the importance of having someone looking at the infrastructure that runs the GNOME Project and is making sure the brochure will be properly reviewed and published.</p>
 <p>And now some stats taken from the Puppet Git Repository:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>$ <span style="color:#007020">cd</span> /git/GNOME/puppet <span style="color:#666">&amp;&amp;</span> git shortlog -ns
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#40a070">3520</span> Andrea Veri
-</span></span><span style="display:flex;"><span><span style="color:#40a070">506</span> Olav Vitters
-</span></span><span style="display:flex;"><span><span style="color:#40a070">338</span> Owen W. Taylor
-</span></span><span style="display:flex;"><span><span style="color:#40a070">239</span> Patrick Uiterwijk
-</span></span><span style="display:flex;"><span><span style="color:#40a070">112</span> Jeff Schroeder
-</span></span><span style="display:flex;"><span><span style="color:#40a070">71</span> Christer Edwards
-</span></span><span style="display:flex;"><span><span style="color:#40a070">4</span> Daniel Mustieles
-</span></span><span style="display:flex;"><span><span style="color:#40a070">4</span> Matanya Moses
-</span></span><span style="display:flex;"><span><span style="color:#40a070">3</span> Tobias Mueller
-</span></span><span style="display:flex;"><span><span style="color:#40a070">2</span> John Carr
-</span></span><span style="display:flex;"><span><span style="color:#40a070">2</span> Ray Wang
-</span></span><span style="display:flex;"><span><span style="color:#40a070">1</span> Daniel Mustieles García
-</span></span><span style="display:flex;"><span><span style="color:#40a070">1</span> Peter Baumgarten</span></span></code></pre></div>
-<p>and from the <!-- raw HTML omitted -->Request Tracker<!-- raw HTML omitted --> database (52388 being my assigned ID):</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-MySQL" data-lang="MySQL"><span style="display:flex;"><span>mysql<span style="color:#666">&gt;</span><span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">select</span><span style="color:#bbb"> </span><span style="color:#06287e">count</span>(<span style="color:#666">*</span>)<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">from</span><span style="color:#bbb"> </span>Tickets<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">where</span><span style="color:#bbb"> </span>LastUpdatedBy<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#4070a0">&#39;52388&#39;</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">|</span><span style="color:#bbb"> </span><span style="color:#06287e">count</span>(<span style="color:#666">*</span>)<span style="color:#bbb"> </span><span style="color:#666">|</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">|</span><span style="color:#bbb"> </span><span style="color:#40a070">3613</span><span style="color:#bbb"> </span><span style="color:#666">|</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#40a070">1</span><span style="color:#bbb"> </span>row<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">in</span><span style="color:#bbb"> </span><span style="color:#902000">set</span><span style="color:#bbb"> </span>(<span style="color:#40a070">0</span>.<span style="color:#40a070">01</span><span style="color:#bbb"> </span>sec)<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>mysql<span style="color:#666">&gt;</span><span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">select</span><span style="color:#bbb"> </span><span style="color:#06287e">count</span>(<span style="color:#666">*</span>)<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">from</span><span style="color:#bbb"> </span>Tickets<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">where</span><span style="color:#bbb"> </span>LastUpdatedBy<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#4070a0">&#39;52388&#39;</span><span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">and</span><span style="color:#bbb"> </span>Status<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#4070a0">&#39;Resolved&#39;</span>;<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">|</span><span style="color:#bbb"> </span><span style="color:#06287e">count</span>(<span style="color:#666">*</span>)<span style="color:#bbb"> </span><span style="color:#666">|</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">|</span><span style="color:#bbb"> </span><span style="color:#40a070">1596</span><span style="color:#bbb"> </span><span style="color:#666">|</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#666">+----------+</span><span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#40a070">1</span><span style="color:#bbb"> </span>row<span style="color:#bbb"> </span><span style="color:#007020;font-weight:bold">in</span><span style="color:#bbb"> </span><span style="color:#902000">set</span><span style="color:#bbb"> </span>(<span style="color:#40a070">0</span>.<span style="color:#40a070">03</span><span style="color:#bbb"> </span>sec)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">$ <span class="nb">cd</span> /git/GNOME/puppet <span class="o">&amp;&amp;</span> git shortlog -ns
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="m">3520</span> Andrea Veri
+</span></span><span class="line"><span class="cl"><span class="m">506</span> Olav Vitters
+</span></span><span class="line"><span class="cl"><span class="m">338</span> Owen W. Taylor
+</span></span><span class="line"><span class="cl"><span class="m">239</span> Patrick Uiterwijk
+</span></span><span class="line"><span class="cl"><span class="m">112</span> Jeff Schroeder
+</span></span><span class="line"><span class="cl"><span class="m">71</span> Christer Edwards
+</span></span><span class="line"><span class="cl"><span class="m">4</span> Daniel Mustieles
+</span></span><span class="line"><span class="cl"><span class="m">4</span> Matanya Moses
+</span></span><span class="line"><span class="cl"><span class="m">3</span> Tobias Mueller
+</span></span><span class="line"><span class="cl"><span class="m">2</span> John Carr
+</span></span><span class="line"><span class="cl"><span class="m">2</span> Ray Wang
+</span></span><span class="line"><span class="cl"><span class="m">1</span> Daniel Mustieles García
+</span></span><span class="line"><span class="cl"><span class="m">1</span> Peter Baumgarten</span></span></code></pre></div>
+<p>and from the <a href="https://www.bestpractical.com/rt/" target="_blank">Request Tracker</a> database (52388 being my assigned ID):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-MySQL" data-lang="MySQL"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Tickets</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">LastUpdatedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;52388&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="mi">3613</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">Tickets</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">LastUpdatedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;52388&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">Status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Resolved&#39;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="mi">1596</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">+----------+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">1</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">set</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">03</span><span class="w"> </span><span class="n">sec</span><span class="p">)</span></span></span></code></pre></div>
 <p>It’s been a long run which made me proud, for the things I learnt, for the tasks I’ve been able to accomplish, for the great support the GNOME community gave me all the time and most of all for the same fact of being part of the team responsible of the systems hosting the GNOME Project. <strong>Thank you</strong> GNOME community for your continued and never ending backing, we daily work to improve how the services we host are delivered to you and the support we receive back is fundamental for our passion and enthusiasm to remain high!</p>
 <p> </p>
-
-
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2015/01/28/the-gnome-infrastructure-apprentice-program/" data-toggle="tooltip" data-placement="top" title="The GNOME Infrastructure Apprentice Program">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2016/07/05/a-childhood-dream/" data-toggle="tooltip" data-placement="top" title="A childhood’s dream">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>

@@ -1,392 +1,111 @@
 <!DOCTYPE html>
-<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
   <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
     
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-  <title>Automatic Gmail’s Trash &amp; Spam folders cleanup - Andrea Veri&#39;s Blog</title>
-  <meta name="description" content="Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash &amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty happy)
-A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.">
-  <meta name="author" content="Andrea Veri"/><script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "WebSite",
-    "name": "Andrea Veri\u0027s Blog",
+      Automatic Gmail’s Trash &amp; Spam folders cleanup &middot; Andrea Veri&#39;s Blog
     
-    "url": "https:\/\/www.dragonsreach.it"
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "name": "",
-  "url": "https:\/\/www.dragonsreach.it"
+  </title>
+
   
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/poole.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css">
+  <link rel="stylesheet" href="https://www.dragonsreach.it/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
   
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.dragonsreach.it/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="https://www.dragonsreach.it/assets/favicon.ico">
+
   
-  
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it",
-          "name": "home"
-        }
-    },{
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@id": "https:\/\/www.dragonsreach.it\/2011\/07\/03\/automatic-gmails-trash-spam-folders-cleanup\/",
-          "name": "Automatic gmail’s trash \u0026 spam folders cleanup"
-        }
-    }]
-}
-</script><script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Article",
-  "author": {
-    "name" : "Andrea Veri"
-  },
-  "headline": "Automatic Gmail’s Trash \u0026 Spam folders cleanup",
-  "description" : "Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash \u0026amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash\u0026amp;Spam folders empty as they should be makes me pretty happy)\nA few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.",
-  "inLanguage" : "en",
-  "wordCount":  389 ,
-  "datePublished" : "2011-07-03T21:29:35",
-  "dateModified" : "2011-07-03T21:29:35",
-  "image" : "https:\/\/www.dragonsreach.it",
-  "keywords" : [ "Cleanup, Gmail, Spam, Trash" ],
-  "mainEntityOfPage" : "https:\/\/www.dragonsreach.it\/2011\/07\/03\/automatic-gmails-trash-spam-folders-cleanup\/",
-  "publisher" : {
-    "@type": "Organization",
-    "name" : "https:\/\/www.dragonsreach.it",
-    "logo" : {
-        "@type" : "ImageObject",
-        "url" : "https:\/\/www.dragonsreach.it",
-        "height" :  60 ,
-        "width" :  60
-    }
-  }
-}
-</script>
-
-<meta property="og:title" content="Automatic Gmail’s Trash &amp; Spam folders cleanup" />
-<meta property="og:description" content="Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash &amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I love keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty happy)
-A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a great piece of software: imapfilter.">
-<meta property="og:url" content="https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Andrea Veri&#39;s Blog" />
-
-  <meta name="twitter:title" content="Automatic Gmail’s Trash &amp; Spam folders cleanup" />
-  <meta name="twitter:description" content="Since some time I’ve been thinking about a possible way to delete my Gmail’s Trash &amp; Spam folders content automatically without having to bother doing it manually every single time I wanted to …">
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="@andrea_veri" />
-  <meta name="twitter:creator" content="@andrea_veri" />
-  <meta name="generator" content="Hugo 0.93.3" />
-  <link rel="alternate" href="https://www.dragonsreach.it/index.xml" type="application/rss+xml" title="Andrea Veri&#39;s Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://www.dragonsreach.it/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/syntax.css" /><link rel="stylesheet" href="https://www.dragonsreach.it/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.dragonsreach.it/atom.xml">
+</head>
 
 
-
-  </head>
   <body>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="nav navbar-nav navbar-right">
-        
-          
-            <li>
-              <a title="About me" href="/about-me">About me</a>
-            </li>
-          
-        
-
-        
-
-        
-      </ul>
-    </div>
 
     
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
 
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>
+      Andrea Veri&rsquo;s Blog
+    </p>
   </div>
-</nav>
 
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/">Home</a>
+    <a class="sidebar-nav-item " href="https://www.dragonsreach.it/posts">Posts</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/tags/" title="Categories">Categories</a><a class="sidebar-nav-item" href="https://www.dragonsreach.it/about-me/" title="About me">About me</a>
+    </nav>
 
-
-
-    
-
-
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-<div class="pswp__bg"></div>
-
-<div class="pswp__scroll-wrap">
-    
-    <div class="pswp__container">
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-      <div class="pswp__item"></div>
-    </div>
-    
-    <div class="pswp__ui pswp__ui--hidden">
-    <div class="pswp__top-bar">
-      
-      <div class="pswp__counter"></div>
-      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-      <button class="pswp__button pswp__button--share" title="Share"></button>
-      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-      
-      
-      <div class="pswp__preloader">
-        <div class="pswp__preloader__icn">
-          <div class="pswp__preloader__cut">
-            <div class="pswp__preloader__donut"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-      <div class="pswp__share-tooltip"></div>
-    </div>
-    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-    </button>
-    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-    </button>
-    <div class="pswp__caption">
-      <div class="pswp__caption__center"></div>
-    </div>
-    </div>
-    </div>
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
 </div>
 
 
-  
-  
-  
-
-
-
-
-
-
-  
-
-  <header class="header-section ">
     
-    <div class="intro-header no-img">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <div class="post-heading">
-              
-                <h1>Automatic Gmail’s Trash &amp; Spam folders cleanup</h1>
-              
-              
-              
-              
-                <span class="post-meta">
-  
-  
-  <i class="fas fa-calendar"></i>&nbsp;Posted on July 3, 2011
-  
-  
-  
-  
-    
-      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Andrea Veri
-    
-  
-  
-</span>
-
-
-              
-            </div>
-          </div>
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="https://www.dragonsreach.it/" title="Home">Andrea Veri&#39;s Blog</a>
+            <small>Me, myself and I</small>
+          </h3>
         </div>
       </div>
-    </div>
-  </header>
+
+      <div class="container content">
 
 
-    
-<div class="container" role="main">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <article role="main" class="blog-post">
-        <p>Since some time I’ve been thinking about a possible way to delete my <strong>Gmail’s Trash &amp; Spam folders</strong> content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I <strong>love</strong> keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty <strong>happy</strong>)</p>
-<p>A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a <strong>great</strong> piece of software: <!-- raw HTML omitted -->imapfilter<!-- raw HTML omitted -->. Today while analyzing the above quoted issue I suddenly told myself: “Hey, but why don’t you use your dear and old friend imapfilter to fulfil your needs?”</p>
+<div class="post">
+  <h1 class="post-title">Automatic Gmail’s Trash &amp; Spam folders cleanup</h1>
+  <span class="post-date">Jul 3, 2011</span>
+  <p>Since some time I’ve been thinking about a possible way to delete my <strong>Gmail’s Trash &amp; Spam folders</strong> content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I <strong>love</strong> keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty <strong>happy</strong>)</p>
+<p>A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a <strong>great</strong> piece of software: <a href="https://github.com/lefcha/imapfilter" target="_blank">imapfilter</a>. Today while analyzing the above quoted issue I suddenly told myself: “Hey, but why don’t you use your dear and old friend imapfilter to fulfil your needs?”</p>
 <p>After a few minutes I came up with a small <em>lua</em> script that was doing exactly what I wanted: my <strong>Trash&amp;Spam folders</strong> are no longer crowded and I finally don’t have to delete mails twice! But here they come a few details about my script:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#4070a0">options.timeout</span> <span style="color:#666">=</span> <span style="color:#4070a0">120</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">options.subscribe</span> <span style="color:#666">=</span> <span style="color:#4070a0">true</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">account</span> <span style="color:#666">=</span> <span style="color:#4070a0">IMAP {
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> server = &#39;imap.gmail.com&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> username = &#39;example@gmail.com&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> password = &#39;password&#39;,
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> ssl = &#39;ssl3&#39;
-</span></span></span><span style="display:flex;"><span><span style="color:#4070a0"> }</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">trash</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">spam</span> <span style="color:#666">=</span> <span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
-</span></span><span style="display:flex;"><span><span style="color:#4070a0">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-INI" data-lang="INI"><span class="line"><span class="cl"><span class="na">options.timeout</span> <span class="o">=</span> <span class="s">120</span>
+</span></span><span class="line"><span class="cl"><span class="na">options.subscribe</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">account</span> <span class="o">=</span> <span class="s">IMAP {
+</span></span></span><span class="line"><span class="cl"><span class="s"> server = &#39;imap.gmail.com&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> username = &#39;example@gmail.com&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> password = &#39;password&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="s"> ssl = &#39;ssl3&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s"> }</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">trash</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
+</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">spam</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
+</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></span></span></code></pre></div>
 <p>The script does two things:</p>
 <ol>
 <li>It checks whether a mail is <strong>not</strong> marked as “deleted” (moving an e-mail into the Trash does <strong>not</strong> mark it as “<strong>to be deleted</strong>” automatically) already and removes it.</li>
 <li>It checks whether a mail on the Spam folder has been <strong>answered</strong> (I never had to answer a single e-mail contained into my Spam folder)  and if <strong>not</strong> removes it.</li>
 </ol>
 <p>Using the above script is really easy (you should run imapfilter on <strong>interactive mode</strong> first to generate Gmail’s <strong>certificates,</strong> do that before having cron to run the script for you or otherwise it’ll just hang), just make sure to have <strong>imapfilter</strong> installed on your system and then run it through cron every half an hour or less depending on your needs:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Bash" data-lang="Bash"><span style="display:flex;"><span>crontab -e
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</span></span></code></pre></div>
-<p>Please also remember to setup appropriate permissions on the config file since it contains your Gmail’s <strong>password</strong> and most of all make sure that your Spam folder is <strong>visible</strong> through IMAP (this option can be found on the <strong>label</strong> menu available under your <!-- raw HTML omitted -->Gmail’s settings<!-- raw HTML omitted -->) otherwise imapfilter will just report an error.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">crontab -e
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</span></span></code></pre></div>
+<p>Please also remember to setup appropriate permissions on the config file since it contains your Gmail’s <strong>password</strong> and most of all make sure that your Spam folder is <strong>visible</strong> through IMAP (this option can be found on the <strong>label</strong> menu available under your <a href="https://mail.google.com/mail/?hl=it&#038;&#038;shva=1#settings" target="_blank">Gmail’s settings</a>) otherwise imapfilter will just report an error.</p>
 <p>Enjoy!</p>
 <p> </p>
-
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://www.dragonsreach.it/tags/cleanup/">Cleanup</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/gmail/">Gmail</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/spam/">Spam</a>&nbsp;
-            
-              <a href="https://www.dragonsreach.it/tags/trash/">Trash</a>&nbsp;
-            
-          </div>
-        
-
-        
-
-        
-      </article>
-
-      
-        <ul class="pager blog-pager">
-          
-            <li class="previous">
-              <a href="https://www.dragonsreach.it/2011/05/30/fedora-boards-town-hall/" data-toggle="tooltip" data-placement="top" title="Fedora Board’s Town Hall">&larr; Previous Post</a>
-            </li>
-          
-          
-            <li class="next">
-              <a href="https://www.dragonsreach.it/2011/07/26/backup-your-gmail-in-a-few-easy-steps/" data-toggle="tooltip" data-placement="top" title="Backup your Gmail in a few easy steps!">Next Post &rarr;</a>
-            </li>
-          
-        </ul>
-      
-
-
-      
-
-    </div>
-  </div>
 </div>
 
-      
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        <ul class="list-inline text-center footer-links">
-          
-              <li>
-                <a href="https://twitter.com/andrea_veri" title="Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="https://linkedin.com/in/andrea-veri-bb23a091" title="LinkedIn">
-                  <span class="fa-stack fa-lg">
-                    <i class="fas fa-circle fa-stack-2x"></i>
-                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-              </li>
-          
-          <li>
-            <a href="" title="RSS">
-              <span class="fa-stack fa-lg">
-                <i class="fas fa-circle fa-stack-2x"></i>
-                <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
-              </span>
-            </a>
-          </li>
-          
-        </ul>
-        <p class="credits copyright text-muted">
-          
-            
-              <a href="https://www.dragonsreach.it">Andrea Veri</a>
-            
-          
-
-          &nbsp;&bull;&nbsp;&copy;
-          
-            2020
-          
-
-          
-            &nbsp;&bull;&nbsp;
-            <a href="https://www.dragonsreach.it">Andrea Veri&#39;s Blog</a>
-          
-        </p>
-        
-        <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.93.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
-          
-        </p>
       </div>
     </div>
-  </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<script src="https://www.dragonsreach.it/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="https://www.dragonsreach.it/js/load-photoswipe.js"></script>
-
-
-
-
-
-
-
-
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
 
     
   </body>
