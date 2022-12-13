@@ -3,31 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.dragonsreach.it/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/2022/12/14/gnome-infrastructure-annual-review/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
   </url><url>
     <loc>https://www.dragonsreach.it/categories/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/tags/openshift/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/tags/planet-gnome/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/categories/planet-gnome/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/posts/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/tags/sysadmin/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
+  </url><url>
+    <loc>https://www.dragonsreach.it/tags/</loc>
+    <lastmod>2022-12-12T17:53:26+01:00</lastmod>
   </url><url>
     <loc>https://www.dragonsreach.it/2020/03/30/2020-03-30-gnome-infrastructure-updates/</loc>
     <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/tags/planet-gnome/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/categories/planet-gnome/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/posts/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/tags/sysadmin/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/tags/</loc>
-    <lastmod>2020-03-30T12:20:23+00:00</lastmod>
-  </url><url>
-    <loc>https://www.dragonsreach.it/tags/openshift/</loc>
-    <lastmod>2018-10-18T10:27:23+00:00</lastmod>
   </url><url>
     <loc>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</loc>
     <lastmod>2018-10-18T10:27:23+00:00</lastmod>
@@ -176,19 +179,19 @@
     <loc>https://www.dragonsreach.it/tags/linux-desktop/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
-    <loc>https://www.dragonsreach.it/categories/tmux/</loc>
+    <loc>https://www.dragonsreach.it/tags/tmux/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
-    <loc>https://www.dragonsreach.it/tags/tmux/</loc>
+    <loc>https://www.dragonsreach.it/categories/tmux/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
     <loc>https://www.dragonsreach.it/2013/06/27/two-years-later-vim-tmux-and-my-linux-desktop/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
-    <loc>https://www.dragonsreach.it/categories/vim/</loc>
+    <loc>https://www.dragonsreach.it/tags/vim/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
-    <loc>https://www.dragonsreach.it/tags/vim/</loc>
+    <loc>https://www.dragonsreach.it/categories/vim/</loc>
     <lastmod>2013-06-27T16:59:57+00:00</lastmod>
   </url><url>
     <loc>https://www.dragonsreach.it/2013/06/14/a-second-round-of-updates-from-the-gnome-sysadmin-team/</loc>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.93.3" />
+	<meta name="generator" content="Hugo 0.98.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -48,7 +48,7 @@
     </nav>
 
   <div class="sidebar-item">
-    <p>&copy; 2020. All rights reserved.</p>
+    <p>&copy; 2022. All rights reserved.</p>
   </div>
 </div>
 
@@ -71,6 +71,59 @@
 
 
 <div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/">Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</a></h1>
+        <span class="post-date">Mar 27, 2013</span>
+        <p>I’ve recently spent some time setting up <strong>TLS/SSL</strong> encryption (<strong>SSSD</strong> won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an <strong>OpenLDAP</strong> istance and as you may know the only way for doing that on a <strong>RHEL / CentOS</strong> environment is dealing with a <strong>Mozilla NSS</strong> database (which is, in fact, a <strong>SQLite</strong> database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal. Even if you aren’t running an RPM based system you can opt to use a Mozilla NSS database to store your certificates as your preferred setup.</p>
+<h3 id="on-the-ldap-slapd-server">On the LDAP (SLAPD) server</h3>
+<p>*<em>Re-create <em>.db files</em></em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">mkdir /etc/openldap/certs
+</span></span><span class="line"><span class="cl">modutil -create -dbdir /etc/openldap/certs</span></span></code></pre></div>
+<p><strong>Setup a CA Certificate</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -A -n <span class="s2">&#34;My CA Certificate&#34;</span> -t TCu,Cu,Tuw -a -i /etc/openldap/cacerts/ca.pem</span></span></code></pre></div>
+<p>where <strong>ca.pem</strong> should be your CA’s certificate file.</p>
+<p><strong>Remove the password from the Database</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">modutil -dbdir /etc/openldap/certs -changepw <span class="s1">&#39;NSS Certificate DB&#39;</span></span></span></code></pre></div>
+<p><strong>Creates the .p12 file and imports it on the Database</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">openssl pkcs12 -inkey domain.org.key -in domain.org.crt -export -out domain.org.p12 -nodes -name <span class="s1">&#39;LDAP-Certificate&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pk12util -i domain.org.p12 -d /etc/openldap/certs</span></span></code></pre></div>
+<p>where **domain.org.key **and **domain.org.crt **are the names of the certificates you previously created at your CA’s website.</p>
+<p><strong>List all the certificates on the database and make sure all the informations are correct</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -L</span></span></code></pre></div>
+<p><strong>Configure /etc/openldap/slapd.conf and make sure the TLSCACertificatePath points to your Mozilla NSS database</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">TLSCACertificateFile /etc/openldap/cacerts/ca.pem
+</span></span><span class="line"><span class="cl">TLSCACertificatePath /etc/openldap/certs/
+</span></span><span class="line"><span class="cl">TLSCertificateFile LDAP-Certificate</span></span></code></pre></div>
+<h3 id="additional-commands">Additional commands</h3>
+<p><strong>Modify the trust flags if necessary</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -M -n <span class="s2">&#34;My CA Certificate&#34;</span> -t <span class="s2">&#34;TCu,Cu,Tuw&#34;</span></span></span></code></pre></div>
+<p><strong>Delete a certificate from the database</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -D -n <span class="s2">&#34;My LDAP Certificate&#34;</span></span></span></code></pre></div>
+<h3 id="on-the-clients-nslcd-uses-ldapconf-while-sssd-uses-etcsssdsssdconf">On the clients (nslcd uses ldap.conf while sssd uses /etc/sssd/sssd.conf)</h3>
+<p><strong>On /etc/openldap/ldap.conf</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">BASE <span class="nv">dc</span><span class="o">=</span>domain,dc<span class="o">=</span>org
+</span></span><span class="line"><span class="cl">URI ldaps://ldap.domain.org
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">TLS_REQCERT demand
+</span></span><span class="line"><span class="cl">TLS_CACERT /etc/openldap/cacerts/ca.pem</span></span></code></pre></div>
+<p><strong>On /etc/sssd/sssd.conf</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nv">ldap_tls_cacert</span> <span class="o">=</span> /etc/openldap/cacerts/ca.pem
+</span></span><span class="line"><span class="cl"><span class="nv">ldap_tls_reqcert</span> <span class="o">=</span> demand
+</span></span><span class="line"><span class="cl"><span class="nv">ldap_uri</span> <span class="o">=</span> ldaps://ldap.domain.org</span></span></code></pre></div>
+<h3 id="How_to_test_the_whole_setup">How to test the whole setup</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ldapsearch -x -b <span class="s1">&#39;dc=domain,dc=org&#39;</span> -D <span class="s2">&#34;cn=Manager,dc=domain,dc=org&#34;</span> <span class="s1">&#39;(objectclass=*)&#39;</span> -H ldaps://ldap.domain.org -W -v</span></span></code></pre></div>
+<p><strong>Troubleshooting</strong></p>
+<p>If anything goes wrong you can run SLAPD with the following args for its debug mode:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">/usr/sbin/slapd -d <span class="m">256</span> -f /etc/openldap/slapd.conf -h <span class="s2">&#34;ldaps:/// ldap:///&#34;</span></span></span></code></pre></div>
+<p>**Possible errors: **</p>
+<p>If you happen to see an error similar to this one: “<strong>TLS error -8049:Unrecognized Object Identifier.</strong>“, try running ldapsearch with its debug mode this way:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ldapsearch -d <span class="m">1</span> -x -ZZ -H ldap://ldap.domain.org</span></span></code></pre></div>
+<p>Make also sure that the <strong>FQDN</strong> you are trying to connect to is listed on the trusted FQDN’s list of your <strong>domain.org.crt</strong>.</p>
+<p><strong>Update</strong>: as SSSD’s developer <strong>Stephen Gallagher</strong> correctly pointed out on the comments using ldap_tls_reqcert = allow isn’t a best practice since it may take in <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">Man in the Midle Attacks</a>, adjusting the how to to match his suggestions.</p>
+
+    </div>
   
     <div class="post">
         <h1 class="post-title"><a href="https://www.dragonsreach.it/2013/03/07/some-updates-from-the-gnome-sysadmin-team/">Some updates from the GNOME Sysadmin Team</a></h1>
@@ -223,18 +276,6 @@
 <p>I’ve always presented myself as a <strong>Linux</strong> geek to my neighbours and it has been nice seeing how the Linux word evolved (with funny and surprising quotes) during the past ten years in their minds. A friend of mine (<a href="mailto:aretha.battistutta@gmail.com">Aretha Battistutta</a>) made a little comic strip out of the topic and the result is simply amazing.</p>
 <p><a href="http://www.dragonsreach.it/wp-content/uploads/2012/11/Linux.jpg"><img class="alignnone size-large wp-image-597" title="The Linux's perception of my neighbours" src="http://www.dragonsreach.it/wp-content/uploads/2012/11/Linux-466x1024.jpg" alt="" width="466" height="1024" /></a></p>
 <p>Enjoy!</p>
-
-    </div>
-  
-    <div class="post">
-        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/">Report: FAD Milan 2012</a></h1>
-        <span class="post-date">Nov 3, 2012</span>
-        <p>Exactly one week ago I was attending the <a href="http://fedoraproject.org/wiki/FAD_LinuxDayMi_2012" target="_blank">Fedora Activity Day</a> organized in <strong>Milan</strong> in concomitance with the <strong>Linux Day</strong> event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.</p>
-<p>Each of us presented a specific <strong>Fedora</strong>-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following <a href="http://averi.fedorapeople.org/The-Fedora-Infrastructure.odp" target="_blank">link</a>) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</p>
-<p><img src="https://www.dragonsreach.it/wp-content/uploads/2012/11/fad.jpg" alt="fad"></p>
-<p>Unfortunately something didn’t work as expected and the number of visitors that joined our event was very limited. The lack of marketing is apparently one of the most common problems within Linux and its derivative distributions especially when it comes to attending specific events. I feel our event’s concomitance with the Linux Day was one of the main causes, especially when the <strong>LuG</strong> (Linux User Group) behind the event sponsors a distribution which is not the same as the one you promote. I’m pretty much sure there is a lot of space for improvements but the team is still very young and a lot of work will be put together to improve our next events, that said I would like to thank <strong>Gabriele Trombini</strong> and <strong>Marina Latini</strong> for taking the time and efforts for organizing everything in an awesome location like Milan is.</p>
-<p><img src="https://www.dragonsreach.it/wp-content/uploads/2012/11/swag.jpg" alt="fad"></p>
-<p>We also had the luck to have a Gnomer sitting in one of the chairs of the <a href="http://www.polimi.it" target="_blank">Politecnico</a>‘s classroom where we were presenting our Fedora activities: <strong>Paolo Borelli</strong>, the father of <strong>Gedit</strong> and one of the most active GNOME developers. His first question right after meeting up? “hey Andrea, given the fact <a href="http://shadowm.rewound.net/blog/archives/245-CIA.vc-is-dead.html" target="_blank">CIA.vc is dead</a>, are you going to set up a <a href="http://kgb.alioth.debian.org" target="_blank">KGB</a> istance sooner or later for GNOME? being a sysadmin has never been easy :-)</p>
 
     </div>
   

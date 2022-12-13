@@ -5,11 +5,20 @@
     <link>https://www.dragonsreach.it/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Mon, 30 Mar 2020 12:20:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Dec 2022 17:53:26 +0100</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>openshift</title>
+      <link>https://www.dragonsreach.it/tags/openshift/</link>
+      <pubDate>Mon, 12 Dec 2022 17:53:26 +0100</pubDate>
+      
+      <guid>https://www.dragonsreach.it/tags/openshift/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Planet GNOME</title>
       <link>https://www.dragonsreach.it/tags/planet-gnome/</link>
-      <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
+      <pubDate>Mon, 12 Dec 2022 17:53:26 +0100</pubDate>
       
       <guid>https://www.dragonsreach.it/tags/planet-gnome/</guid>
       <description></description>
@@ -18,18 +27,9 @@
     <item>
       <title>sysadmin</title>
       <link>https://www.dragonsreach.it/tags/sysadmin/</link>
-      <pubDate>Mon, 30 Mar 2020 12:20:23 +0000</pubDate>
+      <pubDate>Mon, 12 Dec 2022 17:53:26 +0100</pubDate>
       
       <guid>https://www.dragonsreach.it/tags/sysadmin/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>openshift</title>
-      <link>https://www.dragonsreach.it/tags/openshift/</link>
-      <pubDate>Thu, 18 Oct 2018 10:27:23 +0000</pubDate>
-      
-      <guid>https://www.dragonsreach.it/tags/openshift/</guid>
       <description></description>
     </item>
     

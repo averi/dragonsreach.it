@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.93.3" />
+	<meta name="generator" content="Hugo 0.98.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -48,7 +48,7 @@
     </nav>
 
   <div class="sidebar-item">
-    <p>&copy; 2020. All rights reserved.</p>
+    <p>&copy; 2022. All rights reserved.</p>
   </div>
 </div>
 
@@ -71,6 +71,18 @@
 
 
 <div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/11/03/fad-milan-2012-report/">Report: FAD Milan 2012</a></h1>
+        <span class="post-date">Nov 3, 2012</span>
+        <p>Exactly one week ago I was attending the <a href="http://fedoraproject.org/wiki/FAD_LinuxDayMi_2012" target="_blank">Fedora Activity Day</a> organized in <strong>Milan</strong> in concomitance with the <strong>Linux Day</strong> event being organized in several italian cities. Meeting the Fedora italian team has been simply great, we’ve been collaborating remotely since more than an year now and finding out all them being so friendly and pleasant has been a great pleasure.</p>
+<p>Each of us presented a specific <strong>Fedora</strong>-related topic (I personally talked about Fedora and its Infrastructure, my presentation is publicly viewable at the following <a href="http://averi.fedorapeople.org/The-Fedora-Infrastructure.odp" target="_blank">link</a>) and I must admit everyone did an awesome job, we taught and learnt from each other at the same time and given the fact it was the very first time the team was put together, well, I can say our mission was accomplished.</p>
+<p><img src="https://www.dragonsreach.it/wp-content/uploads/2012/11/fad.jpg" alt="fad"></p>
+<p>Unfortunately something didn’t work as expected and the number of visitors that joined our event was very limited. The lack of marketing is apparently one of the most common problems within Linux and its derivative distributions especially when it comes to attending specific events. I feel our event’s concomitance with the Linux Day was one of the main causes, especially when the <strong>LuG</strong> (Linux User Group) behind the event sponsors a distribution which is not the same as the one you promote. I’m pretty much sure there is a lot of space for improvements but the team is still very young and a lot of work will be put together to improve our next events, that said I would like to thank <strong>Gabriele Trombini</strong> and <strong>Marina Latini</strong> for taking the time and efforts for organizing everything in an awesome location like Milan is.</p>
+<p><img src="https://www.dragonsreach.it/wp-content/uploads/2012/11/swag.jpg" alt="fad"></p>
+<p>We also had the luck to have a Gnomer sitting in one of the chairs of the <a href="http://www.polimi.it" target="_blank">Politecnico</a>‘s classroom where we were presenting our Fedora activities: <strong>Paolo Borelli</strong>, the father of <strong>Gedit</strong> and one of the most active GNOME developers. His first question right after meeting up? “hey Andrea, given the fact <a href="http://shadowm.rewound.net/blog/archives/245-CIA.vc-is-dead.html" target="_blank">CIA.vc is dead</a>, are you going to set up a <a href="http://kgb.alioth.debian.org" target="_blank">KGB</a> istance sooner or later for GNOME? being a sysadmin has never been easy :-)</p>
+
+    </div>
   
     <div class="post">
         <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/10/06/ssh-tunneling-for-vnc/">SSH Tunneling for VNC</a></h1>
@@ -287,56 +299,6 @@
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Triggering update of configuration on server A&#34;</span>
 </span></span><span class="line"><span class="cl">fishpoke server-A-IP-or-DNS website_update</span></span></code></pre></div>
 <p>Finally test the whole setup by committing to the repository hosted on <strong>server B</strong> and verify your changes being sent live on your website!</p>
-
-    </div>
-  
-    <div class="post">
-        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/">Nagios IRC Notifications</a></h1>
-        <span class="post-date">Jun 30, 2012</span>
-        <p>Lately (as I earlier pointed out on my <a href="http://blogs.gnome.org/woody/2012/02/18/nagios-xmpp-notifications-for-gtalk/">blog</a>) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: <strong>supybot</strong> + <strong>supybot-notify</strong>, all that mixed up with a few grains of Nagios command definitions.</p>
-<p>But here we go with a little step-by-step guide:</p>
-<p><strong>Requirements</strong></p>
-<ol>
-<li>Install supybot and configure a new installation:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install supybot or yum install supybot
-</span></span><span class="line"><span class="cl">mkdir /home/<span class="nv">$user</span>/nagbot <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/<span class="nv">$user</span>/nagbot
-</span></span><span class="line"><span class="cl">supybot-wizard <span class="o">(</span>follow the directions to get the bot initially configured<span class="o">)</span></span></span></code></pre></div>
-<ol start="2">
-<li>Install and load the supybot-notify plugin by doing:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git clone git://git.fedorahosted.org/supybot-notify.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> supybot-notify
-</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$user</span>/nagbot/plugins/notify <span class="o">&amp;&amp;</span> cp -r * /home/<span class="nv">$user</span>/nagbot/plugins/notify</span></span></code></pre></div>
-<p>Finally, <strong><a href="http://supybook.fealdia.org/devel/#_plugins">load</a></strong> the plugin. (this will require you to <a href="http://supybook.fealdia.org/devel/#_identifying_to_the_bot">authenticate</a> to the bot)</p>
-<p><strong>Nagios configuration</strong></p>
-<p>Add the relevant command definitions to the <strong>commands.cfg</strong> file:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="c1"># &#39;notify-by-ircbot&#39; command definition</span>
-</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
-</span></span><span class="line"><span class="cl">    command_name    notify-by-ircbot
-</span></span><span class="line"><span class="cl">    command_line    /usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2">/</span><span class="nv">$SERVICEDESC</span>$<span class="s2"> is </span><span class="nv">$SERVICESTATE</span>$<span class="s2">: </span><span class="nv">$SERVICEOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># &#39;host-notify-by-ircbot&#39; command definition</span>
-</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
-</span></span><span class="line"><span class="cl">	command_name	host-notify-by-ircbot
-</span></span><span class="line"><span class="cl">	command_line	/usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2"> is </span><span class="nv">$HOSTSTATE</span>$<span class="s2">: </span><span class="nv">$HOSTOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
-</span></span><span class="line"><span class="cl">	<span class="o">}</span></span></span></code></pre></div>
-<p>* adjust the <strong>Netcat’s</strong> host and port to your needs, in my case Supybot and Nagios were running on the same host. In the case of a Supybot running on a different host than Nagios, tweak Iptables to allow the desired port:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span class="m">5050</span> -j ACCEPT</span></span></code></pre></div>
-<p>Add a new entry on the <strong>contacts.cfg</strong> file:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">define contact<span class="o">{</span>
-</span></span><span class="line"><span class="cl"> 	contact_name    nagbot
-</span></span><span class="line"><span class="cl">   	use             generic-contact        
-</span></span><span class="line"><span class="cl">        <span class="nb">alias</span>		Nagios IRC Bot
-</span></span><span class="line"><span class="cl">        email           example@example.com
-</span></span><span class="line"><span class="cl">        service_notification_commands   notify-by-ircbot
-</span></span><span class="line"><span class="cl"> 	host_notification_commands      host-notify-by-ircbot
-</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
-<p>Reload Nagios:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/nagios3 reload</span></span></code></pre></div>
-<p>And finally, enjoy the result:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">PROBLEM - <span class="nv">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span class="o">(</span>nagioshost<span class="o">)</span>
-</span></span><span class="line"><span class="cl"> RECOVERY - <span class="nv">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span class="o">(</span>nagioshost<span class="o">)</span></span></span></code></pre></div>
 
     </div>
   

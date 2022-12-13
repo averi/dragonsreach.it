@@ -5,7 +5,16 @@
     <link>https://www.dragonsreach.it/tags/openshift/</link>
     <description>Recent content in openshift on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 18 Oct 2018 10:27:23 +0000</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Dec 2022 17:53:26 +0100</lastBuildDate><atom:link href="https://www.dragonsreach.it/tags/openshift/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022 GNOME Infrastructure Annual Review</title>
+      <link>https://www.dragonsreach.it/2022/12/14/gnome-infrastructure-annual-review/</link>
+      <pubDate>Mon, 12 Dec 2022 17:53:26 +0100</pubDate>
+      
+      <guid>https://www.dragonsreach.it/2022/12/14/gnome-infrastructure-annual-review/</guid>
+      <description>1. Introduction 2. Achievements  2.1. Major achievements 2.2. Minor achievements 2.3. Our brand new and renewed partnerships   3. Highlights  3.1. Openshift 4: architecture 3.2. Openshift 4: virtualization networking 3.3. Openshift 4: image builds 3.4. Openshift 4: cluster backups 3.5. GitLab on Openshift 4: setup 3.6. GitLab on Openshift 4: early days 3.7. GitLab on Openshift 4: logging   Future plans Expressing my gratitude  1.</description>
+    </item>
+    
     <item>
       <title>The GNOME Infrastructure is moving to Openshift</title>
       <link>https://www.dragonsreach.it/2018/10/18/2018-10-18-gnome-infrastructure-moving-to-openshift/</link>

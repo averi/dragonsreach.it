@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.93.3" />
+	<meta name="generator" content="Hugo 0.98.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -48,7 +48,7 @@
     </nav>
 
   <div class="sidebar-item">
-    <p>&copy; 2020. All rights reserved.</p>
+    <p>&copy; 2022. All rights reserved.</p>
   </div>
 </div>
 
@@ -71,6 +71,42 @@
 
 
 <div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2013/12/24/manage-passwords-with-pass/">Manage passwords with ‘pass’</a></h1>
+        <span class="post-date">Dec 24, 2013</span>
+        <p>Fighting with passwords have always been one of my favorite battles in the past and unfortunately the former always won. I never liked using the root user that much for administering a machine and made a massive use of sudo, I won’t list all the benefits of using sudo, but the <a href="https://help.ubuntu.com/community/RootSudo#Benefits_of_using_sudo" target="_blank">following wiki page</a> has a pretty nice overview of them.</p>
+<p>Said that, when using sudo it’s definitely ideal to combine a <strong>strong password</strong> that is also easy to remember and type again when prompted. Sadly strong passwords that are also easy to remember can be considered an oxymoron. How hard would it be to recall a 30+ chars long password? Honestly that would be close to impossible for an human being but what if a little software available on the major GNU/Linux distributions could handle that for us? That’s where <em>pass</em> comes handy, but what is pass? from the pass manpage itself:</p>
+<blockquote>
+<p>pass is a very simple password store that keeps passwords inside gpg2(1) encrypted files inside a simple directory tree residing at ~/.password-store. The pass utility provides a series of commands for manipulating the password store, allowing the user to add, remove, edit, synchronize, generate, and manipulate passwords.</p>
+</blockquote>
+<p>I’m sure that a lot of you guys have been looking for a tool like this one for ages: <em>pass</em> allows you to generate very strong passwords with <a href="http://linux.die.net/man/1/pwgen" target="_blank">pwgen</a>, GPG encrypt them with your GPG Key, store them safely on your disk and make them available whenever you need them with a single command. But let’s move to the practice, give the following steps a try and enjoy how powerful your pass setup will be.</p>
+<h3 id="first-setup">First setup</h3>
+<p>Install the software:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">yum/apt-get install pass</span></span></code></pre></div>
+<p>Generate a GPG Key if you don’t have one already, a detailed guide can be found <a href="http://fedoraproject.org/wiki/Creating_GPG_Keys#Creating_GPG_Keys_Using_the_Command_Line" target="_blank">here</a>. Initialize your passwords storage. (<strong>GPGKEYID</strong> can be retrieved by running <strong>gpg –list-keys</strong> and then looking for a line similar to this one: <strong>pub 4096R/B3A6223D 2012-06-25</strong>)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass init GPGKEYID</span></span></code></pre></div>
+<p>Generate your first password and call it ‘sudo_password’ given you are going to make use of it as your brand new sudo password. (we want it at least 30+ chars long)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass generate sudo_password <span class="m">30</span></span></span></code></pre></div>
+<p>(Optional) Create as much passwords as you need and make sure to save them with unique names, that way you will be able to identify what a password is used for easily.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass generate gmail_password <span class="m">30</span></span></span></code></pre></div>
+<h3 id="additional-maintenance-commands-on-your-password-database">Additional maintenance commands on your password database</h3>
+<p>Look at the existing passwords on your database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass ls</span></span></code></pre></div>
+<p>Result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">Password Store
+</span></span><span class="line"><span class="cl">├── gmail_password
+</span></span><span class="line"><span class="cl">├── sudo_password
+</span></span><span class="line"><span class="cl">└── root_password</span></span></code></pre></div>
+<p>Manually edit a password.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass edit password_name</span></span></code></pre></div>
+<p>Remove a password from your database.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass rm password_name</span></span></code></pre></div>
+<p>Copy a password on your clipboard and paste it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">pass -c password_name</span></span></code></pre></div>
+<p>Are you wondering if <em>pass</em> supports a VCS? Yeah, it does, it currently allows you to manage your passwords database with Git, so that each applied change to the database will be tracked through a VCS so that you won’t forget when and how you updated a specific password.</p>
+
+    </div>
   
     <div class="post">
         <h1 class="post-title"><a href="https://www.dragonsreach.it/2013/11/13/configuring-dnssec-personal-domain/">Configuring DNSSEC on your personal domain</a></h1>
@@ -312,7 +348,7 @@
 <p>A lot of efforts have been spent in the so-called “<strong>Puppet-ization</strong>” (Puppet allows you to reproduce a complete environment with just a few commands, it’s very very handy in the case of host’s migrations) and several new modules are now stored into our internal Puppet repository. Specifically all the <strong>Iptables</strong> rules are currently managed in a centralized way, each node has its own rules and policies, finally there’s no need to ssh into each machine to retrieve the information we need for a specific firewall. In addition to the Iptables class, also Cobbler, Owncloud, Jabberd, Denyhosts and several other modules have been properly configured and currently reside in Puppet.</p>
 </li>
 <li>
-<p>Another item that had top priority on the list was setting up another “webapps” virtual machine to migrate several services from one of the existing ancient machines to it. I can finally tell that the GNOME Infrastructure has get rid of all the old machines, all the services have been migrated to newer machines and most of all all the services are currently being served through SSL. (git, planet, <a href="http://www.gnome.org">www.gnome.org</a>, l10n, guadec.org, bugzilla, blogs, developer, help, people, news etc.) In regard of SSL and <strong>Bugzilla</strong>, we’ve configured our Bugzilla istance to serve attachments through a secondary domain which will look like: <strong><em><a href="https://bug-id.bugzilla-attachments.gnome.org">https://bug-id.bugzilla-attachments.gnome.org</a></em></strong>, this to prevent cross-site scripting attacks in a better way than what we did before.</p>
+<p>Another item that had top priority on the list was setting up another “webapps” virtual machine to migrate several services from one of the existing ancient machines to it. I can finally tell that the GNOME Infrastructure has get rid of all the old machines, all the services have been migrated to newer machines and most of all all the services are currently being served through SSL. (git, planet, <a href="https://www.gnome.org">www.gnome.org</a>, l10n, guadec.org, bugzilla, blogs, developer, help, people, news etc.) In regard of SSL and <strong>Bugzilla</strong>, we’ve configured our Bugzilla istance to serve attachments through a secondary domain which will look like: <strong><em><a href="https://bug-id.bugzilla-attachments.gnome.org">https://bug-id.bugzilla-attachments.gnome.org</a></em></strong>, this to prevent cross-site scripting attacks in a better way than what we did before.</p>
 </li>
 <li>
 <p>We’ve also spent some time working on our Nagios istance hosted at <strong><a href="https://nagios.gnome.org">https://nagios.gnome.org</a></strong>. We’ve improved it dramatically by adding several new checks and covering all the services we currently take care of but that’s not all. <strong>Event Handlers</strong> have been setup to help us addressing problems right after they occur on our web servers. The Nagios event handlers are currently configured to read the status of a specific Nagios service and in the case the status is set to CRITICAL, they restart httpd once, which is usually enough in the case of random Apache’s timeouts. But that’s again not all. A public view for <strong>Nagios</strong> is now ready, every single GNOME contributor and developer should be able to check the current status of all the services we maintain just by loggin in with the username “<strong>anonymous</strong>” and the password “<strong>anonymous</strong>” at nagios.gnome.org.</p>
@@ -347,59 +383,6 @@
 </ul>
 <p>That’s all for now! See you all at <strong>GUADEC</strong> and thanks everyone for all the hints, suggestions and mails you’ve been sending me in the past months! And a special thanks to <strong>Ekaterina Gerasimova</strong> for taking the time to brainstorm with me suggesting new features and improvements over the GNOME Infrastructure!</p>
 <p><img src="https://www.dragonsreach.it/wp-content/uploads/2013/06/status.gnome_.org_.png" alt="status.gnome.org"></p>
-
-    </div>
-  
-    <div class="post">
-        <h1 class="post-title"><a href="https://www.dragonsreach.it/2013/03/27/setting-ssl-certificates-openldap-mozilla-nss-database/">Setting up your SSL certificates on OpenLDAP by using a Mozilla NSS database</a></h1>
-        <span class="post-date">Mar 27, 2013</span>
-        <p>I’ve recently spent some time setting up <strong>TLS/SSL</strong> encryption (<strong>SSSD</strong> won’t send a password in clear text when an user will try to authenticate against your LDAP server) on an <strong>OpenLDAP</strong> istance and as you may know the only way for doing that on a <strong>RHEL / CentOS</strong> environment is dealing with a <strong>Mozilla NSS</strong> database (which is, in fact, a <strong>SQLite</strong> database). I’ve been reading all the man pages of the relevant tools available to manipulate Mozilla NSS databases and I thought I would have shared the whole procedure and commands I used to achieve my goal. Even if you aren’t running an RPM based system you can opt to use a Mozilla NSS database to store your certificates as your preferred setup.</p>
-<h3 id="on-the-ldap-slapd-server">On the LDAP (SLAPD) server</h3>
-<p>*<em>Re-create <em>.db files</em></em></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">mkdir /etc/openldap/certs
-</span></span><span class="line"><span class="cl">modutil -create -dbdir /etc/openldap/certs</span></span></code></pre></div>
-<p><strong>Setup a CA Certificate</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -A -n <span class="s2">&#34;My CA Certificate&#34;</span> -t TCu,Cu,Tuw -a -i /etc/openldap/cacerts/ca.pem</span></span></code></pre></div>
-<p>where <strong>ca.pem</strong> should be your CA’s certificate file.</p>
-<p><strong>Remove the password from the Database</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">modutil -dbdir /etc/openldap/certs -changepw <span class="s1">&#39;NSS Certificate DB&#39;</span></span></span></code></pre></div>
-<p><strong>Creates the .p12 file and imports it on the Database</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">openssl pkcs12 -inkey domain.org.key -in domain.org.crt -export -out domain.org.p12 -nodes -name <span class="s1">&#39;LDAP-Certificate&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">pk12util -i domain.org.p12 -d /etc/openldap/certs</span></span></code></pre></div>
-<p>where **domain.org.key **and **domain.org.crt **are the names of the certificates you previously created at your CA’s website.</p>
-<p><strong>List all the certificates on the database and make sure all the informations are correct</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -L</span></span></code></pre></div>
-<p><strong>Configure /etc/openldap/slapd.conf and make sure the TLSCACertificatePath points to your Mozilla NSS database</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">TLSCACertificateFile /etc/openldap/cacerts/ca.pem
-</span></span><span class="line"><span class="cl">TLSCACertificatePath /etc/openldap/certs/
-</span></span><span class="line"><span class="cl">TLSCertificateFile LDAP-Certificate</span></span></code></pre></div>
-<h3 id="additional-commands">Additional commands</h3>
-<p><strong>Modify the trust flags if necessary</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -M -n <span class="s2">&#34;My CA Certificate&#34;</span> -t <span class="s2">&#34;TCu,Cu,Tuw&#34;</span></span></span></code></pre></div>
-<p><strong>Delete a certificate from the database</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">certutil -d /etc/openldap/certs -D -n <span class="s2">&#34;My LDAP Certificate&#34;</span></span></span></code></pre></div>
-<h3 id="on-the-clients-nslcd-uses-ldapconf-while-sssd-uses-etcsssdsssdconf">On the clients (nslcd uses ldap.conf while sssd uses /etc/sssd/sssd.conf)</h3>
-<p><strong>On /etc/openldap/ldap.conf</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">BASE <span class="nv">dc</span><span class="o">=</span>domain,dc<span class="o">=</span>org
-</span></span><span class="line"><span class="cl">URI ldaps://ldap.domain.org
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">TLS_REQCERT demand
-</span></span><span class="line"><span class="cl">TLS_CACERT /etc/openldap/cacerts/ca.pem</span></span></code></pre></div>
-<p><strong>On /etc/sssd/sssd.conf</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="nv">ldap_tls_cacert</span> <span class="o">=</span> /etc/openldap/cacerts/ca.pem
-</span></span><span class="line"><span class="cl"><span class="nv">ldap_tls_reqcert</span> <span class="o">=</span> demand
-</span></span><span class="line"><span class="cl"><span class="nv">ldap_uri</span> <span class="o">=</span> ldaps://ldap.domain.org</span></span></code></pre></div>
-<h3 id="How_to_test_the_whole_setup">How to test the whole setup</h3>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ldapsearch -x -b <span class="s1">&#39;dc=domain,dc=org&#39;</span> -D <span class="s2">&#34;cn=Manager,dc=domain,dc=org&#34;</span> <span class="s1">&#39;(objectclass=*)&#39;</span> -H ldaps://ldap.domain.org -W -v</span></span></code></pre></div>
-<p><strong>Troubleshooting</strong></p>
-<p>If anything goes wrong you can run SLAPD with the following args for its debug mode:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">/usr/sbin/slapd -d <span class="m">256</span> -f /etc/openldap/slapd.conf -h <span class="s2">&#34;ldaps:/// ldap:///&#34;</span></span></span></code></pre></div>
-<p>**Possible errors: **</p>
-<p>If you happen to see an error similar to this one: “<strong>TLS error -8049:Unrecognized Object Identifier.</strong>“, try running ldapsearch with its debug mode this way:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">ldapsearch -d <span class="m">1</span> -x -ZZ -H ldap://ldap.domain.org</span></span></code></pre></div>
-<p>Make also sure that the <strong>FQDN</strong> you are trying to connect to is listed on the trusted FQDN’s list of your <strong>domain.org.crt</strong>.</p>
-<p><strong>Update</strong>: as SSSD’s developer <strong>Stephen Gallagher</strong> correctly pointed out on the comments using ldap_tls_reqcert = allow isn’t a best practice since it may take in <a href="http://en.wikipedia.org/wiki/Man-in-the-middle_attack" target="_blank">Man in the Midle Attacks</a>, adjusting the how to to match his suggestions.</p>
 
     </div>
   

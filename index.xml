@@ -4,9 +4,173 @@
     <link>https://www.dragonsreach.it/</link>
     <language>en-us</language>
     <author>Andrea Veri</author>
-    <rights>(C) 2020</rights>
-    <updated>2020-03-30 12:20:23 &#43;0000 &#43;0000</updated>
+    <rights>(C) 2022</rights>
+    <updated>2022-12-12 17:53:26 &#43;0100 CET</updated>
 
+    
+      <item>
+        <title>2022 GNOME Infrastructure Annual Review</title>
+        <link>https://www.dragonsreach.it/2022/12/14/gnome-infrastructure-annual-review/</link>
+        <pubDate>Mon, 12 Dec 2022 17:53:26 CET</pubDate>
+        <author>Andrea Veri</author>
+        <guid>https://www.dragonsreach.it/2022/12/14/gnome-infrastructure-annual-review/</guid>
+        <description>&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#1-introduction&#34;&gt;1. Introduction&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2-achievements&#34;&gt;2. Achievements&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#21-major-achievements&#34;&gt;2.1. Major achievements&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#22-minor-achievements&#34;&gt;2.2. Minor achievements&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#23-our-brand-new-and-renewed-partnerships&#34;&gt;2.3. Our brand new and renewed partnerships&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-highlights&#34;&gt;3. Highlights&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#31-openshift-4-architecture&#34;&gt;3.1. Openshift 4: architecture&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#32-openshift-4-virtualization-networking&#34;&gt;3.2. Openshift 4: virtualization networking&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#33-openshift-4-image-builds&#34;&gt;3.3. Openshift 4: image builds&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#34-openshift-4-cluster-backups&#34;&gt;3.4. Openshift 4: cluster backups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#35-gitlab-on-openshift-4-setup&#34;&gt;3.5. GitLab on Openshift 4: setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#36-gitlab-on-openshift-4-early-days&#34;&gt;3.6. GitLab on Openshift 4: early days&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#37-gitlab-on-openshift-4-logging&#34;&gt;3.7. GitLab on Openshift 4: logging&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#future-plans&#34;&gt;Future plans&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#expressing-my-gratitude&#34;&gt;Expressing my gratitude&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h2&gt;
+&lt;p&gt;I believe it&amp;rsquo;s kind of vital for the GNOME Infrastructure Team to outline not only the amazing work that was put into place throughout the year, but also the challenges we faced including some of the architectural designs we implemented over the past 12 months. This year has been extremely challenging for multiple reasons, the top one being Openshift 3 (which we deployed in 2018) going EOL in June 2022. We also wanted to make sure we were keeping up with OS currency, specifically finalizing the migration of all our VM-based workloads to RHEL 8 and most importantly to Ansible. The main challenges there being adapting our workflow away from the Source-To-Image (s2i) mechanism into building our own infrastructure images directly through GitLab CI/CD pipelines by ideally also dropping the requirement of hosting an internal containers registry.&lt;/p&gt;
+&lt;p&gt;With the community also deciding to move away from Mailman, we also had an hard deadline to finalize the migration to Discourse that was started back in 2018. At the same time the GNOME community was also looking towards a better Matrix to IRC integration while irc.gimp.org (GIMPNet) showing aging sypmptoms and being put into very low maintenance mode due to a lack of IRC operators/admins time.&lt;/p&gt;
+&lt;h2 id=&#34;2-achievements&#34;&gt;2. Achievements&lt;/h2&gt;
+&lt;p&gt;A list of each of the individual tasks and projects we were able to fulfill during 2022. This particular section will be particularly long but I want to stress the importance of each of these items and the efforts we put in to make sure they were delivered in a timely manner. A subset of these tasks will also receive further explanation in the sections to come.&lt;/p&gt;
+&lt;h3 id=&#34;21-major-achievements&#34;&gt;2.1. Major achievements&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Architected, deployed, operated an Openshift 4 cluster that replaced our former OCP 3 installation. This was a major undertaking that required a lot of planning, testing and coordination with the community. We also had to make sure we were able to migrate all our existing tenants from OCP 3 to OCP 4. A total of 46 tenants were migrated and/or created during these past 12 months.&lt;/li&gt;
+&lt;li&gt;Developed a brand new workflow moving away from Source-To-Image (s2i) and towards GitLab CI/CD pipelines.&lt;/li&gt;
+&lt;li&gt;Migrated from individual NSD based internal resolvers to FreeIPA&amp;rsquo;s self managed BIND resolvers, this gave us the possibility to use APIs and other IPA&amp;rsquo;s goodies to manage our internal DNS views.&lt;/li&gt;
+&lt;li&gt;For existing virtual machines we wanted to keep around, we leveraged the Openshift Virtualization operator which allows you to benefit from kubevirt&amp;rsquo;s features and effectively run virtual machines from within an OCP cluster. That also includes support for VM templates and automatic bootstraping of VMs out of existing PVCs and/or externally hosted ISO files.&lt;/li&gt;
+&lt;li&gt;We &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/openshift-images/accounts-automation-app&#34;&gt;developed and deployed automation&lt;/a&gt; for handling Membership and Accounts related requests. The &lt;a href=&#34;https://wiki.gnome.org/Infrastructure/NewAccounts&#34;&gt;documentation&lt;/a&gt; has also been updated accordingly.&lt;/li&gt;
+&lt;li&gt;GitLab was migrated from a monolithic virtual machine to Openshift.&lt;/li&gt;
+&lt;li&gt;We introduced DKIM/SPF support for GNOME Foundation members, please see my &lt;a href=&#34;https://discourse.gnome.org/t/announcement-upcoming-changes-to-gnomes-mail-infrastructure/11568&#34;&gt;announcement&lt;/a&gt; for a list of changes.&lt;/li&gt;
+&lt;li&gt;We rebuilt all the VMs that were not retired due to the migration to OCP to RHEL 8&lt;/li&gt;
+&lt;li&gt;We successfully migrated away from our Puppet infrastructure to Ansible (and Ansible collections). This particular task is a major milestone, Puppet has been around the GNOME Infrastructure for more than 15 years.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;22-minor-achievements&#34;&gt;2.2. Minor achievements&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Identified root cause and blocked a brute force attempt (from 600+ unique IP addresses) against our LDAP database directory. Some of you surely remind the times where you found your GNOME Account locked and you were unsure around why that was happening. This was the exact reason why. A particular remediation was applied temporarily, that also had the side effect of blocking HTTPs based git clones/pushes. That was resolved by moving GitLab to OpenID (via Keycloak) and using token based authentication.&lt;/li&gt;
+&lt;li&gt;We moved static.gnome.org to S3 and put our CDN in front of it.&lt;/li&gt;
+&lt;li&gt;Re-deployed bastion01, nsd01, nsd02, smtp, master, logs (rsyslog) using Ansible (this also includes building Ansible roles and replicating what we had in Puppet to Ansible)&lt;/li&gt;
+&lt;li&gt;Deployed Minio S3 GW (cache) to avoid incurring in extra AWS S3 costs&lt;/li&gt;
+&lt;li&gt;Deprecated OpenVPN in favor of Wireguard&lt;/li&gt;
+&lt;li&gt;We deprecated GlusterFS entirely and completed our migration to Ceph RBD + CephFS&lt;/li&gt;
+&lt;li&gt;We retired several VM based workloads that were either migrated to Openshift or superseded including reverse proxies, Puppet masters, GitLab, the entirety of OCP 3 virtual machines (with OCP 4 being installed on bare metals directly)&lt;/li&gt;
+&lt;li&gt;Configured blackbox Prometheus exporter and moved services availability checks to it&lt;/li&gt;
+&lt;li&gt;We retired people.gnome.org, barely used by anyone due to the multitude of alternatives we currently provide when it comes to host GNOME related files including GitLab pages, static.gnome.org, GitLab releases, Nextcloud.&lt;/li&gt;
+&lt;li&gt;Started ingesting Prometheus metrics into our existing Prometheus cluster via federation, a wide set of dashboards were also created to keep track of the status of OCP, Ceph, general OS related metrics and databases.&lt;/li&gt;
+&lt;li&gt;We migrated our databases to OCP: Percona MySQL operator, Crunchy PostgreSQL operator&lt;/li&gt;
+&lt;li&gt;Rotated KSK and ZSK DNSSEC keys on gnome.org, gtk.org, gimp.{org,net} domains&lt;/li&gt;
+&lt;li&gt;We migrated from obtaining Let&amp;rsquo;s Encrypt certificates using getssl to OCP CertManager operator. For edge routers, we migrated to certbot and deployed specific hooks to automate the handling of DNS-01 challenges.&lt;/li&gt;
+&lt;li&gt;We migrated GIMP downloads from a plain httpd setup to use mirrorbits to match what the GNOME Project is operating.&lt;/li&gt;
+&lt;li&gt;We deployed AAP (Red Hat Ansible Automation Platform) in order to be able to recreate hourly configuration management runs as we had before with Puppet. These runs are particularly crucial as they make sure the latest content from our Ansible repository is pulled and enforced across all the systems Ansible manages.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://discourse.gnome.org/t/gnome-moves-away-from-gimpnet-on-nov-25-15-00-utc/12046&#34;&gt;irc.gnome.org migration to Libera.Chat&lt;/a&gt;, thanks Thibault Martin and Element for the amazing continued efforts supporting GNOME&amp;rsquo;s Matrix to IRC bridge integration!&lt;/li&gt;
+&lt;li&gt;Migrated away from Mailman to Discourse. This particular item has been part of community discussions since 2018, after evaluation by the community itself and the GNOME Project governance the migration to Discourse started and was finalized this year, please read here for a list of &lt;a href=&#34;https://discourse.gnome.org/t/common-questions-re-mailman-to-discourse/11841&#34;&gt;FAQs&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;We introduced OpenID authentication (via Keycloak) to help resolve the fragmentation multiple different authentication backends were causing.&lt;/li&gt;
+&lt;li&gt;We introduced &lt;a href=&#34;https://hedgedoc.gnome.org/&#34;&gt;Hedgedoc&lt;/a&gt;, an Etherpad replacement.&lt;/li&gt;
+&lt;li&gt;We enhanced our Splunk cluster with additional dashboards, log based alerts, new sourcetypes&lt;/li&gt;
+&lt;li&gt;We deprecated MeetBot (unused since several years) and CommitsBot, which we replaced with a beta Matrix bot called &lt;a href=&#34;https://matrix-org.github.io/matrix-hookshot/latest/&#34;&gt;Hookshot&lt;/a&gt;, which leverages GitLab webhooks in order to send notifications to Matrix rooms&lt;/li&gt;
+&lt;li&gt;We upgraded FreeIPA to version 4.9.10, and on RHEL 8. We enhanced IPA backups to include hourly file system snapshots (on top of the existing rdiff-backup runs) and daily ipa-backup runs.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.dragonsreach.it/files/guadec-reports/guadec-2022.html&#34;&gt;We presented at GUADEC 2022&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;23-our-brand-new-and-renewed-partnerships&#34;&gt;2.3. Our brand new and renewed partnerships&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Red Hat kindly sponsored subscriptions for RHEL, Ceph, Openshift, AAP&lt;/li&gt;
+&lt;li&gt;Splunk doubled the sponsorship to a total of 10GB/day traffic&lt;/li&gt;
+&lt;li&gt;AWS confirmed their partnership with a total of 5k USD credit&lt;/li&gt;
+&lt;li&gt;CDN77 provided unlimited bandwidth / traffic on their CDN offering&lt;/li&gt;
+&lt;li&gt;We&amp;rsquo;re extremely close to finalize our partnership with Fastly! They&amp;rsquo;ll be providing us with their Traffic Load Balancing product&lt;/li&gt;
+&lt;li&gt;and thanks to OSUOSL, Packet, DigitalOcean for the continued hosting and sponsorship of a set of GitLab runners, virtual machines and ARM builders!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;3-highlights&#34;&gt;3. Highlights&lt;/h2&gt;
+&lt;p&gt;Without going too much deep into technical details I wanted to provide an overview of how we architected and deployed our Openshift 4 cluster and GitLab as these questions pop up pretty frequently among contributors.&lt;/p&gt;
+&lt;h3 id=&#34;31-openshift-4-architecture&#34;&gt;3.1. Openshift 4: architecture&lt;/h3&gt;
+&lt;p&gt;The cluster is currently setup with a total of 3 master nodes having similar specs (256G of RAM, 62 Cores, 2x10G NICs, 2x1G NICs) and acting in a hyperconverged setup. That implies we&amp;rsquo;re also hosting a Ceph cluster (in addition to the existing one we setup a while back) we deployed via the Red Hat Openshift Data Foundations operator on the same nodes. OCP (release 4.10), in this scenario, is deployed directly on bare metal with an ingress endpoint per individual node. The current limitation to this particular architecture is there&amp;rsquo;s no proper load balancing (other than DNS Round Robin) in front of these ingresses due to the fact external load balancers are particularly expensive. As I&amp;rsquo;ve mentioned earlier we&amp;rsquo;re really close to finalize a partnership with Fastly to help fill the gap here. These nodes receive their configuration using Ignition, we made sure a specific set of MachineConfigs is there to properly configure these systems once they boot due to the way CoreOS works in this regard. At boot time, it fetches an Ignition definition from the Machine Config Operator controller and applies it to the target node.&lt;/p&gt;
+&lt;h3 id=&#34;32-openshift-4-virtualization-networking&#34;&gt;3.2. Openshift 4: virtualization networking&lt;/h3&gt;
+&lt;p&gt;As I previously mentioned we&amp;rsquo;ve been leveraging OCP CNV to support our VM based workloads. I wanted to quickly highlight how we handled the configuration of our internal and public networks in order for these VMs to successfully consume these subnets and be able to communicate back and forth with other data center resources and services:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A set of bonded interfaces was setup for both the 10G and the 1G NICs&lt;/li&gt;
+&lt;li&gt;A bridge was configured on top of these bonded interfaces, that is required by Openshift Multus to effectively append the VM interfaces to each of these bridges depending what kind of subnet(s) they&amp;rsquo;re required to access&lt;/li&gt;
+&lt;li&gt;We configured OCP Multus (bridge mode) and its dependant NetworkAttachmentDefinition&lt;/li&gt;
+&lt;li&gt;From within an OCP CNV CRD, pass in:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;      networks:
+        - multus:
+            networkName: internal-network
+          name: nic-1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And a sample of the internal-network NetworkAttachmentDefinition:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: internal-network
+  namespace: infrastructure
+spec:
+  config: &amp;gt;-
+    {&amp;#34;name&amp;#34;:&amp;#34;internal-network&amp;#34;,&amp;#34;cniVersion&amp;#34;:&amp;#34;0.3.1&amp;#34;,&amp;#34;plugins&amp;#34;:[{&amp;#34;type&amp;#34;:&amp;#34;cnv-bridge&amp;#34;,&amp;#34;bridge&amp;#34;:&amp;#34;br0-internal&amp;#34;,&amp;#34;mtu&amp;#34;:9000,&amp;#34;ipam&amp;#34;:{}},{&amp;#34;type&amp;#34;:&amp;#34;cnv-tuning&amp;#34;}]}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;33-openshift-4-image-builds&#34;&gt;3.3. Openshift 4: image builds&lt;/h3&gt;
+&lt;p&gt;One of the major changes we implemented with the migration to OCP 4 was the way we built infrastructure related container images. In early days we were leveraging the s2i OCP feature which allowed building images out of a git repository, those builds were directly happening from within OCP worker nodes and pushed to the internal OCP registry. With the new setup what happens instead is:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We create a new git repository containing an application and an associated Dockerfile&lt;/li&gt;
+&lt;li&gt;From within that repository, we define a .gitlab-ci.yml file that inherits the build templates from a &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/openshift-images/ci-templates&#34;&gt;common set of templates &lt;/a&gt; we created&lt;/li&gt;
+&lt;li&gt;The image is then built using GitLab CI/CD and pushed to quay.io&lt;/li&gt;
+&lt;li&gt;On the target OCP tenant, we define an ImageStream and point it to the quay.io registry namespace/image combination&lt;/li&gt;
+&lt;li&gt;From there the Deployment/DeploymentConfig resource is updated to re-use the previously created ImageStream, whenever the ImageStream changes, the deployment/deploymentconfig is triggered (via ImageChange triggers)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;34-openshift-4-cluster-backups&#34;&gt;3.4. Openshift 4: cluster backups&lt;/h3&gt;
+&lt;p&gt;When it comes to cluster backups we decided to take the following approach:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/openshift-images/openshift-etcd-backup&#34;&gt;Run daily etcd backups&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Backup and dump all the tenants CRDs as json files to an encrypted S3 bucket using Velero&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;35-gitlab-on-openshift-4-setup&#34;&gt;3.5. GitLab on Openshift 4: setup&lt;/h3&gt;
+&lt;p&gt;Moving away from hosting GitLab on a monolithic virtual machine was surely one of our top goals for 2022. The reason was particularly simple, anytime we needed to perform a maintenance we were required to cause a service downtime, even during a plain minor platform upgrade. On top of that, we couldn&amp;rsquo;t easily scale the cluster in case of sudden peeks in traffic, but generally when we originally designed our GitLab offering back in 2018 we missed a lot of the goodies OCP provides, the installation has worked well during all these years but the increasing usage of the service, the multitude of new GitLab sub-components made us rethink the way we had to design this particular offering to the community.&lt;/p&gt;
+&lt;p&gt;These are the main reasons why we migrated GitLab to OCP using the GitLab OCP Operator. Using operator&amp;rsquo;s built-in declarative resources functionalities we could easily replicate our entire cluster config in a single yaml file, the operator at that point picked up each of our definitions and generated individual configmaps, deployments, scaleapps, services, routes and associated CRDs automatically. The only component we decided to not host via OCP directly but use a plain VM on OCP Virt was gitaly. The reason is particularly simple: gitaly requires port 22 to be accessible from outside of the cluster, that is currently not possible with the default haproxy based OCP ingress. We analyzed whether it made sense to deploy the NGINX ingress which also supports reverse proxying non-HTTP ports, we thought that&amp;rsquo;d have added additional complexity with no particular benefit. MetalL was also a possibility but the product itself is still a WIP, required sending out gARPs on the public network block we
+share with other community tenants for L2, for L3 there was a need to setup BGP peering between each of the individual nodes (speakers using MetalLB terminology) and an adiacent router, overkill for a single VIP.&lt;/p&gt;
+&lt;h3 id=&#34;36-gitlab-on-openshift-4-early-days&#34;&gt;3.6. GitLab on Openshift 4: early days&lt;/h3&gt;
+&lt;p&gt;Right after the migration we started observing some instability with specific pods (webservice, sidekiq) backtracing after a few hours they were running, specifically:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Nov 16 05:08:03 master2.openshift4.gnome.org kernel: cgroup: fork rejected by pids controller in /kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc69234f3_8596_477c_b7ea_5b51f6d86cce.slice/crio-d36391a108570d6daecf316d6d19ffc6650a3fa3a82ee616944b9e51266c901f.scope
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;also on kubepods.slice:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[core@master2 ~]$ cat /sys/fs/cgroup/pids/kubepods.slice/pids.max 
+4194304
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It was clear the target pods were spawning a major set of new processes that were remaining around for the entire pod lifetime:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ ps aux | grep gpg | wc -l
+773
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And a sample out of the previous &amp;lsquo;ps aux&amp;rsquo; run:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git        19726  0.0  0.0      0     0 ?        Z    09:58   0:00 [gpg] &amp;lt;defunct&amp;gt;
+git        19728  0.0  0.0      0     0 ?        Z    09:58   0:00 [gpg] &amp;lt;defunct&amp;gt;
+git        19869  0.0  0.0      0     0 ?        Z    10:06   0:00 [gpg] &amp;lt;defunct&amp;gt;
+git        19871  0.0  0.0      0     0 ?        Z    10:06   0:00 [gpg] &amp;lt;defunct&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It appears this specific bug was troubleshooted &lt;a href=&#34;https://gitlab.com/gitlab-com/gl-infra/reliability/-/issues/3989&#34;&gt;already&lt;/a&gt; by the GitLab Infrastructure Team around 4 years ago already. This misbehaviour is related to the intimate nature of GnuPG which requires calling its binaries (gpgconf, gpg, gpgsm, gpg-agent) for every required operation GitLab (webservice or sidekiq) asks it to perform. For some reason these processes never notified their parent process (PID 1 on that particular container) with a SIGCHLD and remained hanging around on the pods until pod&amp;rsquo;s dismissal. We&amp;rsquo;re in touch with the GitLab Open Source program support to understand next steps in order to have a fix implemented upstream.&lt;/p&gt;
+&lt;h3 id=&#34;37-gitlab-on-openshift-4-logging&#34;&gt;3.7. GitLab on Openshift 4: logging&lt;/h3&gt;
+&lt;p&gt;As part of our intent to migrate as much services as possible to our centralized rsyslog cluster (which then injects those logs into Splunk) we decided to approach GitLab&amp;rsquo;s logging on OCP this way:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We mounted a shared PVC on each of the webservice/sidekiq pods, the target directory was the one GitLab was expected to send its logs by default (/var/log/gitlab)&lt;/li&gt;
+&lt;li&gt;From there we deployed a separate rsyslogd deployment that was also mounting the same shared PVC&lt;/li&gt;
+&lt;li&gt;We configured rsyslogd to relay those logs to our centralized rsyslog facility making sure proper facilities, tags, severities were also forwarded as part of the process&lt;/li&gt;
+&lt;li&gt;Relevant configs, Dockerfile and associated deployment files are &lt;a href=&#34;https://gitlab.gnome.org/Infrastructure/openshift-images/gitlab-rsyslog&#34;&gt;publicly available&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;future-plans&#34;&gt;Future plans&lt;/h2&gt;
+&lt;p&gt;Some of the tasks we have planned for the upcoming months:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Move away from ftpadmin and replace it with a web application and/or CLI to securely install a sources tarball without requiring shell access. (Also introduced tarball signatures?)&lt;/li&gt;
+&lt;li&gt;Introduce OpenID on GNOME&amp;rsquo;s Matrix homeserver, merge existing Foundation member accounts&lt;/li&gt;
+&lt;li&gt;Migrate OCP ingress endpoints to Fastly LBs&lt;/li&gt;
+&lt;li&gt;Upgrade Ceph to Ceph 5&lt;/li&gt;
+&lt;li&gt;Look at migrating OCP to OVNKubernetes to start supporting IPv6 endpoints (again) - (minor priority)&lt;/li&gt;
+&lt;li&gt;Load balance IPA&amp;rsquo;s DNS and LDAPs traffic (minor priority)&lt;/li&gt;
+&lt;li&gt;Migrate GitLab runners Ansible roles and playbooks to AAP (minor priority)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;expressing-my-gratitude&#34;&gt;Expressing my gratitude&lt;/h2&gt;
+&lt;p&gt;I wanted to take a minute to thank all the individuals who helped us accomplishing this year amazing results! And a special thank you to Bartłomiej Piotrowski for his precious insights, technical skills and continued friendship.&lt;/p&gt;
+</description>
+      </item>
     
       <item>
         <title>GNOME Infrastructure updates</title>
@@ -75,7 +239,7 @@
 &lt;li&gt;$year.guadec.org where $year spaces from 2013 to 2019&lt;/li&gt;
 &lt;li&gt;wordpress.guadec.org has been deprecated&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;We&amp;rsquo;re currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a &lt;a href=&#34;https://github.com/LINKIWI/modern-paste&#34;&gt;supported one&lt;/a&gt;. Next on the list will be the Wordpress-based websites such as &lt;a href=&#34;http://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt; and blogs.gnome.org (Wordpress Network). I&amp;rsquo;d like to thank the GNOME Websites Team and specifically &lt;strong&gt;Tom Tryfonidis&lt;/strong&gt; for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;re currently working on migrating the GNOME Paste website making sure we also replace the current unmaintained software to a &lt;a href=&#34;https://github.com/LINKIWI/modern-paste&#34;&gt;supported one&lt;/a&gt;. Next on the list will be the Wordpress-based websites such as &lt;a href=&#34;https://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt; and blogs.gnome.org (Wordpress Network). I&amp;rsquo;d like to thank the GNOME Websites Team and specifically &lt;strong&gt;Tom Tryfonidis&lt;/strong&gt; for taking the time to migrate existing assets to the new platform as part of the GNOME websites refresh program.&lt;/p&gt;
 </description>
       </item>
     
@@ -1255,7 +1419,7 @@ The updated RPMs are being rolled out to Fedora, EPEL 6 and EPEL 7. In the meant
 &lt;p&gt;A lot of efforts have been spent in the so-called “&lt;strong&gt;Puppet-ization&lt;/strong&gt;” (Puppet allows you to reproduce a complete environment with just a few commands, it’s very very handy in the case of host’s migrations) and several new modules are now stored into our internal Puppet repository. Specifically all the &lt;strong&gt;Iptables&lt;/strong&gt; rules are currently managed in a centralized way, each node has its own rules and policies, finally there’s no need to ssh into each machine to retrieve the information we need for a specific firewall. In addition to the Iptables class, also Cobbler, Owncloud, Jabberd, Denyhosts and several other modules have been properly configured and currently reside in Puppet.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Another item that had top priority on the list was setting up another “webapps” virtual machine to migrate several services from one of the existing ancient machines to it. I can finally tell that the GNOME Infrastructure has get rid of all the old machines, all the services have been migrated to newer machines and most of all all the services are currently being served through SSL. (git, planet, &lt;a href=&#34;http://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt;, l10n, guadec.org, bugzilla, blogs, developer, help, people, news etc.) In regard of SSL and &lt;strong&gt;Bugzilla&lt;/strong&gt;, we’ve configured our Bugzilla istance to serve attachments through a secondary domain which will look like: &lt;strong&gt;&lt;em&gt;&lt;a href=&#34;https://bug-id.bugzilla-attachments.gnome.org&#34;&gt;https://bug-id.bugzilla-attachments.gnome.org&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;, this to prevent cross-site scripting attacks in a better way than what we did before.&lt;/p&gt;
+&lt;p&gt;Another item that had top priority on the list was setting up another “webapps” virtual machine to migrate several services from one of the existing ancient machines to it. I can finally tell that the GNOME Infrastructure has get rid of all the old machines, all the services have been migrated to newer machines and most of all all the services are currently being served through SSL. (git, planet, &lt;a href=&#34;https://www.gnome.org&#34;&gt;www.gnome.org&lt;/a&gt;, l10n, guadec.org, bugzilla, blogs, developer, help, people, news etc.) In regard of SSL and &lt;strong&gt;Bugzilla&lt;/strong&gt;, we’ve configured our Bugzilla istance to serve attachments through a secondary domain which will look like: &lt;strong&gt;&lt;em&gt;&lt;a href=&#34;https://bug-id.bugzilla-attachments.gnome.org&#34;&gt;https://bug-id.bugzilla-attachments.gnome.org&lt;/a&gt;&lt;/em&gt;&lt;/strong&gt;, this to prevent cross-site scripting attacks in a better way than what we did before.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;We’ve also spent some time working on our Nagios istance hosted at &lt;strong&gt;&lt;a href=&#34;https://nagios.gnome.org&#34;&gt;https://nagios.gnome.org&lt;/a&gt;&lt;/strong&gt;. We’ve improved it dramatically by adding several new checks and covering all the services we currently take care of but that’s not all. &lt;strong&gt;Event Handlers&lt;/strong&gt; have been setup to help us addressing problems right after they occur on our web servers. The Nagios event handlers are currently configured to read the status of a specific Nagios service and in the case the status is set to CRITICAL, they restart httpd once, which is usually enough in the case of random Apache’s timeouts. But that’s again not all. A public view for &lt;strong&gt;Nagios&lt;/strong&gt; is now ready, every single GNOME contributor and developer should be able to check the current status of all the services we maintain just by loggin in with the username “&lt;strong&gt;anonymous&lt;/strong&gt;” and the password “&lt;strong&gt;anonymous&lt;/strong&gt;” at nagios.gnome.org.&lt;/p&gt;

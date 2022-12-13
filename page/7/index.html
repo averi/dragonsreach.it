@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
 
   <head>
-	<meta name="generator" content="Hugo 0.93.3" />
+	<meta name="generator" content="Hugo 0.98.0" />
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
   
@@ -48,7 +48,7 @@
     </nav>
 
   <div class="sidebar-item">
-    <p>&copy; 2020. All rights reserved.</p>
+    <p>&copy; 2022. All rights reserved.</p>
   </div>
 </div>
 
@@ -71,6 +71,56 @@
 
 
 <div class="posts">
+  
+    <div class="post">
+        <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/06/30/nagios-irc-notifications/">Nagios IRC Notifications</a></h1>
+        <span class="post-date">Jun 30, 2012</span>
+        <p>Lately (as I earlier pointed out on my <a href="http://blogs.gnome.org/woody/2012/02/18/nagios-xmpp-notifications-for-gtalk/">blog</a>) I’ve been working on improving GNOME’s infrastructure monitoring services. After configuring XMPP it was time to find out a good way for sending out relevant notifications to our IRC channel hosted on GIMPNET. I achieved that with a nice combo: <strong>supybot</strong> + <strong>supybot-notify</strong>, all that mixed up with a few grains of Nagios command definitions.</p>
+<p>But here we go with a little step-by-step guide:</p>
+<p><strong>Requirements</strong></p>
+<ol>
+<li>Install supybot and configure a new installation:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">apt-get install supybot or yum install supybot
+</span></span><span class="line"><span class="cl">mkdir /home/<span class="nv">$user</span>/nagbot <span class="o">&amp;&amp;</span> <span class="nb">cd</span> /home/<span class="nv">$user</span>/nagbot
+</span></span><span class="line"><span class="cl">supybot-wizard <span class="o">(</span>follow the directions to get the bot initially configured<span class="o">)</span></span></span></code></pre></div>
+<ol start="2">
+<li>Install and load the supybot-notify plugin by doing:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">git clone git://git.fedorahosted.org/supybot-notify.git <span class="o">&amp;&amp;</span> <span class="nb">cd</span> supybot-notify
+</span></span><span class="line"><span class="cl">mkdir -p /home/<span class="nv">$user</span>/nagbot/plugins/notify <span class="o">&amp;&amp;</span> cp -r * /home/<span class="nv">$user</span>/nagbot/plugins/notify</span></span></code></pre></div>
+<p>Finally, <strong><a href="http://supybook.fealdia.org/devel/#_plugins">load</a></strong> the plugin. (this will require you to <a href="http://supybook.fealdia.org/devel/#_identifying_to_the_bot">authenticate</a> to the bot)</p>
+<p><strong>Nagios configuration</strong></p>
+<p>Add the relevant command definitions to the <strong>commands.cfg</strong> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="c1"># &#39;notify-by-ircbot&#39; command definition</span>
+</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
+</span></span><span class="line"><span class="cl">    command_name    notify-by-ircbot
+</span></span><span class="line"><span class="cl">    command_line    /usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2">/</span><span class="nv">$SERVICEDESC</span>$<span class="s2"> is </span><span class="nv">$SERVICESTATE</span>$<span class="s2">: </span><span class="nv">$SERVICEOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># &#39;host-notify-by-ircbot&#39; command definition</span>
+</span></span><span class="line"><span class="cl">define command<span class="o">{</span>
+</span></span><span class="line"><span class="cl">	command_name	host-notify-by-ircbot
+</span></span><span class="line"><span class="cl">	command_line	/usr/bin/printf <span class="s2">&#34;%b&#34;</span> <span class="s2">&#34;#channel </span><span class="nv">$NOTIFICATIONTYPE</span>$<span class="s2"> - </span><span class="nv">$HOSTALIAS</span>$<span class="s2"> is </span><span class="nv">$HOSTSTATE</span>$<span class="s2">: </span><span class="nv">$HOSTOUTPUT</span>$<span class="s2"> (</span><span class="nv">$$</span><span class="s2">(hostname -s))&#34;</span> <span class="p">|</span> nc -w <span class="m">1</span> localhost <span class="m">5050</span>
+</span></span><span class="line"><span class="cl">	<span class="o">}</span></span></span></code></pre></div>
+<p>* adjust the <strong>Netcat’s</strong> host and port to your needs, in my case Supybot and Nagios were running on the same host. In the case of a Supybot running on a different host than Nagios, tweak Iptables to allow the desired port:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">-A INPUT -m state --state NEW,ESTABLISHED -m tcp -p tcp --dport <span class="m">5050</span> -j ACCEPT</span></span></code></pre></div>
+<p>Add a new entry on the <strong>contacts.cfg</strong> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">define contact<span class="o">{</span>
+</span></span><span class="line"><span class="cl"> 	contact_name    nagbot
+</span></span><span class="line"><span class="cl">   	use             generic-contact        
+</span></span><span class="line"><span class="cl">        <span class="nb">alias</span>		Nagios IRC Bot
+</span></span><span class="line"><span class="cl">        email           example@example.com
+</span></span><span class="line"><span class="cl">        service_notification_commands   notify-by-ircbot
+</span></span><span class="line"><span class="cl"> 	host_notification_commands      host-notify-by-ircbot
+</span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre></div>
+<p>Reload Nagios:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">sudo /etc/init.d/nagios3 reload</span></span></code></pre></div>
+<p>And finally, enjoy the result:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">PROBLEM - <span class="nv">$hostalias</span>/load average is CRITICAL: CRITICAL - load average: 30.45, 16.24, 7.16 <span class="o">(</span>nagioshost<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> RECOVERY - <span class="nv">$hostalias</span>/load average is OK: OK - load average: 0.06, 0.60, 3.65 <span class="o">(</span>nagioshost<span class="o">)</span></span></span></code></pre></div>
+
+    </div>
   
     <div class="post">
         <h1 class="post-title"><a href="https://www.dragonsreach.it/2012/01/31/a-few-useful-puppet-snippets/">A few useful Puppet snippets</a></h1>
@@ -322,42 +372,6 @@ macro index,pager a ";goobook add" "Add sender's address to your Google contacts
 <p>Feel free to let me know if you’ve encountered any issue while following the above HowTo. Enjoy!</p>
 <p>* /usr/share/getmail4/getmailcore/<strong>_retrieverbases.py</strong> on line <strong>901</strong>.</p>
 <p>** More documentation about the <em><strong>getmailrc</strong></em> file and syntax can be found on getmail’s <a href="http://pyropus.ca/software/getmail/configuration.html#conf-retriever" target="_blank">documentation</a> page.</p>
-
-    </div>
-  
-    <div class="post">
-        <h1 class="post-title"><a href="https://www.dragonsreach.it/2011/07/03/automatic-gmails-trash-spam-folders-cleanup/">Automatic Gmail’s Trash &amp; Spam folders cleanup</a></h1>
-        <span class="post-date">Jul 3, 2011</span>
-        <p>Since some time I’ve been thinking about a possible way to delete my <strong>Gmail’s Trash &amp; Spam folders</strong> content automatically without having to bother doing it manually every single time I wanted to check my mail and clean it up. (I <strong>love</strong> keeping everything in place and having my Trash&amp;Spam folders empty as they should be makes me pretty <strong>happy</strong>)</p>
-<p>A few years ago when Mutt was my main mail client I had the need to filter my mail through IMAP and while googling around for that I found out a <strong>great</strong> piece of software: <a href="https://github.com/lefcha/imapfilter" target="_blank">imapfilter</a>. Today while analyzing the above quoted issue I suddenly told myself: “Hey, but why don’t you use your dear and old friend imapfilter to fulfil your needs?”</p>
-<p>After a few minutes I came up with a small <em>lua</em> script that was doing exactly what I wanted: my <strong>Trash&amp;Spam folders</strong> are no longer crowded and I finally don’t have to delete mails twice! But here they come a few details about my script:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-INI" data-lang="INI"><span class="line"><span class="cl"><span class="na">options.timeout</span> <span class="o">=</span> <span class="s">120</span>
-</span></span><span class="line"><span class="cl"><span class="na">options.subscribe</span> <span class="o">=</span> <span class="s">true</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="na">account</span> <span class="o">=</span> <span class="s">IMAP {
-</span></span></span><span class="line"><span class="cl"><span class="s"> server = &#39;imap.gmail.com&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="s"> username = &#39;example@gmail.com&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="s"> password = &#39;password&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="s"> ssl = &#39;ssl3&#39;
-</span></span></span><span class="line"><span class="cl"><span class="s"> }</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="na">trash</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Trash&#39;]:is_undeleted()</span>
-</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Trash&#39;]:delete_messages(trash)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="na">spam</span> <span class="o">=</span> <span class="s">account[&#39;[Gmail]/Spam&#39;]:is_unanswered()</span>
-</span></span><span class="line"><span class="cl"><span class="na">account[&#39;[Gmail]/Spam&#39;]:delete_messages(spam)</span></span></span></code></pre></div>
-<p>The script does two things:</p>
-<ol>
-<li>It checks whether a mail is <strong>not</strong> marked as “deleted” (moving an e-mail into the Trash does <strong>not</strong> mark it as “<strong>to be deleted</strong>” automatically) already and removes it.</li>
-<li>It checks whether a mail on the Spam folder has been <strong>answered</strong> (I never had to answer a single e-mail contained into my Spam folder)  and if <strong>not</strong> removes it.</li>
-</ol>
-<p>Using the above script is really easy (you should run imapfilter on <strong>interactive mode</strong> first to generate Gmail’s <strong>certificates,</strong> do that before having cron to run the script for you or otherwise it’ll just hang), just make sure to have <strong>imapfilter</strong> installed on your system and then run it through cron every half an hour or less depending on your needs:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl">crontab -e
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">*/30 * * * * imapfilter -c /home/user/imapfilter.lua &gt;&gt; /home/user/imapfilter.log</span></span></code></pre></div>
-<p>Please also remember to setup appropriate permissions on the config file since it contains your Gmail’s <strong>password</strong> and most of all make sure that your Spam folder is <strong>visible</strong> through IMAP (this option can be found on the <strong>label</strong> menu available under your <a href="https://mail.google.com/mail/?hl=it&#038;&#038;shva=1#settings" target="_blank">Gmail’s settings</a>) otherwise imapfilter will just report an error.</p>
-<p>Enjoy!</p>
-<p> </p>
 
     </div>
   
