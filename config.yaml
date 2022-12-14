@@ -21,7 +21,7 @@ menu:
   - identifier: "tags"
     name: "Categories"
     title: "Categories"
-    url: "/tags/"
+    url: "/categories/"
     weight: -1
   - identifier: "about-me"
     name: "About me"
