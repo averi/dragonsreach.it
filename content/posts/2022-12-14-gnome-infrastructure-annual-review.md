@@ -101,16 +101,16 @@ As I previously mentioned we've been leveraging OCP CNV to support our VM based 
 3. We configured OCP Multus (bridge mode) and its dependant NetworkAttachmentDefinition
 4. From within an OCP CNV CRD, pass in:
 
-```
+{{< highlight yaml >}}
       networks:
         - multus:
             networkName: internal-network
           name: nic-1
-```
+{{< /highlight >}}
 
 And a sample of the internal-network NetworkAttachmentDefinition:
 
-```
+{{< highlight yaml >}}
 apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
@@ -119,7 +119,7 @@ metadata:
 spec:
   config: >-
     {"name":"internal-network","cniVersion":"0.3.1","plugins":[{"type":"cnv-bridge","bridge":"br0-internal","mtu":9000,"ipam":{}},{"type":"cnv-tuning"}]}
-```
+{{< /highlight >}}
 
 ### 3.3. Openshift 4: image builds
 
@@ -149,32 +149,32 @@ share with other community tenants for L2, for L3 there was a need to setup BGP 
 
 Right after the migration we started observing some instability with specific pods (webservice, sidekiq) backtracing after a few hours they were running, specifically:
 
-```
+{{< highlight shell >}}
 Nov 16 05:08:03 master2.openshift4.gnome.org kernel: cgroup: fork rejected by pids controller in /kubepods.slice/kubepods-burstable.slice/kubepods-burstable-podc69234f3_8596_477c_b7ea_5b51f6d86cce.slice/crio-d36391a108570d6daecf316d6d19ffc6650a3fa3a82ee616944b9e51266c901f.scope
-```
+{{< /highlight >}}
 
 also on kubepods.slice:
 
-```
+{{< highlight shell >}}
 [core@master2 ~]$ cat /sys/fs/cgroup/pids/kubepods.slice/pids.max 
 4194304
-```
+{{< /highlight >}}
 
 It was clear the target pods were spawning a major set of new processes that were remaining around for the entire pod lifetime:
 
-```
+{{< highlight shell >}}
 $ ps aux | grep gpg | wc -l
 773
-```
+{{< /highlight >}}
 
 And a sample out of the previous 'ps aux' run:
 
-```
+{{< highlight shell >}}
 git        19726  0.0  0.0      0     0 ?        Z    09:58   0:00 [gpg] <defunct>
 git        19728  0.0  0.0      0     0 ?        Z    09:58   0:00 [gpg] <defunct>
 git        19869  0.0  0.0      0     0 ?        Z    10:06   0:00 [gpg] <defunct>
 git        19871  0.0  0.0      0     0 ?        Z    10:06   0:00 [gpg] <defunct>
-```
+{{< /highlight >}}
 
 It appears this specific bug was troubleshooted [already](https://gitlab.com/gitlab-com/gl-infra/reliability/-/issues/3989) by the GitLab Infrastructure Team around 4 years ago already. This misbehaviour is related to the intimate nature of GnuPG which requires calling its binaries (gpgconf, gpg, gpgsm, gpg-agent) for every required operation GitLab (webservice or sidekiq) asks it to perform. For some reason these processes never notified their parent process (PID 1 on that particular container) with a SIGCHLD and remained hanging around on the pods until pod's dismissal. We're in touch with the GitLab Open Source program support to understand next steps in order to have a fix implemented upstream.
 
