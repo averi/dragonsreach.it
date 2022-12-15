@@ -58,7 +58,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the nort
 
 #### IRC:
 
-  * **av** on irc<span style="font-weight: bold;">.gnome.</span>org.
+  * **av** on irc<span style="font-weight: bold;">.gimp.</span>org.
   * **averi** on irc<span style="font-weight: bold;">.libera.</span>chat.
 
  [1]: https://www.redhat.com
