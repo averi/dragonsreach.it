@@ -7,7 +7,7 @@ aktt_notify_twitter:
   - no
 
 ---
-I&#8217;m an Italian [Red Hatter][1] who lives in [Udine][2], a city in the north-east part of Italy. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] for several years.
+I&#8217;m an Italian [Red Hatter][1] who lives in New York City. While my primary education field has been Law, my passion and dedication for the FOSS world have brought me to volunteer and keep up many activities for [GNOME][3] and [Fedora][4] for several years.
 
 ### What I am doing now:
 
