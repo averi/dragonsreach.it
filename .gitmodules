@@ -3,5 +3,5 @@
 	url = https://github.com/tummychow/lanyon-hugo
 [submodule "public"]
 	path = public
-	url = git@github.com:averi/dragonsreach.it
+	url = https://github.com/averi/dragonsreach.it
 	branch = gh-pages
