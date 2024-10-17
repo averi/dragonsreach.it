@@ -32,7 +32,7 @@ During the event, I had the great pleasure to present two talks:
   3. **Sriram Ramkrishna**, you don&#8217;t know how much I enjoyed our nightly discussions and walks around the city centre, missing those times already!
   4. **Allan Day** and **Jon McCann**, it&#8217;s been truly amazing meeting you guys and hearing how much enthusiast you are about me and my work, thanks a \*lot\*!
   5. **Paul Frields**, it&#8217;s been an absolute pleasure meeting you and your wife, I will never forget how you presented me to her at the **Starobrno Brewery**: &#8220;_He&#8217;s like the Kevin Fenzi of the GNOME Infrastructure!_&#8220;. That&#8217;s one of the greatest compliments someone can ever receive given the amount of work Kevin does on the Fedora Infrastructure. I&#8217;m also glad that we could remember **Seth** together during my talk, thanks for coming!
-  6. My italian friends, **Flavia**, **Paolo**, **Emanuele**,** Giovanni** and **Alessandro**!
+  6. My italian friends, **Flavia**, **Paolo**, **Emanuele**, ** Giovanni** and **Alessandro**!
   7. **Tobias Mueller**, glad we were finally able to meet in person! Thanks for your nano sessions!
   8. All the indian interns, **Saumya Dwivedi**, **Saumya Pathak**, **Sindhu Sundar**, **Shivani Poddar** who are definitely doing an amazing job! I was completely impressed by your talks and projects!
   9. **Ekaterina**, **David**, **Karen**, **Marina**, **Owen**, **Rui**, **Alberto**: all you guys are simply great! It&#8217;s really unfortunate we weren&#8217;t able to spend a lot of time together during the event!
