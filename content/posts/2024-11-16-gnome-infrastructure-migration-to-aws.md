@@ -1,6 +1,6 @@
 ---
 title: "GNOME Infrastructure migration to AWS"
-date: 2024-11-16T14:31:23+01:00
+date: 2024-10-16T20:25:12-04:00
 type: post
 url: /2024/11/16/gnome-infrastructure-migration-to-aws
 categories:
