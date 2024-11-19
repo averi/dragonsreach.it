@@ -22,8 +22,8 @@ I&#8217;m an Italian [Red Hatter][1] who lives in New York City. While my primar
   * Wrote several Wiki pages and their translations for the Ubuntu [international][11] and [italian][12] communities.
   * Have been an Ubuntu [Developer][13] uploading several packages into the main and universe repositories, full list available at my Launchpad [ID][14].
   * Sponsored and cleaned up the Ubuntu's universe queue within the [Ubuntu Sponsors Team][15].
-  * Have helped out the awesome [Insight Team][16] setting up a working Drupal [website][17] meant to publish and share news and articles related to Fedora.
-  * Been an [AM][18] and helped out new contributors to go through the [NM][19] process and hopefully welcome them as Debian Developers.
+  * Have helped out the awesome [Insight Team][16] setting up a working Drupal website meant to publish and share news and articles related to Fedora.
+  * Been an Application Manager (AM) and helped out new contributors to go through the [NM][19] process and hopefully welcome them as Debian Developers.
   * Have been a Debian Developer and working on my Debian packages available at my [QA Page][20].
   * Was the secretary of the GNOME Foundation [Board of Directors][21] for the 2014-2015 and 2015-2016 terms.
   * Have been a proud member of the Fedora [Infrastructure Team][8].
@@ -32,7 +32,6 @@ I&#8217;m an Italian [Red Hatter][1] who lives in New York City. While my primar
 
   * My Ubuntu MOTU interview is available at this [link][22].
   * A brief summary of my Accounts Team work can be found browsing Paul Cutler's [Blog][24].
-  * My Fedora Italia interview is now available at this [webpage][25].
   * Some material from my candidacy for the Fedora Board: Election's [Questionnaire][26], Town Hall's meeting [log][27] and my [nomination][28].
   * I made the [news][29] at GNOME.org
   * My interview for World Trademark Review about the GNOME trademark dispute with Groupon is available [here][30] (requires registration).
@@ -75,18 +74,15 @@ I&#8217;m an Italian [Red Hatter][1] who lives in New York City. While my primar
  [14]: https://launchpad.net/~av/+uploaded-packages
  [15]: https://launchpad.net/~ubuntu-sponsors
  [16]: https://fedoraproject.org/wiki/Insight
- [17]: https://insight.fedoraproject.org
- [18]: https://nm.debian.org/whoisam.php
  [19]: https://www.debian.org/devel/join/newmaint
  [20]: https://qa.debian.org/developer.php?login=and
  [21]: https://wiki.gnome.org/FoundationBoard
  [22]: https://behindmotu.wordpress.com/2007/10/16/andrea-veri
  [24]: https://www.paulcutler.org/blog/2010/01/gnome-accounts/ 
- [25]: http://www.fedora-it.org/news/justfedora/intervista-ad-andrea-veri-contributor-fedora-e-inventore-di-justfedora
  [26]: https://fedoraproject.org/wiki/F16_elections_questionnaire
  [27]: https://meetbot.fedoraproject.org/fedora-townhall/2011-05-30/fedora_board_town_hall.2011-05-30-19.01.log.html
  [28]: https://fedoraproject.org/w/index.php?title=Board_nominations&oldid=238761#Andrea_Veri_.28averi.29
- [29]: https://www.gnome.org/news/2013/03/behind-the-scene-andrea-veri-is-new-gnome-part-time-sysadmin/
+ [29]: https://foundation.gnome.org/2013/03/05/behind-the-scene-andrea-veri-is-new-gnome-part-time-sysadmin/
  [30]: https://www.worldtrademarkreview.com/brand-management/groupon-trademark-back-down-shows-power-fired-community
  [31]: https://www.dragonsreach.it/files/Tesi-Andrea-Veri.pdf
  [32]: https://averi.fedorapeople.org/The-Fedora-Infrastructure.odp
