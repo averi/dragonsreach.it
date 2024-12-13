@@ -1,6 +1,6 @@
 ---
 title: "2024 GNOME Infrastructure Annual Review"
-date: 2024-12-14T14:44:26+01:00
+date: 2024-12-13T16:29:20-05:00
 type: post
 url: /2024/12/14/gnome-infrastructure-annual-review/
 categories:
