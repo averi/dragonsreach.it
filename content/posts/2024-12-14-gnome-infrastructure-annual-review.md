@@ -58,7 +58,7 @@ In the below is a list of individual tasks and projects we were able to fulfill 
 7. We retired services which weren't relevant for the community anymore: surveys.gnome.org, roundcube (aka webmail.gnome.org)
 8. We migrated nmcheck.gnome.org to Fastly and are using Synthetic responses to handle HTTP responses to clients
 9. We upgraded to Ansible Automation Platform (AAP) 2.5
-10. As part of the migration to our new AWS based platform, we upgrade Openshift to release 4.17
+10. As part of the migration to our new AWS based platform, we upgraded Openshift to release 4.17
 11. We received a 2k grant from Microsoft which we are using for an Azure ARM64 GitLab runner
 12. All of our GitLab runners fleet are now hourly kept in sync using AAP (Ansible roles were built to make this happen)
 13. We upgraded Cachet to 3.x series and fixed dynamic status.gnome.org updates (via a customized version of cachet-monitor)
