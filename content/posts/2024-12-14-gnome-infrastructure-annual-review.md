@@ -33,10 +33,10 @@ In the below is a list of individual tasks and projects we were able to fulfill 
 
 1. All the applications (except for ego, which we expect to handle as soon as next week or in January) were migrated to our new AWS platform (see [GNOME Infrastructure migration to AWS](https://www.dragonsreach.it/2024/11/16/gnome-infrastructure-migration-to-aws/))
 2. During each of the apps migrations we made sure to:
-  2a. Migrate to sso.gnome.org and make 2FA mandatory
-  2b. Make sure database connections are handled via connection poolers
-  2c. Double check the container images in use were up-to-date and GitLab CI/CD pipeline schedules were turned on for weekly rebuilds (security updates)
-  2d. For GitLab, we made sure repositories were migrated to an EBS volume to increase IO throughput and bandwidth
+    2a. Migrate to sso.gnome.org and make 2FA mandatory
+    2b. Make sure database connections are handled via connection poolers
+    2c. Double check the container images in use were up-to-date and GitLab CI/CD pipeline schedules were turned on for weekly rebuilds (security updates)
+    2d. For GitLab, we made sure repositories were migrated to an EBS volume to increase IO throughput and bandwidth
 3. Migrated away our backup mechanism away from rdiff-backup into AWS Backup service (which handles both our AWS EFS and EBS snapshots)
 4. Retired our NSD install and migrated our authoritative name servers to CloudNS (it comes with multiple redundant authoritative servers, DDOS protection and automated DNSSEC keys rotation and management)
 5. We moved away from Ceph and the need to maintain our own storage solution and started leveraging AWS EFS and EBS
