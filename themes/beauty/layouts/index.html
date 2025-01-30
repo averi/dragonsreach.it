@@ -14,7 +14,7 @@
     <main>
       <h1>Blog</h1>
       <ul>
-        {{ range .Site.RegularPages.ByDate.Reverse }}
+        {{ range where .Site.RegularPages.ByDate.Reverse "Section" "posts" }}
           {{ if not .Params.draft }}
             <li>
               <span class="numeric">
