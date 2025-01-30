@@ -1,0 +1,69 @@
+main img, video {
+  max-width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+main img.light-bg {
+  background: white;
+  color: black;
+}
+
+main.img.padded {
+  pading: 6px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+
+}
+
+.gallery.columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media screen and (min-width: 650px) {
+  .gallery.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.gallery.large {
+  margin-left: clamp(-22.5rem, (100vw - 45rem) / -2, 0px);
+  margin-right: clamp(-22.5rem, (100vw - 45rem) / -2, 0px);
+}
+
+figure {
+  text-align: center;
+}
+
+figure > img {
+  display: inline;
+  align: center;
+}
+
+figcaption {
+  opacity: 60%;
+  font-size: small;
+}
+
+.youtube-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.youtube-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

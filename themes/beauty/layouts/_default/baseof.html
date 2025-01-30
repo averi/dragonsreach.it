@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ block "title" . }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
+    <link rel="canonical" href="{{ .Permalink }}"/>
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/index.xml"/>
+    <meta property="og:title" content="{{ .Title }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:article:author" content="{{ .Site.Params.author.name }}"/>
+    <meta property="og:article:published_time" content="{{ .Date.Format "2006-01-02" }}"/>
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>

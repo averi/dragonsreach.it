@@ -1,0 +1,54 @@
+@import url("colors.css");
+
+@import url("blog.css");
+@import url("code.css");
+@import url("images.css");
+@import url("tables.css");
+@import url("typography.css");
+
+:root {
+  color-scheme: light dark;
+  background: var(--bg-color);
+  color: var(--fg-color);
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
+
+a {
+  color: var(--link-color);
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:active {
+  color: var(--link-active);
+}
+
+main, header, footer {
+  max-width: 45rem;
+  padding: 1rem;
+  margin: auto;
+  line-height: 150%;
+}
+
+header nav {
+  display: flex;
+  gap: 1em;
+}
+
+.flag {
+  width: 4em;
+  height: 2.4em;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+footer {
+  font-size: small;
+}

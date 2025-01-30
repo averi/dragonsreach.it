@@ -1,0 +1,13 @@
+table {
+  background: var(--table-bg);
+  border-collapse: collapse;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+th, td {
+  text-align: start;
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  padding: 0.25em 0.5em;
+}

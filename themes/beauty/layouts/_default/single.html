@@ -1,0 +1,16 @@
+{{ define "main" }}
+<article>
+  <h1>{{ .Title }}</h1>
+  <p class="blog-date">
+    {{ if .Site.Params.dateFormat }}
+      {{ .Date.Format .Site.Params.dateFormat }}
+    {{ else }}
+      {{ .Date.Format "02 Jan 2006" }}
+    {{ end }}
+  </p>
+  
+  <div class="blog-content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

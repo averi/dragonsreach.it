@@ -1,0 +1,24 @@
+<rss version="2.0" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ .Site.Title }}</title>
+    <description>{{ .Site.Params.description }}</description>
+    <link>{{ .Site.BaseURL }}/</link>
+    <atom:link href="/index.xml" rel="self" type="application/rss+xml"/>
+    <language>en</language>
+    <docs>https://cyber.harvard.edu/rss/rss.html#requiredChannelElements</docs>
+    <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
+    <ttl>60</ttl>
+    {{- range .Site.RegularPages -}}
+    <item>
+      <dc:creator>{{ .Site.Params.author.name }}</dc:creator>
+      <title>{{ .Title }}</title>
+      <description>{{ .Content | html }}</description>
+      <link>{{ .Permalink }}</link>
+      <guid>{{ .Permalink }}</guid>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+    </item>
+    {{- end -}}
+  </channel>
+</rss>

@@ -42,14 +42,31 @@ Apart from presenting what we did and what the changes we introduced on the GNOM
 
 More information, slides and screenshots from Patrick&#8217;s talk are available <a href="http://patrick.uiterwijk.org/2014/07/28/gnome-authentication/#1" target="_blank">here</a>. Stay tuned and many thanks to the **GNOME Foundation** for sponsoring my travel and accomodation expenses!
 
-{{< load-photoswipe >}}
-{{< gallery hover-effect="none" caption-position="center" >}}
-  {{< figure caption="The GUADEC 2014 group photo!" src="/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg" >}}
-  {{< figure caption="A view of the Petite France district" src="/wp-content/uploads/2014/08/IMG_20140729_193107.jpg" >}}
-  {{< figure caption="Another great view of the Petite France district" src="/wp-content/uploads/2014/08/IMG_20140729_195206.jpg" >}}
-  {{< figure caption="The Notre Dame cathedral" src="/wp-content/uploads/2014/08/IMG_20140725_103921.jpg" >}}
-  {{< figure caption="Another view of the Notre Dame cathedral" src="/wp-content/uploads/2014/08/IMG_20140725_103927.jpg" >}}
-  {{< figure caption="Place Gutenberg" src="/wp-content/uploads/2014/08/IMG_20140725_103655.jpg" >}}
-{{< /gallery >}}
+<div class="gallery">
+  <figure>
+    <img src="/wp-content/uploads/2014/08/14581494979_18c62c3083_z.jpg" alt="The GUADEC 2014 group photo!"/>
+    <figcaption>The GUADEC 2014 group photo!</figcaption>
+  </figure>
+  <figure>
+    <img src="/wp-content/uploads/2014/08/IMG_20140729_193107.jpg" alt="A view of the Petite France district"/>
+    <figcaption>A view of the Petite France district</figcaption>
+  </figure>
+  <figure>
+    <img src="/wp-content/uploads/2014/08/IMG_20140729_195206.jpg" alt="Another great view of the Petite France district"/>
+    <figcaption>Another great view of the Petite France district</figcaption>
+  </figure>
+  <figure>
+    <img src="/wp-content/uploads/2014/08/IMG_20140725_103921.jpg" alt="The Notre Dame cathedral"/>
+    <figcaption>The Notre Dame cathedral</figcaption>
+  </figure>
+  <figure>
+    <img src="/wp-content/uploads/2014/08/IMG_20140725_103927.jpg" alt="Another view of the Notre Dame cathedral"/>
+    <figcaption>Another view of the Notre Dame cathedral</figcaption>
+  </figure>
+  <figure>
+    <img src="/wp-content/uploads/2014/08/IMG_20140725_103655.jpg" alt="Place Gutenberg"/>
+    <figcaption>Place Gutenberg</figcaption>
+  </figure>
+</div>
 
 &nbsp;

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ .Site.Title }}</title>
+    <link rel="canonical" href="{{ .Site.BaseURL }}" />
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/index.xml" />
+    <meta property="og:title" content="{{ .Site.Title }}" />
+    <meta property="og:type" content="website" />
+    {{ partial "head.html" . }}
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+
+    <main>
+      <h1>Blog</h1>
+      <ul>
+        {{ range .Site.RegularPages.ByDate.Reverse }}
+          {{ if not .Params.draft }}
+            <li>
+              <span class="numeric">
+                {{ if .Site.Params.dateFormat }}
+                  {{ .Date.Format .Site.Params.dateFormat }}
+                {{ else }}
+                  {{ .Date.Format "02 Jan 2006" }}
+                {{ end }}
+              </span> -  
+              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </li>
+          {{ end }}
+        {{ end }}
+      </ul>
+
+      <a href="/index.xml">RSS Feed</a><br>
+      <a href="/categories">Categories</a> 
+    </main>
+
+    {{ partial "footer.html" . }}
+  </body>
+</html>

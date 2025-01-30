@@ -1,0 +1,38 @@
+:root {
+  --bg-color: white;
+  --fg-color: black;
+
+  --link-color: #1a5fb4;
+  --link-active: #a51d2d;
+  --link-visited: #613583;
+
+  --table-bg: white;
+  --code-bg: #f2f2f4;
+  --keycap-bg: white;
+
+  --code-keyword: #26a269;
+  --code-ident: #c64600;
+  --code-string: #1a5fb4;
+  --code-comment: #777779;
+  --code-type: #613583;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121214;
+    --fg-color: white;
+
+    --link-color: #99c1f1;
+    --link-active: #f66151;
+    --link-visited: #dc8add;
+
+    --table-bg: #202022;
+    --code-bg: #202022;
+    --keycap-bg: #303033;
+
+    --code-keyword: #8ff0a4;
+    --code-ident: #ffbe6f;
+    --code-string: #99c1f1;
+    --code-type: #dc8add;
+  }
+}

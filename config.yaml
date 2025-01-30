@@ -3,12 +3,10 @@ contentdir: "content"
 layoutdir: "layouts"
 publishdir: "public"
 builddrafts: false
-theme: "lanyon-hugo"
+theme: "beauty"
 baseurl: "https://www.dragonsreach.it"
-canonifyurls: true
-permalinks:
-  post: ":year/:month/:day/:title/"
-  fixed: ":title/"
+title: "Andrea Veri's Blog"
+
 markup:
   goldmark:
     extensions:
@@ -16,25 +14,16 @@ markup:
     renderer:
       unsafe: true
 pygmentsuseclasses: true
-menu:
-  main:
-  - identifier: "tags"
-    name: "Categories"
-    title: "Categories"
-    url: "/categories/"
-    weight: -1
-  - identifier: "about-me"
-    name: "About me"
-    title: "About me"
-    url: "/about-me/"
-    weight: 0
+
+permalinks:
+  post: ":year/:month/:day/:title/"
+  fixed: ":title/"
+  categories: "/categories/:slug/"
+
 params:
-  Title: "Andrea Veri's Blog"
-  Tagline: "Me, myself and I"
-  Author: "Andrea Veri"
-  DateForm: "Jan 2, 2006"
   description: "Andrea Veri's Blog"
-  mainSections:
-  - "post"
-  disableFonts: false
-paginate: 5
+  tagline: "Me, myself and I"
+  author:
+    name: "Andrea Veri"
+  website:
+    sources: "https://github.com/averi/dragonsreach.it"

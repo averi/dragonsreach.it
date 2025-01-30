@@ -1,0 +1,49 @@
+code {
+  background: var(--code-bg);
+  border-radius: 3px;
+  padding: 0.2em 0.4em;
+}
+
+pre.chroma {
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+pre.chroma > code {
+  display: block;
+  padding: 12px;
+  overflow: auto;
+  max-height: 40em;
+}
+
+code .nt,
+code .nv,
+code .nc {
+  color: var(--code-keyword);
+}
+
+code .na,
+code .nf {
+  color: var(--code-ident);
+}
+
+code .s,
+code .mi,
+code .kt {
+  color: var(--code-string);
+}
+
+code .c,
+code .c1 {
+  color: var(--code-comment);
+}
+
+code .kd,
+code .k {
+  color: var(--code-ident);
+  font-weight: bold;
+}
+
+code .kt {
+  color: var(--code-type);
+}
