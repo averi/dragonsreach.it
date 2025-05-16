@@ -13,25 +13,28 @@
 
     <main>
       <h1>Blog</h1>
-      <ul>
-        {{ range where .Site.RegularPages.ByDate.Reverse "Section" "posts" }}
-          {{ if not .Params.draft }}
-            <li>
-              <span class="numeric">
-                {{ if .Site.Params.dateFormat }}
-                  {{ .Date.Format .Site.Params.dateFormat }}
-                {{ else }}
-                  {{ .Date.Format "02 Jan 2006" }}
-                {{ end }}
-              </span> -  
-              <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </li>
+      {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "posts").GroupByDate "2006" }}
+        <h2>{{ .Key }}</h2>
+        <ul>
+          {{ range .Pages }}
+            {{ if not .Params.draft }}
+              <li>
+                <span class="numeric">
+                  {{ if .Site.Params.dateFormat }}
+                    {{ .Date.Format .Site.Params.dateFormat }}
+                  {{ else }}
+                    {{ .Date.Format "02 Jan 2006" }}
+                  {{ end }}
+                </span> -
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </li>
+            {{ end }}
           {{ end }}
-        {{ end }}
-      </ul>
+        </ul>
+      {{ end }}
 
       <a href="/index.xml">RSS Feed</a><br>
-      <a href="/categories">Categories</a> 
+      <a href="/categories">Categories</a>
     </main>
 
     {{ partial "footer.html" . }}
