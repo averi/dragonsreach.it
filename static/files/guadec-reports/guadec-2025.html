@@ -316,31 +316,25 @@ This system had significant drawbacks:
 - **No Central Audit Trail:** Release actions weren't tied to a central identity system like GitLab, making it hard to track *who* released *what* and *when*.
 - **No Authorization Checks:** The script didn't verify if the user was a maintainer for the specific module being released, creating a risk of accidental or malicious cross-project releases.
 
-???
-
-* **Process:** Individual shell accounts on `master.gnome.org`.
-* **Permissions:** `ftpadmin` user group.
-* **Problem:** Manual shell access; no authorization checks per module.
-* **Core command:** `ftpadmin install ...`.
-
 ---
 
 ## The Motivation for Change
 
-The legacy process was no longer sustainable. We needed a modern solution that would deliver:
+The legacy process was no longer sustainable, especially given `ftpadmin`'s legacy:
+
+* Python 2, outdated technologies.
+* Dates back to 2011.
+* Grew: 400 -> ~2000 lines of code.
+* Hard to maintain & modify.
+
+We needed a modern solution that would deliver:
 
 - **Security:** Eliminate the need for direct SSH access and introduce a robust, auditable authentication system.
 - **Traceability:** Create a clear, immutable log for every release, linking it directly to a specific developer and code commit.
-- **Maintainability:** Replace an aging, monolithic script with a modern, testable, and well-documented API.
+- **Maintainability:** Replace an aging, monolithic script with a modern and testable API.
 - **Efficiency:** Automate the entire process to reduce manual work and the potential for errors.
 
-???
 
-* **`ftpadmin` legacy:**
-    * Python 2, outdated technologies.
-    * Grew: 400 -> ~2000 lines of code.
-    * Hard to maintain & modify.
-* **Goal:** Fundamentally rethink security & supply chain.
 
 ---
 
@@ -349,13 +343,9 @@ The legacy process was no longer sustainable. We needed a modern solution that w
 We developed the **GNOME Release Service** [2], a new, centralized API that automates and secures the entire release process.
 
 * **Language & Framework:** Python 3 with the FastAPI web framework.
-* **Deployment:** The service is containerized using Docker and deployed on GNOME's OpenShift cluster.
+* **Deployment:** The service is containerized and deployed on GNOME's OpenShift cluster.
 
-???
-
-* Service acts as a **secure facade** for release infrastructure.
-* Exposes clean, documented **API endpoint**.
-* Critical step: move from script to modern API.
+The service acts as a **secure facade** for release infrastructure.
 
 ---
 
@@ -373,12 +363,6 @@ Our new architecture is built on modern, secure, and automated principles.
 4.  The CI job sends the tarball and the JWT to the **GNOME Release Service API**.
 5.  The API **validates the token**, verifies the request, and publishes the release.
 
-???
-
-* Maintainer's only action: `git tag`.
-* Server interaction: None.
-* Result: Fully automated, audited, secure flow.
-
 ---
 
 ## Secure by Design: Authentication
@@ -390,15 +374,7 @@ The cornerstone of the new system's security is **OpenID Connect (OIDC)**, using
     -   **Scoped** to the specific pipeline run.
     -   **Impossible to forge** without GitLab's private key.
 
-???
-
-* JWT contains **"claims"** (trusted data).
-* **Examples:**
-    * Project path
-    * Commit SHA
-    * Triggering user
-    * Git tag
-* Enables fine-grained API authorization.
+The JWT includes information about which project triggered the pipeline and much more, allowing the Release Service to authorize releases only for the originating project.
 
 ---
 
@@ -411,13 +387,6 @@ So, how does the Release Service trust the JWT from GitLab?
 3.  It uses the public key to verify the signature on the JWT.
 
 If the signature is valid, the service trusts the claims within the token. This means **no shared secrets, no long-lived API keys, and no passwords.**
-
-???
-
-* **JWKS:** Public endpoint with GitLab's public keys.
-* API caches keys for efficiency.
-* **Mechanism:** Open standard (OIDC).
-* **Use case:** Secure automated authentication.
 
 ---
 
@@ -434,13 +403,8 @@ The setup is straightforward. Your `.gitlab-ci.yml` needs two parts:
       dist-job-name: "name-of-the-build-job"
 ```
 
-After this one-time setup, a release is as simple as pushing a signed tag. The component handles the rest.
-
-???
-* **Prerequisite:** A CI job (like `dist`) must build the tarball and save it as an artifact.
-* **Method:** The release component is included and configured with inputs.
-* **Link:** The `dist-job-name` input tells the component where to find the artifact from the build job.
-* **Functionality:** Calls the API and creates a formal GitLab Release.
+After this one-time setup, making a release is as simple as pushing a signed tag.
+The component then takes care of sending the release tarball to the Release Service API and performing the GitLab release.
 
 ---
 
@@ -451,6 +415,14 @@ The GNOME Release Service is now the **official, only supported method** for mod
 The transition was announced on the **GNOME Discourse forum** [5], with documentation available in the Maintainer's Handbook [6].
 
 This marks a successful transition to a modern, secure, and fully automated platform.
+
+---
+
+class: center
+
+## 150+ Projects Use the Release Service
+
+<img src="./img/guadec2025-projects-with-new-release-ci.png" alt="GNOME Projects That Use the Release Service" style="width: 80%; height: auto; display: block; margin: 0 auto;" />
 
 ---
 
@@ -479,7 +451,7 @@ class: center
 
 ## References
 
-[1] https://gitlab.gnome.org/Teams/Websites/handbook.gnome.org/-/blob/c3db9f31596d0d5090c17e0ee6d1261f100275cf/source/maintainers/making-a-release.rst
+[1] <span style="word-break: break-all; font-size: 90%;">https://gitlab.gnome.org/Teams/Websites/handbook.gnome.org/-/blob/c3db9f31596d0d5090c17e0ee6d1261f100275cf/source/maintainers/making-a-release.rst</span>
 
 [2] https://gitlab.gnome.org/Infrastructure/openshift-images/gnome-release-service
 
