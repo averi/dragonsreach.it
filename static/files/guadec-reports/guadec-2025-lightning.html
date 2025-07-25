@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A status update from the Membership Committee</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* --- Custom GNOME Presentation Theme (Adwaita Dark Inspired) --- */
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+      html {
+        background-color: #242424; /* Set base background for the entire page */
+      }
+
+      body {
+        font-family: 'Source Sans Pro', sans-serif;
+        color: #eeeeee;
+      }
+
+      /* Target the container created by remark.js to ensure a seamless background */
+      .remark-container {
+        background-color: #242424;
+      }
+
+      .remark-slide-content {
+        background-color: #242424; /* Adwaita-like dark background */
+        border-radius: 8px;
+        padding: 1.5em 2.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: left;
+        border-top: 4px solid #3584e4; /* GNOME Blue accent */
+      }
+
+      .remark-slide-content.center {
+        align-items: center;
+        text-align: center;
+      }
+
+      /* Slide background with GNOME logo in the corner */
+      .remark-slide-content::before {
+        content: '';
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        width: 60px;
+        height: 60px;
+        background-image: url('./img/gnome-logo.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: right bottom;
+        opacity: 0.7;
+        filter: brightness(0) invert(1); /* Makes the logo white */
+      }
+
+      h1, h2, h3 {
+        font-family: 'Roboto Slab', serif;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 0.2em;
+      }
+
+      h1 {
+        font-size: 2.8em;
+        color: #3584e4; /* GNOME Blue */
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 2em;
+        margin-top: 0.5em;
+      }
+
+      a {
+        color: #3584e4;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      p {
+        margin-bottom: 0.1em;
+      }
+
+      ul, ol {
+        padding-left: 1.5em;
+        line-height: 1.0;
+        font-size: 1.15em;
+        margin-bottom: 0.1em;
+      }
+
+      li {
+        margin-bottom: 0.4em;
+      }
+
+      code {
+        background: #3d3d3d;
+        border-radius: 4px;
+        padding: 0.2em 0.4em;
+        font-family: 'Fira Mono', monospace;
+        color: #eeeeee;
+        font-size: 0.9em;
+      }
+
+      blockquote {
+        border-left: 4px solid #3584e4;
+        padding-left: 1.5em;
+        font-style: italic;
+        color: #cccccc;
+        margin-top: 1.5em;
+      }
+
+      /* --- Title Slide Specifics --- */
+      .title-slide {
+        background: #242424;
+        color: white;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        border: none;
+      }
+
+      .title-slide h1 {
+        font-size: 3.2em;
+        color: white;
+      }
+
+      .title-slide h2 {
+        font-size: 1.4em;
+        font-weight: 400;
+        margin-top: 0.5em;
+        color: #cccccc;
+      }
+       .title-slide h3 {
+        font-size: 1.1em;
+        font-weight: 400;
+        margin-top: 1.5em;
+        color: #999999;
+      }
+
+      /* Override the corner logo for the title slide */
+      .title-slide::before {
+        display: none;
+      }
+
+      /* Add a big logo to the title slide */
+      .title-slide::after {
+        content: '';
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 120px;
+        height: 120px;
+        background-image: url('./img/gnome-logo.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        filter: brightness(0) invert(1); /* Makes the logo white */
+      }
+
+
+      /* --- Inverse class for contrasting dark slides --- */
+      .inverse {
+        background-color: #303030; /* A slightly different dark shade */
+        color: #f0f0f0;
+        border-top: 4px solid #3584e4; /* GNOME Blue for accent consistency */
+      }
+      .inverse h1, .inverse h2, .inverse h3 {
+        color: #ffffff;
+      }
+      .inverse a {
+        color: #3584e4; /* Use same blue for links */
+      }
+      .inverse code {
+          background: #242424;
+          color: #f0f0f0;
+      }
+      .inverse blockquote {
+          color: #cccccc;
+          border-left-color: #3584e4; /* Use same blue for blockquote */
+      }
+      /* Make logo white on inverse slides too */
+      .inverse::before {
+        filter: brightness(0) invert(1);
+      }
+
+      /* --- Footer --- */
+      .remark-slide-number {
+        font-size: 12px;
+        color: #888a85;
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+class: title-slide
+
+# A status update from the Membership Committee
+
+## GUADEC 2025 - Lightning talks
+
+### Andrea Veri
+
+---
+
+## My role
+
+* GNOME Infrastructure Coordinator, since 2013
+* GNOME Foundation Membership and Elections Committee Chairman, since 2010
+* Former Board of Directors member during the 2014-2015 and 2015-2016 terms
+
+---
+
+## Some stats
+
+| Metric | 2025 | 2024 | 2023 | 2022 |
+| :--- | :---: | :---: | :---: | :---: |
+| Foundation Members | 233 | 244 | 236 | 222 |
+| Board of Directors Election Voters | 132 | 156 | 91 | 100 |
+
+---
+
+## Membership applications automation
+
+* Webhook (of type issue) that triggers an API which automatically quotes existing Foundation members (as listed in the membership application)
+* Existing Foundation members acknowledge the membership application with a thumbs up (or down)
+* Membership Committee reviews the applications and reacts with a thumbs up (or down)
+* Automation sends out forms based on the issue reaction (i.e acceptance or denial)
+
+---
+
+## Apply for Foundation Membership
+
+* If you're an existing contributor and never applied for membership, please do so!
+* If you forgot to renew your membership, please send your renewal in
+* Apply at https://foundation.gnome.org/membership
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        ratio: '16:9',
+        navigation: {
+          scroll: false,
+          touch: true,
+          click: false
+        },
+        highlightStyle: 'atom-one-dark', // A style that fits the dark theme
+        highlightLines: true
+      });
+    </script>
+  </body>
+</html>

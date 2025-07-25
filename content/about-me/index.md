@@ -47,7 +47,7 @@ I&#8217;m an Italian [Red Hatter][1] who lives in New York City. While my primar
     * GUADEC 2015 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2015.odp)
     * GUADEC 2018 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2018.html)
     * GUADEC 2022 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2022.html)
-    * GUADEC 2025 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2025.html)
+    * GUADEC 2025 [slides](https://www.dragonsreach.it/files/guadec-reports/guadec-2025.html) [lightning talks](https://www.dragonsreach.it/files/guadec-reports/guadec-2025-lightning.html)
 
 ### Contact:
 
