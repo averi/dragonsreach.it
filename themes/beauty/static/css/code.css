@@ -4,46 +4,81 @@ code {
   padding: 0.2em 0.4em;
 }
 
-pre.chroma {
+pre.chroma,
+pre:not(.chroma) {
   overflow: hidden;
   border-radius: 6px;
+  background: var(--code-bg);
 }
 
-pre.chroma > code {
+pre.chroma > code,
+pre:not(.chroma) > code {
   display: block;
   padding: 12px;
   overflow: auto;
   max-height: 40em;
+  background: none;
 }
 
-code .nt,
-code .nv,
-code .nc {
-  color: var(--code-keyword);
-}
-
-code .na,
-code .nf {
-  color: var(--code-ident);
-}
-
-code .s,
-code .mi,
-code .kt {
-  color: var(--code-string);
-}
-
-code .c,
-code .c1 {
-  color: var(--code-comment);
-}
-
+/* keywords */
+code .k,
 code .kd,
-code .k {
+code .kn,
+code .kr,
+code .kc,
+code .kt {
   color: var(--code-ident);
   font-weight: bold;
 }
 
-code .kt {
+/* identifiers / builtins */
+code .nt,
+code .nv,
+code .nc,
+code .na,
+code .nf,
+code .nb,
+code .ni {
+  color: var(--code-keyword);
+}
+
+/* strings */
+code .s,
+code .s1,
+code .s2,
+code .sb,
+code .sc,
+code .sd,
+code .se,
+code .sh,
+code .si,
+code .ss,
+code .sx,
+code .sr,
+code .mi,
+code .mf,
+code .mh,
+code .mo {
+  color: var(--code-string);
+}
+
+/* comments */
+code .c,
+code .c1,
+code .cm,
+code .cp,
+code .cs {
+  color: var(--code-comment);
+  font-style: italic;
+}
+
+/* types */
+code .no,
+code .nd {
   color: var(--code-type);
+}
+
+/* operator words */
+code .ow {
+  color: var(--code-ident);
 }
