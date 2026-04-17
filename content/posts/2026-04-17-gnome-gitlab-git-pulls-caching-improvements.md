@@ -312,7 +312,7 @@ The key format in Valkey is `git:deny:<path_with_namespace>`. The Lua `redis_hel
 
 On the Fastly side, three VCL subroutines carry the relevant logic. In `vcl_recv`:
 
-```vcl
+```
 if (req.url ~ "/info/refs") {
     return(pass);
 }
@@ -329,7 +329,7 @@ if (req.http.X-Git-Cache-Key) {
 
 In `vcl_hash`, the cache key overrides the default URL-based key:
 
-```vcl
+```
 if (req.http.X-Git-Cache-Key) {
     set req.hash += req.http.X-Git-Cache-Key;
     return(hash);
@@ -338,7 +338,7 @@ if (req.http.X-Git-Cache-Key) {
 
 And in `vcl_fetch`, responses are marked cacheable when they come back with a 200 and a non-empty body:
 
-```vcl
+```
 if (req.http.X-Git-Cache-Key && beresp.status == 200) {
     if (beresp.http.Content-Length == "0") {
         set beresp.ttl = 0s;
