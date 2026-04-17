@@ -4,8 +4,10 @@ date: 2026-04-17T10:00:00-04:00
 type: post
 url: /2026/04/17/gnome-gitlab-git-pulls-caching-improvements/
 categories:
+  - Planet GNOME
   - Syseng
 tags:
+  - planet-gnome
   - syseng
   - gitlab
   - nginx
