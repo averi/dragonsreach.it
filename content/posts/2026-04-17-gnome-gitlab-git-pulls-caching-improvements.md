@@ -251,7 +251,7 @@ return ngx.exec("/cdn-origin" .. uri)
 
 Fastly's shield feature routes cache misses through a designated intra-POP "shield" node before going to origin. When two different edge nodes both get a MISS for the same cache key simultaneously, the shield node collapses them into a single origin request. This is important for us because without it, a burst of CI jobs fetching the same commit would all miss, all go to origin in parallel, and GitLab would end up generating the same pack multiple times anyway.
 
-The catch is that Fastly's consistent hashing and shield routing only works for GET requests. POST requests always go straight to origin. By converting the POST to a GET and encoding the body in a header, we get shield-level request collapsing for free.
+The catch is that Fastly's consistent hashing and shield routing only works for GET requests. POST requests always go straight to origin. Fastly does provide a way to force POST responses into the cache — by returning `pass` in `vcl_recv` and setting `beresp.cacheable` in `vcl_fetch` — but it is a blunt instrument: there is no consistent hashing, no shield collapsing, and no guarantee that two nodes in the same POP will ever share the cached result. By converting the POST to a GET and encoding the body in a header, we get consistent hashing and shield-level request collapsing for free.
 
 The VCL on the Fastly side uses the `X-Git-Cache-Key` header (not the URL or method) as the cache key, so the GET conversion is invisible to the caching logic.
 
@@ -312,7 +312,7 @@ The key format in Valkey is `git:deny:<path_with_namespace>`. The Lua `redis_hel
 
 On the Fastly side, three VCL subroutines carry the relevant logic. In `vcl_recv`:
 
-```VCL
+```vcl
 if (req.url ~ "/info/refs") {
     return(pass);
 }
@@ -329,7 +329,7 @@ if (req.http.X-Git-Cache-Key) {
 
 In `vcl_hash`, the cache key overrides the default URL-based key:
 
-```VCL
+```vcl
 if (req.http.X-Git-Cache-Key) {
     set req.hash += req.http.X-Git-Cache-Key;
     return(hash);
@@ -338,7 +338,7 @@ if (req.http.X-Git-Cache-Key) {
 
 And in `vcl_fetch`, responses are marked cacheable when they come back with a 200 and a non-empty body:
 
-```VCL
+```vcl
 if (req.http.X-Git-Cache-Key && beresp.status == 200) {
     if (beresp.http.Content-Length == "0") {
         set beresp.ttl = 0s;
@@ -359,13 +359,13 @@ if (req.http.X-Git-Cache-Key && beresp.status == 200) {
 }
 ```
 
-The 30-day TTL is deliberately long. Git pack data is content-addressed: a pack for a given set of `want`/`have` lines will always be the same. As long as the objects exist in the repository, the cached pack is valid. The only case where a cached pack could be wrong is if objects were deleted (force-push that drops history, for instance), which is rare and would be handled by the cache version prefix forcing a key change rather than by expiry.
+The 30-day TTL is deliberately long. Git pack data is content-addressed: a pack for a given set of `want`/`have` lines will always be the same. As long as the objects exist in the repository, the cached pack is valid. The only case where a cached pack could be wrong is if objects were deleted (force-push that drops history, for instance), which is rare and, on GNOME's GitLab, made even rarer by the [Gitaly custom hooks](https://gitlab.gnome.org/GNOME/gitaly-custom-hooks) we run to prevent force-pushes and history rewrites on protected namespaces. In those cases the cache version prefix would force a key change rather than relying on TTL expiry.
 
 Empty responses (`Content-Length: 0`) are explicitly not cached. GitLab can return an empty body in edge cases and caching that would break all subsequent fetches for that key.
 
 ## Conclusions
 
-The system has been running in production for a while now and the cache hit rate on fetch traffic has been consistently high (over 80%) for repositories that are cloned frequently by CI. The design deliberately keeps things simple: there is no custom invalidation logic and no TTL management beyond what Fastly handles natively. If something goes wrong with the cache layer, the worst case is that requests fall back to BYPASS and GitLab handles them directly, which is how things worked before.
+The system has been running in production for a few days now and the cache hit rate on fetch traffic has been overall consistently high (over 80%). If something goes wrong with the cache layer, the worst case is that requests fall back to BYPASS and GitLab handles them directly, which is how things worked before. This also means we don't redirect any traffic to github.com anymore.
 
 That should be all for today, stay tuned!
 
