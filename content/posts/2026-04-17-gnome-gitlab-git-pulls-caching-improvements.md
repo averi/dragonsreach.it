@@ -126,7 +126,7 @@ location ^~ /cdn-origin/ {
     proxy_set_header Accept-Encoding "";
     proxy_http_version 1.1;
     proxy_buffering on;
-    proxy_request_buffering off;
+    proxy_request_buffering on;
     proxy_connect_timeout 10s;
     proxy_send_timeout 60s;
     proxy_read_timeout 60s;
@@ -151,7 +151,7 @@ The second location is `git-upload-pack` itself, which delegates all the logic t
 
 ```Nginx
 location ~ /git-upload-pack$ {
-    client_body_buffer_size 1m;
+    client_body_buffer_size 5m;
     client_max_body_size 5m;
 
     access_by_lua_file /etc/nginx/lua/git_upload_pack.lua;
@@ -172,8 +172,8 @@ location ~ /git-upload-pack$ {
     proxy_set_header X-Forwarded-Port 443;
     proxy_set_header X-Forwarded-Ssl on;
     proxy_set_header Connection "";
-    proxy_buffering off;
-    proxy_request_buffering off;
+    proxy_buffering on;
+    proxy_request_buffering on;
     proxy_connect_timeout 10s;
     proxy_send_timeout 60s;
     proxy_read_timeout 60s;
