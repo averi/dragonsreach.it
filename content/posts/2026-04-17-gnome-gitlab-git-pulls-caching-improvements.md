@@ -66,10 +66,11 @@ The leading four hex characters on each line are the pkt-line length prefix. The
 
 ## Architecture overview
 
-The current architecture has two components:
+The current architecture has three components:
 
 - **Fastly** as the user-facing CDN for `gitlab.gnome.org`, with custom VCL that intercepts `git-upload-pack` traffic, hashes the request body, converts the POST to a GET, and caches the response at edge POPs worldwide
-- **OpenResty** (Nginx + LuaJIT) running as the origin server, with a minimal Lua script that restores the original POST and signals cacheability back to Fastly
+- **OpenResty** (Nginx + LuaJIT) running as the origin server, with a Lua script that restores the original POST, checks a Valkey denylist for private repositories, and signals cacheability back to Fastly
+- **Valkey + webhook** — a small [Valkey](https://valkey.io/) instance stores a denylist of private repository paths, kept in sync by a [webhook service](https://gitlab.gnome.org/GNOME/gitlab-git-cache-webhook) that listens for GitLab project visibility changes
 
 <pre class="mermaid">
 flowchart TD
@@ -78,30 +79,36 @@ flowchart TD
     shield["Fastly Shield POP (IAD)"]
     nginx["OpenResty Nginx (origin)"]
     lua["Lua: git_upload_pack.lua"]
+    valkey["Valkey denylist"]
     gitlab["GitLab webservice"]
+    webhook["gitlab-git-cache-webhook"]
+    gitlab_events["GitLab project events"]
 
     client -- "POST /git-upload-pack" --> edge
-    edge -- "authenticated? → return(pass)" --> nginx
     edge -- "HIT → serve from edge" --> client
     edge -- "MISS → forward to shield" --> shield
     shield -- "HIT → return to edge (edge caches)" --> edge
     shield -- "MISS → fetch from origin" --> nginx
     nginx --> lua
-    lua -- "restore POST, proxy" --> gitlab
+    lua -- "authenticated? check denylist" --> valkey
+    lua -- "denied/error: keep auth, skip cache" --> gitlab
+    lua -- "allowed: keep auth, signal cacheable" --> gitlab
     gitlab -- "packfile response" --> nginx
-    nginx -- "X-Git-Cacheable: 1" --> shield
+    nginx -- "X-Git-Cacheable: 1 (if allowed)" --> shield
+    gitlab_events --> webhook
+    webhook -- "SET/DEL git:deny:" --> valkey
 </pre>
 
 The request flow:
 
 1. The `POST /git-upload-pack` arrives at the nearest Fastly edge POP.
-2. VCL checks for authentication headers (`Authorization`, `PRIVATE-TOKEN`, `Job-Token`). If present, the request is sent directly to origin with credentials intact — private repos and CI runner clones never enter the cache path.
-3. VCL checks the body: if `Content-Length` exceeds 8 KB (the limit of what Fastly can read from `req.body`), or the body does not contain `command=fetch`, the request is passed through uncached.
-4. For cacheable requests, VCL hashes the body with SHA256 to build the cache key, base64-encodes the body into `X-Git-Original-Body`, converts the request to GET, and does `return(lookup)`.
-5. On a cache hit at the edge, the packfile is served immediately.
-6. On a miss, the request routes to the IAD shield POP. If the shield has it cached, it returns the object and the edge caches it locally.
-7. On a shield miss, the request reaches Nginx at the origin. Lua detects `X-Git-Original-Body`, restores the POST body, and proxies to GitLab.
-8. The response flows back through the shield (which caches it) and the edge (which also caches it). Subsequent requests from the same region are served directly from the edge.
+2. VCL checks the body: if `Content-Length` exceeds 8 KB (the limit of what Fastly can read from `req.body`), or the body does not contain `command=fetch`, the request is passed through uncached.
+3. VCL hashes the body with SHA256 to build the cache key, base64-encodes the body into `X-Git-Original-Body`, and converts the request to GET. If the request carries authentication headers (`Authorization`, `PRIVATE-TOKEN`, `Job-Token`), VCL sets `X-Git-Auth-Passthrough` to flag it — but the request still enters the cache lookup.
+4. On a cache hit at the edge, the packfile is served immediately — regardless of whether the request is authenticated or not.
+5. On a miss, the request routes to the IAD shield POP. If the shield has it cached, it returns the object and the edge caches it locally.
+6. On a shield miss, the request reaches Nginx at the origin. Lua detects `X-Git-Original-Body` and restores the POST body. If `X-Git-Auth-Passthrough` is set, Lua checks the Valkey denylist: if the repo is private (or Valkey is unreachable), the `Authorization` header is preserved and cacheability is not signaled — the response passes through uncached. If the repo is not on the denylist, `Authorization` is preserved (internal repos need it for GitLab to return 200) and cacheability is signaled.
+7. For unauthenticated requests (no passthrough flag), Lua strips `Authorization` and signals cacheability unconditionally — these are by definition accessing public repositories.
+8. The response flows back through the shield and the edge. If `X-Git-Cacheable: 1` is present, both nodes cache the response. Subsequent requests — authenticated or not — for the same cache key are served directly from cache.
 
 ## The VCL layer
 
@@ -112,11 +119,6 @@ The `vcl_recv` snippet runs at priority 9, before the existing `enable_segmented
 
 # Edge: convert POST to GET, hash body, encode body in header
 if (req.url ~ "/git-upload-pack$" && req.request == "POST") {
-    # Authenticated requests bypass cache entirely (CI runners, private repos)
-    if (req.http.Authorization || req.http.PRIVATE-TOKEN || req.http.Job-Token) {
-        return(pass);
-    }
-
     if (std.atoi(req.http.Content-Length) > 8192) {
         return(pass);
     }
@@ -127,6 +129,13 @@ if (req.url ~ "/git-upload-pack$" && req.request == "POST") {
 
     set req.http.X-Git-Cache-Key = "v3:" digest.hash_sha256(req.body);
     set req.http.X-Git-Original-Body = digest.base64(req.body);
+
+    # Flag authenticated requests — they still enter the cache lookup,
+    # but on a miss Lua uses this to decide whether to cache the response
+    if (req.http.Authorization || req.http.PRIVATE-TOKEN || req.http.Job-Token) {
+        set req.http.X-Git-Auth-Passthrough = "1";
+    }
+
     set req.request = "GET";
 
     set req.backend = F_Host_1;
@@ -143,7 +152,7 @@ if (req.http.X-Git-Cache-Key) {
 }
 ```
 
-The auth check at the top is the first guard. GitLab CI runners authenticate with `Authorization: Basic <gitlab-ci-token:TOKEN>`, API clients use `PRIVATE-TOKEN` or `Job-Token`. Any request carrying these headers is sent straight to origin with credentials intact — it never enters the cache path, never has its body encoded, and never touches the Lua script. This is how private repositories are protected (see [Protecting private repositories](#protecting-private-repositories)).
+Authenticated requests — CI runners with `Authorization: Basic <gitlab-ci-token:TOKEN>`, API clients with `PRIVATE-TOKEN` or `Job-Token` — are no longer sent straight to origin. Instead, VCL flags them with `X-Git-Auth-Passthrough` and lets them enter the cache lookup. On a cache hit, the packfile is served directly from the edge — no origin contact, no credential validation needed, because the cached object can only exist if a previous request already established that the repository is public (see [Protecting private repositories](#protecting-private-repositories)). On a cache miss, the flagged request reaches origin where Lua checks the Valkey denylist to decide whether the response should be cached.
 
 The `command=fetch` filter means only Git protocol v2 fetch commands are cached. The `ls-refs` command is excluded because its request body is essentially static — caching it with a long TTL would serve stale ref listings after a push. Fetch bodies encode exactly the SHAs the client wants and already has, making them safe to cache indefinitely.
 
@@ -220,29 +229,35 @@ Fastly's shield feature routes cache misses through a designated shield node bef
 
 ## Protecting private repositories
 
-Private repository traffic must never enter the cache — that would mean sending authenticated git content through a third-party cache. The VCL handles this with a single check at the top of `vcl_recv`, before any body processing:
+Private repository traffic must never be cached — that would mean storing authenticated git content in a third-party cache and serving it to arbitrary clients. The protection relies on two independent layers.
 
-```
-if (req.http.Authorization || req.http.PRIVATE-TOKEN || req.http.Job-Token) {
-    return(pass);
-}
-```
+**Layer 1: cache population is restricted.** The cache can only be populated when Lua signals cacheability via `X-Git-Cacheable: 1`. Lua only signals cacheability when the request is either unauthenticated (by definition accessing a public repo) or authenticated for a repo that is not on the Valkey denylist. For private repos, Lua does not signal cacheability, so `vcl_fetch` sets `ttl=0` and `cacheable=false` — the response is delivered but never stored.
 
-Authenticated requests (CI runners, API clients, private repo clones) are sent directly to GitLab with credentials intact, completely bypassing the cache path. Unauthenticated requests are, by definition, accessing public repositories — the only kind that should be cached.
+**Layer 2: the Valkey denylist.** A [webhook service](https://gitlab.gnome.org/GNOME/gitlab-git-cache-webhook) listens for GitLab `project_create` and `project_update` system hooks. When a project's visibility is set to private (level `0`), the webhook sets a `git:deny:<path>` key in Valkey. When visibility changes to internal (level `10`) or public (level `20`), the key is removed. A periodic reconciliation job (`reconcile.py`) syncs the full denylist against the GitLab API to correct any drift from missed events.
 
-This approach follows the same trust model GitLab itself uses: credentials are the boundary between private and public. It requires no external state, cannot drift out of sync, and has no failure modes beyond Fastly itself.
+On a cache miss for an authenticated request, Lua checks the denylist:
 
-An earlier iteration used a Valkey (Redis) denylist to track private repositories and a webhook service to keep it synchronized with GitLab — see [How we got here](#how-we-got-here) for why that was replaced.
+- **Repo is on the denylist (private):** `Authorization` is preserved, cacheability is not signaled. The request proxies to GitLab with credentials intact, GitLab validates the token, the response is returned but never cached.
+- **Repo is not on the denylist (public/internal):** `Authorization` is preserved (internal repos require it for GitLab to return 200), cacheability is signaled. The response is cached for future requests.
+- **Valkey is unreachable or returns an error:** treated the same as denied — `Authorization` is preserved, cacheability is not signaled. This fail-closed design means infrastructure failures result in cache misses, never in data leaks.
+
+The denylist only needs to track private repositories, which are a small fraction of the total on GNOME's GitLab instance. A private repo's packfile can never enter the cache through two independent mechanisms: the denylist prevents Lua from signaling cacheability, and even if the denylist were somehow wrong, an unauthenticated request to a private repo returns a 401 from GitLab — which `vcl_fetch` does not cache (it only caches `200 + X-Git-Cacheable`).
 
 ## The Lua layer
 
-With the VCL handling body hashing, the POST-to-GET conversion, and the auth bypass for private repos, the Lua script's role is reduced to the bare minimum. Every request that reaches Lua is guaranteed to be an unauthenticated clone of a public repository — the VCL already filtered out everything else. The script's only responsibilities are:
+With the VCL handling body hashing, the POST-to-GET conversion, and the cache lookup for all requests, the Lua script runs on cache misses that reach origin. Both authenticated and unauthenticated requests can arrive here. The script's responsibilities are:
 
 1. Detect that the request arrived from Fastly with an encoded body (the `X-Git-Original-Body` header).
 2. Decode and restore the original POST.
-3. Signal back to Fastly that the response is safe to cache.
+3. For authenticated requests, check the Valkey denylist to determine if the repository is private.
+4. Signal back to Fastly whether the response is safe to cache.
 
 ```Lua
+local redis_helper = require("redis_helper")
+
+local redis_host = os.getenv("REDIS_HOST")
+local redis_port = os.getenv("REDIS_PORT")
+
 local encoded_body = ngx.req.get_headers()["X-Git-Original-Body"]
 if not encoded_body then
     return
@@ -255,9 +270,38 @@ ngx.req.set_body_data(body)
 ngx.req.set_header("Content-Length", tostring(#body))
 ngx.req.clear_header("X-Git-Original-Body")
 
-ngx.req.clear_header("Authorization")
-ngx.ctx.git_cacheable = true
+if ngx.req.get_headers()["X-Git-Auth-Passthrough"] then
+    ngx.req.clear_header("X-Git-Auth-Passthrough")
+
+    local uri = ngx.var.uri
+    local repo_path = uri:match("^/(.+)/git%-upload%-pack$")
+    if repo_path then
+        repo_path = repo_path:gsub("%.git$", "")
+    end
+
+    local denied, err = redis_helper.is_denied(redis_host, redis_port, repo_path)
+
+    if err then
+        ngx.log(ngx.WARN, "git-cache: Redis error for ", repo_path, ": ", err,
+                " — keeping auth, skipping cache")
+    end
+
+    if err or denied then
+        return
+    end
+
+    ngx.ctx.git_cacheable = true
+else
+    ngx.req.clear_header("Authorization")
+    ngx.ctx.git_cacheable = true
+end
 ```
+
+The two branches handle the authenticated and unauthenticated paths. When `X-Git-Auth-Passthrough` is present, the request came from a CI runner or API client. Lua checks the denylist: if the repo is private or Valkey is unreachable, the script returns early — `Authorization` stays on the request (so GitLab can validate it), and `git_cacheable` is never set (so the response is not cached). If the repo is not denied, `Authorization` is preserved and cacheability is signaled. The `Authorization` header is kept rather than stripped because internal repositories (visibility level `10`) require authentication for git operations — stripping it would cause GitLab to return a 401. Public repos work with or without credentials, so keeping the header is safe for both.
+
+For unauthenticated requests (no passthrough flag), `Authorization` is stripped and cacheability is signaled unconditionally — these are by definition accessing public repositories.
+
+The early `return` for denied or errored lookups is the fail-closed behavior. The request still proxies to GitLab (the `proxy_pass` directive in the Nginx location block runs after Lua), but without the cacheable signal, `vcl_fetch` will not store the response.
 
 The `ngx.ctx.git_cacheable` flag is picked up by the `header_filter_by_lua_block` in the Nginx configuration, which translates it into the `X-Git-Cacheable: 1` response header that `vcl_fetch` checks:
 
@@ -291,11 +335,11 @@ The rollout surfaced a few issues worth documenting for anyone building a simila
 
 **Git protocol v1 clients are not cached.** The VCL filters on `command=fetch`, which is a Git protocol v2 construct. Protocol v1 uses a different body format (`want`/`have` lines without the `command=` prefix). Since protocol v2 has been the default since git 2.26 (March 2020), the vast majority of traffic benefits from caching. Protocol v1 clients still work correctly — they simply bypass the cache.
 
-**Authenticated requests must bypass cache before body processing.** The initial edge VCL converted all `git-upload-pack` POSTs to cacheable GETs, including authenticated requests from CI runners. The Lua denylist was supposed to catch private repos, but CI runners authenticate with `Authorization: Basic <gitlab-ci-token:TOKEN>` — a header the Lua script unconditionally stripped for any repo not on the denylist. This broke private repository CI builds with 401 errors. The fix was adding the auth header check as the very first guard in `vcl_recv`, before any body hashing or request conversion. This also made the entire denylist infrastructure unnecessary, since the auth boundary naturally separates private from public traffic.
+**Internal repositories require authentication for git operations.** An early version of the Lua script stripped `Authorization` for any repo not on the denylist, assuming that "not private" meant "accessible without credentials." Internal repositories (visibility level `10`) are not on the denylist — their content is not sensitive — but GitLab still requires authentication for git clone/fetch operations on them. Stripping credentials produced a 401 from GitLab. The fix was to preserve `Authorization` for all authenticated requests that pass the denylist check, regardless of whether the repo is public or internal. Public repos accept the header harmlessly; internal repos require it.
 
 ## How we got here
 
-The current architecture is the result of three iterations. The sections above describe the final design; this section documents the path we took to get there.
+The current architecture is the result of two iterations. The sections above describe the final design; this section documents the path we took to get there.
 
 ### Iteration 1: Separate CDN service with Lua-driven caching
 
@@ -383,31 +427,27 @@ return ngx.exec("/cdn-origin" .. uri)
 
 The CDN's VCL was relatively simple — it used `X-Git-Cache-Key` for the hash, routed through a shield, and cached 200 responses for 30 days.
 
-This architecture worked, but it had a significant limitation.
+This architecture worked, but it had two significant limitations that led to the current design.
 
-### Iteration 2: Moving caching to the edge
+### Iteration 2: Edge caching with CI runner participation
 
-The problem with the separate CDN service was that Nginx runs in AWS us-east-1. From Fastly's perspective, the only client of the CDN service was that single Nginx instance in Virginia. Every request entered the CDN through the IAD (Ashland, Virginia) POP, which meant the CDN's edge POPs around the world were never used. The shield node in IAD cached the objects, but the edge POPs never got a chance to build up their own local caches.
+The first problem with the separate CDN service was geographic. Nginx runs in AWS us-east-1, so from Fastly's perspective the only client of the CDN was that single instance in Virginia. Every request entered through the IAD POP, which meant the CDN's edge POPs around the world were never populated. A CI runner in Europe would have its request travel from a European Fastly POP to IAD, then to Nginx, then back to Fastly IAD, and then all the way back — crossing the Atlantic twice for every cache miss.
 
-A CI runner in Europe would have its request travel from a European Fastly POP to IAD (the `gitlab.gnome.org` service), then to Nginx in AWS, then back to Fastly IAD (the CDN service), and then all the way back. Every single request for a cached object still had to cross the Atlantic twice.
+The fix was to eliminate the separate CDN service and move all the caching logic into the `gitlab.gnome.org` Fastly service itself. The key insight was that the POST-to-GET conversion and body hashing could happen in Fastly's VCL rather than in Lua — Fastly provides `digest.hash_sha256()` and `digest.base64()` functions that operate directly on `req.body`. By doing the conversion at the CDN edge, every POP in the network became a potential cache node for git traffic.
 
-The fix was to eliminate the separate CDN service entirely and move all the caching logic into the `gitlab.gnome.org` Fastly service itself. The key insight was that the POST-to-GET conversion and body hashing could happen in Fastly's VCL rather than in Lua — Fastly provides `digest.hash_sha256()` and `digest.base64()` functions that operate directly on `req.body`. By doing the conversion at the CDN edge, every POP in the network became a potential cache node for git traffic.
+The second problem was that the original denylist approach had two flaws. First, its error handling was fail-open: a Valkey connection error would cause the Lua script to assume the repo was public and strip credentials — the wrong default. Second, even after briefly replacing the denylist with a simple VCL auth bypass (`return(pass)` for any request with `Authorization`), CI runners were left completely uncached. GitLab CI always injects a `CI_JOB_TOKEN` into every job, and the runner authenticates with `Authorization: Basic <gitlab-ci-token:TOKEN>` regardless of whether the repository is public or private. With the auth bypass, every CI clone skipped the cache entirely — safe, but it left the biggest source of redundant traffic unserved.
 
-This iteration still used the Valkey denylist and webhook to protect private repositories, with Lua checking the denylist and signaling cacheability via `X-Git-Cacheable`.
+The current design solves both problems. VCL flags authenticated requests with `X-Git-Auth-Passthrough` instead of bypassing the cache, letting them participate in cache lookups. On a hit, the cached packfile is served immediately. On a miss, the request reaches Lua at origin, where the flag triggers a denylist check against Valkey — the same denylist and webhook infrastructure from iteration 1, re-deployed with one critical change: fail-closed error handling. A Valkey error or missing connection causes Lua to preserve `Authorization` and skip cacheability signaling. The request still works (GitLab validates the token and serves the packfile), but the response is not cached. Infrastructure failures result in cache misses, never in data leaks.
 
-### Iteration 3: VCL auth bypass, denylist removed
-
-The denylist approach had a fundamental flaw that surfaced once all `git-upload-pack` traffic flowed through the VCL cache path: authenticated requests from CI runners cloning private repositories were being converted to cacheable GETs. The Lua script would strip their `Authorization` header (if the repo was not on the denylist, or if the denylist was incomplete), and GitLab would reject the request with a 401.
-
-The fix was adding the auth header check as the very first guard in `vcl_recv` — three lines of VCL that made the entire denylist infrastructure unnecessary. Authenticated requests go straight to origin. Unauthenticated requests are, by definition, public. The auth header is the correct boundary, and it requires no external state.
-
-With this change, the Valkey instance, the `redis_helper.lua` module, and the `gitlab-git-cache-webhook` service were all decommissioned. The Lua script went from ~50 lines with Redis dependencies to 12 lines with no external dependencies.
+The denylist only tracks private repositories (visibility level `0`), which are a small fraction of the total on GNOME's GitLab. Public and internal repositories pass the denylist check, and Lua signals cacheability while preserving the `Authorization` header — internal repos require it for GitLab to return 200, and public repos accept it harmlessly.
 
 ## Conclusions
 
-The system has been running in production since April 2026. Packfiles are cached at Fastly edge POPs worldwide — a CI runner in Europe gets a cache hit served from a European POP rather than making a round trip to the US East coast. The Lua script is twelve lines. The only moving parts are Fastly's VCL and Nginx.
+The system has been running in production since April 2026 and has gone through two iterations to reach its current form. Packfiles are cached at Fastly edge POPs worldwide — a CI runner in Europe gets a cache hit served from a European POP rather than making a round trip to the US East coast. 
 
-The cache hit rate on fetch traffic has been consistently high (over 80%). If something goes wrong with the cache layer, requests fall through to GitLab directly — the same path they took before caching existed. There is no failure mode where caching breaks git operations. This also means we don't redirect any traffic to github.com anymore.
+The moving parts are Fastly's VCL, an OpenResty Nginx instance with a ~30-line Lua script, a Valkey instance storing the private repository denylist, and a small webhook service that keeps the denylist synchronized with GitLab. Private repositories are protected by two independent layers: the Valkey denylist (which prevents cacheability signaling) and GitLab's own authentication (which rejects unauthenticated access).
+
+If something goes wrong with the cache layer, requests fall through to GitLab directly — the same path they took before caching existed. There is no failure mode where caching breaks git operations. This also means we don't redirect any traffic to github.com anymore.
 
 That should be all for today, stay tuned!
 
