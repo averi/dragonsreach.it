@@ -16,7 +16,6 @@ tags:
 
 ---
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [The problem](#the-problem)
 - [Architecture overview](#architecture-overview)

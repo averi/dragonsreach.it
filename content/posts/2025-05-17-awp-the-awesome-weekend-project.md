@@ -14,7 +14,6 @@ tags:
 
 ---
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [MVP](#mvp)
 - [The learning resources](#the-learning-resources)

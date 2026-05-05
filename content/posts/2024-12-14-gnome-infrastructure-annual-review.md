@@ -12,7 +12,6 @@ tags:
 
 ---
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [1. Introduction](#1-introduction)
 - [2. Achievements](#2-achievements)
   - [2.1. Major achievements](#21-major-achievements)

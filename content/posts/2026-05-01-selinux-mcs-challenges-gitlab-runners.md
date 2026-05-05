@@ -17,7 +17,6 @@ tags:
 
 ---
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [The MCS problem](#the-mcs-problem)
 - [The test script](#the-test-script)
